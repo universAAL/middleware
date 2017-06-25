@@ -45,7 +45,7 @@ import java.util.StringTokenizer;
 
 /**
  * SLPConfiguration object holds all configurable properties.
- * 
+ *
  * @author Jan S. Rellermeyer, ETH Zurich
  * @since 0.1
  */
@@ -177,7 +177,7 @@ class SLPConfiguration {
 
     /**
      * create a new SLPConfiguration from properties.
-     * 
+     *
      * @param properties
      *            properties.
      */
@@ -187,7 +187,7 @@ class SLPConfiguration {
 
     /**
      * create a new SLPConfiguration from config file.
-     * 
+     *
      * @param file
      *            the file.
      * @throws IOException
@@ -275,7 +275,7 @@ class SLPConfiguration {
 
     /**
      * returns the network interfaces.
-     * 
+     *
      * @return interfaces
      */
     String[] getInterfaces() {
@@ -284,7 +284,7 @@ class SLPConfiguration {
 
     /**
      * get the port.
-     * 
+     *
      * @return the port
      */
     int getPort() {
@@ -293,7 +293,7 @@ class SLPConfiguration {
 
     /**
      * get the scopes.
-     * 
+     *
      * @return the scopes.
      */
     String getScopes() {
@@ -302,7 +302,7 @@ class SLPConfiguration {
 
     /**
      * get the predefined DA addresses.
-     * 
+     *
      * @return the DA addresses.
      */
     String[] getDaAddresses() {
@@ -311,7 +311,7 @@ class SLPConfiguration {
 
     /**
      * get no DA discovery
-     * 
+     *
      * @return true, if DA discovery is disabled
      */
     boolean getNoDaDiscovery() {
@@ -320,7 +320,7 @@ class SLPConfiguration {
 
     /**
      * trace DA traffic ?
-     * 
+     *
      * @return true if trace is enabled.
      */
     boolean getTraceDaTraffic() {
@@ -329,7 +329,7 @@ class SLPConfiguration {
 
     /**
      * trace messages ?
-     * 
+     *
      * @return true if trace is enabled.
      */
     boolean getTraceMessage() {
@@ -338,7 +338,7 @@ class SLPConfiguration {
 
     /**
      * trace dropped messages ?
-     * 
+     *
      * @return true if trace is enabled.
      */
     boolean getTraceDrop() {
@@ -347,7 +347,7 @@ class SLPConfiguration {
 
     /**
      * trace registrations ?
-     * 
+     *
      * @return true if trace is enabled.
      */
     boolean getTraceReg() {
@@ -356,7 +356,7 @@ class SLPConfiguration {
 
     /**
      * get the multicast TTL.
-     * 
+     *
      * @return the multicast TTL.
      */
     int getMcastTTL() {
@@ -365,7 +365,7 @@ class SLPConfiguration {
 
     /**
      * get the multicast max wait time.
-     * 
+     *
      * @return the max wait time.
      */
     int getMcastMaxWait() {
@@ -374,7 +374,7 @@ class SLPConfiguration {
 
     /**
      * get the datagram max wait time.
-     * 
+     *
      * @return the datagram max wait time.
      */
     int getDatagramMaxWait() {
@@ -383,7 +383,7 @@ class SLPConfiguration {
 
     /**
      * parse timeout lists.
-     * 
+     *
      * @param s
      *            a timeout list string.
      * @return the timeout int array.
@@ -399,7 +399,7 @@ class SLPConfiguration {
 
     /**
      * get the multicast timeouts.
-     * 
+     *
      * @return the multicast timeouts.
      */
     int[] getMcastTimeouts() {
@@ -408,7 +408,7 @@ class SLPConfiguration {
 
     /**
      * get the datagram timeouts.
-     * 
+     *
      * @return the datagram timeouts.
      */
     int[] getDatagramTimeouts() {
@@ -417,7 +417,7 @@ class SLPConfiguration {
 
     /**
      * get the MTU.
-     * 
+     *
      * @return the MTU.
      */
     int getMTU() {
@@ -426,7 +426,7 @@ class SLPConfiguration {
 
     /**
      * is security enabled ?
-     * 
+     *
      * @return true if security is enabled.
      */
     boolean getSecurityEnabled() {
@@ -435,7 +435,7 @@ class SLPConfiguration {
 
     /**
      * get the SPIs.
-     * 
+     *
      * @return the SPI string list.
      */
     String getSPI() {
@@ -444,7 +444,7 @@ class SLPConfiguration {
 
     /**
      * get the public key for a certain SPI.
-     * 
+     *
      * @param spi
      *            the SPI.
      * @return the location of the public key.
@@ -471,7 +471,7 @@ class SLPConfiguration {
 
     /**
      * get the private key for a certain SPI.
-     * 
+     *
      * @param spi
      *            the SPI.
      * @return the location of the private key.
@@ -501,7 +501,7 @@ class SLPConfiguration {
 
     /**
      * get the default wait time.
-     * 
+     *
      * @return the default wait time.
      */
     int getWaitTime() {
@@ -512,10 +512,10 @@ class SLPConfiguration {
      * Defines after how many inconclusive multicastConvergence cycles the
      * attempt is aborted. It indirectly defines how many multicast convergence
      * {@link SLPMessage}.SRVTYPERQST get send during an attempt.
-     * 
+     *
      * This value can be seen as an heuristical optimization to stop multicast
      * convergence early if inconclusive
-     * 
+     *
      * @return how many inconclusive cycles are allowed
      */
     int getConvergenceFailerCount() {

@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -41,17 +41,17 @@ import org.universAAL.middleware.context.impl.ContextBusImpl;
  * initial subscriptions and can always add new (and remove old) subscriptions
  * dynamically.</li>
  * </ul>
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ *
  */
 public abstract class ContextSubscriber extends Subscriber {
 
 	/**
 	 * Creates a Context Subscriber and immediately registers a set of Context
 	 * Event Patterns for it, so it receives the matching events.
-	 * 
+	 *
 	 * @param connectingModule
 	 *            The module context of the module creating the Publisher
 	 * @param initialSubscriptions
@@ -70,7 +70,7 @@ public abstract class ContextSubscriber extends Subscriber {
 	/**
 	 * Registers more ContextEventPattern for this Subscriber in addition to
 	 * those that might have passed initially
-	 * 
+	 *
 	 * @param newSubscriptions
 	 *            The additional array of ContextEventPattern
 	 * @throws NullPointerException
@@ -86,7 +86,7 @@ public abstract class ContextSubscriber extends Subscriber {
 	 * Unregisters a set of ContextEventPattern that had been previously
 	 * registered for this Subscriber. The Subscriber will no longer receive
 	 * Events matching these Patterns.
-	 * 
+	 *
 	 * @param oldSubscriptions
 	 */
 	protected final void removeMatchingRegParams(ContextEventPattern[] oldSubscriptions) {
@@ -106,7 +106,7 @@ public abstract class ContextSubscriber extends Subscriber {
 
 	/**
 	 * Returns all provisions registered by all {@link ContextPublisher}s on all
-	 * instances of context bus in the current AAL Space.
+	 * instances of context bus in the current Space.
 	 */
 	public ContextEventPattern[] getAllProvisions() {
 		return ((ContextBus) theBus).getAllProvisions(busResourceURI);
@@ -115,7 +115,7 @@ public abstract class ContextSubscriber extends Subscriber {
 	/**
 	 * Method to be called when an Event forwarded in the Context Bus matches
 	 * one of the Patterns registered by this Subscriber.
-	 * 
+	 *
 	 * @param event
 	 *            The Context Event that matched the registered Patterns
 	 * @throws NullPointerException

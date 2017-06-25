@@ -29,7 +29,7 @@ import org.universAAL.middleware.managers.configuration.core.owl.Entity;
 /**
  * Implementation of {@link ConfigurableEntityEditor} for remote, file type
  * entities.
- * 
+ *
  * @author amedrano
  */
 public class RemoteConfigurationFileEditor extends RemoteConfigurationEntity implements ConfigurationFileEditor {

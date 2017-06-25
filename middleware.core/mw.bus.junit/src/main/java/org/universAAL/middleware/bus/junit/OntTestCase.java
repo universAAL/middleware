@@ -42,10 +42,11 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.universAAL.container.JUnit.JUnitContainer;
-import org.universAAL.container.JUnit.JUnitModuleContext;
 import org.universAAL.middleware.container.LogListener;
 import org.universAAL.middleware.container.ModuleActivator;
+import org.universAAL.middleware.container.JUnit.JUnitContainer;
+import org.universAAL.middleware.container.JUnit.JUnitModuleContext;
+import org.universAAL.middleware.container.JUnit.JUnitModuleContext.LogLevel;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.owl.OntologyManagement;
@@ -395,7 +396,7 @@ public class OntTestCase extends BusTestCase {
 
 	/**
 	 * Recovers the serializer.
-	 * 
+	 *
 	 * @return the serializer.
 	 */
 	protected MessageContentSerializer getContentserializer() {
@@ -412,7 +413,7 @@ public class OntTestCase extends BusTestCase {
 	/**
 	 * Uses reflection to locate all {@link ModuleActivator}s in the package
 	 * org.universAAL.ontology .
-	 * 
+	 *
 	 * @return all instances of module activators.
 	 */
 	private List<Ontology> getOntologies() {
@@ -443,7 +444,7 @@ public class OntTestCase extends BusTestCase {
 	/**
 	 * Write to target/ontologies the serializations (in TTL, and OWL) of a
 	 * given ontology.
-	 * 
+	 *
 	 * @param ont
 	 *            the ontology to be serialized.
 	 * @return true iif the operation was successful.
@@ -460,7 +461,7 @@ public class OntTestCase extends BusTestCase {
 	/**
 	 * Write to target/ontologies the serializations (in TTL, and OWL) of all
 	 * loaded ontologies for the testcase.
-	 * 
+	 *
 	 * @return true iif the operation was successful
 	 */
 	protected boolean generateOntFiles4ALL() {
@@ -480,7 +481,7 @@ public class OntTestCase extends BusTestCase {
 	 * Write to target/ontologies the serializations (in TTL, and OWL) of all
 	 * ontologies for the {@link TestCase}, that correspond to ontologies of the
 	 * tested project. Test ontologies (in test-classes) are not considered.
-	 * 
+	 *
 	 * @return true iif the operation was successful
 	 */
 	protected boolean generateOntFiles4MyProy() {
@@ -498,7 +499,7 @@ public class OntTestCase extends BusTestCase {
 
 	/**
 	 * Check if an {@link Ontology} belongs to the testing project.
-	 * 
+	 *
 	 * @param ont
 	 *            the ontology to be checked
 	 * @return true if the classloader of the ontology reports that the class is
@@ -522,7 +523,7 @@ public class OntTestCase extends BusTestCase {
 
 	/**
 	 * Construct an appropriate filename for a given ontology.
-	 * 
+	 *
 	 * @param ont
 	 *            the ontology to generate the filename
 	 * @return the file name corresponding to the filename stated in the URI, if
@@ -542,7 +543,7 @@ public class OntTestCase extends BusTestCase {
 
 	/**
 	 * Serializes and writes a TTL for a given {@link Ontology}.
-	 * 
+	 *
 	 * @param ont
 	 *            The ontology to be serialized.
 	 * @param ttlFile
@@ -567,7 +568,7 @@ public class OntTestCase extends BusTestCase {
 
 	/**
 	 * Transform a given TTL file into an OWL file.
-	 * 
+	 *
 	 * @param ttlFile
 	 *            the source file.
 	 * @param owlFile

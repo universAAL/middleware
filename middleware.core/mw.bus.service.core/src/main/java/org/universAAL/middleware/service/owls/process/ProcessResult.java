@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,10 +35,10 @@ import org.universAAL.middleware.service.impl.ServiceBusImpl;
 /**
  * This class represents ProcessResult of OWL-S -
  * http://www.daml.org/services/owl-s/1.1/Process.owl#Result
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ *
  */
 public class ProcessResult extends FinalizedResource {
 	public static final String PROP_OWLS_RESULT_HAS_EFFECT = ProcessOutput.OWLS_PROCESS_NAMESPACE + "hasEffect";
@@ -48,7 +48,7 @@ public class ProcessResult extends FinalizedResource {
 	/**
 	 * Verify that the process effects of offers match the ones of requests
 	 * according to the context
-	 * 
+	 *
 	 * @param req
 	 *            - a list of requests
 	 * @param offer
@@ -64,7 +64,7 @@ public class ProcessResult extends FinalizedResource {
 	/**
 	 * Verify that the process effects of offers match the ones of requests
 	 * according to the context
-	 * 
+	 *
 	 * @param req
 	 *            - a list of requests
 	 * @param offer
@@ -136,7 +136,7 @@ public class ProcessResult extends FinalizedResource {
 	/**
 	 * Verify that the output bindings of offers match the ones of requests
 	 * according to the context
-	 * 
+	 *
 	 * @param req
 	 *            - a list of requests
 	 * @param offer
@@ -184,7 +184,7 @@ public class ProcessResult extends FinalizedResource {
 
 	/**
 	 * Create an instance of ProcessResult from a resource passed as a parameter
-	 * 
+	 *
 	 * @param pr
 	 *            - a resource representing process result
 	 * @return - the created instance of ProcessResult
@@ -278,7 +278,7 @@ public class ProcessResult extends FinalizedResource {
 	/**
 	 * Add "add" process effect with property path and value passed as
 	 * parameters
-	 * 
+	 *
 	 * @param ppath
 	 *            - the property path
 	 * @param value
@@ -290,7 +290,7 @@ public class ProcessResult extends FinalizedResource {
 
 	/**
 	 * Add aggregated output binding to a process output parameter
-	 * 
+	 *
 	 * @param toParam
 	 *            - the parameter to which the binding is done
 	 * @param filter
@@ -303,7 +303,7 @@ public class ProcessResult extends FinalizedResource {
 	/**
 	 * Add "change" process effect with property path and value passed as
 	 * parameters
-	 * 
+	 *
 	 * @param ppath
 	 *            - the property path
 	 * @param value
@@ -316,7 +316,7 @@ public class ProcessResult extends FinalizedResource {
 	/**
 	 * Add "remove" process effect with property path and value passed as
 	 * parameters
-	 * 
+	 *
 	 * @param ppath
 	 *            - the property path
 	 * @param value
@@ -328,7 +328,7 @@ public class ProcessResult extends FinalizedResource {
 
 	/**
 	 * Add class conversion output binding to a process output parameter
-	 * 
+	 *
 	 * @param toParam
 	 *            - the parameter to which the binding is done
 	 * @param sourceProp
@@ -342,7 +342,7 @@ public class ProcessResult extends FinalizedResource {
 
 	/**
 	 * Add language conversion output binding to a process output parameter
-	 * 
+	 *
 	 * @param toParam
 	 *            - the parameter to which the binding is done
 	 * @param sourceProp
@@ -356,7 +356,7 @@ public class ProcessResult extends FinalizedResource {
 
 	/**
 	 * Add unit conversion output binding to a process output parameter
-	 * 
+	 *
 	 * @param toParam
 	 *            - the parameter to which the binding is done
 	 * @param sourceProp
@@ -370,7 +370,7 @@ public class ProcessResult extends FinalizedResource {
 
 	/**
 	 * Add simple output binding to a process output parameter
-	 * 
+	 *
 	 * @param toParam
 	 *            - the parameter to which the binding is done
 	 * @param sourceProp
@@ -382,7 +382,7 @@ public class ProcessResult extends FinalizedResource {
 
 	/**
 	 * Return list of output bindings (a copy) of this process result
-	 * 
+	 *
 	 * @return list of output bindings
 	 */
 	private List bindings() {
@@ -396,7 +396,7 @@ public class ProcessResult extends FinalizedResource {
 
 	/**
 	 * Return list of effects (a copy) of this process result
-	 * 
+	 *
 	 * @return list of effects
 	 */
 	private List effects() {
@@ -410,7 +410,7 @@ public class ProcessResult extends FinalizedResource {
 
 	/**
 	 * Return the list of output bindings ( a reference) of this process result
-	 * 
+	 *
 	 * @return list of output bindings
 	 */
 	public List getBindings() {
@@ -419,7 +419,7 @@ public class ProcessResult extends FinalizedResource {
 
 	/**
 	 * Return list of effects (a reference) of this process result
-	 * 
+	 *
 	 * @return list of effects
 	 */
 	public List getEffects() {

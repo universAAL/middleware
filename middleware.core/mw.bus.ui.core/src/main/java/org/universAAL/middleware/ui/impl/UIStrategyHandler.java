@@ -65,9 +65,9 @@ import org.universAAL.middleware.ui.rdf.Form;
  * waiting) for the {@link Form#PROP_DIALOG_DATA_ROOT dataRoot} of the
  * {@link Form}.
  * </ol>
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 
@@ -79,12 +79,12 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	private class UserLogOnMessage extends Resource
 			implements IUIStrategyMessageSharedProps, EventMessage<UIStrategyCaller> {
 
-		public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE + "LogIn";
+		public static final String MY_URI = Resource.VOCABULARY_NAMESPACE + "LogIn";
 
-		public static final String PROP_LOCATION = Resource.uAAL_VOCABULARY_NAMESPACE + "logOnLocation";
+		public static final String PROP_LOCATION = Resource.VOCABULARY_NAMESPACE + "logOnLocation";
 
 		/**
-		 * 
+		 *
 		 */
 		public UserLogOnMessage() {
 			super();
@@ -92,8 +92,8 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 
 		public UserLogOnMessage(String handlerID, Resource user, AbsLocation location) {
 			addType(MY_URI, true);
-			setProperty(PROP_uAAL_INVOLVED_HUMAN_USER, user);
-			setProperty(PROP_uAAL_UI_HANDLER_ID, handlerID);
+			setProperty(PROP_INVOLVED_HUMAN_USER, user);
+			setProperty(PROP_UI_HANDLER_ID, handlerID);
 			if (location != null) {
 				setProperty(PROP_LOCATION, location);
 			}
@@ -101,8 +101,8 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 
 		/** {@ inheritDoc} */
 		public void onReceived(UIStrategyCaller strategy, BusMessage m, String senderID) {
-			String handerID = (String) getProperty(PROP_uAAL_UI_HANDLER_ID);
-			Resource usr = (Resource) getProperty(PROP_uAAL_INVOLVED_HUMAN_USER);
+			String handerID = (String) getProperty(PROP_UI_HANDLER_ID);
+			Resource usr = (Resource) getProperty(PROP_INVOLVED_HUMAN_USER);
 			AbsLocation loc = (AbsLocation) getProperty(PROP_LOCATION);
 			userLoggedIn(handerID, usr, loc);
 		}
@@ -113,10 +113,10 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 		/**
 		 * Type for finishing dialog.
 		 */
-		public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE + "FinishDialog";
+		public static final String MY_URI = Resource.VOCABULARY_NAMESPACE + "FinishDialog";
 
 		/**
-		 * 
+		 *
 		 */
 		public FinishDialogMessage() {
 			super();
@@ -124,24 +124,24 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 
 		public FinishDialogMessage(String handlerID, UIResponse input) {
 			addType(MY_URI, true);
-			setProperty(PROP_uAAL_UI_HANDLER_ID, handlerID);
-			setProperty(PROP_uAAL_UI_USER_INPUT, input);
+			setProperty(PROP_UI_HANDLER_ID, handlerID);
+			setProperty(PROP_UI_USER_INPUT, input);
 		}
 
 		/** {@ inheritDoc} */
 		public void onReceived(UIStrategyCaller strategy, BusMessage m, String senderID) {
-			dialogFinished((String) getProperty(PROP_uAAL_UI_HANDLER_ID),
-					(UIResponse) getProperty(PROP_uAAL_UI_USER_INPUT));
+			dialogFinished((String) getProperty(PROP_UI_HANDLER_ID),
+					(UIResponse) getProperty(PROP_UI_USER_INPUT));
 		}
 	}
 
 	private class NotifyHandlerMessage extends Resource
 			implements IUIStrategyMessageSharedProps, EventMessage<UIStrategyCaller> {
 
-		public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE + "HandlerNotify";
+		public static final String MY_URI = Resource.VOCABULARY_NAMESPACE + "HandlerNotify";
 
 		/**
-		 * 
+		 *
 		 */
 		public NotifyHandlerMessage() {
 			super();
@@ -149,23 +149,23 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 
 		public NotifyHandlerMessage(String handlerID, UIRequest req) {
 			addType(MY_URI, true);
-			setProperty(PROP_uAAL_UI_HANDLER_ID, handlerID);
-			setProperty(PROP_uAAL_UI_CALL, req);
+			setProperty(PROP_UI_HANDLER_ID, handlerID);
+			setProperty(PROP_UI_CALL, req);
 		}
 
 		public NotifyHandlerMessage(String handlerID, UIRequest req, String propChange) {
 			this(handlerID, req);
-			setProperty(PROP_uAAL_CHANGED_PROPERTY, propChange);
+			setProperty(PROP_CHANGED_PROPERTY, propChange);
 		}
 
 		/** {@ inheritDoc} */
 		public void onReceived(UIStrategyCaller strategy, BusMessage m, String senderID) {
-			String handlerID = (String) getProperty(PROP_uAAL_UI_HANDLER_ID);
-			UIRequest uiReq = (UIRequest) getProperty(PROP_uAAL_UI_CALL);
-			if (!hasProperty(PROP_uAAL_CHANGED_PROPERTY)) {
+			String handlerID = (String) getProperty(PROP_UI_HANDLER_ID);
+			UIRequest uiReq = (UIRequest) getProperty(PROP_UI_CALL);
+			if (!hasProperty(PROP_CHANGED_PROPERTY)) {
 				notifyHandler_handle(handlerID, uiReq);
 			} else {
-				notifyHandler_apChanged(handlerID, uiReq, (String) getProperty(PROP_uAAL_CHANGED_PROPERTY));
+				notifyHandler_apChanged(handlerID, uiReq, (String) getProperty(PROP_CHANGED_PROPERTY));
 			}
 		}
 	}
@@ -175,31 +175,31 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 		/**
 		 * Type for Cutting.
 		 */
-		public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE + "Cut";
+		public static final String MY_URI = Resource.VOCABULARY_NAMESPACE + "Cut";
 
 		/**
 		 * Type only for the case there is a {@link Resource} withou properties,
 		 * that will not be serialized.
 		 */
-		private static final String TYPE_DUMMY_TYPE = Resource.uAAL_VOCABULARY_NAMESPACE + "DummyType";
+		private static final String TYPE_DUMMY_TYPE = Resource.VOCABULARY_NAMESPACE + "DummyType";
 
 		public CutCallMessage() {
 			super();
 		}
 
 		/**
-		 * 
+		 *
 		 */
 		public CutCallMessage(String dialogID, String handlerID) {
 			addType(MY_URI, true);
-			setProperty(PROP_uAAL_DIALOG_ID, dialogID);
-			setProperty(PROP_uAAL_UI_HANDLER_ID, handlerID);
+			setProperty(PROP_DIALOG_ID, dialogID);
+			setProperty(PROP_UI_HANDLER_ID, handlerID);
 		}
 
 		/** {@ inheritDoc} */
 		protected void onRequest(UIStrategyHandler strategy, BusMessage m, String senderID) {
-			Resource data = strategy.cutDialog((String) getProperty(PROP_uAAL_UI_HANDLER_ID),
-					(String) getProperty(PROP_uAAL_DIALOG_ID));
+			Resource data = strategy.cutDialog((String) getProperty(PROP_UI_HANDLER_ID),
+					(String) getProperty(PROP_DIALOG_ID));
 			if (data == null || data.numberOfProperties() == 0) {
 				data = new Resource(data == null ? null : data.getURI());
 				data.addType(TYPE_DUMMY_TYPE, true);
@@ -279,7 +279,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	/** {@ inheritDoc} */
 	public synchronized void start() {
 		super.start();
-		ont = new POntology(Resource.uAAL_NAMESPACE_PREFIX + "UIStrategyHandlerMessageOntology");
+		ont = new POntology(Resource.NAMESPACE_PREFIX + "UIStrategyHandlerMessageOntology");
 		OntologyManagement.getInstance().register(busModule, ont);
 	}
 
@@ -303,10 +303,10 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	}
 
 	/**
-	 * 
+	 *
 	 * This method is responsible for adapting existing dialogs to new
 	 * environmental conditions.
-	 * 
+	 *
 	 * @param dm
 	 *            Instance of the {@link IDialogManager}
 	 * @param uiRequest
@@ -437,7 +437,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param user
 	 *            {@link User} that logged (request main menu)
 	 * @param loginLocation
@@ -508,9 +508,9 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	}
 
 	/**
-	 * 
+	 *
 	 * Handle a dialogChanged-Notification
-	 * 
+	 *
 	 * @param handlerID
 	 *            ID of the dialog handler
 	 * @param request
@@ -540,10 +540,10 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	}
 
 	/**
-	 * 
+	 *
 	 * Handle uiRequest-notifications. Look for {@link UIHandler} for relay the
 	 * {@link UIRequest}.
-	 * 
+	 *
 	 * @param handlerID
 	 *            ID of the handler of the request
 	 * @param request
@@ -614,7 +614,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 
 	/**
 	 * check sender and if local send it if not send message.
-	 * 
+	 *
 	 * @param response
 	 */
 	protected abstract void notifyCallerDialogSubmitted(UIResponse response);
@@ -659,9 +659,9 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	 * registrations are now invalid. This task schedules the re-registration of
 	 * all implemented {@link UIHandlerProfile}s by all the {@link UIHandler}s
 	 * registered in the local node.
-	 * 
+	 *
 	 * @author amedrano
-	 * 
+	 *
 	 */
 	private class ResendRegisstrationTask implements Runnable {
 

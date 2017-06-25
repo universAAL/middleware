@@ -30,13 +30,13 @@ import java.util.UUID;
 import org.universAAL.middleware.brokers.message.BrokerMessage;
 import org.universAAL.middleware.brokers.message.gson.GsonParserBuilder;
 import org.universAAL.middleware.interfaces.PeerCard;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
+import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
 
 import com.google.gson.Gson;
 
 /**
  * Control message
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
@@ -46,7 +46,7 @@ public class ControlMessage implements BrokerMessage {
 
 	private ControlMessageType messageType;
 	private BrokerMessageTypes mType;
-	private AALSpaceDescriptor space;
+	private SpaceDescriptor space;
 	private String payload;
 	private String parsed = null;
 	private List<String> attributes;
@@ -56,19 +56,19 @@ public class ControlMessage implements BrokerMessage {
 	private String transactionId;
 
 	public enum ControlMessageType {
-		AALSPACE_EVENT, GET_ATTRIBUTES, MATCH_ATTRIBUTES, GET_ATTRIBUTES_RESPONSE, MATCH_ATTRIBUTES_RESPONSE
+		SPACE_EVENT, GET_ATTRIBUTES, MATCH_ATTRIBUTES, GET_ATTRIBUTES_RESPONSE, MATCH_ATTRIBUTES_RESPONSE
 	}
 
 	public enum ControlMessageFields {
 		ID, TYPE, PAYLOAD
 	}
 
-	public ControlMessage(AALSpaceDescriptor space, List<String> attributes) {
+	public ControlMessage(SpaceDescriptor space, List<String> attributes) {
 		this(space, ControlMessageType.GET_ATTRIBUTES);
 		this.attributes = attributes;
 	}
 
-	public ControlMessage(AALSpaceDescriptor space, ControlMessageType type) {
+	public ControlMessage(SpaceDescriptor space, ControlMessageType type) {
 		this();
 		this.space = space;
 		this.messageType = type;
@@ -79,23 +79,23 @@ public class ControlMessage implements BrokerMessage {
 		this.transactionId = UUID.randomUUID().toString();
 	}
 
-	public ControlMessage(AALSpaceDescriptor space, Map<String, Serializable> filter) {
+	public ControlMessage(SpaceDescriptor space, Map<String, Serializable> filter) {
 		this(space, ControlMessageType.MATCH_ATTRIBUTES);
 		this.filter = filter;
 	}
 
-	public ControlMessage(AALSpaceDescriptor space, String id, HashMap<String, Serializable> map) {
+	public ControlMessage(SpaceDescriptor space, String id, HashMap<String, Serializable> map) {
 		this(space, ControlMessageType.GET_ATTRIBUTES_RESPONSE, id);
 		this.values = map;
 	}
 
-	public ControlMessage(AALSpaceDescriptor space, String id, HashMap<String, Serializable> map, boolean match) {
+	public ControlMessage(SpaceDescriptor space, String id, HashMap<String, Serializable> map, boolean match) {
 		this(space, ControlMessageType.MATCH_ATTRIBUTES_RESPONSE, id);
 		this.values = map;
 		this.match = match;
 	}
 
-	public ControlMessage(AALSpaceDescriptor space, ControlMessageType type, String id) {
+	public ControlMessage(SpaceDescriptor space, ControlMessageType type, String id) {
 		this.space = space;
 		this.messageType = type;
 		this.mType = BrokerMessageTypes.ControlMessage;

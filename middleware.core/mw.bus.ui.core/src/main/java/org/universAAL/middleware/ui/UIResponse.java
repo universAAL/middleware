@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,7 @@ import org.universAAL.middleware.ui.rdf.Submit;
 
 /**
  * Instances of this class can be used to exchange info about user input.
- * 
+ *
  * @author mtazari
  * @author Carsten Stockloew
  * @author eandgrg
@@ -37,25 +37,25 @@ import org.universAAL.middleware.ui.rdf.Submit;
 public class UIResponse extends ScopedResource implements Response {
 
 	/** The Constant MY_URI. */
-	public static final String MY_URI = UIRequest.uAAL_UI_NAMESPACE + "UIResponse";
+	public static final String MY_URI = UIRequest.UI_NAMESPACE + "UIResponse";
 
 	/** The Constant PROP_DIALOG_DATA. */
-	public static final String PROP_DIALOG_DATA = UIRequest.uAAL_UI_NAMESPACE + "dialogData";
+	public static final String PROP_DIALOG_DATA = UIRequest.UI_NAMESPACE + "dialogData";
 
 	/** The Constant PROP_DIALOG_ID. */
-	public static final String PROP_DIALOG_ID = UIRequest.uAAL_UI_NAMESPACE + "dialogID";
+	public static final String PROP_DIALOG_ID = UIRequest.UI_NAMESPACE + "dialogID";
 
 	/** The Constant PROP_SUBMISSION_LOCATION. */
-	public static final String PROP_SUBMISSION_LOCATION = UIRequest.uAAL_UI_NAMESPACE + "submissionLocation";
+	public static final String PROP_SUBMISSION_LOCATION = UIRequest.UI_NAMESPACE + "submissionLocation";
 
 	/** The Constant PROP_IS_SUBDIALOG_CALL. */
-	public static final String PROP_IS_SUBDIALOG_CALL = UIRequest.uAAL_UI_NAMESPACE + "isSubdialogCall";
+	public static final String PROP_IS_SUBDIALOG_CALL = UIRequest.UI_NAMESPACE + "isSubdialogCall";
 
 	/** The Constant PROP_SUBMISSION_ID. */
-	public static final String PROP_SUBMISSION_ID = UIRequest.uAAL_UI_NAMESPACE + "submissionID";
+	public static final String PROP_SUBMISSION_ID = UIRequest.UI_NAMESPACE + "submissionID";
 
 	/** The Constant PROP_IS_DIALOG_MANAGER_RESPONSE. */
-	public static final String PROP_IS_DIALOG_MANAGER_RESPONSE = UIRequest.uAAL_UI_NAMESPACE + "forDialogManager";
+	public static final String PROP_IS_DIALOG_MANAGER_RESPONSE = UIRequest.UI_NAMESPACE + "forDialogManager";
 
 	/**
 	 * This constructor is for the exclusive usage by deserializers.
@@ -66,7 +66,7 @@ public class UIResponse extends ScopedResource implements Response {
 
 	/**
 	 * This constructor is used in the context of a running dialog.
-	 * 
+	 *
 	 * @param user
 	 *            reference to the {@link User}
 	 * @param inputLocation
@@ -78,7 +78,7 @@ public class UIResponse extends ScopedResource implements Response {
 		super();
 
 		addType(MY_URI, true);
-		props.put(PROP_uAAL_INVOLVED_HUMAN_USER, user);
+		props.put(PROP_INVOLVED_HUMAN_USER, user);
 		Form f = submit.getFormObject();
 		props.put(PROP_DIALOG_ID, new Resource(f.getDialogID()));
 		props.put(PROP_SUBMISSION_ID, submit.getID());
@@ -97,7 +97,7 @@ public class UIResponse extends ScopedResource implements Response {
 
 	/**
 	 * Gets the dialog id.
-	 * 
+	 *
 	 * @return ID of the dialog in which this input has been provided
 	 */
 	public String getDialogID() {
@@ -107,7 +107,7 @@ public class UIResponse extends ScopedResource implements Response {
 
 	/**
 	 * Gets the submission location.
-	 * 
+	 *
 	 * @return the submission location
 	 */
 	public AbsLocation getSubmissionLocation() {
@@ -117,7 +117,7 @@ public class UIResponse extends ScopedResource implements Response {
 
 	/**
 	 * Gets the parent dialog uri.
-	 * 
+	 *
 	 * @return the ID of the parent dialog in case this event is about dialog
 	 *         being finished (which can be checked by calling
 	 *         isSubdialogSubmission() method)
@@ -131,13 +131,13 @@ public class UIResponse extends ScopedResource implements Response {
 	 * @see org.universAAL.middleware.rdf.Resource#getPropSerializationType(java.lang.String)
 	 */
 	public int getPropSerializationType(String propURI) {
-		return (PROP_uAAL_INVOLVED_HUMAN_USER.equals(propURI) || PROP_SUBMISSION_LOCATION.equals(propURI))
+		return (PROP_INVOLVED_HUMAN_USER.equals(propURI) || PROP_SUBMISSION_LOCATION.equals(propURI))
 				? PROP_SERIALIZATION_REDUCED : PROP_SERIALIZATION_FULL;
 	}
 
 	/**
 	 * Gets the submission id.
-	 * 
+	 *
 	 * @return ID of the submit button selected by the user when finishing the
 	 *         dialog
 	 */
@@ -148,7 +148,7 @@ public class UIResponse extends ScopedResource implements Response {
 
 	/**
 	 * Gets the submitted data.
-	 * 
+	 *
 	 * @return root of the tree with form data submitted.
 	 */
 	public Resource getSubmittedData() {
@@ -157,19 +157,19 @@ public class UIResponse extends ScopedResource implements Response {
 
 	/**
 	 * Gets the {@link User}.
-	 * 
+	 *
 	 * @return the {@link User}. It is declared as Resource because the type
 	 *         User is defined in the Profiling Ontology. The type is not needed
 	 *         for for matchmaking Either.
 	 */
 	public Resource getUser() {
-		Object user = props.get(PROP_uAAL_INVOLVED_HUMAN_USER);
+		Object user = props.get(PROP_INVOLVED_HUMAN_USER);
 		return (user instanceof Resource) ? (Resource) user : null;
 	}
 
 	/**
 	 * Gets the user input.
-	 * 
+	 *
 	 * @param propPath
 	 *            array of property URIs, path of a certain expected user input
 	 * @return input from the tree with the form data
@@ -193,7 +193,7 @@ public class UIResponse extends ScopedResource implements Response {
 
 	/**
 	 * Checks if is subdialog call.
-	 * 
+	 *
 	 * @return true, if is subdialog call
 	 */
 	public boolean isSubdialogCall() {
@@ -202,7 +202,7 @@ public class UIResponse extends ScopedResource implements Response {
 
 	/**
 	 * Checks if is subdialog submission.
-	 * 
+	 *
 	 * @return true, if is subdialog submission
 	 */
 	public boolean isSubdialogSubmission() {
@@ -211,7 +211,7 @@ public class UIResponse extends ScopedResource implements Response {
 
 	/**
 	 * Checks if is the response is for the IDialogManager.
-	 * 
+	 *
 	 * @return true, if the submit was in a standardButton group.
 	 */
 	public boolean isForDialogManagerCall() {

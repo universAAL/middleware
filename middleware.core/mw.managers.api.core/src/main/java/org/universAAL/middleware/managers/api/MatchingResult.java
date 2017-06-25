@@ -30,21 +30,21 @@ import org.universAAL.middleware.interfaces.PeerCard;
 /**
  * The result of searching Peer by means of a set of {@link Map} containg pairs
  * of < {@link String}, {@link Object} >
- * 
+ *
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
 public interface MatchingResult {
 
 	/**
-	 * 
+	 *
 	 * @return an array of {@link PeerCard} representing the peers whom matches
 	 *         the search
 	 */
 	public PeerCard[] getPeers();
 
 	/**
-	 * 
+	 *
 	 * @param peer
 	 *            the that we are asking the attribute for
 	 * @return a {@link Map} with the current value of the all the attribute

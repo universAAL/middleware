@@ -29,7 +29,7 @@ public class Activator implements BundleActivator {
 	public void start(BundleContext context) throws Exception {
 
 		// Register the command service.
-		context.registerService(org.apache.felix.shell.Command.class.getName(), new AALSpaceCommand(context), null);
+		context.registerService(org.apache.felix.shell.Command.class.getName(), new SpaceCommand(context), null);
 	}
 
 	public void stop(BundleContext arg0) throws Exception {

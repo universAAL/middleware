@@ -1,9 +1,9 @@
-/*	
+/*
 	Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
-	Institute of Information Science and Technologies 
-	of the Italian National Research Council 
+	Institute of Information Science and Technologies
+	of the Italian National Research Council
 
-	See the NOTICE file distributed with this work for additional 
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
 
 	Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,9 +30,14 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import org.junit.Test;
+import org.universAAL.middleware.managers.deploy.uapp.model.AalUapp;
+import org.universAAL.middleware.managers.deploy.uapp.model.DeploymentUnit;
+import org.universAAL.middleware.managers.deploy.uapp.model.FeaturesRoot;
+import org.universAAL.middleware.managers.deploy.uapp.model.ObjectFactory;
+import org.universAAL.middleware.managers.deploy.uapp.model.Part;
 
 /**
- * 
+ *
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */

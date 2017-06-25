@@ -1,13 +1,13 @@
-/*	
-	See the NOTICE file distributed with this work for additional 
+/*
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,7 +23,7 @@ public interface IRegistryListener {
 
 	/**
 	 * Invoked when a new BusMember is registered in the bus.
-	 * 
+	 *
 	 * @param member
 	 *            newly added bus member
 	 */
@@ -31,7 +31,7 @@ public interface IRegistryListener {
 
 	/**
 	 * Invoked when an existing BusMember is unregistered from the bus.
-	 * 
+	 *
 	 * @param member
 	 *            removed bus member
 	 */
@@ -39,7 +39,7 @@ public interface IRegistryListener {
 
 	/**
 	 * Invoked when registration parameters of an existing BusMember are added.
-	 * 
+	 *
 	 * @param busMemberID
 	 *            the ID of the bus member for which the registration parameters
 	 *            have been added.
@@ -51,7 +51,7 @@ public interface IRegistryListener {
 	/**
 	 * Invoked when registration parameters of an existing BusMember are
 	 * removed.
-	 * 
+	 *
 	 * @param busMemberID
 	 *            the ID of the bus member for which the registration parameters
 	 *            have been removed.

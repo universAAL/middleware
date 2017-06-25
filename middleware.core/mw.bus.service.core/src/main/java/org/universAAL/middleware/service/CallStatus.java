@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,13 +28,13 @@ import org.universAAL.middleware.rdf.FinalizedResource;
  * The CallStatus simply describes the possible status of the services. The
  * possible status for services can take the values below: 0.SUCCEEDED
  * 1.NO_MATCHING_SERVICE_FOUND 2.RESPONSE_TIMED_OUT 3.SERVICE_SPECIFIC_FAILURE
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ *
  */
 public final class CallStatus extends FinalizedResource {
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "CallStatus";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "CallStatus";
 
 	public static final int SUCCEEDED = 0;
 	public static final int NO_MATCHING_SERVICE_FOUND = 1;
@@ -60,15 +60,15 @@ public final class CallStatus extends FinalizedResource {
 
 	/**
 	 * Returns the value of the call status. It returns the predefined names for
-	 * the call status of services according touAAL_VOCABULARY_NAMESPACE.
-	 * 
+	 * the call status of services according to VOCABULARY_NAMESPACE.
+	 *
 	 * @param name
 	 *            gets the status value
 	 */
 	public static CallStatus valueOf(String name) {
 		if (name != null) {
-			if (name.startsWith(uAAL_VOCABULARY_NAMESPACE)) {
-				name = name.substring(uAAL_VOCABULARY_NAMESPACE.length());
+			if (name.startsWith(VOCABULARY_NAMESPACE)) {
+				name = name.substring(VOCABULARY_NAMESPACE.length());
 			}
 			for (Integer status : names.keySet()) {
 				if (names.get(status).equals(name)) {
@@ -103,12 +103,12 @@ public final class CallStatus extends FinalizedResource {
 
 	/**
 	 * Creates a CallStatus object.
-	 * 
+	 *
 	 * @param order
 	 *            defines the order of each service call status
 	 */
 	private CallStatus(int order) {
-		super(uAAL_VOCABULARY_NAMESPACE + names.get(order));
+		super(VOCABULARY_NAMESPACE + names.get(order));
 		addType(MY_URI, true);
 		this.order = order;
 	}

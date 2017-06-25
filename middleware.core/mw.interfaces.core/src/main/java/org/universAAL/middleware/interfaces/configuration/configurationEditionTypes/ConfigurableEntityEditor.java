@@ -22,36 +22,36 @@ import org.universAAL.middleware.interfaces.configuration.configurationDefinitio
 /**
  * An entity that can be configured. Top interface for Configuration Editors.
  * Implementations can edit local or remote configuration entities.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public interface ConfigurableEntityEditor extends DescribedEntity {
 
 	/**
 	 * Ask whether the entity has default value or not.
-	 * 
+	 *
 	 * @return true if it is default value.
 	 */
 	boolean isDefaultValue();
 
 	/**
 	 * Set the default value for the entity.
-	 * 
+	 *
 	 * @return true if it could be set.
 	 */
 	boolean setDefaultValue();
 
 	/**
 	 * Add a {@link ConfigurableEntityEditorListener}.
-	 * 
+	 *
 	 * @param listener
 	 */
 	void subscribe2Changes(ConfigurableEntityEditorListener listener);
 
 	/**
 	 * remove a {@link ConfigurableEntityEditorListener}.
-	 * 
+	 *
 	 * @param listener
 	 */
 	void unsubscribe2Changes(ConfigurableEntityEditorListener listener);

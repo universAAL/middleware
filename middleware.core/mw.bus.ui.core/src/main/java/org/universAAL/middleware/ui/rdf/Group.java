@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,20 +37,20 @@ import org.universAAL.middleware.ui.impl.UIBusImpl;
 /**
  * The structural unit of forms that serves as a container for other form
  * controls.
- * 
+ *
  * @author mtazari
  * @author Carsten Stockloew
  * @navassoc "" children * FormControl
  */
 public class Group extends FormControl {
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Group";
+	public static final String MY_URI = Form.DIALOG_NAMESPACE + "Group";
 
 	/**
 	 * For each group, the list of form controls that have been created with
 	 * that group as their direct container (parent) in the order of their
 	 * creation.
 	 */
-	public static final String PROP_CHILDREN = Form.uAAL_DIALOG_NAMESPACE + "groupChildren";
+	public static final String PROP_CHILDREN = Form.DIALOG_NAMESPACE + "groupChildren";
 
 	static final String STD_IO_CONTROLS = "ioControlsGroup";
 	static final String STD_SUBMITS = "submitsGroup";
@@ -70,7 +70,7 @@ public class Group extends FormControl {
 	/**
 	 * Constructs a new group. The last three parameters will be ignored if the
 	 * parent is a {@link Repeat} control.
-	 * 
+	 *
 	 * @param parent
 	 *            The mandatory parent group as the direct container of this
 	 *            group. See {@link FormControl#PROP_PARENT_CONTROL}.
@@ -256,7 +256,7 @@ public class Group extends FormControl {
 	 * low complexity cause meddle complexity. More than this or up to 3
 	 * subgroups with middle complexity cause high complexity. In all other
 	 * cases the group is assumed to be fully complex.
-	 * 
+	 *
 	 * @return The complexity of this group as a value between
 	 *         {@link LevelRating#none} and {@link LevelRating#full}.
 	 */
@@ -493,7 +493,7 @@ public class Group extends FormControl {
 
 	/**
 	 * look for a FormControl within the group with the given URI.
-	 * 
+	 *
 	 * @param formControlURI
 	 * @return the {@link FormControl} or null if not found.
 	 */

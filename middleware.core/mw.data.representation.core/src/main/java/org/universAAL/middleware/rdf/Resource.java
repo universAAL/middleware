@@ -77,16 +77,16 @@ public class Resource {
 	public static final String TYPE_RDF_LIST = RDF_NAMESPACE + "List";
 
 	/** URI prefix for the universAAL namespace. */
-	public static final String uAAL_NAMESPACE_PREFIX = "http://ontology.universAAL.org/";
+	public static final String NAMESPACE_PREFIX = "http://ontology.universAAL.org/";
 
 	/** URI for the universAAL service namespace. */
-	public static final String uAAL_SERVICE_NAMESPACE = uAAL_NAMESPACE_PREFIX + "Service.owl#";
+	public static final String SERVICE_NAMESPACE = NAMESPACE_PREFIX + "Service.owl#";
 
 	/** URI for the universAAL namespace. */
-	public static final String uAAL_VOCABULARY_NAMESPACE = uAAL_NAMESPACE_PREFIX + "uAAL.owl#";
+	public static final String VOCABULARY_NAMESPACE = NAMESPACE_PREFIX + "uAAL.owl#";
 
 	/** URI for properties linking to the user involved. */
-	public static final String PROP_uAAL_INVOLVED_HUMAN_USER = uAAL_VOCABULARY_NAMESPACE + "theInvolvedHumanUser";
+	public static final String PROP_INVOLVED_HUMAN_USER = VOCABULARY_NAMESPACE + "theInvolvedHumanUser";
 
 	/**
 	 * Legal return values for {@link #getPropSerializationType(String)}.
@@ -461,9 +461,8 @@ public class Resource {
 			Resource spec = null;
 
 			String[] types = r.getTypes();
-			if (types == null || types.length == 0) {
-				// no type info -> this resource cannot be specialized
-			} else {
+			if (types != null && types.length != 0) {
+				// we have type info -> this resource can be specialized
 				String type = OntologyManagement.getInstance().getMostSpecializedClass(types);
 				if (type == null) {
 					spec = TypeExpressionFactory.specialize(r);

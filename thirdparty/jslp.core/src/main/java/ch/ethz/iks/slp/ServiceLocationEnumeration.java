@@ -32,7 +32,7 @@ import java.util.Enumeration;
 
 /**
  * An enumeration over results of request messages as defined in RFC 2614.
- * 
+ *
  * @author Jan S. Rellermeyer, Systems Group, ETH Zurich
  * @since 0.1
  */
@@ -40,7 +40,7 @@ public interface ServiceLocationEnumeration extends Enumeration {
 
     /**
      * get the next result of a request.
-     * 
+     *
      * @return the next <code>Object</code>
      * @throws ServiceLocationException
      *             if there is no more result.

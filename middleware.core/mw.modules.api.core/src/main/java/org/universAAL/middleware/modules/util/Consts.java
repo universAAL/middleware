@@ -1,9 +1,9 @@
-/*	
+/*
 	Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
-	Institute of Information Science and Technologies 
-	of the Italian National Research Council 
+	Institute of Information Science and Technologies
+	of the Italian National Research Council
 
-	See the NOTICE file distributed with this work for additional 
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
 
 	Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,16 +22,15 @@ package org.universAAL.middleware.modules.util;
 
 /**
  * Widely-used constants for the modules
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
 public class Consts {
 	// Connector stuff
-	public static String MODULE_NAME = "moduleName";
-	public static String MODULE_VERSION = "moduleVersion";
-	public static String MODULE_PROVIDER = "moduleProvider";
-	public static String MODULE_DESCRIPTION = "moduleDescription";
-	public static String PEER_SCAN_PERIOD = "peerScanPeriod";
-
+	public static final String MODULE_NAME = "moduleName";
+	public static final String MODULE_VERSION = "moduleVersion";
+	public static final String MODULE_PROVIDER = "moduleProvider";
+	public static final String MODULE_DESCRIPTION = "moduleDescription";
+	public static final String PEER_SCAN_PERIOD = "peerScanPeriod";
 }

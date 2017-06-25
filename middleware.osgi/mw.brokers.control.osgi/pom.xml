@@ -51,7 +51,7 @@
 							org.universAAL.middleware.container.osgi,org.universAAL.middleware.brokers,org.universAAL.middleware.container.utils,org.universAAL.middleware.connectors,
 							org.universAAL.middleware.connectors.exception,
 							org.universAAL.middleware.interfaces,
-							org.universAAL.middleware.interfaces.aalspace,
+							org.universAAL.middleware.interfaces.space,
 							org.universAAL.middleware.managers.api,
 							org.universAAL.middleware.modules,
 							org.universAAL.middleware.modules.listener,

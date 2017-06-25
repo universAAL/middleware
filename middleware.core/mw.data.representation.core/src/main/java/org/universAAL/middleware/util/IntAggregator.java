@@ -54,9 +54,10 @@ public final class IntAggregator {
 		sum += vote;
 		num++;
 
-		if (num == 1)
-			max = min = vote;
-		else if (max < vote)
+		if (num == 1) {
+			min = vote;
+			max = vote;
+		} else if (max < vote)
 			max = vote;
 		else if (min > vote)
 			min = vote;

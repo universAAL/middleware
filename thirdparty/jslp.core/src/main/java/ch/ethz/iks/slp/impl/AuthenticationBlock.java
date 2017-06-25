@@ -41,7 +41,7 @@ import ch.ethz.iks.slp.ServiceLocationException;
 
 /**
  * Implementation of the SLP Authentication Block.
- * 
+ *
  * @author Jan S. Rellermeyer, ETH Zurich
  * @since 0.4
  */
@@ -74,7 +74,7 @@ class AuthenticationBlock {
 
     /**
      * create a new Instance of an AuthenticationBlock.
-     * 
+     *
      * @param bsd
      *            the BSD, only BSD_DSA is currently supported.
      * @param spiStr
@@ -111,15 +111,15 @@ class AuthenticationBlock {
     }
 
     /**
-	 * 
-	 * 
+	 *
+	 *
 	 */
     AuthenticationBlock() {
     }
 
     /**
      * sign the AuthenticationBlock.
-     * 
+     *
      * @throws ServiceLocationException
      *             in case of processing errors.
      */
@@ -141,7 +141,7 @@ class AuthenticationBlock {
 
     /**
      * get the SPI.
-     * 
+     *
      * @return the SPI.
      */
     String getSPI() {
@@ -150,7 +150,7 @@ class AuthenticationBlock {
 
     /**
      * get the timestamp.
-     * 
+     *
      * @return the timestamp.
      */
     int getTimestamp() {
@@ -159,7 +159,7 @@ class AuthenticationBlock {
 
     /**
      * verify the authBlock.
-     * 
+     *
      * @param verData
      *            the auth data.
      * @return true if verification suceeds.
@@ -188,7 +188,7 @@ class AuthenticationBlock {
 
     /**
      * calculates the length of this auth block.
-     * 
+     *
      * @return the length.
      */
     int getLength() {
@@ -202,7 +202,7 @@ class AuthenticationBlock {
 
     /**
      * get the bytes.
-     * 
+     *
      * @return the bytes.
      * @throws IOException
      *             in case of IO errors.
@@ -219,7 +219,7 @@ class AuthenticationBlock {
 
     /**
      * parse a AuthenticationBlock array.
-     * 
+     *
      * @param input
      *            the DataInput.
      * @return a AuthenticationBlock array.

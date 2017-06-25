@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -55,19 +55,19 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * ). The help method
  * {@link #addInstanceLevelRestriction(MergedRestriction, String[])} facilitates
  * the addition of such instance-level restrictions.
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ *
  */
 public abstract class Service extends ManagedIndividual {
 
 	public static final String OWLS_NAMESPACE_PREFIX = "http://www.daml.org/services/owl-s/1.1/";
 
 	public static final String OWLS_SERVICE_NAMESPACE = OWLS_NAMESPACE_PREFIX + "Service.owl#";
-	public static final String PROP_INSTANCE_LEVEL_RESTRICTIONS = uAAL_VOCABULARY_NAMESPACE
+	public static final String PROP_INSTANCE_LEVEL_RESTRICTIONS = VOCABULARY_NAMESPACE
 			+ "instanceLevelRestrictions";
-	public static final String PROP_NUMBER_OF_VALUE_RESTRICTIONS = uAAL_VOCABULARY_NAMESPACE
+	public static final String PROP_NUMBER_OF_VALUE_RESTRICTIONS = VOCABULARY_NAMESPACE
 			+ "numberOfValueRestrictions";
 
 	/**
@@ -93,7 +93,7 @@ public abstract class Service extends ManagedIndividual {
 	 * A help method for subclasses to manage their restrictions on properties
 	 * (from the domain ontology) that are reachable from the subclass, provided
 	 * that they have a static Hashtable for gathering them.
-	 * 
+	 *
 	 * @param r
 	 *            the restriction to be added on the last element of the path
 	 *            given by 'toPath'.
@@ -171,7 +171,7 @@ public abstract class Service extends ManagedIndividual {
 
 	/**
 	 * A method for adding instance-level restrictions.
-	 * 
+	 *
 	 * @see #instanceLevelRestrictions
 	 * @see #addRestriction(MergedRestriction, String[], Hashtable)
 	 */

@@ -20,13 +20,13 @@ import org.universAAL.middleware.owl.ManagedIndividual;
 
 /**
  * Core concept for Modal Recommendations over FormElements.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public abstract class Recommendation extends ManagedIndividual {
 
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "Recommendation";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "Recommendation";
 
 	/**
 	 * To be used only by De/serializers
@@ -35,7 +35,7 @@ public abstract class Recommendation extends ManagedIndividual {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param uri
 	 */
 	public Recommendation(String uri) {

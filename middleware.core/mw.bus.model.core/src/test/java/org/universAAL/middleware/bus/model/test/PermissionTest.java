@@ -1,11 +1,11 @@
 package org.universAAL.middleware.bus.model.test;
 
-import org.universAAL.container.JUnit.JUnitModuleContext;
 import org.universAAL.middleware.bus.model.matchable.Matchable;
 import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.bus.permission.AccessControl;
 import org.universAAL.middleware.bus.permission.Permission;
 import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.JUnit.JUnitModuleContext;
 import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.OntologyManagement;

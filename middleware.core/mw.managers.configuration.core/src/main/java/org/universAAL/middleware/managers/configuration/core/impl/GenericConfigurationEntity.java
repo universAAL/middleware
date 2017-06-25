@@ -29,21 +29,21 @@ import org.universAAL.middleware.managers.configuration.core.owl.Entity;
 /**
  * The top Internal implementation of {@link ConfigurableEntityEditor}. Has
  * typical and utility methods for managing Listeners and URI.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public abstract class GenericConfigurationEntity implements ConfigurableEntityEditor {
 
 	/**
-	 * 
+	 *
 	 */
 	protected final ConfigurationManagerImpl confManager;
 	protected String uri;
 	protected List<ConfigurableEntityEditorListener> listeners;
 
 	/**
-	 * 
+	 *
 	 */
 	public GenericConfigurationEntity(ConfigurationManagerImpl configurationManagerImpl, String uri) {
 		confManager = configurationManagerImpl;

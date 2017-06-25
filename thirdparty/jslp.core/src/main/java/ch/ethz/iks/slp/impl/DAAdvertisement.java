@@ -37,7 +37,7 @@ import ch.ethz.iks.slp.ServiceLocationException;
 
 /**
  * A DAAdvertisement is sent by a DA to advertise it's service.
- * 
+ *
  * @author Jan S. Rellermeyer, ETH Zurich
  * @since 0.1
  */
@@ -98,7 +98,7 @@ class DAAdvertisement extends ReplyMessage {
     /**
      * create a new DAAdvertisement from a DataInput streaming the bytes of a
      * DAAdvertisement message body.
-     * 
+     *
      * @param input
      *            stream of bytes forming the message body.
      * @throws ServiceLocationException
@@ -142,7 +142,7 @@ class DAAdvertisement extends ReplyMessage {
      * get the bytes of the message body in the following RFC 2608 compliant
      * format:
      * <p>
-     * 
+     *
      * <pre>
      *  0                   1                   2                   3
      *  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -164,10 +164,10 @@ class DAAdvertisement extends ReplyMessage {
      * | # Auth Blocks |         Authentication block (if any)         \
      * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      * </pre>
-     * 
+     *
      * .
      * </p>
-     * 
+     *
      * @return array of bytes.
      * @throws ServiceLocationException
      *             if an IO Exception occurs.
@@ -178,7 +178,7 @@ class DAAdvertisement extends ReplyMessage {
 
     /**
      * get the length of the message.
-     * 
+     *
      * @return the length of the message.
      * @see ch.ethz.iks.slp.impl.SLPMessage#getSize()
      */
@@ -194,7 +194,7 @@ class DAAdvertisement extends ReplyMessage {
 
     /**
      * get a string representation of the AttributeReply message.
-     * 
+     *
      * @return a String displaying the properties of this message instance.
      */
     public String toString() {
@@ -211,7 +211,7 @@ class DAAdvertisement extends ReplyMessage {
 
     /**
      * verify the DAAdvertisement.
-     * 
+     *
      * @return true if verification succeeded.
      * @throws ServiceLocationException
      *             in case of IO errors.
@@ -228,7 +228,7 @@ class DAAdvertisement extends ReplyMessage {
 
     /**
      * get the authentication data.
-     * 
+     *
      * @param spiStr
      *            the SPI
      * @param timestamp
@@ -249,7 +249,7 @@ class DAAdvertisement extends ReplyMessage {
 	    /*
 	     * THIS IS WRONG: RFC 2608 wants the attrs first, followed by the
 	     * scopes but OpenSLP makes it the other way around !!!
-	     * 
+	     *
 	     * see bug #1346056
 	     */
 	    dos.writeUTF(origScopes);

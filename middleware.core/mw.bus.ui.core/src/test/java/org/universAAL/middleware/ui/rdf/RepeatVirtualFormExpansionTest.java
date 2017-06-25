@@ -22,7 +22,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
-import org.universAAL.container.JUnit.JUnitModuleContext;
+import org.universAAL.middleware.container.JUnit.JUnitModuleContext;
 import org.universAAL.middleware.owl.DataRepOntology;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.PropertyPath;
@@ -31,12 +31,12 @@ import org.universAAL.middleware.ui.owl.UIBusOntology;
 
 /**
  * @author amedrano
- * 
+ *
  */
 public class RepeatVirtualFormExpansionTest extends TestCase {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final String SIMPLE_OUTPUT_CONTENT = "out";
 	private static final String PREFIX = "http://example.com/Dable.owl#";

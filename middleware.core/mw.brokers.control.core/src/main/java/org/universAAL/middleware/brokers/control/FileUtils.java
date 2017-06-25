@@ -28,11 +28,11 @@ import org.universAAL.middleware.container.utils.LogUtils;
 
 /**
  * A simple class for handling common file operation
- * 
+ *
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano "Kismet" Lenzi</a>
  * @version $LastChangedRevision$ ($LastChangedDate: 2013-04-02 14:36:09 +0200
  *          (Tue, 02 Apr 2013) $)
- * 
+ *
  */
 public class FileUtils {
 

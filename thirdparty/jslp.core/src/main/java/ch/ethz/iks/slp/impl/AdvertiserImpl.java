@@ -41,7 +41,7 @@ import ch.ethz.iks.slp.ServiceURL;
  * Implementation of the Advertiser that provides SLP SA functionality. If the
  * configuration does not have to support SA functionalities, this class does
  * not have to be included in the distribution.
- * 
+ *
  * @see ch.ethz.iks.slp.Advertiser
  * @author Jan S. Rellermeyer, Systems Group, ETH Zurich
  * @since 0.1
@@ -63,7 +63,7 @@ public final class AdvertiserImpl implements Advertiser {
 
     /**
      * Constructor for AdvertiserImpl.
-     * 
+     *
      * @param theLocale
      *            Locale.
      */
@@ -73,7 +73,7 @@ public final class AdvertiserImpl implements Advertiser {
 
     /**
      * Get the locale of this instance.
-     * 
+     *
      * @return Locale.
      * @see Advertiser#getLocale()
      */
@@ -83,7 +83,7 @@ public final class AdvertiserImpl implements Advertiser {
 
     /**
      * Set the locale of this instance.
-     * 
+     *
      * @param locale
      *            the Locale.
      * @see Advertiser#setLocale()
@@ -94,7 +94,7 @@ public final class AdvertiserImpl implements Advertiser {
 
     /**
      * register a new service with the framework.
-     * 
+     *
      * @param url
      *            the ServiceURL of the service.
      * @param attributes
@@ -110,7 +110,7 @@ public final class AdvertiserImpl implements Advertiser {
 
     /**
      * register a new service with the framework using scopes.
-     * 
+     *
      * @param url
      *            the ServiceURL of the service.
      * @param scopes
@@ -142,7 +142,7 @@ public final class AdvertiserImpl implements Advertiser {
 
     /**
      * deregister a service.
-     * 
+     *
      * @param url
      *            the ServiceURL of the service.
      * @throws ServiceLocationException
@@ -156,7 +156,7 @@ public final class AdvertiserImpl implements Advertiser {
 
     /**
      * deregister a service in some scopes.
-     * 
+     *
      * @param url
      *            the ServiceURL of the service.
      * @param scopes
@@ -187,7 +187,7 @@ public final class AdvertiserImpl implements Advertiser {
 
     /**
      * currently not supported.
-     * 
+     *
      * @see Advertiser#addAttributes(ServiceURL, Dictionary)
      * @param url
      *            the serviceURL
@@ -205,7 +205,7 @@ public final class AdvertiserImpl implements Advertiser {
 
     /**
      * currently not supported.
-     * 
+     *
      * @see Advertiser#deleteAttributes(ServiceURL, Dictionary)
      * @param url
      *            the serviceURL.
@@ -224,7 +224,7 @@ public final class AdvertiserImpl implements Advertiser {
     /**
      * Get the IP address of this machine that is configured as primary jSLP
      * address. Can be used to register Services that are located on this host.
-     * 
+     *
      * @return the local InetAddress.
      */
     public InetAddress getMyIP() {

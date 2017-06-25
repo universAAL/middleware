@@ -1,9 +1,9 @@
-/*	
+/*
 	Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
-	Institute of Information Science and Technologies 
-	of the Italian National Research Council 
+	Institute of Information Science and Technologies
+	of the Italian National Research Council
 
-	See the NOTICE file distributed with this work for additional 
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
 
 	Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,8 +37,7 @@ import org.universAAL.middleware.connectors.exception.DiscoveryConnectorExceptio
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.SharedObjectListener;
 import org.universAAL.middleware.container.utils.LogUtils;
-
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
+import org.universAAL.middleware.interfaces.space.SpaceCard;
 
 import ch.ethz.iks.slp.Advertiser;
 import ch.ethz.iks.slp.Locator;
@@ -49,7 +48,7 @@ import ch.ethz.iks.slp.ServiceURL;
 
 /**
  * Implementation of the SLP Discovery Connector
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:giancarlo.riolo@isti.cnr.it">Giancarlo Riolo</a>
  */
@@ -59,7 +58,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector, SharedObjectLi
 	private Locator locator;
 	private Advertiser advertiser;
 	// Connector properties
-	private String aalSpaceServiceType = "service:aalspace";
+	private String spaceServiceType = "service:space";
 	private String name;
 	private String version;
 	private String description;
@@ -91,7 +90,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector, SharedObjectLi
 			if (slpBrowser == null && browser) {
 				LogUtils.logDebug(context, SLPDiscoveryConnector.class, "init",
 						new Object[] { "Initializing SLP Browser..." }, null);
-				slpBrowser = new SLPBrowser(getSLPLocator(), aalSpaceServiceType, Consts.SEARCH_ALL, context,
+				slpBrowser = new SLPBrowser(getSLPLocator(), spaceServiceType, Consts.SEARCH_ALL, context,
 						listeners);
 				scheduler.scheduleAtFixedRate(slpBrowser, initDelay, delay, TimeUnit.SECONDS);
 				LogUtils.logDebug(context, SLPDiscoveryConnector.class, "init",
@@ -155,7 +154,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector, SharedObjectLi
 
 	public void dispose() {
 		context.getContainer().removeSharedObjectListener(this);
-		removeAALSpaces();
+		removeSpaces();
 		if (slpBrowser != null) {
 			slpBrowser.setStop(true);
 		}
@@ -164,74 +163,74 @@ public class SLPDiscoveryConnector implements DiscoveryConnector, SharedObjectLi
 
 	}
 
-	private void removeAALSpaces() {
-		List<AALSpaceCard> spaces = findAALSpace();
+	private void removeSpaces() {
+		List<SpaceCard> spaces = findSpace();
 		if (spaces != null && spaces.size() > 0) {
-			for (AALSpaceCard space : spaces) {
-				deregisterAALSpace(space);
+			for (SpaceCard space : spaces) {
+				deregisterSpace(space);
 			}
 		}
 	}
 
 	/**
-	 * This method implements how to announce an AALSpace by adopting the SLP
+	 * This method implements how to announce a Space by adopting the SLP
 	 * protocol
 	 */
-	public void announceAALSpace(AALSpaceCard card) throws DiscoveryConnectorException {
-		LogUtils.logTrace(context, SLPDiscoveryConnector.class, "announceAALSpace",
-				new Object[] { "Announcing the AALSpace..." }, null);
+	public void announceSpace(SpaceCard card) throws DiscoveryConnectorException {
+		LogUtils.logTrace(context, SLPDiscoveryConnector.class, "announceSpace",
+				new Object[] { "Announcing the Space..." }, null);
 		if (init()) {
 			try {
-				getSLPAdvertiser().register(new ServiceURL(aalSpaceServiceType + "://" + card.getCoordinatorID(),
-						card.getAalSpaceLifeTime()), card.serializeCard());
-				LogUtils.logTrace(context, SLPDiscoveryConnector.class, "announceAALSpace",
-						new Object[] { "AALSpace announced" }, null);
+				getSLPAdvertiser().register(new ServiceURL(spaceServiceType + "://" + card.getCoordinatorID(),
+						card.getSpaceLifeTime()), card.serializeCard());
+				LogUtils.logTrace(context, SLPDiscoveryConnector.class, "announceSpace",
+						new Object[] { "Space announced" }, null);
 			} catch (ServiceLocationException e) {
-				LogUtils.logError(context, SLPDiscoveryConnector.class, "announceAALSpace",
-						new Object[] { "Error during AALSpace announce for space: " + card.serializeCard().toString()
+				LogUtils.logError(context, SLPDiscoveryConnector.class, "announceSpace",
+						new Object[] { "Error during Space announce for space: " + card.serializeCard().toString()
 								+ " -->" + e.toString() },
 						null);
 				throw new DiscoveryConnectorException(DiscoveryConnectorErrorCodes.ANNOUNCE_ERROR, e.toString());
 			}
 		} else {
-			LogUtils.logWarn(context, SLPDiscoveryConnector.class, "announceAALSpace",
+			LogUtils.logWarn(context, SLPDiscoveryConnector.class, "announceSpace",
 					new Object[] { "SLPDiscoveryConnector is not initialized!" }, null);
 		}
 	}
 
-	public void deregisterAALSpace(AALSpaceCard spaceCard) throws DiscoveryConnectorException {
-		LogUtils.logDebug(context, SLPDiscoveryConnector.class, "deregisterAALSpace",
-				new Object[] { "De-Registering the AALSpace: " + spaceCard.toString() + "..." }, null);
+	public void deregisterSpace(SpaceCard spaceCard) throws DiscoveryConnectorException {
+		LogUtils.logDebug(context, SLPDiscoveryConnector.class, "deregisterSpace",
+				new Object[] { "De-Registering the Space: " + spaceCard.toString() + "..." }, null);
 		if (init()) {
 			try {
-				getSLPAdvertiser().deregister(new ServiceURL(aalSpaceServiceType + "://" + spaceCard.getCoordinatorID(),
-						spaceCard.getAalSpaceLifeTime()));
-				LogUtils.logDebug(context, SLPDiscoveryConnector.class, "deregisterAALSpace",
-						new Object[] { "AALSpace de-registered" }, null);
+				getSLPAdvertiser().deregister(new ServiceURL(spaceServiceType + "://" + spaceCard.getCoordinatorID(),
+						spaceCard.getSpaceLifeTime()));
+				LogUtils.logDebug(context, SLPDiscoveryConnector.class, "deregisterSpace",
+						new Object[] { "Space de-registered" }, null);
 			} catch (ServiceLocationException e) {
-				LogUtils.logError(context, SLPDiscoveryConnector.class, "deregisterAALSpace",
-						new Object[] { "Error during AALSpace de-registering for space: " + spaceCard.toString()
+				LogUtils.logError(context, SLPDiscoveryConnector.class, "deregisterSpace",
+						new Object[] { "Error during Space de-registering for space: " + spaceCard.toString()
 								+ " -->" + e.toString() },
 						null);
 				throw new DiscoveryConnectorException(DiscoveryConnectorErrorCodes.DEREGISTER_ERROR, e.toString());
 			}
 		} else {
-			LogUtils.logWarn(context, SLPDiscoveryConnector.class, "deregisterAALSpace",
+			LogUtils.logWarn(context, SLPDiscoveryConnector.class, "deregisterSpace",
 					new Object[] { "SLPDiscoveryConnector is not initialized!" }, null);
 		}
 
 	}
 
-	public List<AALSpaceCard> findAALSpace() throws DiscoveryConnectorException {
-		return this.findAALSpace(null);
+	public List<SpaceCard> findSpace() throws DiscoveryConnectorException {
+		return this.findSpace(null);
 	}
 
 	/**
-	 * This method finds an AALSpace by using the specified filter in the SLP
+	 * This method finds an Space by using the specified filter in the SLP
 	 * network
 	 */
-	public List<AALSpaceCard> findAALSpace(Dictionary<String, String> filters) throws DiscoveryConnectorException {
-		List<AALSpaceCard> spaces = new ArrayList<AALSpaceCard>();
+	public List<SpaceCard> findSpace(Dictionary<String, String> filters) throws DiscoveryConnectorException {
+		List<SpaceCard> spaces = new ArrayList<SpaceCard>();
 
 		if (init()) {
 			String filter = formatFilter(filters);
@@ -241,42 +240,42 @@ public class SLPDiscoveryConnector implements DiscoveryConnector, SharedObjectLi
 				if (l == null) {
 					return spaces;
 				} else {
-					slenum = l.findServices(new ServiceType(aalSpaceServiceType), null, filter);
+					slenum = l.findServices(new ServiceType(spaceServiceType), null, filter);
 				}
 				while (slenum.hasMoreElements()) {
 					ServiceURL serviceURL = (ServiceURL) slenum.next();
 					ServiceLocationEnumeration attribs = getSLPLocator().findAttributes(serviceURL, null,
-							AALSpaceCard.getSpaceAttributes());
+							SpaceCard.getSpaceAttributes());
 					if (attribs != null) {
-						LogUtils.logDebug(context, SLPDiscoveryConnector.class, "findAALSpace",
-								new Object[] { "Unmarshalling AALSpace attributes..." }, null);
-						AALSpaceCard card = new AALSpaceCard(unmarshalServiceAttributes(attribs));
+						LogUtils.logDebug(context, SLPDiscoveryConnector.class, "findSpace",
+								new Object[] { "Unmarshalling Space attributes..." }, null);
+						SpaceCard card = new SpaceCard(unmarshalServiceAttributes(attribs));
 						// hack
-						card.setPeeringChannelName("mw.modules.aalspace.osgi");
+						card.setPeeringChannelName("mw.modules.space.osgi");
 						card.setRetry(MAX_RETRY);
 						if (card.getCoordinatorID() == null) {
-							LogUtils.logDebug(context, SLPDiscoveryConnector.class, "findAALSpace",
-									new Object[] { "Not a valid AALSpaceCard" }, null);
+							LogUtils.logDebug(context, SLPDiscoveryConnector.class, "findSpace",
+									new Object[] { "Not a valid SpaceCard" }, null);
 						} else {
 							spaces.add(card);
-							LogUtils.logDebug(context, SLPDiscoveryConnector.class, "findAALSpace",
-									new Object[] { "AALSpace attributes unmarshalled" }, null);
+							LogUtils.logDebug(context, SLPDiscoveryConnector.class, "findSpace",
+									new Object[] { "Space attributes unmarshalled" }, null);
 						}
 					}
 				}
 			} catch (IllegalArgumentException e) {
-				LogUtils.logError(context, SLPDiscoveryConnector.class, "findAALSpace",
-						new Object[] { "Error during AAL Space search: " + filter + " -->" + e.toString() }, null);
+				LogUtils.logError(context, SLPDiscoveryConnector.class, "findSpace",
+						new Object[] { "Error during Space search: " + filter + " -->" + e.toString() }, null);
 				throw new DiscoveryConnectorException(DiscoveryConnectorErrorCodes.SEARCH_ERROR, e.toString());
 			} catch (ServiceLocationException e) {
-				LogUtils.logError(context, SLPDiscoveryConnector.class, "findAALSpace",
-						new Object[] { "Error during AAL Space search: " + filter + " -->" + e.toString() }, null);
+				LogUtils.logError(context, SLPDiscoveryConnector.class, "findSpace",
+						new Object[] { "Error during Space search: " + filter + " -->" + e.toString() }, null);
 				throw new DiscoveryConnectorException(DiscoveryConnectorErrorCodes.SEARCH_ERROR, e.toString());
 			} catch (DiscoveryConnectorException e) {
 				throw e;
 			}
 		} else {
-			LogUtils.logWarn(context, SLPDiscoveryConnector.class, "findAALSpace",
+			LogUtils.logWarn(context, SLPDiscoveryConnector.class, "findSpace",
 					new Object[] { "SLPDiscoveryConnector is not initialized!" }, null);
 		}
 		return spaces;
@@ -309,7 +308,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector, SharedObjectLi
 	/**
 	 * This method converts the list of attributes as a Dictionary of
 	 * properties.
-	 * 
+	 *
 	 * @param attributes
 	 * @return
 	 */
@@ -330,7 +329,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector, SharedObjectLi
 						attribs.put(tokens[0], tokens[1]);
 				}
 			} catch (Exception e) {
-				throw new DiscoveryConnectorException(DiscoveryConnectorErrorCodes.AALSPACE_UNMASHALLING_ERROR,
+				throw new DiscoveryConnectorException(DiscoveryConnectorErrorCodes.SPACE_UNMASHALLING_ERROR,
 						e.toString());
 			}
 		}
@@ -347,7 +346,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector, SharedObjectLi
 			return;
 		}
 		try {
-			this.aalSpaceServiceType = (String) properties.get(Consts.AALSPaceServiceTypeName);
+			this.spaceServiceType = (String) properties.get(Consts.SpaceServiceTypeName);
 			this.sdpProtocol = (String) properties.get(Consts.SDPProtocols);
 			this.name = (String) properties.get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_NAME);
 			this.version = (String) properties.get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_VERSION);
@@ -395,32 +394,32 @@ public class SLPDiscoveryConnector implements DiscoveryConnector, SharedObjectLi
 	/**
 	 * This method prints the Connector properties: name, version, description
 	 * and provider
-	 * 
+	 *
 	 * @return
 	 */
 	public String toString() {
 		return this.name + "-" + this.description + "-" + this.provider + "-" + this.version;
 	}
 
-	public void addAALSpaceListener(ServiceListener listener) {
+	public void addSpaceListener(ServiceListener listener) {
 		if (listener != null && !listeners.contains(listener)) {
 			this.listeners.add(listener);
 			if (slpBrowser != null)
 				slpBrowser.addListener(listener);
 
-			LogUtils.logDebug(context, SLPDiscoveryConnector.class, "addAALSpaceListener",
-					new Object[] { "New AALSpaceListener" }, null);
+			LogUtils.logDebug(context, SLPDiscoveryConnector.class, "addSpaceListener",
+					new Object[] { "New SpaceListener" }, null);
 		}
 
 	}
 
-	public void removeAALSpaceListener(ServiceListener listener) {
+	public void removeSpaceListener(ServiceListener listener) {
 		if (listener != null) {
 			this.listeners.remove(listener);
 			if (slpBrowser != null)
 				slpBrowser.removeListener(listener);
-			LogUtils.logDebug(context, SLPDiscoveryConnector.class, "removeAALSpaceListener",
-					new Object[] { "AALSpaceListener removed" }, null);
+			LogUtils.logDebug(context, SLPDiscoveryConnector.class, "removeSpaceListener",
+					new Object[] { "SpaceListener removed" }, null);
 		}
 	}
 

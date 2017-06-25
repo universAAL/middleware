@@ -23,11 +23,11 @@ package org.universAAL.middleware.interfaces.mpa;
 
 import java.io.Serializable;
 
-import org.universAAL.middleware.deploymanager.uapp.model.AalUapp.App;
+import org.universAAL.middleware.managers.deploy.uapp.model.AalUapp.App;
 
 /**
  * Compact representation of an uApp
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
@@ -43,7 +43,7 @@ public class UAPPCard implements Serializable {
 	private String partId;
 
 	/**
-	 * 
+	 *
 	 * @param serviceId
 	 *            The id of the uSrv containing the uAAP
 	 * @param appId
@@ -64,7 +64,7 @@ public class UAPPCard implements Serializable {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param serviceId
 	 *            The id of the uSrv containing the uAAP
 	 * @param partId

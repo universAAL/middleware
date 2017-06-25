@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,7 +40,7 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * service at the OSGi framework. it is implicitly used by the
  * <code>ServiceCaller</code>-s and <code>ServiceCallee</code>-s that are
  * created within the same OSGi bundle context.
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  */
@@ -63,14 +63,14 @@ public interface ServiceBus {
 	 * {@link ServiceCall}. There is no matchmaking done and the callee needs to
 	 * be known. This is not the normal way of invoking a service; normally, a
 	 * {@link ServiceRequest} should be sent.
-	 * 
+	 *
 	 * This interface is separated from the rest of the bus to have a different
 	 * shared object and, thus, to allow for low-level security. In OSGi terms,
 	 * this would be a separate OSGi service that the application needs to have
 	 * permissions to use.
-	 * 
+	 *
 	 * @author Carsten Stockloew
-	 * 
+	 *
 	 */
 	public interface CallInjector {
 		/**
@@ -79,7 +79,7 @@ public interface ServiceBus {
 		 * {@link #brokerRequest(String, BusMessage)} method that is used by the
 		 * {@link ServiceCaller}, there is no matchmaking; the call will be sent
 		 * directly to a given {@link ServiceCallee}.
-		 * 
+		 *
 		 * @param callerID
 		 *            the ID of the caller that is sending the call.
 		 * @param receiver
@@ -95,7 +95,7 @@ public interface ServiceBus {
 		 * {@link #brokerRequest(String, BusMessage)} method that is used by the
 		 * {@link ServiceCaller}, there is no matchmaking; the call will be sent
 		 * directly to a given {@link ServiceCallee}.
-		 * 
+		 *
 		 * @param callerID
 		 *            the ID of the caller that is sending the call.
 		 * @param receiver
@@ -111,7 +111,7 @@ public interface ServiceBus {
 	/**
 	 * Adds an availability subscription, in other words a listener, to receive
 	 * events about the availability of services matching the given request.
-	 * 
+	 *
 	 * @param callerID
 	 *            the ID of the caller that is registering a subscriber.
 	 * @param subscriber
@@ -127,7 +127,7 @@ public interface ServiceBus {
 	/**
 	 * Registers (advertises) new services (by providing descriptions of them)
 	 * that will be provided by the ServiceCallee with the specified ID.
-	 * 
+	 *
 	 * @param calleeID
 	 *            the ID of the ServiceCallee that is advertising new services
 	 *            on the service bus.
@@ -147,7 +147,7 @@ public interface ServiceBus {
 	/**
 	 * A method used to retrieve the descriptions of all services advertised on
 	 * the service bus.
-	 * 
+	 *
 	 * @param callerID
 	 *            the ID of the caller that is asking the service bus.
 	 * @return descriptions of all registered services in terms of an array of
@@ -160,7 +160,7 @@ public interface ServiceBus {
 	 * template in terms of "query by example". This version of the method makes
 	 * it possible to make more specific queries by specifying restrictions for
 	 * certain properties of services.
-	 * 
+	 *
 	 * @param callerID
 	 *            the ID of the caller that is asking the service bus.
 	 * @param template
@@ -175,7 +175,7 @@ public interface ServiceBus {
 	 * Get all service profiles that describe services of the given service
 	 * class. This version of the method makes it easier to make a simple query
 	 * of all instances of a named service class by specifying its URI.
-	 * 
+	 *
 	 * @param callerID
 	 *            the ID of the caller that is asking the service bus.
 	 * @param serviceClassURI
@@ -191,7 +191,7 @@ public interface ServiceBus {
 	 * registered services. The given keywords are checked against all names and
 	 * textual descriptions used in the service profiles. A match is there only
 	 * if all the given keywords have at least one occurrence.
-	 * 
+	 *
 	 * @param callerID
 	 *            the ID of the caller that is asking the service bus.
 	 * @param keywords
@@ -204,7 +204,7 @@ public interface ServiceBus {
 	/**
 	 * Removes an availability subscription from the bus, which was previously
 	 * added using <code>addAvailabilitySubscription</code> method.
-	 * 
+	 *
 	 * @param callerID
 	 *            the ID of the caller that owns the listener
 	 * @param subscriber
@@ -217,7 +217,7 @@ public interface ServiceBus {
 	/**
 	 * Removes specified service profiles that were previously registered by the
 	 * ServiceCalee with the specified ID.
-	 * 
+	 *
 	 * @param calleeID
 	 *            the ID of the ServiceCalee that owns the service profiles.
 	 * @param realizedServices
@@ -233,7 +233,7 @@ public interface ServiceBus {
 	 * the results by calling {@link #brokerReply(String, BusMessage)}. The bus
 	 * will then inform the original requester (the ServiceCaller that has
 	 * called this method) about the result.
-	 * 
+	 *
 	 * @param callerID
 	 *            the ID of the caller that is sending the request.
 	 * @param request
@@ -244,7 +244,7 @@ public interface ServiceBus {
 	/**
 	 * Can be used by ServiceCallees to send a response to the bus which will be
 	 * delivered to the caller who initiated the initial request.
-	 * 
+	 *
 	 * @param calleeID
 	 *            the ID of the service callee which processed the request.
 	 * @param response
@@ -254,7 +254,7 @@ public interface ServiceBus {
 
 	/**
 	 * Unregisters a service caller from the bus.
-	 * 
+	 *
 	 * @param callerID
 	 *            the ID of the caller to be unregistered.
 	 * @param caller
@@ -264,7 +264,7 @@ public interface ServiceBus {
 
 	/**
 	 * Unregisters a service callee from the bus.
-	 * 
+	 *
 	 * @param calleeID
 	 *            the ID of the callee to be unregistered.
 	 * @param callee
@@ -276,7 +276,7 @@ public interface ServiceBus {
 	 * Get all service profiles that describe services of the given service
 	 * class. This version of the method makes it easier to make a simple query
 	 * of all instances of a named service class by specifying its URI.
-	 * 
+	 *
 	 * @param serviceClassURI
 	 *            the URI of the desired service class.
 	 * @return Map containing as a key calleeID which registered ServiceProfiles

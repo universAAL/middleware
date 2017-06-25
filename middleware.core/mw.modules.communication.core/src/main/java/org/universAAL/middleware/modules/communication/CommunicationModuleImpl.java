@@ -37,7 +37,7 @@ import org.universAAL.middleware.container.SharedObjectListener;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.interfaces.ChannelDescriptor;
 import org.universAAL.middleware.interfaces.PeerCard;
-import org.universAAL.middleware.modules.AALSpaceModule;
+import org.universAAL.middleware.modules.SpaceModule;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.modules.ConfigurableCommunicationModule;
 import org.universAAL.middleware.modules.exception.CommunicationModuleErrorCode;
@@ -46,7 +46,7 @@ import org.universAAL.middleware.modules.listener.MessageListener;
 
 /**
  * CommunicationModule implementation
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
@@ -60,7 +60,7 @@ public class CommunicationModuleImpl implements CommunicationModule, Configurabl
 	private String description;
 	private ModuleContext context;
 	private CommunicationConnector communicationConnector;
-	private AALSpaceModule aalSpaceModule;
+	private SpaceModule spaceModule;
 	private ConcurrentMap<String, List<MessageListener>> messageListeners;
 	private boolean initialized = false;
 
@@ -107,19 +107,19 @@ public class CommunicationModuleImpl implements CommunicationModule, Configurabl
 					return initialized;
 				}
 
-				// AALSpace Module
-				Object[] aalSpaceModules = context.getContainer().fetchSharedObject(context,
-						new Object[] { AALSpaceModule.class.getName() }, this);
+				// Space Module
+				Object[] spaceModules = context.getContainer().fetchSharedObject(context,
+						new Object[] { SpaceModule.class.getName() }, this);
 
-				if (aalSpaceModules != null && aalSpaceModules.length > 0) {
+				if (spaceModules != null && spaceModules.length > 0) {
 					// we use only the first communication connector... to patch
-					aalSpaceModule = (AALSpaceModule) aalSpaceModules[0];
+					spaceModule = (SpaceModule) spaceModules[0];
 					LogUtils.logDebug(context, CommunicationModuleImpl.class, "CommunicationModuleImpl",
-							new Object[] { "AALSpaceModule found " }, null);
+							new Object[] { "SpaceModule found " }, null);
 					initialized = true;
 				} else {
 					LogUtils.logWarn(context, CommunicationModuleImpl.class, "CommunicationModuleImpl",
-							new Object[] { "No AALSpaceModule found" }, null);
+							new Object[] { "No SpaceModule found" }, null);
 				}
 
 			} catch (NullPointerException e) {
@@ -147,7 +147,7 @@ public class CommunicationModuleImpl implements CommunicationModule, Configurabl
 	/**
 	 * This method returns the list of MessageListener given the list of
 	 * channelNames
-	 * 
+	 *
 	 * @param channelNames
 	 * @return
 	 */

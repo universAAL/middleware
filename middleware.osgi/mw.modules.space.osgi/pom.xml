@@ -53,8 +53,8 @@
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Bundle-Provider>ISTI-CNR</Bundle-Provider>
             <Import-Package>org.universAAL.middleware.interfaces,
-							org.universAAL.middleware.interfaces.aalspace,
-							org.universAAL.middleware.modules.aalspace,
+							org.universAAL.middleware.interfaces.space,
+							org.universAAL.middleware.modules.space,
 							org.universAAL.middleware.modules.listener,
 							org.universAAL.middleware.modules.util,
 							org.universAAL.middleware.connectors,
@@ -68,12 +68,12 @@
 							org.universAAL.middleware.container.osgi,
 							org.universAAL.middleware.connectors.util,
 							org.universAAL.middleware.brokers.message,
-							org.universAAL.middleware.brokers.message.aalspace,						
+							org.universAAL.middleware.brokers.message.space,						
 							com.google.gson,
 							org.universAAL.middleware.brokers.message.gson,
 							org.universAAL.middleware.brokers</Import-Package>
-            <Export-Package>org.universAAL.middleware.modules.aalspace.*</Export-Package>
-            <Bundle-Activator>org.universAAL.middleware.modules.aalspace.osgi.Activator</Bundle-Activator>
+            <Export-Package>org.universAAL.middleware.modules.space.*</Export-Package>
+            <Bundle-Activator>org.universAAL.middleware.modules.space.osgi.Activator</Bundle-Activator>
             <Private-Package />
           </instructions>
         </configuration>

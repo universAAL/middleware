@@ -28,9 +28,9 @@ import org.universAAL.middleware.interfaces.configuration.scope.Scope;
  * {@link ConfigurableModule#configurationChanged(Scope, Object)} may not be
  * called until the Entity is registered elsewhere (or found in some
  * configuration repository), thus don't expect Immediate response.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class ConfigurationDefinedElsewhere implements DescribedEntity {
 

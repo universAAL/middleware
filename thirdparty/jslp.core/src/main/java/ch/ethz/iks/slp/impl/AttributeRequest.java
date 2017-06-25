@@ -40,7 +40,7 @@ import ch.ethz.iks.slp.ServiceURL;
 
 /**
  * a AttributeRequest Message is sent to discover the attributes of a service.
- * 
+ *
  * @author Jan S. Rellermeyer
  * @since 0.1
  */
@@ -62,7 +62,7 @@ class AttributeRequest extends RequestMessage {
 
     /**
      * create an AttributeRequest message for a ServiceURL.
-     * 
+     *
      * @param serviceURL
      *            the ServiceURL
      * @param scopes
@@ -93,7 +93,7 @@ class AttributeRequest extends RequestMessage {
 
     /**
      * create an AttributeRequest message for a ServiceType.
-     * 
+     *
      * @param type
      *            the ServiceType.
      * @param scopes
@@ -125,7 +125,7 @@ class AttributeRequest extends RequestMessage {
     /**
      * create a new AttributeRequest from a DataInput streaming the bytes of an
      * AttributeReply message body.
-     * 
+     *
      * @param input
      *            stream of bytes forming the message body.
      * @throws ServiceLocationException
@@ -143,7 +143,7 @@ class AttributeRequest extends RequestMessage {
      * get the bytes of the message body in the following RFC 2608 compliant
      * format:
      * <p>
-     * 
+     *
      * <pre>
      *         0                   1                   2                   3
      *         0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -161,10 +161,10 @@ class AttributeRequest extends RequestMessage {
      *        |   length of &lt;SLP SPI&gt; string  |        &lt;SLP SPI&gt; string       \
      *        +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      * </pre>
-     * 
+     *
      * .
      * </p>
-     * 
+     *
      * @return array of bytes.
      * @throws ServiceLocationException
      * @throws ServiceLocationException
@@ -181,7 +181,7 @@ class AttributeRequest extends RequestMessage {
 
     /**
      * get the length of the message.
-     * 
+     *
      * @return the length of the message.
      * @see ch.ethz.iks.slp.impl.SLPMessage#getSize()
      */
@@ -193,7 +193,7 @@ class AttributeRequest extends RequestMessage {
 
     /**
      * get a string representation of the AttributeReply message.
-     * 
+     *
      * @return a String displaying the properties of this message instance.
      */
     public String toString() {

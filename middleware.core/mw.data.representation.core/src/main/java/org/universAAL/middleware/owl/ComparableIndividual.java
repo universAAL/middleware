@@ -38,7 +38,7 @@ public abstract class ComparableIndividual extends ManagedIndividual implements 
 	 */
 	public static final int NON_COMPARABLE_INDIVIDUALS = Integer.MAX_VALUE;
 
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "ComparableIndividual";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "ComparableIndividual";
 
 	protected ComparableIndividual() {
 		super();

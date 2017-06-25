@@ -26,9 +26,9 @@ import org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManageme
  * This section of the UI Bus Strategy Stack, will only hold the
  * {@link IDialogManager} instance. Managing the cases when there is already a
  * Coordinator, and when The dialogManager is unset.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class UIStrategyCoordinatorMng extends CoordinatedRegistrationManagement {
 

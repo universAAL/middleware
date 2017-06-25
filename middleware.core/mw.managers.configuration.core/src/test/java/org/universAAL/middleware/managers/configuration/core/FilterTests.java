@@ -25,18 +25,18 @@ import java.util.Locale;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.universAAL.container.JUnit.JUnitModuleContext;
+import org.universAAL.middleware.container.JUnit.JUnitModuleContext;
 import org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationParameter;
 import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ApplicationPartPattern;
 import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ApplicationPattern;
 import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.IdPattern;
 import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ModulePattern;
 import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.NotPattern;
-import org.universAAL.middleware.interfaces.configuration.scope.AALSpaceScope;
+import org.universAAL.middleware.interfaces.configuration.scope.SpaceScope;
 import org.universAAL.middleware.interfaces.configuration.scope.Scope;
 import org.universAAL.middleware.managers.configuration.core.impl.factories.EntityFactory;
 import org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.EntityManager;
-import org.universAAL.middleware.managers.configuration.core.owl.AALConfigurationOntology;
+import org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology;
 import org.universAAL.middleware.managers.configuration.core.owl.Entity;
 import org.universAAL.middleware.owl.DataRepOntology;
 import org.universAAL.middleware.owl.IntRestriction;
@@ -49,7 +49,7 @@ import org.universAAL.middleware.serialization.turtle.TurtleUtil;
 
 /**
  * @author amedrano
- * 
+ *
  */
 public class FilterTests {
 
@@ -62,7 +62,7 @@ public class FilterTests {
 				new Object[] { MessageContentSerializer.class.getName() });
 
 		OntologyManagement.getInstance().register(mc, new DataRepOntology());
-		OntologyManagement.getInstance().register(mc, new AALConfigurationOntology());
+		OntologyManagement.getInstance().register(mc, new ConfigurationOntology());
 		TurtleUtil.moduleContext = mc;
 	}
 

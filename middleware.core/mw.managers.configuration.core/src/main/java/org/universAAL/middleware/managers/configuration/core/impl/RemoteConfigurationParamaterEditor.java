@@ -26,9 +26,9 @@ import org.universAAL.middleware.owl.MergedRestriction;
 /**
  * Implementation of {@link ConfigurableEntityEditor} for remote, parameter type
  * entities.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class RemoteConfigurationParamaterEditor extends RemoteConfigurationEntity
 		implements ConfigurationParameterEditor {

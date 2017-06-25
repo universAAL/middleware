@@ -64,7 +64,6 @@
                      org.apache.karaf.features;version="${karaf.version}",
                      org.universAAL.middleware.brokers.control,
                      org.universAAL.middleware.connectors,
-                     org.universAAL.middleware.connectors.deploy.karaf.model,
                      org.universAAL.middleware.connectors.deploy.karaf,
                      org.universAAL.middleware.connectors.util,
                      org.universAAL.middleware.container,

@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,9 +24,9 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 /**
  * Indicates that a profile that is trying to be registered is already
  * registered. The key for equality is the process URI of the profile.
- * 
+ *
  * @author Carsten Stockloew
- * 
+ *
  */
 public class ProfileExistsException extends RuntimeException {
 
@@ -42,7 +42,7 @@ public class ProfileExistsException extends RuntimeException {
 
 	/**
 	 * Gets the {@link ServiceProfile}.
-	 * 
+	 *
 	 * @return the {@link ServiceProfile}.
 	 */
 	public ServiceProfile getProfile() {
@@ -54,7 +54,7 @@ public class ProfileExistsException extends RuntimeException {
 	 * {@link ServiceProfile}, the {@link ServiceCallee} has to provide an array
 	 * of {@link ServiceProfile}. The index is the position in that array for
 	 * the profile that was rrgistered before.
-	 * 
+	 *
 	 * @return the index in the array that was used during registration.
 	 */
 	public int getIndex() {

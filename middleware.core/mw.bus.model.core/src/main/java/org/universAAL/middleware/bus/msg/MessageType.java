@@ -1,16 +1,16 @@
 /*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,7 +22,7 @@ package org.universAAL.middleware.bus.msg;
 /**
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ *
  *         This class contains message types in SodaPop layer. The message types
  *         with prefix "P2P" relate to the "bus - bus" communication while the
  *         ones without that prefix relate to the "bus member - bus"
@@ -46,7 +46,7 @@ public final class MessageType {
 	private static final String[] names = { "event", "p2p_event", "p2p_reply", "p2p_call", "reply", "request" };
 
 	/**
-	 * 
+	 *
 	 * @param name
 	 *            name of the message type
 	 * @return MessageType representation based on the given message type
@@ -83,7 +83,7 @@ public final class MessageType {
 
 	/**
 	 * Constructor receiving ordinal.
-	 * 
+	 *
 	 * @param order
 	 *            ordinal of the message type
 	 */
@@ -92,7 +92,7 @@ public final class MessageType {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return name of the message type
 	 */
 	public String name() {
@@ -100,7 +100,7 @@ public final class MessageType {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return order number
 	 */
 	public int ord() {

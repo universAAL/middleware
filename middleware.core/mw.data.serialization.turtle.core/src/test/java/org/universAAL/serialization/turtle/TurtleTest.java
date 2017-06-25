@@ -24,7 +24,7 @@ public class TurtleTest extends TestCase {
 	TurtleSerializer s;
 
 	class MyOntClass extends ManagedIndividual {
-		public static final String MY_URI = Resource.uAAL_NAMESPACE_PREFIX + "TurtleTest.owl#MyOntClass";
+		public static final String MY_URI = Resource.NAMESPACE_PREFIX + "TurtleTest.owl#MyOntClass";
 
 		@Override
 		public String getClassURI() {
@@ -131,7 +131,7 @@ public class TurtleTest extends TestCase {
 	}
 
 	public void testTypeURI2() {
-		String propURI = Resource.uAAL_NAMESPACE_PREFIX + "TurtleTest.owl#myProperty";
+		String propURI = Resource.NAMESPACE_PREFIX + "TurtleTest.owl#myProperty";
 		Resource r = new Resource("testResource");
 		ArrayList al = new ArrayList();
 		al.add(new MyOntClass("instanceURI"));
@@ -170,10 +170,10 @@ public class TurtleTest extends TestCase {
 				+ "@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n"
 				+ "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n"
 				+ "@prefix fn: <http://www.w3.org/2005/xpath-functions#> .\r\n" + "\r\n"
-				+ "<http://ontology.itaca.upv.es/Test.owl#panic10> a rdfs:Resource , <http://ontology.universAAL.org/uAAL.owl#PhysicalThing> , <http://ontology.universAAL.org/Device.owl#Device> , <http://ontology.universAAL.org/Risk.owl#PanicButton> , <http://ontology.universAAL.org/uAAL.owl#ManagedIndividual> , _:node17954gsa9x306 , _:node17954gsa9x307 , _:node17954gsa9x308 , _:node17954gsa9x309 , _:node17954gsa9x371 , _:node17954gsa9x372 , _:node17954gsa9x374 , _:node17954gsa9x375 , _:node17954gsa9x376 , _:node17954gsa9x377 , _:node17954gsa9x378 , _:node17954gsa9x379 , _:node17954gsa9x380 , _:node17954gsa9x381 , _:node17954gsa9x382 , _:node17954gsa9x383 , _:node17954gsa9x384 , _:node17954gsa9x385 , _:node17954gsa9x386 , _:node17954gsa9x387 ;\r\n"
-				+ "	<http://ontology.universAAL.org/uAAL.owl#hasLocation> <http://ontology.itaca.upv.es/Test.owl#location10> ;\r\n"
-				+ "	<http://ontology.universAAL.org/uAAL.owl#carriedBy> <http://ontology.itaca.upv.es/Test.owl#user5> ;\r\n"
-				+ "	<http://ontology.universAAL.org/uAAL.owl#isPortable> \"true\"^^xsd:boolean .\r\n" + "\r\n"
+				+ "<http://ontology.itaca.upv.es/Test.owl#panic10> a rdfs:Resource , <http://ontology.universAAL.org/universAAL.owl#PhysicalThing> , <http://ontology.universAAL.org/Device.owl#Device> , <http://ontology.universAAL.org/Risk.owl#PanicButton> , <http://ontology.universAAL.org/uAAL.owl#ManagedIndividual> , _:node17954gsa9x306 , _:node17954gsa9x307 , _:node17954gsa9x308 , _:node17954gsa9x309 , _:node17954gsa9x371 , _:node17954gsa9x372 , _:node17954gsa9x374 , _:node17954gsa9x375 , _:node17954gsa9x376 , _:node17954gsa9x377 , _:node17954gsa9x378 , _:node17954gsa9x379 , _:node17954gsa9x380 , _:node17954gsa9x381 , _:node17954gsa9x382 , _:node17954gsa9x383 , _:node17954gsa9x384 , _:node17954gsa9x385 , _:node17954gsa9x386 , _:node17954gsa9x387 ;\r\n"
+				+ "	<http://ontology.universAAL.org/universAAL.owl#hasLocation> <http://ontology.itaca.upv.es/Test.owl#location10> ;\r\n"
+				+ "	<http://ontology.universAAL.org/universAAL.owl#carriedBy> <http://ontology.itaca.upv.es/Test.owl#user5> ;\r\n"
+				+ "	<http://ontology.universAAL.org/universAAL.owl#isPortable> \"true\"^^xsd:boolean .\r\n" + "\r\n"
 				+ "<urn:org.universAAL.middleware.context.rdf:ContextEvent#13a4a4845a0@VAIOTSBAL+a871fc3f+985e8d8c:b1d> rdf:subject <http://ontology.itaca.upv.es/Test.owl#panic10> .\r\n"
 				+ "\r\n"
 				+ "<urn:org.universAAL.middleware.context.rdf:ContextEvent#13a4a4845a0@VAIOTSBAL+a871fc3f+985e8d8c:b19> rdf:subject <http://ontology.itaca.upv.es/Test.owl#panic10> .\r\n"
@@ -254,21 +254,21 @@ public class TurtleTest extends TestCase {
 	public void testAnonWithAnonPropVal() {
 		Resource r1 = new Resource(); // input resource
 		Resource r2 = new Resource(); // input resource
-		r1.setProperty(Resource.PROP_uAAL_INVOLVED_HUMAN_USER, r2);
+		r1.setProperty(Resource.PROP_INVOLVED_HUMAN_USER, r2);
 		assertTrue(check(r1, true));
 	}
 
 	public void testAnon() {
 		Resource r1 = new Resource("test"); // input resource
 		Resource r2 = new Resource(); // input resource
-		r1.setProperty(Resource.PROP_uAAL_INVOLVED_HUMAN_USER, r2);
+		r1.setProperty(Resource.PROP_INVOLVED_HUMAN_USER, r2);
 		assertTrue(check(r1, true));
 	}
 
 	public void testNoType() {
 		Resource r1 = new Resource("test"); // input resource
 		Resource r2 = new Resource("test2"); // input resource
-		r1.setProperty(Resource.PROP_uAAL_INVOLVED_HUMAN_USER, r2);
+		r1.setProperty(Resource.PROP_INVOLVED_HUMAN_USER, r2);
 		assertTrue(check(r1));
 	}
 
@@ -276,7 +276,7 @@ public class TurtleTest extends TestCase {
 		Resource r1 = new Resource("test"); // input resource
 		r1.addType("testtype", true);
 		Resource r2 = new Resource("test2"); // input resource
-		r1.setProperty(Resource.PROP_uAAL_INVOLVED_HUMAN_USER, r2);
+		r1.setProperty(Resource.PROP_INVOLVED_HUMAN_USER, r2);
 		assertTrue(check(r1));
 	}
 

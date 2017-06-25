@@ -34,11 +34,6 @@ import java.util.StringTokenizer;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-
 import org.universAAL.middleware.brokers.control.ControlBroker;
 import org.universAAL.middleware.brokers.control.ExceptionUtils;
 import org.universAAL.middleware.connectors.DeployConnector;
@@ -47,13 +42,12 @@ import org.universAAL.middleware.container.SharedObjectListener;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.interfaces.mpa.UAPPCard;
 import org.universAAL.middleware.interfaces.mpa.UAPPPartStatus;
-import org.universAAL.middleware.interfaces.mpa.model.ObjectFactory;
 
 //import com.sun.xml.bind.marshaller.NamespacePrefixMapper;;
 
 /**
  * Implementation of the deploy Connector for the Karaf OSGi implementation
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
@@ -73,17 +67,10 @@ public class KarafDeployConnector implements DeployConnector, SharedObjectListen
 	// private boolean initialized = false;
 	// private final static String UAPP_SUFFIX = ".uapp";
 	private final static String KAR_EXTENSION = "kar";
-	private final static String KAR_DEPLOY_DIR = System.getProperty("org.universeAAL.connector.karaf.deploydir",
+	private final static String KAR_DEPLOY_DIR = System.getProperty("org.universAAL.connector.karaf.deploydir",
 			"deploy");
 	private static final String JAR_EXTENSION = "jar";
 
-	// JAXB
-	private JAXBContext jc;
-	private JAXBContext jcKaraf;
-	private Unmarshaller unmarshaller;
-	private Unmarshaller unmarshallerKaraf;
-	private Marshaller marshaller;
-	private Marshaller marshallerKaraf;
 	private Properties registry;
 	private File confHome;
 
@@ -114,19 +101,6 @@ public class KarafDeployConnector implements DeployConnector, SharedObjectListen
 	public KarafDeployConnector(ModuleContext context) {
 		this.context = context;
 		confHome = context.getConfigHome();
-		try {
-			jc = JAXBContext.newInstance(ObjectFactory.class);
-
-			jcKaraf = JAXBContext
-					.newInstance(org.universAAL.middleware.connectors.deploy.karaf.model.ObjectFactory.class);
-			unmarshallerKaraf = jcKaraf.createUnmarshaller();
-			unmarshaller = jc.createUnmarshaller();
-			marshaller = jc.createMarshaller();
-			marshallerKaraf = jcKaraf.createMarshaller();
-		} catch (JAXBException e) {
-			LogUtils.logError(context, KarafDeployConnector.class, "KarafDeployConnector",
-					new Object[] { "Error during Deploy Karaf parser intialization: " + e.toString() }, null);
-		}
 	}
 
 	public String getDescription() {

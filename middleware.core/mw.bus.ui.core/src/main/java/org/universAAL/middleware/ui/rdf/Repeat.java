@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -69,30 +69,30 @@ import org.universAAL.middleware.ui.owl.DialogType;
  * it is assumed that instances of this class are not used in parallel so that
  * the component having the control over it is the only source of selection
  * change (by calling appropriate methods) that does not need to be notified.
- * 
+ *
  * @author mtazari
  * @author Carsten Stockloew
  */
 public class Repeat extends Group {
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Repeat";
+	public static final String MY_URI = Form.DIALOG_NAMESPACE + "Repeat";
 
 	/**
 	 * Indicates if entries can be removed from the list of initial values
 	 * associated with a repeat control.
 	 */
-	public static final String PROP_IS_DELETABLE = Form.uAAL_DIALOG_NAMESPACE + "listEntriesDeletable";
+	public static final String PROP_IS_DELETABLE = Form.DIALOG_NAMESPACE + "listEntriesDeletable";
 
 	/**
 	 * Indicates if entries in the list of initial values associated with a
 	 * repeat control can be edited.
 	 */
-	public static final String PROP_IS_EDITABLE = Form.uAAL_DIALOG_NAMESPACE + "listEntriesEditable";
+	public static final String PROP_IS_EDITABLE = Form.DIALOG_NAMESPACE + "listEntriesEditable";
 
 	/**
 	 * Indicates if new entries can be added to the list of initial values
 	 * associated with a repeat control.
 	 */
-	public static final String PROP_IS_EXPANDABLE = Form.uAAL_DIALOG_NAMESPACE + "listAcceptsNewEntries";
+	public static final String PROP_IS_EXPANDABLE = Form.DIALOG_NAMESPACE + "listAcceptsNewEntries";
 
 	/**
 	 * The form control in the repeat that plays the role of a searchable column
@@ -100,7 +100,7 @@ public class Repeat extends Group {
 	 * where the user can enter text to be used to select a specific entry in
 	 * the list of values associated with a repeat control.
 	 */
-	public static final String PROP_SEARCHABLE_FIELD = Form.uAAL_DIALOG_NAMESPACE + "searchableField";
+	public static final String PROP_SEARCHABLE_FIELD = Form.DIALOG_NAMESPACE + "searchableField";
 
 	private List values = null;
 	private Object selection = null;
@@ -122,7 +122,7 @@ public class Repeat extends Group {
 
 	/**
 	 * Constructs a new repeat control.
-	 * 
+	 *
 	 * @param parent
 	 *            The mandatory parent group as the direct container of this
 	 *            repeat control. See {@link FormControl#PROP_PARENT_CONTROL}.
@@ -174,7 +174,7 @@ public class Repeat extends Group {
 	 * {@link Input#storeUserInput(Object)} on child controls of a reapt) are
 	 * only local until either this method or {@link #updateSelection()} is
 	 * called.
-	 * 
+	 *
 	 * @return true, if either there is no selection or the value differs from
 	 *         the selected entry in the the list of values currently associated
 	 *         with this repeat control. Otherwise it does not add the value and
@@ -198,7 +198,7 @@ public class Repeat extends Group {
 	 * If applications have provided a list as initial data for this repeat
 	 * control, they can forbid the addition of new values to that list by
 	 * calling this method.
-	 * 
+	 *
 	 * @see #PROP_IS_EXPANDABLE
 	 */
 	public void banEntryAddition() {
@@ -209,7 +209,7 @@ public class Repeat extends Group {
 	 * If applications have provided a list as initial data for this repeat
 	 * control, they can forbid the deletion of values from that list by calling
 	 * this method.
-	 * 
+	 *
 	 * @see #PROP_IS_DELETABLE
 	 */
 	public void banEntryDeletion() {
@@ -220,7 +220,7 @@ public class Repeat extends Group {
 	 * If applications have provided a list as initial data for this repeat
 	 * control, they can forbid the edition of existing values in that list by
 	 * calling this method.
-	 * 
+	 *
 	 * @see #PROP_IS_EDITABLE
 	 */
 	public void banEntryEdit() {
@@ -455,7 +455,7 @@ public class Repeat extends Group {
 	 * Removes the current selection from the list of values associated with
 	 * this repeat control. After this operation, there will be no selection and
 	 * it must be set explicitly by calling {@link #setSelection(int)}.
-	 * 
+	 *
 	 * @return true, if there was a selection; false, otherwise.
 	 */
 	public boolean removeSelection() {
@@ -581,7 +581,7 @@ public class Repeat extends Group {
 	 * {@link Object}s (in which case the propertypaths of the child of the
 	 * {@link Repeat} should be empty.
 	 * <p>
-	 * 
+	 *
 	 * @return a {@link List} of {@link Form}s.
 	 * @throws IllegalArgumentException
 	 *             if the prerequisites are not met.
@@ -661,10 +661,10 @@ public class Repeat extends Group {
 	private static class VirtualForm extends Form {
 
 		/**
-			 * 
+			 *
 			 */
 		public VirtualForm(Object dataRoot) {
-			super(uAAL_DIALOG_NAMESPACE, 5);
+			super(DIALOG_NAMESPACE, 5);
 			addType(MY_URI, true);
 			props.put(PROP_DIALOG_CREATION_TIME, TypeMapper.getCurrentDateTime());
 			props.put(PROP_ROOT_GROUP, new Group("Virtual Form", this));

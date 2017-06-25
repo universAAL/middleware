@@ -23,9 +23,8 @@ package org.universAAL.middleware.connectors.util;
 
 public class ChannelMessageFields {
 
-	public static String CHANNEL_NAMES = "channelNames";
-	public static String CONTENT = "content";
-	public static String PEER_ID = "peerID";
-	public static String PEER_ROLE = "peerRole";
-
+	public static final String CHANNEL_NAMES = "channelNames";
+	public static final String CONTENT = "content";
+	public static final String PEER_ID = "peerID";
+	public static final String PEER_ROLE = "peerRole";
 }

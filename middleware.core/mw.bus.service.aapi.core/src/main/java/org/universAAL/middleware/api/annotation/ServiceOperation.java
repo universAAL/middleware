@@ -1,7 +1,7 @@
 /*
 Copyright 2011-2014 AGH-UST, http://www.agh.edu.pl
 Faculty of Computer Science, Electronics and Telecommunications
-Department of Computer Science 
+Department of Computer Science
 
 See the NOTICE file distributed with this work for additional
 information regarding copyright ownership
@@ -29,9 +29,9 @@ import java.lang.annotation.ElementType;
  * Annotation which marks method as UniversAAL service. For each of those
  * methods a separate ServiceProfile is generated. If no value is specified a
  * method name is taken by default.
- * 
+ *
  * @author dzmuda
- * 
+ *
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)

@@ -31,7 +31,7 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 
 /**
- * The root of the whole manageable class hierarchy in uAAL.
+ * The root of the whole manageable class hierarchy in universAAL.
  * <p>
  * Conventions to be followed by all subclasses in the class hierarchy rooted at
  * <code>ManagedIndividual</code> are:
@@ -66,7 +66,7 @@ public abstract class ManagedIndividual extends FinalizedResource {
 	public static final String TYPE_OWL_THING = OWL_NAMESPACE + "Thing";
 
 	/** The URI of the ontology class. Must be overwritten */
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "ManagedIndividual";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "ManagedIndividual";
 
 	/**
 	 * The ontological information about the class of this object. For

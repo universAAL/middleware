@@ -41,7 +41,7 @@ import org.universAAL.middleware.owl.ComparableIndividual;
 @edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = "EQ_DOESNT_OVERRIDE_EQUALS", justification = "This is implemented in Resource based on URI and props.")
 public final class Rating extends ComparableIndividual {
 
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "Rating";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "Rating";
 
 	public static final int POOR = 0;
 	public static final int ALMOST_POOR = 1;
@@ -83,7 +83,7 @@ public final class Rating extends ComparableIndividual {
 	}
 
 	private Rating(int order) {
-		super(uAAL_VOCABULARY_NAMESPACE + names[order]);
+		super(VOCABULARY_NAMESPACE + names[order]);
 		this.order = order;
 	}
 

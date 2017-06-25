@@ -19,8 +19,6 @@
  */
 package org.universAAL.middleware.owl;
 
-import org.universAAL.middleware.rdf.Variable;
-
 /**
  * A {@link TypeExpression} ({@link BoundedValueRestriction}) that contains all
  * individuals with a given lower bound and/or upper bound. The individuals need

@@ -30,15 +30,15 @@ import java.util.Locale;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.universAAL.container.JUnit.JUnitModuleContext;
+import org.universAAL.middleware.container.JUnit.JUnitModuleContext;
 import org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationParameter;
 import org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.DescribedEntity;
-import org.universAAL.middleware.interfaces.configuration.scope.AALSpaceScope;
+import org.universAAL.middleware.interfaces.configuration.scope.SpaceScope;
 import org.universAAL.middleware.interfaces.configuration.scope.Scope;
 import org.universAAL.middleware.managers.configuration.core.impl.factories.EntityFactory;
 import org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.EntityManager;
 import org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.SharedObjectConnector;
-import org.universAAL.middleware.managers.configuration.core.owl.AALConfigurationOntology;
+import org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology;
 import org.universAAL.middleware.managers.configuration.core.owl.Entity;
 import org.universAAL.middleware.owl.DataRepOntology;
 import org.universAAL.middleware.owl.IntRestriction;
@@ -51,7 +51,7 @@ import org.universAAL.middleware.serialization.turtle.TurtleUtil;
 
 /**
  * @author amedrano
- * 
+ *
  */
 public class EntityMngrTest {
 
@@ -64,7 +64,7 @@ public class EntityMngrTest {
 				new Object[] { MessageContentSerializer.class.getName() });
 
 		OntologyManagement.getInstance().register(mc, new DataRepOntology());
-		OntologyManagement.getInstance().register(mc, new AALConfigurationOntology());
+		OntologyManagement.getInstance().register(mc, new ConfigurationOntology());
 		TurtleUtil.moduleContext = mc;
 	}
 
@@ -84,7 +84,7 @@ public class EntityMngrTest {
 		Entity e = EntityFactory.getEntity(new ConfigurationParameter() {
 
 			public Scope getScope() {
-				return new AALSpaceScope("aalspace.config");
+				return new SpaceScope("space.config");
 			}
 
 			public String getDescription(Locale loc) {
@@ -111,7 +111,7 @@ public class EntityMngrTest {
 		Entity e = EntityFactory.getEntity(new ConfigurationParameter() {
 
 			public Scope getScope() {
-				return new AALSpaceScope("aalspace.config");
+				return new SpaceScope("space.config");
 			}
 
 			public String getDescription(Locale loc) {
@@ -156,7 +156,7 @@ public class EntityMngrTest {
 		EntityManager em = init(new File("target/findTest2.ttl"));
 		Entity e = EntityFactory.getEntity(ConfigSample.getConfigurationDescription()[1], Locale.ENGLISH);
 		em.addEntity(e);
-		assertNull(em.find("urn:configscope:aalspace.config"));
+		assertNull(em.find("urn:configscope:space.config"));
 		assertNotNull(em.find(e.getURI()));
 		assertEquals(e, em.find(e.getURI()));
 	}

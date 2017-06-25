@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -49,13 +49,13 @@ import org.universAAL.middleware.ui.owl.UIBusOntology;
 import org.universAAL.middleware.util.ResourceComparator;
 
 /**
- * 
+ *
  * Implementation of {@link IUIBus} interface
- * 
+ *
  * @author mtazari
  * @author Carsten Stockloew
  * @author eandgrg
- * 
+ *
  */
 public class UIBusImpl extends AbstractBus implements IUIBus {
 	private static Object[] busFetchParams;
@@ -109,7 +109,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 
 	/**
 	 * Create an instance of the {@link IUIBus}.
-	 * 
+	 *
 	 * @param mc
 	 *            {@link ModuleContext}
 	 */
@@ -141,7 +141,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.middleware.ui.IUIBus#abortDialog(java.lang.String,
 	 * java.lang.String)
 	 */
@@ -154,7 +154,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.middleware.ui.IUIBus#adaptationParametersChanged(org.
 	 * universAAL .middleware.ui.DialogManager,
 	 * org.universAAL.middleware.ui.UIRequest, java.lang.String)
@@ -169,7 +169,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.middleware.ui.IUIBus#addNewProfile(java.lang.String,
 	 * org.universAAL.middleware.ui.UIHandlerProfile)
 	 */
@@ -183,7 +183,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.middleware.ui.IUIBus#dialogFinished(java.lang.String,
 	 * org.universAAL.middleware.ui.UIResponse)
 	 */
@@ -195,7 +195,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.middleware.ui.IUIBus#dialogSuspended(org.universAAL.
 	 * middleware .ui.DialogManager, java.lang.String)
 	 */
@@ -205,7 +205,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.middleware.ui.IUIBus#removeMatchingProfile(java.lang.
 	 * String , org.universAAL.middleware.ui.UIHandlerProfile)
 	 */
@@ -219,7 +219,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.middleware.ui.IUIBus#resumeDialog(java.lang.String,
 	 * java.lang.String, org.universAAL.middleware.rdf.Resource)
 	 */
@@ -234,18 +234,18 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 	}
 
 	/**
-	 * 
+	 *
 	 * Asks the bus to find an appropriate UI handler and forward the request to
 	 * it for handling
-	 * 
+	 *
 	 * @see org.universAAL.middleware.ui.IUIBus#brokerUIRequest(java.lang.String,
 	 *      org.universAAL.middleware.ui.UIRequest)
-	 * 
+	 *
 	 * @param callerID
 	 *            the ID of the UICaller that is asking the bus
 	 * @param req
 	 *            the request to be forwarded to a UI handler
-	 * 
+	 *
 	 */
 	public void brokerUIRequest(String callerID, UIRequest req) {
 		BusMember bm = getBusMember(callerID);
@@ -258,7 +258,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.middleware.ui.IUIBus#unregister(java.lang.String,
 	 * org.universAAL.middleware.ui.UICaller)
 	 */
@@ -272,7 +272,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.middleware.ui.IUIBus#unregister(java.lang.String,
 	 * org.universAAL.middleware.ui.UIHandler)
 	 */
@@ -294,7 +294,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.middleware.ui.IUIBus#userLoggedIn(java.lang.String,
 	 * org.universAAL.middleware.rdf.Resource,
 	 * org.universAAL.middleware.owl.supply.AbsLocation)
@@ -309,7 +309,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.middleware.modules.listener.MessageListener#
 	 * handleSendError
 	 * (org.universAAL.middleware.connectors.util.ChannelMessage,

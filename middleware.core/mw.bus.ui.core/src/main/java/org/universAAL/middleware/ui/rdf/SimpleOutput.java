@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,18 +26,18 @@ import org.universAAL.middleware.rdf.TypeMapper;
  * The default {@link Output} control containing info in form of plain text or
  * another simple type supported by
  * {@link org.universAAL.middleware.rdf.TypeMapper}.
- * 
+ *
  * @author mtazari
  * @author Carsten Stockloew
  */
 public class SimpleOutput extends Output {
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "SimpleOutput";
+	public static final String MY_URI = Form.DIALOG_NAMESPACE + "SimpleOutput";
 
 	/**
 	 * For local storage of the contained info if this info is not accessible
 	 * from the form data.
 	 */
-	public static final String PROP_CONTENT = Form.uAAL_DIALOG_NAMESPACE + "theContent";
+	public static final String PROP_CONTENT = Form.DIALOG_NAMESPACE + "theContent";
 
 	/**
 	 * For exclusive use by de-serializers.
@@ -48,7 +48,7 @@ public class SimpleOutput extends Output {
 
 	/**
 	 * For exclusive use by applications.
-	 * 
+	 *
 	 * @param parent
 	 *            The mandatory parent group as the direct container of this
 	 *            input field. See {@link FormControl#PROP_PARENT_CONTROL}.

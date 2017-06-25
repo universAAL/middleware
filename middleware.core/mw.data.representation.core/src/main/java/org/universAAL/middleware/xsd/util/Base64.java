@@ -708,13 +708,11 @@ public final class Base64 {
 				oos = new java.io.ObjectOutputStream(b64os);
 			}
 			oos.writeObject(serializableObject);
-		} // end try
-		catch (java.io.IOException e) {
+		} catch (java.io.IOException e) {
 			// Catch it and then throw it immediately so that
 			// the finally{} block is called for cleanup.
 			throw e;
-		} // end catch
-		finally {
+		} finally {
 			try {
 				oos.close();
 			} catch (Exception e) {
@@ -736,11 +734,10 @@ public final class Base64 {
 		// Return value according to relevant encoding.
 		try {
 			return new String(baos.toByteArray(), PREFERRED_ENCODING);
-		} // end try
-		catch (java.io.UnsupportedEncodingException uue) {
+		} catch (java.io.UnsupportedEncodingException uue) {
 			// Fall back to some Java default
 			return new String(baos.toByteArray());
-		} // end catch
+		}
 
 	} // end encode
 
@@ -988,13 +985,11 @@ public final class Base64 {
 
 				gzos.write(source, off, len);
 				gzos.close();
-			} // end try
-			catch (java.io.IOException e) {
+			} catch (java.io.IOException e) {
 				// Catch it and then throw it immediately so that
 				// the finally{} block is called for cleanup.
 				throw e;
-			} // end catch
-			finally {
+			} finally {
 				try {
 					gzos.close();
 				} catch (Exception e) {
@@ -1010,10 +1005,9 @@ public final class Base64 {
 			} // end finally
 
 			return baos.toByteArray();
-		} // end if: compress
-
-		// Else, don't compress. Better not to use streams at all then.
-		else {
+			// end if: compress
+		} else {
+			// Else, don't compress. Better not to use streams at all then.
 			boolean breakLines = (options & DO_BREAK_LINES) != 0;
 
 			// int len43 = len * 4 / 3;
@@ -1140,10 +1134,8 @@ public final class Base64 {
 
 			destination[destOffset] = (byte) (outBuff >>> 16);
 			return 1;
-		}
-
-		// Example: DkL=
-		else if (source[srcOffset + 3] == EQUALS_SIGN) {
+		} else if (source[srcOffset + 3] == EQUALS_SIGN) {
+			// Example: DkL=
 			// Two ways to do the same thing. Don't know which way I like best.
 			// int outBuff = ( ( DECODABET[ source[ srcOffset ] ] << 24 ) >>> 6
 			// )
@@ -1156,10 +1148,8 @@ public final class Base64 {
 			destination[destOffset] = (byte) (outBuff >>> 16);
 			destination[destOffset + 1] = (byte) (outBuff >>> 8);
 			return 2;
-		}
-
-		// Example: DkLE
-		else {
+		} else {
+			// Example: DkLE
 			// Two ways to do the same thing. Don't know which way I like best.
 			// int outBuff = ( ( DECODABET[ source[ srcOffset ] ] << 24 ) >>> 6
 			// )
@@ -1274,8 +1264,8 @@ public final class Base64 {
 						} // end if: equals sign
 					} // end if: quartet built
 				} // end if: equals sign or better
-			} // end if: white space, equals sign or better
-			else {
+					// end if: white space, equals sign or better
+			} else {
 				// There's a bad input character in the Base64 stream.
 				int cd = ((int) source[i]) & 0xFF;
 				throw new java.io.IOException("Bad Base64 input character decimal " + cd + " in array position " + i);
@@ -1321,16 +1311,15 @@ public final class Base64 {
 
 		if (s == null) {
 			throw new NullPointerException("Input string was null.");
-		} // end if
+		}
 
 		byte[] bytes;
 		try {
 			bytes = s.getBytes(PREFERRED_ENCODING);
-		} // end try
-		catch (java.io.UnsupportedEncodingException uee) {
+		} catch (java.io.UnsupportedEncodingException uee) {
 			bytes = s.getBytes();
-		} // end catch
-			// </change>
+		}
+		// </change>
 
 		// Decode
 		bytes = decode(bytes, 0, bytes.length, options);
@@ -1360,12 +1349,10 @@ public final class Base64 {
 					// No error? Get new bytes.
 					bytes = baos.toByteArray();
 
-				} // end try
-				catch (java.io.IOException e) {
+				} catch (java.io.IOException e) {
 					e.printStackTrace();
 					// Just return originally-decoded bytes
-				} // end catch
-				finally {
+				} finally {
 					try {
 						baos.close();
 					} catch (Exception e) {
@@ -1444,11 +1431,10 @@ public final class Base64 {
 			// If no custom class loader is provided, use Java's builtin OIS.
 			if (loader == null) {
 				ois = new java.io.ObjectInputStream(bais);
-			} // end if: no loader provided
-
-			// Else make a customized object input stream that uses
-			// the provided class loader.
-			else {
+				// end if: no loader provided
+			} else {
+				// Else make a customized object input stream that uses
+				// the provided class loader.
 				ois = new java.io.ObjectInputStream(bais) {
 					public Class resolveClass(java.io.ObjectStreamClass streamClass)
 							throws java.io.IOException, ClassNotFoundException {
@@ -1463,14 +1449,11 @@ public final class Base64 {
 			} // end else: no custom class loader
 
 			obj = ois.readObject();
-		} // end try
-		catch (java.io.IOException e) {
+		} catch (java.io.IOException e) {
 			throw e; // Catch and throw in order to execute finally{}
-		} // end catch
-		catch (java.lang.ClassNotFoundException e) {
+		} catch (java.lang.ClassNotFoundException e) {
 			throw e; // Catch and throw in order to execute finally{}
-		} // end catch
-		finally {
+		} finally {
 			try {
 				bais.close();
 			} catch (Exception e) {
@@ -1514,11 +1497,9 @@ public final class Base64 {
 		try {
 			bos = new Base64.OutputStream(new java.io.FileOutputStream(filename), Base64.ENCODE);
 			bos.write(dataToEncode);
-		} // end try
-		catch (java.io.IOException e) {
+		} catch (java.io.IOException e) {
 			throw e; // Catch and throw to execute finally{} block
-		} // end catch: java.io.IOException
-		finally {
+		} finally {
 			try {
 				bos.close();
 			} catch (Exception e) {
@@ -1551,11 +1532,9 @@ public final class Base64 {
 		try {
 			bos = new Base64.OutputStream(new java.io.FileOutputStream(filename), Base64.DECODE);
 			bos.write(dataToDecode.getBytes(PREFERRED_ENCODING));
-		} // end try
-		catch (java.io.IOException e) {
+		} catch (java.io.IOException e) {
 			throw e; // Catch and throw to execute finally{} block
-		} // end catch: java.io.IOException
-		finally {
+		} finally {
 			try {
 				bos.close();
 			} catch (Exception e) {
@@ -1675,11 +1654,9 @@ public final class Base64 {
 			// Save in a variable to return
 			encodedData = new String(buffer, 0, length, Base64.PREFERRED_ENCODING);
 
-		} // end try
-		catch (java.io.IOException e) {
+		} catch (java.io.IOException e) {
 			throw e; // Catch and release to execute finally{}
-		} // end catch: java.io.IOException
-		finally {
+		} finally {
 			try {
 				bis.close();
 			} catch (Exception e) {
@@ -1707,11 +1684,9 @@ public final class Base64 {
 		try {
 			out = new java.io.BufferedOutputStream(new java.io.FileOutputStream(outfile));
 			out.write(encoded.getBytes("US-ASCII")); // Strict, 7-bit output.
-		} // end try
-		catch (java.io.IOException e) {
+		} catch (java.io.IOException e) {
 			throw e; // Catch and release to execute finally{}
-		} // end catch
-		finally {
+		} finally {
 			try {
 				out.close();
 			} catch (Exception ex) {
@@ -1737,11 +1712,9 @@ public final class Base64 {
 		try {
 			out = new java.io.BufferedOutputStream(new java.io.FileOutputStream(outfile));
 			out.write(decoded);
-		} // end try
-		catch (java.io.IOException e) {
+		} catch (java.io.IOException e) {
 			throw e; // Catch and release to execute finally{}
-		} // end catch
-		finally {
+		} finally {
 			try {
 				out.close();
 			} catch (Exception ex) {
@@ -1850,14 +1823,13 @@ public final class Base64 {
 						encode3to4(b3, 0, numBinaryBytes, buffer, 0, options);
 						position = 0;
 						numSigBytes = 4;
-					} // end if: got data
-					else {
+						// end if: got data
+					} else {
 						return -1; // Must be end of stream
 					} // end else
-				} // end if: encoding
-
-				// Else decoding
-				else {
+						// end if: encoding
+				} else {
+					// Else decoding
 					byte[] b4 = new byte[4];
 					int i = 0;
 					for (i = 0; i < 4; i++) {
@@ -1877,11 +1849,11 @@ public final class Base64 {
 					if (i == 4) {
 						numSigBytes = decode4to3(b4, 0, buffer, 0, options);
 						position = 0;
-					} // end if: got four characters
-					else if (i == 0) {
+						// end if: got four characters
+					} else if (i == 0) {
 						return -1;
-					} // end else if: also padded correctly
-					else {
+						// end else if: also padded correctly
+					} else {
 						// Must have broken out from above.
 						throw new java.io.IOException("Improperly padded Base64 input.");
 					} // end
@@ -1899,8 +1871,7 @@ public final class Base64 {
 				if (encode && breakLines && lineLength >= MAX_LINE_LENGTH) {
 					lineLength = 0;
 					return '\n';
-				} // end if
-				else {
+				} else {
 					lineLength++; // This isn't important when decoding
 					// but throwing an extra "if" seems
 					// just as wasteful.
@@ -1914,10 +1885,7 @@ public final class Base64 {
 					return b & 0xFF; // This is how you "cast" a byte that's
 					// intended to be unsigned.
 				} // end else
-			} // end if: position >= 0
-
-			// Else error
-			else {
+			} else {
 				throw new java.io.IOException("Error in Base64 code reading stream.");
 			} // end else
 		} // end read
@@ -2060,10 +2028,8 @@ public final class Base64 {
 
 					position = 0;
 				} // end if: enough to output
-			} // end if: encoding
-
-			// Else, Decoding
-			else {
+			} else {
+				// Else, Decoding
 				// Meaningful Base64 character?
 				if (decodabet[theByte & 0x7f] > WHITE_SPACE_ENC) {
 					buffer[position++] = (byte) theByte;
@@ -2073,8 +2039,7 @@ public final class Base64 {
 						out.write(b4, 0, len);
 						position = 0;
 					} // end if: enough to output
-				} // end if: meaningful base64 character
-				else if (decodabet[theByte & 0x7f] != WHITE_SPACE_ENC) {
+				} else if (decodabet[theByte & 0x7f] != WHITE_SPACE_ENC) {
 					throw new java.io.IOException("Invalid character in Base64 data.");
 				} // end else: not white space either
 			} // end else: decoding
@@ -2117,8 +2082,7 @@ public final class Base64 {
 				if (encode) {
 					out.write(encode3to4(b4, buffer, position, options));
 					position = 0;
-				} // end if: encoding
-				else {
+				} else {
 					throw new java.io.IOException("Base64 input not properly padded.");
 				} // end else: decoding
 			} // end if: buffer partially full

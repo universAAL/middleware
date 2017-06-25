@@ -23,9 +23,9 @@ import org.universAAL.middleware.owl.URIRestriction;
 /**
  * A pattern that matches entities with an application type scope. Additionally,
  * it can match applicationId in scopes with the provided pattern.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class ApplicationPattern implements EntityPattern {
 
@@ -40,7 +40,7 @@ public class ApplicationPattern implements EntityPattern {
 
 	/**
 	 * Match Application type entities whose applicationID matches appIdPattern.
-	 * 
+	 *
 	 * @param appIdPattern
 	 *            the pattern to match applicationIDs.
 	 */

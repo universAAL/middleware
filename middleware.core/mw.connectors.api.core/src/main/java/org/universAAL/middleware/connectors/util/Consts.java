@@ -1,9 +1,9 @@
-/*	
+/*
 	Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
-	Institute of Information Science and Technologies 
-	of the Italian National Research Council 
+	Institute of Information Science and Technologies
+	of the Italian National Research Council
 
-	See the NOTICE file distributed with this work for additional 
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
 
 	Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,31 +22,23 @@ package org.universAAL.middleware.connectors.util;
 
 /**
  * Widely-used constants for the connectors
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
 public final class Consts {
 
 	// Connector stuff
-	public static String CONNECTOR_NAME = "connectorName";
-	public static String CONNECTOR_VERSION = "connectorVersion";
-	public static String CONNECTOR_PROVIDER = "connectorProvider";
-	public static String CONNECTOR_DESCRIPTION = "connectorDescription";
-
-	// AAL Space stuff
-	public static String AALSPaceName = "aalSpaceName";
-	public static String AALSPaceID = "aalSpaceID";
-	public static String AALSPaceType = "aalSpaceType";
-	public static String AALSPaceDescription = "aalSpaceDescription";
-	public static String AALSpaceCoordinator = "aalSpaceCoordinator";
+	public static final String CONNECTOR_NAME = "connectorName";
+	public static final String CONNECTOR_VERSION = "connectorVersion";
+	public static final String CONNECTOR_PROVIDER = "connectorProvider";
+	public static final String CONNECTOR_DESCRIPTION = "connectorDescription";
 
 	// DeployConnector stuff
 	/**
 	 * TODO: to generalize
 	 */
-	public static String PLATFORM_UNIT = "java";
+	public static final String PLATFORM_UNIT = "java";
 
-	public static String TMP_FOLDER = "tmpFolder";
-
+	public static final String TMP_FOLDER = "tmpFolder";
 }

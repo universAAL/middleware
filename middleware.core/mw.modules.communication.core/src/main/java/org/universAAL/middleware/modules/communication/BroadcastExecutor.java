@@ -30,7 +30,7 @@ import org.universAAL.middleware.modules.listener.MessageListener;
 
 /**
  * Thread for sending broadcast messages
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano "Kismet" Lenzi</a>
  */

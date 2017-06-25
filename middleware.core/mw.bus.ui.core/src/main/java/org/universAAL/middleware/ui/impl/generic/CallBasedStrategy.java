@@ -31,17 +31,17 @@ import org.universAAL.middleware.ui.impl.UIBusImpl;
 /**
  * A set of methods to place calls and responses, both for synchronous and
  * asynchronous calls.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class CallBasedStrategy extends EventBasedStrategy {
 
 	/**
 	 * A class to store the status of any given call.
-	 * 
+	 *
 	 * @author amedrano
-	 * 
+	 *
 	 */
 	private static class CallStatus {
 		Object output = null;
@@ -102,7 +102,7 @@ public class CallBasedStrategy extends EventBasedStrategy {
 	 * set in a waiting state until either a response to the message is
 	 * received, or the call is {@link CallBasedStrategy#abortCall(String)
 	 * aborted}.
-	 * 
+	 *
 	 * @param memberID
 	 *            The recipient of the request
 	 * @param callMessage
@@ -143,7 +143,7 @@ public class CallBasedStrategy extends EventBasedStrategy {
 	 * {@link CallMessage} the
 	 * {@link CallMessage#onResponse(BusStrategy, BusMessage, String)
 	 * onResponse} will have to manage.
-	 * 
+	 *
 	 * @param memberID
 	 * @param callMessage
 	 */
@@ -160,7 +160,7 @@ public class CallBasedStrategy extends EventBasedStrategy {
 	 * set in a waiting state until either a response to the message is
 	 * received, or the call is {@link CallBasedStrategy#abortCall(String)
 	 * aborted}.
-	 * 
+	 *
 	 * @param memberID
 	 *            The recipient of the request
 	 * @param callMessage
@@ -201,7 +201,7 @@ public class CallBasedStrategy extends EventBasedStrategy {
 	 * {@link CallMessage} the
 	 * {@link CallMessage#onResponse(BusStrategy, BusMessage, String)
 	 * onResponse} will have to manage.
-	 * 
+	 *
 	 * @param memberID
 	 * @param callMessage
 	 */
@@ -216,7 +216,7 @@ public class CallBasedStrategy extends EventBasedStrategy {
 	 * Abort the call with the given ID. it unblocks the call and the
 	 * {@link CallSynchronizer#performCall(Object, Object)} will throw a
 	 * {@link InterruptedException}.
-	 * 
+	 *
 	 * @param msgId
 	 *            the messageId of the call that should be aborted.
 	 */
@@ -243,7 +243,7 @@ public class CallBasedStrategy extends EventBasedStrategy {
 
 	/**
 	 * For use of {@link CallMessage} subclasses to send a response to the call.
-	 * 
+	 *
 	 * @param original
 	 * @param resp
 	 */

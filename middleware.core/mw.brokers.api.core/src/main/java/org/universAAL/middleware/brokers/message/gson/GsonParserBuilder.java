@@ -39,7 +39,7 @@ import com.google.gson.JsonSerializer;
 import com.google.gson.JsonSyntaxException;
 
 /**
- * 
+ *
  * @author <a href="mailto:giancarlo.riolo@isti.cnr.it">Giancarlo Riolo</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */

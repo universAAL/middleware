@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,26 +28,26 @@ import org.universAAL.middleware.rdf.PropertyPath;
 /**
  * The abstract class for all types of form controls that serve as a placeholder
  * for possible user input.
- * 
+ *
  * @author mtazari
  * @author Carsten Stockloew
  */
 public abstract class Input extends FormControl {
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Input";
+	public static final String MY_URI = Form.DIALOG_NAMESPACE + "Input";
 
 	/**
 	 * A mandatory (in the sense of "best practice") property for defining a
 	 * message to be communicated with human users if the provided input by them
 	 * is erroneous.
 	 */
-	public static final String PROP_INPUT_ALERT = Form.uAAL_DIALOG_NAMESPACE + "inputAlert";
+	public static final String PROP_INPUT_ALERT = Form.DIALOG_NAMESPACE + "inputAlert";
 
 	/**
 	 * A property that is set automatically by the dialog package as soon as an
 	 * input control is added to a {@link Submit} control as mandatory input. By
 	 * default, input controls are optional.
 	 */
-	public static final String PROP_IS_MANDATORY = Form.uAAL_DIALOG_NAMESPACE + "isMandatory";
+	public static final String PROP_IS_MANDATORY = Form.DIALOG_NAMESPACE + "isMandatory";
 
 	protected Input() {
 		super();

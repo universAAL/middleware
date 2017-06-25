@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,14 +24,14 @@ import org.universAAL.middleware.owl.ComparableIndividual;
 /**
  * Defines privacy levels that can be: insensible, known_people_only,
  * intimates_only, home_mates_only, personal
- * 
+ *
  * @author mtazari
  * @author Carsten Stockloew
  * @see org.universAAL.middleware.owl.ComparableIndividual
  */
 public class PrivacyLevel extends ComparableIndividual {
 
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "PrivacyLevel";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "PrivacyLevel";
 
 	public static final int INSENSIBLE = 0;
 	public static final int KNOWN_PEOPLE_ONLY = 1;
@@ -65,7 +65,7 @@ public class PrivacyLevel extends ComparableIndividual {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param order
 	 *            order
 	 * @return privacy level based on received order
@@ -105,18 +105,18 @@ public class PrivacyLevel extends ComparableIndividual {
 
 	/**
 	 * Constructor receives privacy level order
-	 * 
+	 *
 	 * @param order
 	 *            order
 	 */
 	private PrivacyLevel(int order) {
-		super(uAAL_VOCABULARY_NAMESPACE + names[order]);
+		super(VOCABULARY_NAMESPACE + names[order]);
 		this.order = order;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.middleware.owl.ComparableIndividual#getClassURI()
 	 */
 	public String getClassURI() {
@@ -125,7 +125,7 @@ public class PrivacyLevel extends ComparableIndividual {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.universAAL.middleware.owl.ComparableIndividual#compareTo(java.lang
 	 * .Object)
@@ -150,7 +150,7 @@ public class PrivacyLevel extends ComparableIndividual {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.universAAL.middleware.owl.ManagedIndividual#getPropSerializationType
 	 * (java.lang.String)
@@ -161,7 +161,7 @@ public class PrivacyLevel extends ComparableIndividual {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.middleware.owl.ManagedIndividual#isWellFormed()
 	 */
 	public boolean isWellFormed() {

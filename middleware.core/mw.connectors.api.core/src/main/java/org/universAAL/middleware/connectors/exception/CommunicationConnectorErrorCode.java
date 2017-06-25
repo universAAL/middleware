@@ -22,7 +22,7 @@ package org.universAAL.middleware.connectors.exception;
 
 /**
  * List of common error code for the CommunicationConnector
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:filippo.palumbo@isti.cnr.it">Filippo Palumbo</a>
@@ -35,13 +35,13 @@ public enum CommunicationConnectorErrorCode {
 	/**
 	 * This error code means that the message was not sent because the
 	 * destination of the message was not found among the member of the JGroups
-	 * cluster (e.g. the channel in uAAL jargon)
+	 * cluster (e.g. the channel in universAAL jargon)
 	 */
 	RECEIVER_NOT_EXISTS,
 
 	/**
 	 * This error code means that the message that we are trying to send does
-	 * not contain the name of the JGroup cluster (e.g. the channel in uAAL
+	 * not contain the name of the JGroup cluster (e.g. the channel in universAAL
 	 * jargon) where JGroups has to push the message
 	 */
 	NO_CHANNEL_SPECIFIED,
@@ -53,7 +53,7 @@ public enum CommunicationConnectorErrorCode {
 	MULTIPLE_RECEIVERS,
 
 	/**
-	 * This error code means that the JGroup cluster (e.g. the channel in uAAL
+	 * This error code means that the JGroup cluster (e.g. the channel in universAAL
 	 * jargon) destination has not been found among our JGroups cluster that we
 	 * are joined to
 	 */
@@ -61,7 +61,7 @@ public enum CommunicationConnectorErrorCode {
 
 	/**
 	 * This error code means that we are not connected to the JGroup cluster
-	 * (e.g. the channel in uAAL jargon) destination
+	 * (e.g. the channel in universAAL jargon) destination
 	 */
 	NOT_CONNECTED_TO_CHANNEL;
 }

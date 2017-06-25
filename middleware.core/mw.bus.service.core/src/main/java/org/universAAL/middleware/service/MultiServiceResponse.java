@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,7 +30,7 @@ import org.universAAL.middleware.service.owls.process.ProcessOutput;
 /**
  * The {@link MultiServiceResponse} represents a set of {@link ServiceResponse}
  * s.
- * 
+ *
  * @author Carsten Stockloew
  */
 public final class MultiServiceResponse extends ServiceResponse {
@@ -38,7 +38,7 @@ public final class MultiServiceResponse extends ServiceResponse {
 	/**
 	 * A resource URI that specifies the resource as a multi service response.
 	 */
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "MultiServiceResponse";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "MultiServiceResponse";
 
 	public MultiServiceResponse() {
 		super();
@@ -58,7 +58,7 @@ public final class MultiServiceResponse extends ServiceResponse {
 	/**
 	 * Retrieves the call status. The status is {@link CallStatus#succeeded} if
 	 * at least one of the responses has status {@link CallStatus#succeeded}.
-	 * 
+	 *
 	 * @return the current call status. If the aggregated call status is not set
 	 *         and the individual status are all not succeeded then a random
 	 *         status from one of the responses is returned.
@@ -80,7 +80,7 @@ public final class MultiServiceResponse extends ServiceResponse {
 
 	/**
 	 * Determines if one of the responses has the given call status.
-	 * 
+	 *
 	 * @param status
 	 *            the status to search for.
 	 * @return true, if one of the responses has the given call status.
@@ -97,7 +97,7 @@ public final class MultiServiceResponse extends ServiceResponse {
 
 	/**
 	 * Determines if one of the responses has a status that is not succeeded.
-	 * 
+	 *
 	 * @return true, of one of the responses has a status that is not succeeded.
 	 */
 	public boolean hasNoSuccessCallStatus() {
@@ -182,7 +182,7 @@ public final class MultiServiceResponse extends ServiceResponse {
 
 	/**
 	 * Add a new response to the list of responses.
-	 * 
+	 *
 	 * @param response
 	 *            The response to add.
 	 */
@@ -208,7 +208,7 @@ public final class MultiServiceResponse extends ServiceResponse {
 
 	/**
 	 * Get a list of all responses.
-	 * 
+	 *
 	 * @return the non-null list of all responses.
 	 */
 	public List<ServiceResponse> getResponses() {

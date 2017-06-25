@@ -33,14 +33,14 @@ import ch.ethz.iks.slp.ServiceLocationException;
 /**
  * the SLPDeaemon interface. Factored out to make the daemon part optional as
  * part of the jSLP modularity.
- * 
+ *
  * @author Jan S. Rellermeyer, ETH Zurich.
  */
 public interface SLPDaemon {
 
     /**
      * called, when a new DA has been discovered.
-     * 
+     *
      * @param advert
      *            the <code>DAAdvertisement</code> received from the new DA.
      */
@@ -48,7 +48,7 @@ public interface SLPDaemon {
 
     /**
      * handle a message dispatched by SLPCore.
-     * 
+     *
      * @param msg
      *            the message.
      * @return the reply message or <code>null</code>.

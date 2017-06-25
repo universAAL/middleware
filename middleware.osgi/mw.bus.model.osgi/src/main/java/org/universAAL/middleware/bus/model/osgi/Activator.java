@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,8 +28,8 @@ import org.osgi.framework.ServiceReference;
 import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.managers.api.AALSpaceManager;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
+import org.universAAL.middleware.managers.api.SpaceManager;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
 
@@ -43,14 +43,14 @@ public class Activator implements BundleActivator, ServiceListener {
 
 	public void start(BundleContext context) throws Exception {
 		this.context = context;
-		ModuleContext mc = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		ModuleContext mc = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { context });
 
 		// intentionally without checking for null, because if the following
 		// OSGi services are not found, then it makes no sense to start this
 		// bundle!
 
-		ServiceReference sRef = context.getServiceReference(AALSpaceManager.class.getName());
-		AALSpaceManager mgr = (AALSpaceManager) context.getService(sRef);
+		ServiceReference sRef = context.getServiceReference(SpaceManager.class.getName());
+		SpaceManager mgr = (SpaceManager) context.getService(sRef);
 		CommunicationModule mdl = (CommunicationModule) context
 				.getService(context.getServiceReference(CommunicationModule.class.getName()));
 		AbstractBus.initBrokerage(mc, mgr, mdl);

@@ -46,7 +46,7 @@ import org.universAAL.middleware.xsd.NonNegativeInteger;
 public final class ExactCardinalityRestriction extends PropertyRestriction {
 
 	/** URI for this class. */
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "ExactCardinalityRestriction";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "ExactCardinalityRestriction";
 
 	/** URI for owl:cardinality. */
 	public static final String PROP_OWL_CARDINALITY = OWL_NAMESPACE + "cardinality";
@@ -90,7 +90,7 @@ public final class ExactCardinalityRestriction extends PropertyRestriction {
 	}
 
 	/**
-	 * Get the value of this cardinality restriction
+	 * Get the value of this cardinality restriction.
 	 *
 	 * @return the value of this cardinality restriction
 	 */
@@ -168,10 +168,7 @@ public final class ExactCardinalityRestriction extends PropertyRestriction {
 			if (getValue() == 0 && ((MaxCardinalityRestriction) other).getValue() == 0)
 				return true;
 		} else if (other instanceof ExactCardinalityRestriction) {
-			if (getValue() == ((ExactCardinalityRestriction) other).getValue())
-				return true;
-			else
-				return false;
+			return getValue() == ((ExactCardinalityRestriction) other).getValue();
 		}
 
 		return false;

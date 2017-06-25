@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,12 +24,12 @@ package org.universAAL.middleware.ui.rdf;
  * starts a subdialog, normally used for viewing or editing complex data that
  * was represented in the main dialog in a summarized way or in way not suitable
  * for editing.
- * 
+ *
  * @author mtazari
  * @author Carsten Stockloew
  */
 public class SubdialogTrigger extends Submit {
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "SubdialogTrigger";
+	public static final String MY_URI = Form.DIALOG_NAMESPACE + "SubdialogTrigger";
 
 	/**
 	 * If a SubdialogTrigger is used in a column of a {@link Repeat} control,
@@ -48,12 +48,12 @@ public class SubdialogTrigger extends Submit {
 	 * in different {@link Repeat} controls or in different columns of the same
 	 * {@link Repeat} control.
 	 */
-	public static final String PROP_REPEATABLE_ID_PREFIX = Form.uAAL_DIALOG_NAMESPACE + "selectionXIDPrefix";
+	public static final String PROP_REPEATABLE_ID_PREFIX = Form.DIALOG_NAMESPACE + "selectionXIDPrefix";
 
 	/**
 	 * @see #PROP_REPEATABLE_ID_PREFIX
 	 */
-	public static final String VAR_REPEATABLE_ID = Form.uAAL_DIALOG_NAMESPACE + "repeatableSubmissionID";
+	public static final String VAR_REPEATABLE_ID = Form.DIALOG_NAMESPACE + "repeatableSubmissionID";
 
 	/**
 	 * For exclusive use by de-serializers.
@@ -64,7 +64,7 @@ public class SubdialogTrigger extends Submit {
 
 	/**
 	 * For exclusive use by applications.
-	 * 
+	 *
 	 * @param parent
 	 *            The mandatory parent group as the direct container of this
 	 *            input field. See {@link FormControl#PROP_PARENT_CONTROL}.
@@ -81,7 +81,7 @@ public class SubdialogTrigger extends Submit {
 
 	/**
 	 * Overrides {@link Submit#getID()}.
-	 * 
+	 *
 	 * @see #PROP_REPEATABLE_ID_PREFIX
 	 */
 	public String getID() {
@@ -106,7 +106,7 @@ public class SubdialogTrigger extends Submit {
 	 * {@link #VAR_REPEATABLE_ID}, which means that there must be an ancestor
 	 * {@link Repeat} control with a valid selection index in order to be able
 	 * to construct the submission ID.
-	 * 
+	 *
 	 * @see #PROP_REPEATABLE_ID_PREFIX
 	 */
 	public boolean needsSelection() {

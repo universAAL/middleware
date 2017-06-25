@@ -1,7 +1,7 @@
 /*
 Copyright 2011-2014 AGH-UST, http://www.agh.edu.pl
 Faculty of Computer Science, Electronics and Telecommunications
-Department of Computer Science 
+Department of Computer Science
 
 See the NOTICE file distributed with this work for additional
 information regarding copyright ownership
@@ -29,12 +29,12 @@ import java.lang.annotation.ElementType;
  * Annotation which marks interface as UniversAALService. This means that all
  * methods will be scanned for @ServiceOperation occurences and on its base a
  * ServiceProfiles will be generated.
- * 
+ *
  * - namespace - it is a service provider namespace which act as a prefix for
  * other annotation values - especially @Inputs, @Ouputs, and @ChangeEffects; -
  * name - name of service provider. If it is not provided then a interface
  * simple name is used as default.
- * 
+ *
  * @author dzmuda
  */
 @Retention(RetentionPolicy.RUNTIME)

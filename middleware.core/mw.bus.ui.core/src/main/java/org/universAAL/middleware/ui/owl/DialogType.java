@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,13 +25,13 @@ import org.universAAL.middleware.owl.ManagedIndividual;
  * Defines types of dialog that can be System menu, Message, Subdialog and
  * Standard Dialog. For their explanation check
  * {@link org.universAAL.middleware.ui.rdf.Form}
- * 
+ *
  * @author mtazari
  * @author Carsten Stockloew
  */
 public class DialogType extends ManagedIndividual {
 
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "DialogType";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "DialogType";
 
 	public static final int SYS_MENU = 0;
 	public static final int MESSAGE = 1;
@@ -77,18 +77,18 @@ public class DialogType extends ManagedIndividual {
 	/**
 	 * Constructor with order (it is private so that instantiation by other
 	 * callers is prevented)
-	 * 
+	 *
 	 * @param order
 	 *            order of dialog
 	 */
 	private DialogType(int order) {
-		super(uAAL_VOCABULARY_NAMESPACE + names[order]);
+		super(VOCABULARY_NAMESPACE + names[order]);
 		this.order = order;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI()
 	 */
 	public String getClassURI() {
@@ -97,7 +97,7 @@ public class DialogType extends ManagedIndividual {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.universAAL.middleware.owl.ManagedIndividual#getPropSerializationType
 	 * (java.lang.String)
@@ -108,7 +108,7 @@ public class DialogType extends ManagedIndividual {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.middleware.owl.ManagedIndividual#isWellFormed()
 	 */
 	public boolean isWellFormed() {

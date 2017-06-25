@@ -23,9 +23,9 @@ import org.universAAL.middleware.owl.URIRestriction;
 /**
  * A pattern that matches entities with an application part type scope.
  * Additionally, it can match partId in scopes with the provided pattern.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class ApplicationPartPattern implements EntityPattern {
 
@@ -41,7 +41,7 @@ public class ApplicationPartPattern implements EntityPattern {
 	/**
 	 * Match any Entity with an ApplicationPart Type scope where the partID also
 	 * matches the appPartID
-	 * 
+	 *
 	 * @param appPartId
 	 */
 	public ApplicationPartPattern(String appPartId) {

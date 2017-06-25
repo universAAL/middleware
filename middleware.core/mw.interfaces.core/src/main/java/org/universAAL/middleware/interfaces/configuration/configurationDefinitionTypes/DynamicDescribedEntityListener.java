@@ -25,16 +25,16 @@ import org.universAAL.middleware.xsd.Base64Binary;
 
 /**
  * Listener to be called when a {@link DynamicDescribedEntity} changes value.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public interface DynamicDescribedEntityListener {
 
 	/**
 	 * Call this method when the description of a Described Entity has changed,
 	 * so configuration editors can update it.
-	 * 
+	 *
 	 * @param dentity
 	 */
 	public void updatedDescription(DescribedEntity dentity);
@@ -57,7 +57,7 @@ public interface DynamicDescribedEntityListener {
 	 * <b>DO NOT USE INSIDE
 	 * {@link ConfigurableModule#configurationChanged(org.universAAL.middleware.interfaces.configuration.scope.Scope, Object)}
 	 * </b> as it will guarantee an infinite loop.
-	 * 
+	 *
 	 * @param deEntity
 	 * @param value
 	 */

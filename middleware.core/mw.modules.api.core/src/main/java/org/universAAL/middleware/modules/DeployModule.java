@@ -1,9 +1,9 @@
-/*	
+/*
 	Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
-	Institute of Information Science and Technologies 
-	of the Italian National Research Council 
+	Institute of Information Science and Technologies
+	of the Italian National Research Council
 
-	See the NOTICE file distributed with this work for additional 
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
 
 	Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@ package org.universAAL.middleware.modules;
 
 /**
  * The interface for the deploy module
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
@@ -31,7 +31,7 @@ public interface DeployModule extends Module {
 	/**
 	 * This method delegates to the right DeployConnector the installation of a
 	 * multipart application
-	 * 
+	 *
 	 * @param serializedPart
 	 *            the string serialization of the application part. An object
 	 *            representation can be obtained by using the unmarshaller
@@ -41,7 +41,7 @@ public interface DeployModule extends Module {
 	/**
 	 * This method delegates to the right DeployConnector the uninstallation of
 	 * a multipart application
-	 * 
+	 *
 	 * @param serializedPart
 	 *            the string serialization of the application part. An object
 	 *            representation can be obtained by using the unmarshaller

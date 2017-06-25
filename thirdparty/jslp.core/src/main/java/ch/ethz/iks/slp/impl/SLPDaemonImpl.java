@@ -54,7 +54,7 @@ import ch.ethz.iks.slp.ServiceURL;
  * as a SA and no other SLP daemon is running on the machine. UA-only
  * configurations or distributions that are intended to run on a machine with
  * OpenSLP <i>slpd</i> can be packaged without this class.
- * 
+ *
  * @author Jan S. Rellermeyer, ETH Zurich
  * @since 0.6
  */
@@ -67,21 +67,21 @@ public final class SLPDaemonImpl implements SLPDaemon {
 
     /**
      * Map of registered services:
-     * 
+     *
      * String scope -> List of ServiceURLs services.
      */
     private Map registeredServices = new HashMap();
 
     /**
      * Sorted set for disposal of services which lifetimes have expired:
-     * 
+     *
      * Long expirationTimestamp -> ServiceURL service.
      */
     private SortedMap serviceDisposalQueue = new TreeMap();
 
     /**
      * create a new SLPDaemon instance.
-     * 
+     *
      * @param tcpSocket
      *            the server socket.
      * @throws Exception
@@ -96,7 +96,7 @@ public final class SLPDaemonImpl implements SLPDaemon {
     /**
      * register a service with the SLP framework. For the scopes, where DAs are
      * known, the service will be registered with all DAs.
-     * 
+     *
      * @param reg
      *            the ServiceRegistration.
      */
@@ -181,7 +181,7 @@ public final class SLPDaemonImpl implements SLPDaemon {
     /**
      * deregister a service from the SLP framework. Deregisters from all DAs
      * within the scopes and from the local service cache.
-     * 
+     *
      * @param dereg
      *            the service deregistration.
      * @throws ServiceLocationException
@@ -240,7 +240,7 @@ public final class SLPDaemonImpl implements SLPDaemon {
 
     /**
      * all incoming messages are handled here.
-     * 
+     *
      * @param msg
      *            the message to be processed.
      * @return the reply if the handled message came in via TCP. Otherwise null
@@ -411,7 +411,7 @@ public final class SLPDaemonImpl implements SLPDaemon {
     /**
      * get informed about a new discovered DA. Registers all services in the
      * scopes of the new DA.
-     * 
+     *
      * @param advert
      *            the DA advertisement.
      */
@@ -445,7 +445,7 @@ public final class SLPDaemonImpl implements SLPDaemon {
 
     /**
      * register a service with a DA.
-     * 
+     *
      * @param dAAddress
      *            the IP address of the DA as <code>String</code>
      * @param reg
@@ -478,7 +478,7 @@ public final class SLPDaemonImpl implements SLPDaemon {
 
 	/**
 	 * creates and starts a new TCP server thread.
-	 * 
+	 *
 	 * @throws IOException
 	 *             if socket creation fails.
 	 */
@@ -526,7 +526,7 @@ public final class SLPDaemonImpl implements SLPDaemon {
 	    }
 	    /**
 	     * Michele issue 65
-	     * 
+	     *
 	     * try { socket.close(); } catch (IOException e) { // TODO
 	     * Auto-generated catch block e.printStackTrace(); }
 	     */
@@ -541,7 +541,7 @@ public final class SLPDaemonImpl implements SLPDaemon {
 
 	/**
 	 * create and start a new instance of this thread.
-	 * 
+	 *
 	 */
 	private ServiceDisposalThread() {
 	    start();

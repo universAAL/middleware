@@ -33,14 +33,14 @@ import ch.ethz.iks.slp.impl.filter.Filter;
 /**
  * Platform abstraction interface. Used to hide the different implementations
  * for the OSGi platform and for stand-alone Java.
- * 
+ *
  * @author Jan S. Rellermeyer, ETH Zurich.
  */
 public interface PlatformAbstraction {
 
     /**
      * Write a debug message to the log.
-     * 
+     *
      * @param message
      *            the message.
      */
@@ -48,7 +48,7 @@ public interface PlatformAbstraction {
 
     /**
      * Write a debug message to the log.
-     * 
+     *
      * @param message
      *            the message.
      * @param exception
@@ -58,7 +58,7 @@ public interface PlatformAbstraction {
 
     /**
      * Trace a generic message to the log.
-     * 
+     *
      * @param message
      *            the message.
      */
@@ -66,7 +66,7 @@ public interface PlatformAbstraction {
 
     /**
      * Trace a registration to the log.
-     * 
+     *
      * @param message
      *            the message.
      */
@@ -74,7 +74,7 @@ public interface PlatformAbstraction {
 
     /**
      * Trace a drop to the log.
-     * 
+     *
      * @param message
      *            the message.
      */
@@ -82,7 +82,7 @@ public interface PlatformAbstraction {
 
     /**
      * Write a warning message to the log.
-     * 
+     *
      * @param message
      *            the message.
      */
@@ -90,7 +90,7 @@ public interface PlatformAbstraction {
 
     /**
      * Write a warning message to the log.
-     * 
+     *
      * @param message
      *            the message.
      * @param exception
@@ -100,7 +100,7 @@ public interface PlatformAbstraction {
 
     /**
      * Write an error message to the log.
-     * 
+     *
      * @param message
      *            the message.
      */
@@ -108,7 +108,7 @@ public interface PlatformAbstraction {
 
     /**
      * Write an error message to the log.
-     * 
+     *
      * @param message
      *            the message.
      * @param exception
@@ -118,7 +118,7 @@ public interface PlatformAbstraction {
 
     /**
      * Create an LDAP filter.
-     * 
+     *
      * @param filterString
      *            the filter string.
      * @return an LDAP filter object.

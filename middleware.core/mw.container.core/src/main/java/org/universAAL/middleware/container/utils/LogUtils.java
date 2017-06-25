@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research 
-	
-	See the NOTICE file distributed with this work for additional 
+	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,7 +33,7 @@ import org.universAAL.middleware.container.ModuleContext;
  * Since the log entries are forwarded to <i>custom</i> log listeners, the
  * <code>msgPart</code> should contain only <i>unmodifiable</i> content.
  * </p>
- * 
+ *
  * @author mtazari
  * @author Carsten Stockloew
  */
@@ -41,7 +41,7 @@ public class LogUtils {
 
 	/**
 	 * Internal method to create a single String from a list of objects.
-	 * 
+	 *
 	 * @param cls
 	 *            The class which has called the logger.
 	 * @param method
@@ -56,7 +56,7 @@ public class LogUtils {
 
 	/**
 	 * Internal method to create a single String from a list of objects.
-	 * 
+	 *
 	 * @param msgPart
 	 *            The message of this log entry. All elements of this array are
 	 *            converted to a string object and concatenated.
@@ -126,7 +126,7 @@ public class LogUtils {
 	 * {@link ModuleContext#logDebug(String, String, Throwable)} is built in a
 	 * structured way by concatenating several different info (see the
 	 * parameters as well as {@link #buildMsg(Object[])}).
-	 * 
+	 *
 	 * @param mc
 	 *            the {@link ModuleContext} needed for accessing the
 	 *            container-specific logger for the corresponding module
@@ -151,7 +151,7 @@ public class LogUtils {
 	 * Simplified proxy method for
 	 * {@link #logDebug(ModuleContext, Class, String, Object[], Throwable)},
 	 * added for convenience.
-	 * 
+	 *
 	 * @param mc
 	 *            the {@link ModuleContext} needed for accessing the
 	 *            container-specific logger for the corresponding module
@@ -181,7 +181,7 @@ public class LogUtils {
 	 * {@link ModuleContext#logError(String, String, Throwable)} is built in a
 	 * structured way by concatenating several different info (see the
 	 * parameters as well as {@link #buildMsg(Object[])}).
-	 * 
+	 *
 	 * @param mc
 	 *            the {@link ModuleContext} needed for accessing the
 	 *            container-specific logger for the corresponding module
@@ -206,7 +206,7 @@ public class LogUtils {
 	 * Simplified proxy method for
 	 * {@link #logError(ModuleContext, Class, String, Object[], Throwable)},
 	 * added for convenience.
-	 * 
+	 *
 	 * @param mc
 	 *            the {@link ModuleContext} needed for accessing the
 	 *            container-specific logger for the corresponding module
@@ -236,7 +236,7 @@ public class LogUtils {
 	 * {@link ModuleContext#logInfo(String, String, Throwable)} is built in a
 	 * structured way by concatenating several different info (see the
 	 * parameters as well as {@link #buildMsg(Object[])}).
-	 * 
+	 *
 	 * @param mc
 	 *            the {@link ModuleContext} needed for accessing the
 	 *            container-specific logger for the corresponding module
@@ -261,7 +261,7 @@ public class LogUtils {
 	 * Simplified proxy method for
 	 * {@link #logInfo(ModuleContext, Class, String, Object[], Throwable)},
 	 * added for convenience.
-	 * 
+	 *
 	 * @param mc
 	 *            the {@link ModuleContext} needed for accessing the
 	 *            container-specific logger for the corresponding module
@@ -291,7 +291,7 @@ public class LogUtils {
 	 * {@link ModuleContext#logWarn(String, String, Throwable)} is built in a
 	 * structured way by concatenating several different info (see the
 	 * parameters as well as {@link #buildMsg(Object[])}).
-	 * 
+	 *
 	 * @param mc
 	 *            the {@link ModuleContext} needed for accessing the
 	 *            container-specific logger for the corresponding module
@@ -316,7 +316,7 @@ public class LogUtils {
 	 * Simplified proxy method for
 	 * {@link #logWarn(ModuleContext, Class, String, Object[], Throwable)},
 	 * added for convenience.
-	 * 
+	 *
 	 * @param mc
 	 *            the {@link ModuleContext} needed for accessing the
 	 *            container-specific logger for the corresponding module
@@ -346,7 +346,7 @@ public class LogUtils {
 	 * {@link ModuleContext#logTrace(String, String, Throwable)} is built in a
 	 * structured way by concatenating several different info (see the
 	 * parameters as well as {@link #buildMsg(Object[])}).
-	 * 
+	 *
 	 * @param mc
 	 *            the {@link ModuleContext} needed for accessing the
 	 *            container-specific logger for the corresponding module
@@ -371,7 +371,7 @@ public class LogUtils {
 	 * Simplified proxy method for
 	 * {@link #logTrace(ModuleContext, Class, String, Object[], Throwable)},
 	 * added for convenience.
-	 * 
+	 *
 	 * @param mc
 	 *            the {@link ModuleContext} needed for accessing the
 	 *            container-specific logger for the corresponding module

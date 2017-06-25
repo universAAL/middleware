@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,14 +32,14 @@ import org.universAAL.middleware.context.ContextEvent;
  * context providers) and infers the state of a context element using different
  * methods, such as aggregation, statistical analysis, and logical deduction, to
  * name a few.
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ *
  */
 public class ContextProviderType extends ManagedIndividual {
 
-	public static final String MY_URI = ContextEvent.uAAL_CONTEXT_NAMESPACE + "ContextProviderType";
+	public static final String MY_URI = ContextEvent.CONTEXT_NAMESPACE + "ContextProviderType";
 
 	/**
 	 * The ordering number for controllers, needed for the implementation of the
@@ -107,7 +107,7 @@ public class ContextProviderType extends ManagedIndividual {
 
 	// for the internal usage above
 	private ContextProviderType(int order) {
-		super(ContextEvent.uAAL_CONTEXT_NAMESPACE + names[order]);
+		super(ContextEvent.CONTEXT_NAMESPACE + names[order]);
 		this.order = order;
 	}
 
@@ -117,7 +117,7 @@ public class ContextProviderType extends ManagedIndividual {
 
 	/**
 	 * The class has no property; any "imaginary" property can be ignored!
-	 * 
+	 *
 	 * @see ManagedIndividual#getPropSerializationType(String).
 	 */
 	public int getPropSerializationType(String propURI) {
@@ -126,7 +126,7 @@ public class ContextProviderType extends ManagedIndividual {
 
 	/**
 	 * The internal instances created above are always well-formed.
-	 * 
+	 *
 	 * @see ManagedIndividual#isWellFormed().
 	 */
 	public boolean isWellFormed() {
@@ -150,7 +150,7 @@ public class ContextProviderType extends ManagedIndividual {
 
 	/**
 	 * The class has no property, so ignore the call!
-	 * 
+	 *
 	 * @see ManagedIndividual#setProperty(String, Object).
 	 */
 	public boolean setProperty(String propURI, Object o) {

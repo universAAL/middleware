@@ -19,7 +19,7 @@ package org.universAAL.middleware.interfaces.configuration.configurationDefiniti
 
 import java.util.Locale;
 
-import org.universAAL.middleware.interfaces.configuration.scope.AALSpaceScope;
+import org.universAAL.middleware.interfaces.configuration.scope.SpaceScope;
 import org.universAAL.middleware.interfaces.configuration.scope.AppPartScope;
 import org.universAAL.middleware.interfaces.configuration.scope.ApplicationScope;
 import org.universAAL.middleware.interfaces.configuration.scope.InstanceScope;
@@ -29,7 +29,7 @@ import org.universAAL.middleware.interfaces.configuration.scope.Scope;
 /**
  * A {@link DescribedEntity} is an Entity that is restricted to certain
  * {@link Scope} and has a description.
- * 
+ *
  * @author amedrano
  * @See Scope
  */
@@ -38,20 +38,20 @@ public interface DescribedEntity {
 	/**
 	 * Define the ID and Scope for this Entity.
 	 * <ul>
-	 * <li>{@link AALSpaceScope} defines that this entity is applicable over the
-	 * whole AALSpace, so when managed its value will be the same on the whole
-	 * AALSpace.
+	 * <li>{@link SpaceScope} defines that this entity is applicable over the
+	 * whole Space, so when managed its value will be the same on the whole
+	 * Space.
 	 * <li>{@link InstanceScope} defines that this entity is only applicable for
 	 * the instance given in the scope.
 	 * <li>{@link ModuleScope} the entity is only applicable for the given
 	 * module and instance.
 	 * <li>{@link ApplicationScope} defines that this entity is applicable over
-	 * a certain application, this will be shared over the whole AALSpace for
+	 * a certain application, this will be shared over the whole Space for
 	 * the same application.
 	 * <li>{@link AppPartScope} same as {@link ApplicationScope} but with finer
 	 * grain, for application parts.
 	 * </ul>
-	 * 
+	 *
 	 * @return a valid scope.
 	 */
 	public Scope getScope();
@@ -59,7 +59,7 @@ public interface DescribedEntity {
 	/**
 	 * Description of the entity. It can be localized so the description can be
 	 * given in different languages.
-	 * 
+	 *
 	 * @param loc
 	 *            the preferred locale for the description.
 	 * @return the Description of the entity.

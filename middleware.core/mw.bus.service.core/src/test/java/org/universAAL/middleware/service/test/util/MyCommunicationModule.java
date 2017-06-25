@@ -12,6 +12,7 @@ import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.modules.exception.CommunicationModuleException;
 import org.universAAL.middleware.modules.listener.MessageListener;
+import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.impl.ServiceBusImpl;
 
 public class MyCommunicationModule implements CommunicationModule {
@@ -91,7 +92,7 @@ public class MyCommunicationModule implements CommunicationModule {
 			String out = "\n\nSending message from -" + n1 + "- to -" + n2 + "-:\n\t"
 					+ message.getContent().replace("\n\n", "\n").replace("\n", "\n\t") + "\n\n";
 
-			if (!out.contains("a <http://ontology.universAAL.org/uAAL.owl#Coordinator> ."))
+			if (!out.contains("a " + Resource.VOCABULARY_NAMESPACE + "Coordinator> ."))
 				System.out.println(out);
 		}
 		listener.messageReceived(message);

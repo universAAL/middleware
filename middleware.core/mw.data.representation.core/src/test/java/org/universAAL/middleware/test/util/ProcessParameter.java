@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,15 +31,15 @@ import org.universAAL.middleware.rdf.Variable;
  * Implementation of process:Parameter; see service bus for details
  */
 public class ProcessParameter extends Variable {
-	public static final String OWLS_PROCESS_NAMESPACE = "http://uaal.org/Process.owl#";
+	public static final String OWLS_PROCESS_NAMESPACE = "http://universAAL.org/Process.owl#";
 	public static final String MY_URI = OWLS_PROCESS_NAMESPACE + "Parameter";
 
 	public static final String PROP_OWLS_PROCESS_PARAMETER_TYPE = OWLS_PROCESS_NAMESPACE + "parameterType";
 	public static final String PROP_OWLS_PROCESS_PARAMETER_VALUE = OWLS_PROCESS_NAMESPACE + "parameterValue";
-	public static final String PROP_PARAMETER_DEFAULT_VALUE = uAAL_SERVICE_NAMESPACE + "defaultValue";
-	public static final String PROP_PARAMETER_CARDINALITY = uAAL_SERVICE_NAMESPACE + "parameterCardinality";
-	public static final String PROP_PARAMETER_MAX_CARDINALITY = uAAL_SERVICE_NAMESPACE + "parameterMaxCardinality";
-	public static final String PROP_PARAMETER_MIN_CARDINALITY = uAAL_SERVICE_NAMESPACE + "parameterMinCardinality";
+	public static final String PROP_PARAMETER_DEFAULT_VALUE = SERVICE_NAMESPACE + "defaultValue";
+	public static final String PROP_PARAMETER_CARDINALITY = SERVICE_NAMESPACE + "parameterCardinality";
+	public static final String PROP_PARAMETER_MAX_CARDINALITY = SERVICE_NAMESPACE + "parameterMaxCardinality";
+	public static final String PROP_PARAMETER_MIN_CARDINALITY = SERVICE_NAMESPACE + "parameterMinCardinality";
 
 	public static final String PROP_OWLS_VALUE_OF_THE_VAR = OWLS_PROCESS_NAMESPACE + "theVar";
 	public static final String TYPE_OWLS_VALUE_OF = OWLS_PROCESS_NAMESPACE + "ValueOf";
@@ -48,7 +48,7 @@ public class ProcessParameter extends Variable {
 		/**
 		 * Return true iff the object is Variable Reference (a resource of OWL-S
 		 * http://www.daml.org/services/owl-s/1.1/Process.owl#ValueOf class)
-		 * 
+		 *
 		 * @param o
 		 *            - the object to test
 		 * @return - true iff the object is a resource of OWL-S ValueOf class
@@ -62,7 +62,7 @@ public class ProcessParameter extends Variable {
 		 * property {@link #PROP_OWLS_VALUE_OF_THE_VAR}
 		 * (http://www.daml.org/services/owl-s/1.1/Process.owl#theVar) or from
 		 * the context.
-		 * 
+		 *
 		 * @param o
 		 *            - the variable reference
 		 * @param context
@@ -114,7 +114,7 @@ public class ProcessParameter extends Variable {
 	 * Create a variable reference (a resource of OWL-S
 	 * http://www.daml.org/services/owl-s/1.1/Process.owl#ValueOf class) from
 	 * this ProcessParameter
-	 * 
+	 *
 	 * @return the Variable Reference resource
 	 */
 	public Resource asVariableReference() {
@@ -126,7 +126,7 @@ public class ProcessParameter extends Variable {
 
 	/**
 	 * Returns the maximal cardinality of this parameter
-	 * 
+	 *
 	 * @return - the maximal cardinality
 	 */
 	public int getMaxCardinality() {
@@ -140,7 +140,7 @@ public class ProcessParameter extends Variable {
 
 	/**
 	 * Returns the minimal cardinality of this parameter
-	 * 
+	 *
 	 * @return - the minimal cardinality
 	 */
 	public int getMinCardinality() {
@@ -154,7 +154,7 @@ public class ProcessParameter extends Variable {
 
 	/**
 	 * Returns the default value of this parameter
-	 * 
+	 *
 	 * @return - the object representing the default value
 	 */
 	public Object getDefaultValue() {
@@ -169,7 +169,7 @@ public class ProcessParameter extends Variable {
 
 	/**
 	 * Returns the parameter type of this parameter
-	 * 
+	 *
 	 * @return String - the parameter type
 	 */
 	public String getParameterType() {
@@ -181,7 +181,7 @@ public class ProcessParameter extends Variable {
 
 	/**
 	 * Returns the value of this parameter
-	 * 
+	 *
 	 * @return - the object representing the value
 	 */
 	public Object getParameterValue() {
@@ -258,7 +258,7 @@ public class ProcessParameter extends Variable {
 
 	/**
 	 * Set cardinality of the process parameter
-	 * 
+	 *
 	 * @param max
 	 *            - maximal cardinality
 	 * @param min
@@ -285,7 +285,7 @@ public class ProcessParameter extends Variable {
 
 	/**
 	 * Set the default value of this parameter
-	 * 
+	 *
 	 * @param value
 	 *            - the object representing the default value
 	 */
@@ -303,7 +303,7 @@ public class ProcessParameter extends Variable {
 
 	/**
 	 * Set the parameter type of this parameter
-	 * 
+	 *
 	 * @param typeURI
 	 *            - the URI of the parameter type
 	 */
@@ -317,7 +317,7 @@ public class ProcessParameter extends Variable {
 
 	/**
 	 * Set the value of this parameter
-	 * 
+	 *
 	 * @param value
 	 *            - the object representing the value
 	 */
@@ -334,7 +334,7 @@ public class ProcessParameter extends Variable {
 
 	/**
 	 * Set a value of a property for this process parameter
-	 * 
+	 *
 	 * @param prop
 	 *            - the property to set
 	 * @param val

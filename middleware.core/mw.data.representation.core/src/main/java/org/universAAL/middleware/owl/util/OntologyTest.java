@@ -57,7 +57,7 @@ public final class OntologyTest {
 		if (fact == null)
 			// must be an abstract class
 			return true;
-		Resource testInstance = fact.createInstance(info.getURI(), Resource.uAAL_NAMESPACE_PREFIX + "testInstance",
+		Resource testInstance = fact.createInstance(info.getURI(), Resource.NAMESPACE_PREFIX + "testInstance",
 				info.getFactoryIndex());
 		ManagedIndividual m = (ManagedIndividual) testInstance;
 
@@ -145,8 +145,8 @@ public final class OntologyTest {
 			// test the serialization type for some of the properties
 
 			String[] propURIs = { "http://www.daml.org/services/owl-s/1.1/Service.owl#presents",
-					"http://ontology.universAAL.org/uAAL.owl#instanceLevelRestrictions",
-					"http://ontology.universAAL.org/uAAL.owl#numberOfValueRestrictions" };
+					Resource.VOCABULARY_NAMESPACE + "instanceLevelRestrictions",
+					Resource.VOCABULARY_NAMESPACE + "numberOfValueRestrictions" };
 			for (String propURI : propURIs) {
 				if (m.getPropSerializationType(propURI) != Resource.PROP_SERIALIZATION_FULL) {
 					LogUtils.logWarn(SharedResources.moduleContext, OntologyTest.class, "postTestClass",
@@ -224,7 +224,7 @@ public final class OntologyTest {
 				return false;
 			}
 
-			Resource testInstance = fact.createInstance(info.getURI(), Resource.uAAL_NAMESPACE_PREFIX + "testInstance",
+			Resource testInstance = fact.createInstance(info.getURI(), Resource.NAMESPACE_PREFIX + "testInstance",
 					info.getFactoryIndex());
 			if (testInstance == null) {
 				LogUtils.logError(SharedResources.moduleContext, OntologyTest.class, "testClass",

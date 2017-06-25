@@ -24,15 +24,15 @@ import org.universAAL.middleware.interfaces.configuration.scope.Scope;
 
 /**
  * Implementations of this interface should take configuration changes.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public interface ConfigurableModule {
 
 	/**
 	 * When a configuration is changed this method is called.
-	 * 
+	 *
 	 * @param param
 	 *            The parameter scope + id that has to change value.
 	 * @param value

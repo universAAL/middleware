@@ -43,7 +43,7 @@ import ch.ethz.iks.slp.ServiceURL;
 /**
  * a ServiceRegistation message is sent to register a service with all DAs in
  * the scopes.
- * 
+ *
  * @author Jan S. Rellermeyer, ETH Zurich
  * @since 0.1
  */
@@ -75,7 +75,7 @@ class ServiceRegistration extends SLPMessage {
 
     /**
      * creates a new ServiceRegistration message.
-     * 
+     *
      * @param serviceURL
      *            the ServiceURL of the service.
      * @param type
@@ -84,11 +84,11 @@ class ServiceRegistration extends SLPMessage {
      *            a List of scopes.
      * @param attributes
      *            a List of attributes in
-     * 
+     *
      *            <pre>
      * (key = value)
      * </pre>
-     * 
+     *
      *            format.
      * @param theLocale
      *            the locale.
@@ -119,7 +119,7 @@ class ServiceRegistration extends SLPMessage {
     /**
      * create a new ServiceRegistration from a DataInput streaming the bytes of
      * an ServiceRegistration message body.
-     * 
+     *
      * @param input
      *            stream of bytes forming the message body.
      * @throws ServiceLocationException
@@ -149,7 +149,7 @@ class ServiceRegistration extends SLPMessage {
      * get the bytes of the message body in the following RFC 2608 compliant
      * format:
      * <p>
-     * 
+     *
      * <pre>
      *         0                   1                   2                   3
      *         0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -167,10 +167,10 @@ class ServiceRegistration extends SLPMessage {
      *        |# of AttrAuths |(if present) Attribute Authentication Blocks...\
      *        +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      * </pre>
-     * 
+     *
      * .
      * </p>
-     * 
+     *
      * @return array of bytes.
      * @throws ServiceLocationException
      *             if an IO Exception occurs.
@@ -189,7 +189,7 @@ class ServiceRegistration extends SLPMessage {
 
     /**
      * get the length of the message.
-     * 
+     *
      * @return the length of the message.
      * @see ch.ethz.iks.slp.impl.SLPMessage#getSize()
      */
@@ -206,7 +206,7 @@ class ServiceRegistration extends SLPMessage {
 
     /**
      * get a string representation of the AttributeReply message.
-     * 
+     *
      * @return a String displaying the properties of this message instance.
      */
     public String toString() {
@@ -221,7 +221,7 @@ class ServiceRegistration extends SLPMessage {
 
     /**
      * sign this ServiceRegistration.
-     * 
+     *
      * @param spiList
      *            the List of SPIs.
      * @throws ServiceLocationException
@@ -244,7 +244,7 @@ class ServiceRegistration extends SLPMessage {
 
     /**
      * verify this ServiceRegistration.
-     * 
+     *
      * @return true if verification suceeds.
      * @throws ServiceLocationException
      *             in case of IO errors.
@@ -261,7 +261,7 @@ class ServiceRegistration extends SLPMessage {
 
     /**
      * get the authentication data.
-     * 
+     *
      * @param spi
      *            the SPI.
      * @param timestamp

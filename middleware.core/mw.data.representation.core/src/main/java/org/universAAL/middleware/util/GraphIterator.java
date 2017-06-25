@@ -40,7 +40,7 @@ public class GraphIterator implements Iterator {
 	 * return true iff the objects are equal (instead of the URI as it is
 	 * defined for {@link Resource}).
 	 */
-	public static class ObjectEqualsResource {
+	public final static class ObjectEqualsResource {
 		public Resource r;
 
 		public ObjectEqualsResource(Resource r) {
@@ -48,7 +48,7 @@ public class GraphIterator implements Iterator {
 		}
 
 		@Override
-		public boolean equals(Object obj) {
+		public final boolean equals(Object obj) {
 			if (obj == null)
 				return false;
 			if (!(obj instanceof ObjectEqualsResource))
@@ -57,11 +57,11 @@ public class GraphIterator implements Iterator {
 		}
 
 		@Override
-		public int hashCode() {
+		public final int hashCode() {
 			return r.hashCode();
 		}
 
-		public ObjectEqualsResource set(Resource r) {
+		public final ObjectEqualsResource set(Resource r) {
 			this.r = r;
 			return this;
 		}
@@ -151,7 +151,7 @@ public class GraphIterator implements Iterator {
 		}
 
 		@Override
-		protected void createNext() {
+		protected final void createNext() {
 			if (first)
 				return;
 
@@ -183,14 +183,14 @@ public class GraphIterator implements Iterator {
 		}
 
 		@Override
-		public boolean hasNext() {
+		public final boolean hasNext() {
 			if (first)
 				return true;
 			return super.hasNext();
 		}
 
 		@Override
-		public Object next() {
+		public final Object next() {
 			if (first) {
 				first = false;
 				visitedResources.add(new ObjectEqualsResource(se.nodeParent));
@@ -245,7 +245,7 @@ public class GraphIterator implements Iterator {
 		return r.getPropertyURIs();
 	}
 
-	protected void stepDeeper(Resource root) {
+	protected final void stepDeeper(Resource root) {
 		visitedResources.add(new ObjectEqualsResource(root));
 		StackElement newSe = new StackElement();
 		newSe.nodeParent = root;
@@ -259,14 +259,14 @@ public class GraphIterator implements Iterator {
 		se = newSe;
 	}
 
-	protected boolean stepHigher() {
+	protected final boolean stepHigher() {
 		if (stack.isEmpty())
 			return false;
 		se = stack.pop();
 		return true;
 	}
 
-	protected void createResult() {
+	protected final void createResult() {
 		if (se.nodeChild instanceof List)
 			nextElement = new GraphIteratorElement(se.nodeParent, se.propURI, se.lstElement, se.depth, true,
 					se.lstIndex, (List) se.nodeChild);
@@ -360,7 +360,7 @@ public class GraphIterator implements Iterator {
 	/**
 	 * @see java.util.Iterator#remove()
 	 */
-	public void remove() {
+	public final void remove() {
 		throw new UnsupportedOperationException("Removing resources is not allowed in a GraphIterator");
 	}
 }

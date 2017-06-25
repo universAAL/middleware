@@ -21,11 +21,11 @@
 package org.universAAL.middleware.brokers.message.deploy;
 
 /**
- * 
+ *
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano "Kismet" Lenzi</a>
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @version $LastChangedRevision$ ($LastChangedDate$)
- * 
+ *
  */
 public class DeployMessageException extends RuntimeException {
 	/**
@@ -35,7 +35,7 @@ public class DeployMessageException extends RuntimeException {
 	String description;
 
 	/**
-	 * 
+	 *
 	 * @param msg
 	 *            the error message describing what is happened, it will be
 	 *            stored also into the {@link #description} field
@@ -54,7 +54,7 @@ public class DeployMessageException extends RuntimeException {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return the current value of the {@link #description} field
 	 */
 	public String getDescription() {

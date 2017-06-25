@@ -30,7 +30,7 @@ import java.util.Properties;
 
 /**
  * Utility class for widely-used operations
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
@@ -38,7 +38,7 @@ public class Util {
 
 	/**
 	 * This method
-	 * 
+	 *
 	 * @param context
 	 * @return
 	 */
@@ -74,7 +74,7 @@ public class Util {
 	/**
 	 * This method returns a File object found in the target dir containing the
 	 * marker
-	 * 
+	 *
 	 * @param marker
 	 * @param targetDir
 	 * @return

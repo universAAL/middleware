@@ -23,9 +23,9 @@ import org.universAAL.middleware.interfaces.PeerCard;
 /**
  * Abstract definition of a Scope. A Scope, not only defines where it is
  * applicable, it defines a unique identifier for an entity within the scope.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public abstract class Scope {
 
@@ -37,7 +37,7 @@ public abstract class Scope {
 
 	/**
 	 * Constructor with a given identifier.
-	 * 
+	 *
 	 * @param id
 	 *            the unique identifier for an entity within the scope.
 	 */
@@ -52,15 +52,15 @@ public abstract class Scope {
 
 	/**
 	 * Get the unique identifier for the entity with in the scope.
-	 * 
+	 *
 	 * @return
 	 */
 	public String getId() {
 		return id;
 	}
 
-	public static Scope aalScope(String id) {
-		return new AALSpaceScope(id);
+	public static Scope scope(String id) {
+		return new SpaceScope(id);
 	}
 
 	public static Scope instanceScope(String id, PeerCard peerCard) {

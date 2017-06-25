@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,7 +30,7 @@ import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
- * Support for the uAAL model of process effects. The uAAL model of process
+ * Support for the universAAL model of process effects. The universAAL model of process
  * effects allows three types of effects all affecting a reachable property (see
  * {@link PropertyPath}) from the data that has been selected through both the
  * class-level and the instance-level restrictions of the service at hand. These
@@ -41,24 +41,24 @@ import org.universAAL.middleware.rdf.Resource;
  * {@link ManagedIndividual} but this class simply provides support for the
  * definition of the needed constant values as well as helps in constructing a
  * {@link Resource} representation of them.
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ *
  */
 public abstract class ProcessEffect {
-	public static final String PROP_PROCESS_AFFECTED_PROPERTY = Resource.uAAL_SERVICE_NAMESPACE + "affectedProperty";
-	public static final String PROP_PROCESS_PROPERTY_VALUE = Resource.uAAL_SERVICE_NAMESPACE + "propertyValue";
-	public static final String TYPE_PROCESS_ADD_EFFECT = Resource.uAAL_SERVICE_NAMESPACE + "AddEffect";
-	public static final String TYPE_PROCESS_CHANGE_EFFECT = Resource.uAAL_SERVICE_NAMESPACE + "ChangeEffect";
-	public static final String TYPE_PROCESS_REMOVE_EFFECT = Resource.uAAL_SERVICE_NAMESPACE + "RemoveEffect";
+	public static final String PROP_PROCESS_AFFECTED_PROPERTY = Resource.SERVICE_NAMESPACE + "affectedProperty";
+	public static final String PROP_PROCESS_PROPERTY_VALUE = Resource.SERVICE_NAMESPACE + "propertyValue";
+	public static final String TYPE_PROCESS_ADD_EFFECT = Resource.SERVICE_NAMESPACE + "AddEffect";
+	public static final String TYPE_PROCESS_CHANGE_EFFECT = Resource.SERVICE_NAMESPACE + "ChangeEffect";
+	public static final String TYPE_PROCESS_REMOVE_EFFECT = Resource.SERVICE_NAMESPACE + "RemoveEffect";
 
 	/**
 	 * Returns true or false depending if the object o contains the right effect
-	 * 
+	 *
 	 * @param Object
 	 *            o The object that contains the effect to check
-	 * 
+	 *
 	 * @return true if the object contains the right effect, return false on
 	 *         contrary.
 	 */
@@ -101,7 +101,7 @@ public abstract class ProcessEffect {
 
 	/**
 	 * Adds a effect of a resource
-	 * 
+	 *
 	 * @param Propertypath
 	 *            path to set the effect.
 	 * @param Object
@@ -123,7 +123,7 @@ public abstract class ProcessEffect {
 
 	/**
 	 * Changes a effect of a resource
-	 * 
+	 *
 	 * @param Propertypath
 	 *            path to set the effect.
 	 * @param Object
@@ -145,7 +145,7 @@ public abstract class ProcessEffect {
 
 	/**
 	 * Removes a effect of a resource
-	 * 
+	 *
 	 * @param Propertypath
 	 *            path to set the effect.
 	 * @param Object
@@ -166,7 +166,7 @@ public abstract class ProcessEffect {
 
 	/**
 	 * Finds if the requested resource match with the context provided
-	 * 
+	 *
 	 * @param Resource
 	 *            req. Resource requested to check.
 	 * @param Hastable

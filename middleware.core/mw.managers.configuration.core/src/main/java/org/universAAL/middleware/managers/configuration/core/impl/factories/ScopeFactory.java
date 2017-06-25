@@ -17,7 +17,7 @@
 
 package org.universAAL.middleware.managers.configuration.core.impl.factories;
 
-import org.universAAL.middleware.interfaces.configuration.scope.AALSpaceScope;
+import org.universAAL.middleware.interfaces.configuration.scope.SpaceScope;
 import org.universAAL.middleware.interfaces.configuration.scope.AppPartScope;
 import org.universAAL.middleware.interfaces.configuration.scope.ApplicationScope;
 import org.universAAL.middleware.interfaces.configuration.scope.InstanceScope;
@@ -27,7 +27,7 @@ import org.universAAL.middleware.managers.configuration.core.owl.Entity;
 
 /**
  * Transform {@link Scope Scopes} to and from URI definitions.
- * 
+ *
  * @author amedrano
  */
 public class ScopeFactory {
@@ -60,7 +60,7 @@ public class ScopeFactory {
 	/**
 	 * Transform a {@link Scope} to a {@link String} that can be used to
 	 * uniquely identified the associated {@link Entity}.
-	 * 
+	 *
 	 * @param scope
 	 * @return a URI.
 	 */
@@ -92,7 +92,7 @@ public class ScopeFactory {
 	/**
 	 * Given a String, try to decifer the Scope instance that is associated to
 	 * it.
-	 * 
+	 *
 	 * @param urn
 	 *            the URI.
 	 * @return a {@link Scope}, null if could not parse.
@@ -103,7 +103,7 @@ public class ScopeFactory {
 			return null;
 		}
 		if (params.length == 3) {
-			return new AALSpaceScope(params[2]);
+			return new SpaceScope(params[2]);
 		}
 		if (params.length == 5) {
 			if (params[3].equals(L_INSTANCE)) {

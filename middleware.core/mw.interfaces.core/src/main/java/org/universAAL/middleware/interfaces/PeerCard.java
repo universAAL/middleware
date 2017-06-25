@@ -27,8 +27,8 @@ import java.net.URISyntaxException;
 import java.util.UUID;
 
 /**
- * This class identifies a Peer in the AAL space
- * 
+ * This class identifies a Peer in the space
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
@@ -48,7 +48,7 @@ public class PeerCard {
 
 	/**
 	 * Instantiate a PeerCard and generated the peer unique ID
-	 * 
+	 *
 	 * @param role
 	 */
 	public PeerCard(PeerRole role, String containerUnit, String platformUnit) {
@@ -67,7 +67,7 @@ public class PeerCard {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param strSerialization
 	 * @deprecated
 	 */
@@ -82,7 +82,7 @@ public class PeerCard {
 
 	/**
 	 * Return the peer unique ID
-	 * 
+	 *
 	 * @return String representing the ID
 	 */
 	public String getPeerID() {
@@ -100,7 +100,7 @@ public class PeerCard {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return true if the Peer owns the Coordinator role, false otherwise
 	 */
 	public boolean isCoordinator() {
@@ -150,7 +150,7 @@ public class PeerCard {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return a {@link URI} representing the PeerCard, that is actually based
 	 *         on the PeerId
 	 * @since 2.0.3

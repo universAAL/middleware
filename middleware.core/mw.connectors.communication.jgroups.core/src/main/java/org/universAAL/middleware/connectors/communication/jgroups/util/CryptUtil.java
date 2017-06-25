@@ -1,16 +1,16 @@
 /*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institut f�r Graphische Datenverarbeitung
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,10 +38,10 @@ import javax.crypto.spec.DESKeySpec;
 /**
  * A utility class for managing private/public keys and encrypting/decrypting
  * strings
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ *
  */
 public class CryptUtil {
 
@@ -57,7 +57,7 @@ public class CryptUtil {
 	/**
 	 * Initialization method - reads the shared key from the file system or
 	 * generates a new shared key
-	 * 
+	 *
 	 * @param String
 	 *            dir - the directory where the shared key file resides
 	 * @param codec
@@ -91,11 +91,11 @@ public class CryptUtil {
 	/**
 	 * decrypt the parameter string with the shared key read during
 	 * initialization
-	 * 
+	 *
 	 * @param String
 	 *            chiper - the string to decrypt
 	 * @return the decrypted string
-	 * 
+	 *
 	 */
 	public static String decrypt(String cipher) throws Exception {
 		return decrypt(cipher, skey);
@@ -104,13 +104,13 @@ public class CryptUtil {
 	/**
 	 * decrypt the first parameter string with the shared key received as the
 	 * second parameter
-	 * 
+	 *
 	 * @param String
 	 *            chiper - the string to decrypt
 	 * @param SecretKey
 	 *            skey - the shared key
 	 * @return the decrypted string
-	 * 
+	 *
 	 */
 	private static String decrypt(String cipher, SecretKey skey) throws Exception {
 		Cipher desCipher = Cipher.getInstance(cipherTransformation);
@@ -121,11 +121,11 @@ public class CryptUtil {
 	/**
 	 * encrypt the parameter string with the shared key read during
 	 * initialization
-	 * 
+	 *
 	 * @param String
 	 *            clear - the string to encrypt
 	 * @return the encrypted string
-	 * 
+	 *
 	 */
 	public static String encrypt(String clear) throws Exception {
 		return encrypt(clear, skey);
@@ -134,13 +134,13 @@ public class CryptUtil {
 	/**
 	 * encrypt the first parameter string with the shared key received as the
 	 * second parameter
-	 * 
+	 *
 	 * @param String
 	 *            clear - the string to encrypt
 	 * @param SecretKey
 	 *            skey - the shared key
 	 * @return the encrypted string
-	 * 
+	 *
 	 */
 	private static String encrypt(String clear, SecretKey skey) throws Exception {
 		Cipher desCipher = Cipher.getInstance(cipherTransformation);
@@ -150,11 +150,11 @@ public class CryptUtil {
 
 	/**
 	 * generate the shared key and write it into the file passed as a parameter
-	 * 
+	 *
 	 * @param File
 	 *            keyFile - the file to write the generated key
 	 * @return SecretKey - the generated key
-	 * 
+	 *
 	 */
 	private static SecretKey generateKey(File keyFile) throws Exception {
 		KeyGenerator keyGen = KeyGenerator.getInstance(secretKeyAlgorithm);
@@ -172,7 +172,7 @@ public class CryptUtil {
 	/**
 	 * generate a pair of keys - public and private, and write them to the files
 	 * with the names "public.key" and "private.key"
-	 * 
+	 *
 	 */
 	public void generateKeyPair() throws Exception {
 		KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA", "SUN");
@@ -193,11 +193,11 @@ public class CryptUtil {
 
 	/**
 	 * read the shared key from the file passed as a parameter
-	 * 
+	 *
 	 * @param File
 	 *            keyFile - the file to read the key from
 	 * @return SecretKey - the read key
-	 * 
+	 *
 	 */
 	private static SecretKey readKey(File keyFile) throws Exception {
 		DataInputStream in = new DataInputStream(new FileInputStream(keyFile));

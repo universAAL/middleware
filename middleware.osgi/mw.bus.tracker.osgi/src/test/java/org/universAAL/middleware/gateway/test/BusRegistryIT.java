@@ -34,17 +34,17 @@ import org.universAAL.middleware.ui.UIResponse;
 
 /**
  * Integration test for BusRegistry module.
- * 
+ *
  * @author dzmuda
- * 
+ *
  */
 public class BusRegistryIT extends IntegrationTest {
 
 	/**
 	 * Constructor of each integration TestCase has to call constructor of upper
 	 * class providing path to the launch configuration and path to the
-	 * configuration directory of the uAAL runtime. Launch configuration will be
-	 * used to setup uAAL runtime for the purpose of TestCase. All bundles
+	 * configuration directory of the runtime. Launch configuration will be
+	 * used to setup runtime for the purpose of TestCase. All bundles
 	 * needed for the TestCase have to be included in the launch configuration.
 	 */
 	public BusRegistryIT() {
@@ -52,7 +52,7 @@ public class BusRegistryIT extends IntegrationTest {
 
 	/**
 	 * Helper method for logging.
-	 * 
+	 *
 	 * @param msg
 	 */
 	protected void logInfo(String format, Object... args) {
@@ -63,7 +63,7 @@ public class BusRegistryIT extends IntegrationTest {
 
 	/**
 	 * Helper method for logging.
-	 * 
+	 *
 	 * @param msg
 	 */
 	protected void logError(Throwable t, String format, Object... args) {
@@ -80,7 +80,7 @@ public class BusRegistryIT extends IntegrationTest {
 	 * Verifies that runtime platform has correctly started. It prints basic
 	 * information about framework (vendor, version) and lists installed
 	 * bundles.
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	public void testOsgiPlatformStarts() throws Exception {
@@ -99,7 +99,7 @@ public class BusRegistryIT extends IntegrationTest {
 	/**
 	 * Verifies the lighting sample with the use of LightingConsumer. Following
 	 * operations are tested: getControlledLamps, turnOn, turnOff, dimToValue.
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	/**

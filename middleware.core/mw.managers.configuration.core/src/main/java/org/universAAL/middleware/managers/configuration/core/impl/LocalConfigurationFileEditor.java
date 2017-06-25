@@ -32,9 +32,9 @@ import org.universAAL.middleware.managers.configuration.core.owl.Entity;
 /**
  * The Implementation for {@link ConfigurableEntityEditor} for local and for
  * configuration file type Entities.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class LocalConfigurationFileEditor extends LocalConfigurationEntity implements ConfigurationFileEditor {
 

@@ -1,9 +1,9 @@
-/*	
+/*
 	Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
-	Institute of Information Science and Technologies 
-	of the Italian National Research Council 
+	Institute of Information Science and Technologies
+	of the Italian National Research Council
 
-	See the NOTICE file distributed with this work for additional 
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
 
 	Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,13 +34,13 @@ import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 import org.universAAL.middleware.connectors.DiscoveryConnector;
 import org.universAAL.middleware.connectors.discovery.slp.SLPDiscoveryConnector;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.container.osgi.uAALBundleContext;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
+import org.universAAL.middleware.container.osgi.OSGiModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 
 /**
  * OSGI bundle for the SLP discovery connector
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
@@ -52,7 +52,7 @@ public class Activator implements BundleActivator, ManagedService {
 
 	public void start(BundleContext context) throws Exception {
 
-		uAALBundleContext moduleContext = (uAALBundleContext) uAALBundleContainer.THE_CONTAINER
+		OSGiModuleContext moduleContext = (OSGiModuleContext) OSGiContainer.THE_CONTAINER
 				.registerModule(new Object[] { context });
 
 		LogUtils.logDebug(moduleContext, Activator.class, "Activator",
@@ -77,7 +77,7 @@ public class Activator implements BundleActivator, ManagedService {
 		}
 
 		// register the SLPDiscoveryConnector
-		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, slpDiscoveryConnector,
+		OSGiContainer.THE_CONTAINER.shareObject(moduleContext, slpDiscoveryConnector,
 				new Object[] { DiscoveryConnector.class.getName() });
 		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
 				new Object[] { "Starting the SLPDiscoveryConnector..." }, null);

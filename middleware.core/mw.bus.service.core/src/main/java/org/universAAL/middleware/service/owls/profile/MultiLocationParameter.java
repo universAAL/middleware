@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,12 +32,12 @@ import org.universAAL.middleware.owl.supply.AbsLocation;
  * {@link AbsLocation}s. For the sake of well-formedness, serialization type of
  * properties and setting property values, it relies on the default
  * implementations provided by the super classes.
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  */
 public class MultiLocationParameter extends ProfileParameter {
-	public static final String MY_URI = uAAL_SERVICE_NAMESPACE + "MultiAbsLocationParameter";
+	public static final String MY_URI = SERVICE_NAMESPACE + "MultiAbsLocationParameter";
 
 	public MultiLocationParameter(AbsLocation[] value) {
 		super();
@@ -66,7 +66,7 @@ public class MultiLocationParameter extends ProfileParameter {
 	/**
 	 * This method returns a list of abstract locations that are relevant for
 	 * the parameters.
-	 * 
+	 *
 	 * @return abstract locations in form of a list
 	 */
 	public List getAbsLocations() {
@@ -75,7 +75,7 @@ public class MultiLocationParameter extends ProfileParameter {
 
 	/**
 	 * Sets the property for a specified URI to a value.
-	 * 
+	 *
 	 * @param propURI
 	 *            property URI
 	 * @param value

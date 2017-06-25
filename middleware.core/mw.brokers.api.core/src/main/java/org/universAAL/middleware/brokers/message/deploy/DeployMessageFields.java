@@ -22,7 +22,7 @@ package org.universAAL.middleware.brokers.message.deploy;
 
 /**
  * Class for Deploy Message fields
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
@@ -30,20 +30,20 @@ package org.universAAL.middleware.brokers.message.deploy;
  */
 public class DeployMessageFields {
 
-	public static final String UAPP_CARD_SERVICE_ID = "cardServiceId";
+	public static final String APP_CARD_SERVICE_ID = "cardServiceId";
 
-	public static final String UAPP_CARD_PART_ID = "cardPartId";
+	public static final String APP_CARD_PART_ID = "cardPartId";
 
-	public static String DEPLOY_MTYPE = "deploymessagetype";
+	public static final String DEPLOY_MTYPE = "deploymessagetype";
 
-	public static String PART_ID = "partID";
-	public static String PART = "part";
-	public static String PART_STATUS = "partstatus";
+	public static final String PART_ID = "partID";
+	public static final String PART = "part";
+	public static final String PART_STATUS = "partstatus";
 
-	public static String UAPP_NAME = "uAPPName";
-	public static String UAPP_ID = "APPID";
-	public static String UAPP_DESC = "APPDesc";
+	public static final String APP_NAME = "APPName";
+	public static final String APP_ID = "APPID";
+	public static final String APP_DESC = "APPDesc";
 
-	public static String DEPLOY_PAYLOAD = "deployPayload";
+	public static final String DEPLOY_PAYLOAD = "deployPayload";
 
 }

@@ -22,9 +22,9 @@ import org.universAAL.middleware.owl.URIRestriction;
 
 /**
  * Match Entities with a specific Id.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class IdPattern implements EntityPattern {
 
@@ -39,7 +39,7 @@ public class IdPattern implements EntityPattern {
 
 	/**
 	 * Match Entities that match their id with idPattern .
-	 * 
+	 *
 	 * @param idPattern
 	 *            the pattern to match entities IDs.
 	 */

@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * abstract base class for all ReplyMessages.
- * 
+ *
  * @author Jan S. Rellermeyer, ETH Zurich
  * @since 0.1
  */
@@ -45,7 +45,7 @@ abstract class ReplyMessage extends SLPMessage {
 
     /**
      * get the results.
-     * 
+     *
      * @return the List of results.
      */
     abstract List getResult();

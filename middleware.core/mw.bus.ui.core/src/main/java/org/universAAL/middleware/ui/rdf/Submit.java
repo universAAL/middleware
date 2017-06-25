@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,13 +34,13 @@ import java.util.Set;
  * button was not pressed by mistake. Two types of confirmation messages are
  * supported, either OK/Cancel or Yes/No; the type specifies which buttons
  * should be added by a UI handler to the confirmation dialog.
- * 
+ *
  * @author mtazari
  * @author Carsten Stockloew
  * @navassoc - "mandatoryInput" * Input
  */
 public class Submit extends FormControl {
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Submit";
+	public static final String MY_URI = Form.DIALOG_NAMESPACE + "Submit";
 
 	/**
 	 * Critical submits may be associated with a confirmation message to be
@@ -67,7 +67,7 @@ public class Submit extends FormControl {
 	 * OK/Cancel or Yes/No; the type specifies which buttons should be added by
 	 * a UI handler to the confirmation dialog.
 	 */
-	public static final String PROP_CONFIRMATION_MESSAGE = uAAL_VOCABULARY_NAMESPACE + "confirmationMessage";
+	public static final String PROP_CONFIRMATION_MESSAGE = VOCABULARY_NAMESPACE + "confirmationMessage";
 
 	/**
 	 * Critical submits may be associated with a confirmation message to be
@@ -76,20 +76,20 @@ public class Submit extends FormControl {
 	 * OK/Cancel or Yes/No; the type specifies which buttons should be added by
 	 * a UI handler to the confirmation dialog.
 	 */
-	public static final String PROP_CONFIRMATION_TYPE = uAAL_VOCABULARY_NAMESPACE + "confirmationType";
+	public static final String PROP_CONFIRMATION_TYPE = VOCABULARY_NAMESPACE + "confirmationType";
 
 	/**
 	 * For maintaining a list of mandatory input controls associated with each
 	 * submit control that have to be filled by the user before submitting a
 	 * form via that submit control.
 	 */
-	public static final String PROP_MANDATORY_INPUT = uAAL_VOCABULARY_NAMESPACE + "mandatoryInput";
+	public static final String PROP_MANDATORY_INPUT = VOCABULARY_NAMESPACE + "mandatoryInput";
 
 	/**
 	 * The unique ID that helps to identify with pressing which button a dialog
 	 * was finished.
 	 */
-	public static final String PROP_SUBMISSION_ID = uAAL_VOCABULARY_NAMESPACE + "submissionID";
+	public static final String PROP_SUBMISSION_ID = VOCABULARY_NAMESPACE + "submissionID";
 
 	/**
 	 * The list of Manadatory {@link Input} Controls.
@@ -107,7 +107,7 @@ public class Submit extends FormControl {
 
 	/**
 	 * For exclusive use by applications.
-	 * 
+	 *
 	 * @param parent
 	 *            The mandatory parent group as the direct container of this
 	 *            input field. See {@link FormControl#PROP_PARENT_CONTROL}.
@@ -133,7 +133,7 @@ public class Submit extends FormControl {
 
 	/**
 	 * For use by applications.
-	 * 
+	 *
 	 * @see #PROP_MANDATORY_INPUT
 	 */
 	public void addMandatoryInput(Input in) {
@@ -160,7 +160,7 @@ public class Submit extends FormControl {
 
 	/**
 	 * For use by UI handlers.
-	 * 
+	 *
 	 * @return The ID of the dialog being finished by pressing this button.
 	 */
 	public String getDialogID() {
@@ -210,7 +210,7 @@ public class Submit extends FormControl {
 	 * UI handlers must call this method as soon as the user decides to submit
 	 * the form using this submit in oder to make sure if all necessary input
 	 * has been collected.
-	 * 
+	 *
 	 * @return The input control that is missing user input or null if the form
 	 *         is ready to be submitted.
 	 */
@@ -229,7 +229,7 @@ public class Submit extends FormControl {
 	/**
 	 * Same as {@link Submit#getMissingInputControl()} but returns ALL missing
 	 * controls instead of the first one.
-	 * 
+	 *
 	 * @return a {@link Set} of {@link Input}s.
 	 */
 	public Set getMissingInputControls() {

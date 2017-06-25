@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -103,7 +103,7 @@ import org.universAAL.middleware.ui.owl.DialogType;
  * construct their dialogs using these two groups as parent for their real form
  * controls.</dd>
  * </dl>
- * 
+ *
  * @see <a href=
  *      "ftp://ftp.igd.fraunhofer.de/outgoing/mtazari/persona/dialogPackage.jpg">
  *      ftp://ftp.igd.fraunhofer.de/outgoing/mtazari/persona/dialogPackage.jpg</a>
@@ -113,8 +113,8 @@ import org.universAAL.middleware.ui.owl.DialogType;
  * @navassoc - "parentDialog" 1 Form
  */
 public class Form extends FormElement {
-	public static final String uAAL_DIALOG_NAMESPACE = uAAL_NAMESPACE_PREFIX + "Dialog.owl#";
-	public static final String MY_URI = uAAL_DIALOG_NAMESPACE + "Form";
+	public static final String DIALOG_NAMESPACE = NAMESPACE_PREFIX + "Dialog.owl#";
+	public static final String MY_URI = DIALOG_NAMESPACE + "Form";
 
 	/**
 	 * The submission ID if a user acknowledges that a dialog of type Message
@@ -144,14 +144,14 @@ public class Form extends FormElement {
 	 * An optional property of form objects that can be associated with a string
 	 * representing the name of the component that created the form.
 	 */
-	public static final String PROP_DIALOG_CREATED_BY = uAAL_DIALOG_NAMESPACE + "createdBy";
+	public static final String PROP_DIALOG_CREATED_BY = DIALOG_NAMESPACE + "createdBy";
 
 	/**
 	 * The point of time in which a form object is instantiated. This property
 	 * is set automatically with the value returned by
 	 * {@link org.universAAL.middleware.rdf.TypeMapper#getCurrentDateTime()}.
 	 */
-	public static final String PROP_DIALOG_CREATION_TIME = uAAL_DIALOG_NAMESPACE + "creationTimestamp";
+	public static final String PROP_DIALOG_CREATION_TIME = DIALOG_NAMESPACE + "creationTimestamp";
 
 	/**
 	 * An optional property of form objects to indicate which form control
@@ -163,7 +163,7 @@ public class Form extends FormElement {
 	 * reach the form control given as value of this property. At this point
 	 * they can prompt the user for the next data entry.
 	 */
-	public static final String PROP_DIALOG_CURRENT_FOCUSED_CONTROL = uAAL_DIALOG_NAMESPACE + "currentFocus";
+	public static final String PROP_DIALOG_CURRENT_FOCUSED_CONTROL = DIALOG_NAMESPACE + "currentFocus";
 
 	/**
 	 * The {@link org.universAAL.middleware.rdf.Resource} containing the form
@@ -180,14 +180,14 @@ public class Form extends FormElement {
 	 * Note: initial data to be associated with form controls can be set through
 	 * their constructors, as well.
 	 */
-	public static final String PROP_DIALOG_DATA_ROOT = uAAL_DIALOG_NAMESPACE + "dialogDataRoot";
+	public static final String PROP_DIALOG_DATA_ROOT = DIALOG_NAMESPACE + "dialogDataRoot";
 
 	/**
 	 * The type of the dialog represented by a form object as an instance of
 	 * {@link DialogType}. See the above documentation of this class regarding
 	 * the types of dialogs supported.
 	 */
-	public static final String PROP_DIALOG_TYPE = uAAL_DIALOG_NAMESPACE + "dialogType";
+	public static final String PROP_DIALOG_TYPE = DIALOG_NAMESPACE + "dialogType";
 
 	/**
 	 * Applications must set this property for those form objects representing a
@@ -195,9 +195,9 @@ public class Form extends FormElement {
 	 * {@link #getDialogID()} on the parent form from which the subdialog was
 	 * triggered.
 	 */
-	public static final String PROP_PARENT_DIALOG_URI = uAAL_DIALOG_NAMESPACE + "parentDialogURI";
+	public static final String PROP_PARENT_DIALOG_URI = DIALOG_NAMESPACE + "parentDialogURI";
 
-	protected static final String PROP_ROOT_GROUP = uAAL_DIALOG_NAMESPACE + "rootGroup";
+	protected static final String PROP_ROOT_GROUP = DIALOG_NAMESPACE + "rootGroup";
 
 	private static final String STD_BUTTONS_DIALOG_ID_SUFFIX = "stdButtons";
 
@@ -247,7 +247,7 @@ public class Form extends FormElement {
 	 * type {@link DialogType#stdDialog Standard Dialog} with proper initial
 	 * configuration. See also the discussion of dialog types in the above
 	 * documentation of this class.
-	 * 
+	 *
 	 * @param formTitle
 	 *            The form title giving the intent of the dialog.
 	 * @param dataRoot
@@ -289,7 +289,7 @@ public class Form extends FormElement {
 	 * {@link DialogType#message Message} dialog that is ready to publish within
 	 * an {@link org.universAAL.middleware.ui.UIRequest}. See also the
 	 * discussion of dialog types in the above documentation of this class.
-	 * 
+	 *
 	 * @param formTitle
 	 *            The form title giving the intent of the dialog.
 	 * @param message
@@ -319,7 +319,7 @@ public class Form extends FormElement {
 	 * method
 	 * {@link org.universAAL.middleware.rdf.Resource#setPropertyPath(String[], Object)}
 	 * .
-	 * 
+	 *
 	 * @param formTitle
 	 *            The form title giving the intent of the dialog.
 	 * @param parentDialogURI
@@ -381,7 +381,7 @@ public class Form extends FormElement {
 	}
 
 	private Form(String formTitle, Resource dataRoot) {
-		super(uAAL_DIALOG_NAMESPACE, 5);
+		super(DIALOG_NAMESPACE, 5);
 		addType(MY_URI, true);
 		props.put(PROP_DIALOG_CREATION_TIME, TypeMapper.getCurrentDateTime());
 		props.put(PROP_ROOT_GROUP, new Group(formTitle, this));
@@ -389,7 +389,7 @@ public class Form extends FormElement {
 	}
 
 	private Form(String formTitle, String dataRootType) {
-		super(uAAL_DIALOG_NAMESPACE, 5);
+		super(DIALOG_NAMESPACE, 5);
 		addType(MY_URI, true);
 		props.put(PROP_DIALOG_CREATION_TIME, TypeMapper.getCurrentDateTime());
 		props.put(PROP_ROOT_GROUP, new Group(formTitle, this));
@@ -410,7 +410,7 @@ public class Form extends FormElement {
 	/**
 	 * Returns the time at which the first time the form was created by an
 	 * application.
-	 * 
+	 *
 	 * @see #PROP_DIALOG_CREATION_TIME
 	 */
 	public XMLGregorianCalendar getCreationTime() {
@@ -580,7 +580,7 @@ public class Form extends FormElement {
 	/**
 	 * Answers if this form object is created by
 	 * {@link #newDialog(String, Resource)}.
-	 * 
+	 *
 	 * @see #PROP_DIALOG_TYPE
 	 */
 	public boolean isStandardDialog() {
@@ -590,7 +590,7 @@ public class Form extends FormElement {
 	/**
 	 * Answers if this form object is created by
 	 * {@link #newMessage(String, String)}.
-	 * 
+	 *
 	 * @see #PROP_DIALOG_TYPE
 	 */
 	public boolean isMessage() {
@@ -600,7 +600,7 @@ public class Form extends FormElement {
 	/**
 	 * Answers if this form object is created by
 	 * {@link #newSubdialog(String, String)}.
-	 * 
+	 *
 	 * @see #PROP_DIALOG_TYPE
 	 */
 	public boolean isSubdialog() {
@@ -609,7 +609,7 @@ public class Form extends FormElement {
 
 	/**
 	 * Answers if this form object is created by {@link #newSystemMenu(String)}.
-	 * 
+	 *
 	 * @see #PROP_DIALOG_TYPE
 	 */
 	public boolean isSystemMenu() {
@@ -652,7 +652,7 @@ public class Form extends FormElement {
 
 	/**
 	 * look for a FormControl within the form with the given URI.
-	 * 
+	 *
 	 * @param formControlURI
 	 * @return the {@link FormControl} or null if not found.
 	 */

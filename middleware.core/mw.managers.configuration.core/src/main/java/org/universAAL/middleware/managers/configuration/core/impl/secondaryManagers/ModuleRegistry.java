@@ -31,14 +31,14 @@ import org.universAAL.middleware.managers.configuration.core.impl.factories.Scop
 
 /**
  * @author amedrano
- * 
+ *
  */
 public class ModuleRegistry {
 
 	Map<String, Set<WeakReference<ConfigurableModule>>> moduleRegistry;
 
 	/**
-	 * 
+	 *
 	 */
 	public ModuleRegistry() {
 		moduleRegistry = new HashMap<String, Set<WeakReference<ConfigurableModule>>>();
@@ -56,7 +56,7 @@ public class ModuleRegistry {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void clear() {
 		moduleRegistry.clear();

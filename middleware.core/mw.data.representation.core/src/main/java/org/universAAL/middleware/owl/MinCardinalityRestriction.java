@@ -43,7 +43,7 @@ import org.universAAL.middleware.xsd.NonNegativeInteger;
 public final class MinCardinalityRestriction extends PropertyRestriction {
 
 	/** URI for this class. */
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "MinCardinalityRestriction";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "MinCardinalityRestriction";
 
 	/** URI for owl:minCardinality. */
 	public static final String PROP_OWL_MIN_CARDINALITY = OWL_NAMESPACE + "minCardinality";

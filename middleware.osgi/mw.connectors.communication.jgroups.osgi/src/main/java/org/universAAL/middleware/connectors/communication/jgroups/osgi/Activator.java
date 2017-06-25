@@ -37,7 +37,7 @@ import org.osgi.service.cm.ManagedService;
 import org.universAAL.middleware.connectors.CommunicationConnector;
 import org.universAAL.middleware.connectors.communication.jgroups.JGroupsCommunicationConnector;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.container.utils.LogUtils;
 
 /**
@@ -56,7 +56,7 @@ public class Activator implements BundleActivator, ManagedService {
 	public void start(BundleContext bc) throws Exception {
 
 		Security.addProvider(new BouncyCastleProvider());
-		ModuleContext moduleContext = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { bc });
+		ModuleContext moduleContext = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { bc });
 		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
 				new Object[] { "Starting the JGroupCommunicationConnector..." }, null);
 
@@ -78,7 +78,7 @@ public class Activator implements BundleActivator, ManagedService {
 			jgroupsCommunicationConnector.loadConfigurations(jGroupDCOnnector);
 		}
 
-		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, jgroupsCommunicationConnector,
+		OSGiContainer.THE_CONTAINER.shareObject(moduleContext, jgroupsCommunicationConnector,
 				new Object[] { CommunicationConnector.class.getName() });
 		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
 				new Object[] { "Started the JGroupCommunicationConnector..." }, null);

@@ -1,18 +1,18 @@
 /*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research 
-	
+	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
+
 	Copyright Aduna (http://www.aduna-software.com/) 2001-2007
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,7 +27,7 @@ import org.universAAL.middleware.rdf.Resource;
 
 /**
  * A Set of utility functions for TURTLE.
- * 
+ *
  * @author mtazari
  * @author Carsten Stockloew
  */
@@ -202,7 +202,7 @@ public class TurtleUtil {
 	/**
 	 * Replaces all occurrences of a specified char in a String with the given
 	 * String.
-	 * 
+	 *
 	 * @param c
 	 *            The character that is to be replaced.
 	 * @param rpl
@@ -231,7 +231,7 @@ public class TurtleUtil {
 	 * the language of that String. The character must be either an ASCII
 	 * letter, a digit, or the symbol '-'. For example, the plain literal
 	 * <code>"Hello"@en</code> contains the language tag "en".
-	 * 
+	 *
 	 * @see #isLanguageStartChar(int)
 	 */
 	static boolean isLanguageChar(int c) {
@@ -244,7 +244,7 @@ public class TurtleUtil {
 	 * the language of that String. The character must be a letter [a-z,A-Z].
 	 * For example, the plain literal <code>"Hello"@en</code> contains the
 	 * language tag "en" and starts with the character "e".
-	 * 
+	 *
 	 * @see #isLanguageChar(int)
 	 */
 	static boolean isLanguageStartChar(int c) {

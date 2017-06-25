@@ -1,9 +1,9 @@
-/*	
+/*
 	Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
-	Institute of Information Science and Technologies 
-	of the Italian National Research Council 
+	Institute of Information Science and Technologies
+	of the Italian National Research Council
 
-	See the NOTICE file distributed with this work for additional 
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
 
 	Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,18 +33,18 @@ import org.osgi.service.cm.ConfigurationAdmin;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.managers.api.DeployManager;
 import org.universAAL.middleware.managers.deploy.DeployManagerImpl;
 
 /**
  * Activator for the Deploy Manager
- * 
+ *
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
- * 
+ *
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
 @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -56,7 +56,7 @@ public class Activator implements BundleActivator, ManagedService {
 	private ModuleContext moduleContext;
 
 	public void start(BundleContext context) throws Exception {
-		moduleContext = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		moduleContext = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { context });
 		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
 				new Object[] { "Starting the Deploymanager..." }, null);
 
@@ -81,7 +81,7 @@ public class Activator implements BundleActivator, ManagedService {
 			deployManager.loadConfigurations(deployManagerProps);
 		}
 		deployManager.init();
-		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, deployManager,
+		OSGiContainer.THE_CONTAINER.shareObject(moduleContext, deployManager,
 				new Object[] { DeployManager.class.getName() });
 	}
 

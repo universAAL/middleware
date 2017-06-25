@@ -62,7 +62,7 @@ import org.universAAL.middleware.modules.CommunicationModule;
 
 /**
  * JGroup communication connector implementation
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:filippo.palumbo@isti.cnr.it">Filippo Palumbo</a>
@@ -183,7 +183,7 @@ public class JGroupsCommunicationConnector
 						// });
 
 						// the name of the cluster is composed by:
-						// name+AALSpaceID
+						// name+SpaceID
 						ch.connect(element.getChannelName());
 						// associates the channel name with the channel instance
 						channelMap.put(element.getChannelName(), ch);
@@ -208,8 +208,8 @@ public class JGroupsCommunicationConnector
 	 * URL for jGroups conf. channel is provided -> init with URL -if
 	 * enableRemoteChannelConfiguration is false and a configuration XML is
 	 * provided -> init with XML
-	 * 
-	 * 
+	 *
+	 *
 	 * @param element
 	 * @return
 	 * @throws Exception
@@ -368,7 +368,7 @@ public class JGroupsCommunicationConnector
 	 * This method selects the channels to which to send the message. For every
 	 * destinationChannelNames I check if the name of one of the
 	 * communcationChannels contains the destinationChannelName
-	 * 
+	 *
 	 * @param message
 	 * @return
 	 */
@@ -697,7 +697,7 @@ public class JGroupsCommunicationConnector
 
 	/**
 	 * Remember that group is the name of the broker, but the name of the
-	 * channel is X+Y where: X :brokerName Y: AALSpaceID
+	 * channel is X+Y where: X :brokerName Y: SpaceID
 	 */
 	public List<String> getGroupMembers(String groupName) {
 		List<String> members = new ArrayList<String>();

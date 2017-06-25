@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,17 +27,17 @@ import org.universAAL.middleware.rdf.Resource;
 
 /**
  * This class represents the OWL-S process input parameter
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ *
  */
 public class ProcessInput extends ProcessParameter {
 	public static final String MY_URI = OWLS_PROCESS_NAMESPACE + "Input";
 
 	/**
 	 * Convert the resource passed as a parameter to a ProcessInput instance
-	 * 
+	 *
 	 * @param r
 	 *            - the resource to convert
 	 * @return - the converted well-formed ProcessInput, or null if the resource
@@ -62,7 +62,7 @@ public class ProcessInput extends ProcessParameter {
 	/**
 	 * Convert a single ProcessInput or a List of resources representing
 	 * ProcessInputs into a List of ProcessInput instances
-	 * 
+	 *
 	 * @param value
 	 *            - an object which is either a single ProcessInput or a List of
 	 *            resources representing ProcessInputs
@@ -102,7 +102,7 @@ public class ProcessInput extends ProcessParameter {
 
 	/**
 	 * The constructor - from the uri of a process input
-	 * 
+	 *
 	 * @param uri
 	 */
 	public ProcessInput(String uri) {

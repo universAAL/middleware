@@ -25,7 +25,7 @@ import org.universAAL.middleware.managers.configuration.core.impl.secondaryManag
 
 /**
  * @author amedrano
- * 
+ *
  */
 public class FileProvider implements FileManagement {
 

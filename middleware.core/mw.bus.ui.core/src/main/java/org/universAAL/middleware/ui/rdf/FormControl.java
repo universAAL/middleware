@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,7 +30,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
 /**
  * The structural unit of forms that may bear information to be presented to
  * human users and / or serve as a placeholder for user input.
- * 
+ *
  * @see <a href=
  *      "ftp://ftp.igd.fraunhofer.de/outgoing/mtazari/persona/dialogPackage.jpg">
  *      ftp://ftp.igd.fraunhofer.de/outgoing/mtazari/persona/dialogPackage.jpg</a>
@@ -44,40 +44,40 @@ public abstract class FormControl extends FormElement {
 	/**
 	 * Form controls may have a {@link Label}.
 	 */
-	public static final String PROP_CONTROL_LABEL = Form.uAAL_DIALOG_NAMESPACE + "controlLabel";
+	public static final String PROP_CONTROL_LABEL = Form.DIALOG_NAMESPACE + "controlLabel";
 
 	/**
 	 * Form controls may have a help string to be presented to human users when
 	 * they need more info about the role of a form control.
 	 */
-	public static final String PROP_HELP = Form.uAAL_DIALOG_NAMESPACE + "ctrlHelp";
+	public static final String PROP_HELP = Form.DIALOG_NAMESPACE + "ctrlHelp";
 
 	/**
 	 * Form controls may have a hint string as a short hint about the role of a
 	 * form control. Confer the concept of tool-tips in graphical user
 	 * interfaces.
 	 */
-	public static final String PROP_HINT = Form.uAAL_DIALOG_NAMESPACE + "ctrlHint";
+	public static final String PROP_HINT = Form.DIALOG_NAMESPACE + "ctrlHint";
 
 	/**
 	 * Apart from the three standard groups described in {@link Form}, all other
 	 * form controls are contained in a {@link Group}.
 	 */
-	public static final String PROP_PARENT_CONTROL = Form.uAAL_DIALOG_NAMESPACE + "parentControl";
+	public static final String PROP_PARENT_CONTROL = Form.DIALOG_NAMESPACE + "parentControl";
 
 	/**
 	 * If a form control is allowed to have associated data (initial value or
 	 * user input) it must have a property path that is used to access related
 	 * data within {@link Form#PROP_DIALOG_DATA_ROOT}.
 	 */
-	public static final String PROP_REFERENCED_PPATH = Form.uAAL_DIALOG_NAMESPACE + "controlRef";
+	public static final String PROP_REFERENCED_PPATH = Form.DIALOG_NAMESPACE + "controlRef";
 
 	/**
 	 * Can be used to define local restrictions on the value of form controls in
 	 * addition to restrictions possibly derivable from possibly available form
 	 * data (the latter are called model-based restrictions).
 	 */
-	public static final String PROP_VALUE_RESTRICTION = Form.uAAL_DIALOG_NAMESPACE + "valueRestrictions";
+	public static final String PROP_VALUE_RESTRICTION = Form.DIALOG_NAMESPACE + "valueRestrictions";
 
 	protected FormControl() {
 		super();
@@ -136,7 +136,7 @@ public abstract class FormControl extends FormElement {
 
 	/**
 	 * Returns the help text for this control.
-	 * 
+	 *
 	 * @see #PROP_HELP
 	 */
 	public String getHelpString() {
@@ -145,7 +145,7 @@ public abstract class FormControl extends FormElement {
 
 	/**
 	 * Returns the hint string for this control.
-	 * 
+	 *
 	 * @see #PROP_HINT
 	 */
 	public String getHintString() {
@@ -154,7 +154,7 @@ public abstract class FormControl extends FormElement {
 
 	/**
 	 * Returns the {@link Label} of this control.
-	 * 
+	 *
 	 * @see #PROP_CONTROL_LABEL
 	 */
 	public Label getLabel() {
@@ -395,7 +395,7 @@ public abstract class FormControl extends FormElement {
 
 	/**
 	 * For usage by de-serializers.
-	 * 
+	 *
 	 * @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object)
 	 */
 	public boolean setProperty(String propURI, Object value) {

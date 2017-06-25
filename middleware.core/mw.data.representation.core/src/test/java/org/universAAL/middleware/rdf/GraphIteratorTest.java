@@ -210,7 +210,7 @@ public class GraphIteratorTest extends TestCase {
 
 	/*
 	 * public void test4() { for (int loops = 0; loops < 500; loops++) { init();
-	 * 
+	 *
 	 * resources.add(r[0]); for (int iRes = 0; iRes < 50; iRes++) { int numProps
 	 * = (int) (Math.random() * 6); Resource res = (Resource)
 	 * resources.toArray()[(int) (Math .random() * (resources.size() - 1))]; for
@@ -223,20 +223,20 @@ public class GraphIteratorTest extends TestCase {
 	 * arr.add(obj); } add(res, propURI, arr); } else { Resource obj =
 	 * (Resource) r[(int) (Math.random() * (num - 1))]; add(res, propURI, obj);
 	 * } } }
-	 * 
+	 *
 	 * System.out.println(r[0].toStringRecursive());
-	 * 
+	 *
 	 * java.util.Comparator c = new java.util.Comparator() { public int
 	 * compare(Object arg0, Object arg1) { return ((Resource)
 	 * arg0).getURI().compareTo( ((Resource) arg1).getURI()); } }; List sorted =
 	 * new ArrayList(resources); java.util.Collections.sort(sorted, c); for (int
 	 * i = 0; i < sorted.size(); i++) System.out.println("Resource: " +
 	 * sorted.get(i));
-	 * 
+	 *
 	 * sorted = new ArrayList(tripleSet); java.util.Collections.sort(sorted);
 	 * for (int i = 0; i < sorted.size(); i++) System.out.println("tripleSet: "
 	 * + sorted.get(i));
-	 * 
+	 *
 	 * System.out.println("Loop: " + loops); verify(); } }
 	 */
 }

@@ -25,7 +25,7 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * 
+ *
  */
 
 package ch.ethz.iks.slp.impl.filter;
@@ -34,14 +34,14 @@ import java.util.Dictionary;
 
 /**
  * a generic LDAP filter.
- * 
+ *
  * @author Jan S. Rellermeyer, ETH Zurich
- * 
+ *
  */
 public interface Filter {
     /**
      * try to match a <code>Dictionary</code> of attributes.
-     * 
+     *
      * @param values
      *            a <code>Dictionary</code> of attributes.
      * @return true if the filter evaluated to true;
@@ -50,7 +50,7 @@ public interface Filter {
 
     /**
      * get a String representation of the filter.
-     * 
+     *
      * @return the String representation.
      */
     String toString();

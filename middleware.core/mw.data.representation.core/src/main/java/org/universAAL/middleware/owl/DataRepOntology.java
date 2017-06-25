@@ -38,7 +38,7 @@ import org.universAAL.middleware.rdf.Resource;
  */
 public final class DataRepOntology extends Ontology {
 
-	public static final String NAMESPACE = Resource.uAAL_NAMESPACE_PREFIX + "DataRepresentation.owl#";
+	public static final String NAMESPACE = Resource.NAMESPACE_PREFIX + "DataRepresentation.owl#";
 
 	private DataRepFactory factory = new DataRepFactory();
 
@@ -59,8 +59,8 @@ public final class DataRepOntology extends Ontology {
 
 			// load ManagedIndividual
 			oci = createNewAbstractOntClassInfo(ManagedIndividual.MY_URI);
-			oci.setResourceComment("The root of the whole class hierarchy in the uAAL ontology.");
-			oci.setResourceLabel("uAAL Ontology Root Class");
+			oci.setResourceComment("The root of the whole class hierarchy in the universAAL ontology.");
+			oci.setResourceLabel("universAAL Ontology Root Class");
 
 			// load PrivateResource
 			oci = createNewAbstractOntClassInfo(PrivateResource.MY_URI);
@@ -71,7 +71,7 @@ public final class DataRepOntology extends Ontology {
 
 			// load ComparableIndividual
 			oci = createNewAbstractOntClassInfo(ComparableIndividual.MY_URI);
-			oci.setResourceComment("The root class for all comparable individuals in the uAAL ontology.");
+			oci.setResourceComment("The root class for all comparable individuals in the universAAL ontology.");
 			oci.setResourceLabel("Comparable Individual");
 			oci.addSuperClass(ManagedIndividual.MY_URI);
 

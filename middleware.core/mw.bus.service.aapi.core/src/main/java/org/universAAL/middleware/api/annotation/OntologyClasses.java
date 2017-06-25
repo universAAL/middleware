@@ -1,7 +1,7 @@
 /*
 Copyright 2011-2014 AGH-UST, http://www.agh.edu.pl
 Faculty of Computer Science, Electronics and Telecommunications
-Department of Computer Science 
+Department of Computer Science
 
 See the NOTICE file distributed with this work for additional
 information regarding copyright ownership
@@ -29,11 +29,11 @@ import java.lang.annotation.Target;
  * Annotation which is used for Ontology registering. Classes provided as a
  * value is scanned for occurence of MY_URI field and then registered with the
  * use of
- * 
+ *
  * OntologyManagement.getInstance().register(baseURI, MY_URI)
- * 
+ *
  * where baseURI is namespace + name from @UniversAALService annotation
- * 
+ *
  * @author dzmuda
  */
 @Retention(RetentionPolicy.RUNTIME)

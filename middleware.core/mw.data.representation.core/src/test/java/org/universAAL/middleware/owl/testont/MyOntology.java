@@ -8,7 +8,7 @@ import org.universAAL.middleware.owl.TypeURI;
 import org.universAAL.middleware.rdf.Resource;
 
 public class MyOntology extends Ontology {
-	public static final String NAMESPACE = Resource.uAAL_NAMESPACE_PREFIX + "Test.owl#";
+	public static final String NAMESPACE = Resource.NAMESPACE_PREFIX + "Test.owl#";
 
 	MyFactory factory = new MyFactory();
 

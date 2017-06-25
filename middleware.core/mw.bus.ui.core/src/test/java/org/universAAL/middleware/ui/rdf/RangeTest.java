@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.universAAL.middleware.ui.rdf;
 
@@ -7,7 +7,7 @@ import junit.framework.TestCase;
 
 /**
  * @author mtazari
- * 
+ *
  */
 public class RangeTest extends TestCase {
 

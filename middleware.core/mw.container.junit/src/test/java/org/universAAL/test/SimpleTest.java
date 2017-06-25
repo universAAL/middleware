@@ -18,15 +18,15 @@ package org.universAAL.test;
 
 import junit.framework.TestCase;
 
-import org.universAAL.container.JUnit.JUnitContainer;
-import org.universAAL.container.JUnit.JUnitModuleContext;
+import org.universAAL.middleware.container.JUnit.JUnitContainer;
+import org.universAAL.middleware.container.JUnit.JUnitModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 
 /**
  * @author amedrano
- * 
+ *
  */
-public class SimpleTest extends TestCase{
+public class SimpleTest extends TestCase {
 
 	public void testContainer() {
 		JUnitContainer.getInstance();

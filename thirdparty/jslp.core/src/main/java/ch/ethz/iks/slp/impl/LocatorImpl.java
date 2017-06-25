@@ -46,14 +46,14 @@ import ch.ethz.iks.slp.ServiceURL;
  * Implementation of the Locator interface. If the configuration does not have
  * to provide UA functionalities, this class does not have to be included in the
  * distribution.
- * 
+ *
  * @see ch.ethz.iks.slp.Locator
  * @author Jan S. Rellermeyer, ETH Zurich
  * @since 0.1
  */
 public final class LocatorImpl implements Locator {
     /**
-	 * 
+	 *
 	 */
     private Locale locale;
 
@@ -66,7 +66,7 @@ public final class LocatorImpl implements Locator {
 
     /**
      * create a new LocatorImpl instance.
-     * 
+     *
      * @param theLocale
      *            the Locale for this instance.
      */
@@ -76,7 +76,7 @@ public final class LocatorImpl implements Locator {
 
     /**
      * returns the locale for this instance.
-     * 
+     *
      * @return the Locale.
      */
     public Locale getLocale() {
@@ -85,7 +85,7 @@ public final class LocatorImpl implements Locator {
 
     /**
      * Set the locale of this instance.
-     * 
+     *
      * @param locale
      *            the Locale.
      * @see Advertiser#setLocale()
@@ -96,7 +96,7 @@ public final class LocatorImpl implements Locator {
 
     /**
      * find the service types.
-     * 
+     *
      * @param namingAuthority
      *            the naming authority.
      * @param scopes
@@ -117,7 +117,7 @@ public final class LocatorImpl implements Locator {
 
     /**
      * find services.
-     * 
+     *
      * @param type
      *            the service type.
      * @param scopes
@@ -146,7 +146,7 @@ public final class LocatorImpl implements Locator {
 
     /**
      * find attributes by service URL.
-     * 
+     *
      * @param url
      *            the ServiceURL of the service.
      * @param scopes
@@ -168,7 +168,7 @@ public final class LocatorImpl implements Locator {
 
     /**
      * find attributes by service type.
-     * 
+     *
      * @param type
      *            the service type.
      * @param scopes
@@ -190,7 +190,7 @@ public final class LocatorImpl implements Locator {
 
     /**
      * common method that handles a predefined AttributeRequest.
-     * 
+     *
      * @param attReq
      *            the AttributeRequest.
      * @return the resulting Attributes as String.
@@ -206,7 +206,7 @@ public final class LocatorImpl implements Locator {
     /**
      * send a request. Uses direct communication to a DA or multicast
      * convergence, if no DA is known for the specific scope.
-     * 
+     *
      * @param req
      *            the request.
      * @param scopeList
@@ -271,7 +271,7 @@ public final class LocatorImpl implements Locator {
 
     /**
      * send a request to a DA.
-     * 
+     *
      * @param req
      *            the request.
      * @param dAaddresses

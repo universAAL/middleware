@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,7 +40,7 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * bus must derive from. Any <code>ServiceCaller</code> must incorporate the
  * logic of handling service responses into the implementation of the abstract
  * method <code>handleResponse(String, ServiceResponse)</code>.
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * @author Carsten Stockloew
@@ -52,7 +52,7 @@ public abstract class ServiceCaller extends Caller {
 
 	/**
 	 * The default constructor for this class.
-	 * 
+	 *
 	 * @param context
 	 *            The module context where the {@link ServiceBus} is registered.
 	 *            Note that if no service bus is registered within the passed
@@ -79,7 +79,7 @@ public abstract class ServiceCaller extends Caller {
 	 * The "normal" (synchronous) way of calling a service. Use
 	 * {@link #sendRequest(ServiceRequest)}, if you want to handle the response
 	 * asynchronously in another thread.
-	 * 
+	 *
 	 * @throws NullPointerException
 	 *             if request is null
 	 */
@@ -108,7 +108,7 @@ public abstract class ServiceCaller extends Caller {
 	 * method {@link #call(ServiceRequest)} there is no matchmaking; the call
 	 * will be sent directly to a given {@link ServiceCallee}. Therefore, this
 	 * method should NOT be used directly by applications.
-	 * 
+	 *
 	 * @param call
 	 *            the {@link ServiceCall} .
 	 * @param receiver
@@ -123,7 +123,7 @@ public abstract class ServiceCaller extends Caller {
 	 * method {@link #call(ServiceRequest)} there is no matchmaking; the call
 	 * will be sent directly to a given {@link ServiceCallee}. Therefore, this
 	 * method should NOT be used directly by applications.
-	 * 
+	 *
 	 * @param call
 	 *            the {@link ServiceCall} .
 	 * @param receiver
@@ -151,7 +151,7 @@ public abstract class ServiceCaller extends Caller {
 	/**
 	 * This method is a way of calling a service using Turtle Strings as input.
 	 * Turtle Strings are converted to Service Requests.
-	 * 
+	 *
 	 * @param request
 	 *            the Turtle String which will be converted into
 	 *            <code>ServiceRequest</code>
@@ -188,7 +188,7 @@ public abstract class ServiceCaller extends Caller {
 	 * Will be called automatically in a new thread whenever the response
 	 * corresponding to a previous call to {@link #sendRequest(ServiceRequest)}
 	 * is ready.
-	 * 
+	 *
 	 * @param reqID
 	 *            the ID returned by the previous call to
 	 *            {@link #sendRequest(ServiceRequest)}.
@@ -202,7 +202,7 @@ public abstract class ServiceCaller extends Caller {
 	 * within the method {@link #handleResponse(String, ServiceResponse)}, which
 	 * will automatically be called in another thread when the response is
 	 * ready.
-	 * 
+	 *
 	 * @return a unique ID for this request that will be passed to the method
 	 *         {@link #handleResponse(String, ServiceResponse)} for an
 	 *         unambiguous mapping of responses to requests. Returns null, if
@@ -211,7 +211,7 @@ public abstract class ServiceCaller extends Caller {
 	 *             if the request is null
 	 */
 	public final String sendRequest(ServiceRequest request) {
-		request.setProperty(ServiceRequest.PROP_uAAL_SERVICE_CALLER, busResourceURI);
+		request.setProperty(ServiceRequest.PROP_SERVICE_CALLER, busResourceURI);
 		if (AccessControl.INSTANCE.checkPermission(owner, getURI(), request)) {
 			BusMessage reqMsg = new BusMessage(MessageType.request, request, theBus);
 			((ServiceBus) theBus).brokerRequest(busResourceURI, reqMsg);
@@ -235,7 +235,7 @@ public abstract class ServiceCaller extends Caller {
 	/**
 	 * A method used to instantly retrieve all services available to this
 	 * caller.
-	 * 
+	 *
 	 * @return all available services.
 	 */
 	public ServiceProfile[] getAllServices() {
@@ -245,7 +245,7 @@ public abstract class ServiceCaller extends Caller {
 	/**
 	 * A method used to retrieve a specified service, available to this
 	 * <code>ServiceCaller</code>.
-	 * 
+	 *
 	 * @param s
 	 *            the desired service.
 	 * @return the service that is available, or null if no such service is
@@ -258,7 +258,7 @@ public abstract class ServiceCaller extends Caller {
 	/**
 	 * A method used to retrieve a specified service, available to this
 	 * <code>ServiceCaller</code>.
-	 * 
+	 *
 	 * @param serviceClassURI
 	 *            the class URI of the desired service.
 	 * @return the service that is available, or null if no such service is
@@ -271,7 +271,7 @@ public abstract class ServiceCaller extends Caller {
 	/**
 	 * A method used to retrieve a service available to this caller, that
 	 * matches the specified keywords.
-	 * 
+	 *
 	 * @param keywords
 	 *            the keywords that should be matched by the service.
 	 * @return the service that matches the keywords, or null if no such service
@@ -284,7 +284,7 @@ public abstract class ServiceCaller extends Caller {
 	/**
 	 * Adds an availability subscription, in other words a listener, to receive
 	 * events about the availability of a specified service.
-	 * 
+	 *
 	 * @param subscriber
 	 *            the object which will receive events when the appropriate
 	 *            service registers or unregisters.
@@ -299,7 +299,7 @@ public abstract class ServiceCaller extends Caller {
 	 * Removes an availability subscription for this <code>Caller</code>, which
 	 * was previously added using <code>addAvailabilitySubscription</code>
 	 * method.
-	 * 
+	 *
 	 * @param subscriber
 	 *            the object which used to receive the events.
 	 * @param requestURI

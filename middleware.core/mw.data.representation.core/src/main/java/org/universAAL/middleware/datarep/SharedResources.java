@@ -101,15 +101,15 @@ public final class SharedResources {
 	}
 
 	public static void setDefaults() {
-		middlewareProps.put(SPACE_URI, System.getProperty(SPACE_URI, "urn:org.universAAL.aal_space:test_environment"));
+		middlewareProps.put(SPACE_URI, System.getProperty(SPACE_URI, "urn:org.universAAL.space:test_environment"));
 		middlewareProps.put(IS_COORDINATING_PEER, System.getProperty(IS_COORDINATING_PEER, "true"));
 		if ("true".equals(System.getProperty(IS_DEBUG_MODE)))
 			middlewareProps.put(IS_DEBUG_MODE, "true");
 
 		helpOnMiddlewareProps.put(SPACE_URI,
-				"A URI identifying the AAL Space to which this instance of middleware belongs.");
+				"A URI identifying the Space to which this instance of middleware belongs.");
 		helpOnMiddlewareProps.put(IS_COORDINATING_PEER,
-				"If set to 'true', then buses that need a coordinator instance are recommended to make the instance on this node to the coordinator. Only one instance per AAL Space is allowed to have this prop set.");
+				"If set to 'true', then buses that need a coordinator instance are recommended to make the instance on this node to the coordinator. Only one instance per Space is allowed to have this prop set.");
 		helpOnMiddlewareProps.put(IS_DEBUG_MODE,
 				"If set to 'true', then buses are recommended to produce more log messages as in production mode (when this flag is not set, we assume production mode).");
 

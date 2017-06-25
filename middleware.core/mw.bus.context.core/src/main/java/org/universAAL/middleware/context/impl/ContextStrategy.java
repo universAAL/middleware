@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -50,16 +50,16 @@ import org.universAAL.middleware.rdf.Resource;
 /**
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ *
  */
 public class ContextStrategy extends BusStrategy {
 
 	private static final String COMPOUND_INDEX_CONNECTOR = "";
 
-	private static final String PROP_uAAL_CONTEXT_PEER_PROVISIONS = Resource.uAAL_VOCABULARY_NAMESPACE
+	private static final String PROP_CONTEXT_PEER_PROVISIONS = Resource.VOCABULARY_NAMESPACE
 			+ "myContextProvisions";
 
-	private static final String TYPE_uAAL_CONTEXT_BUS_PROVISIONS = Resource.uAAL_VOCABULARY_NAMESPACE
+	private static final String TYPE_CONTEXT_BUS_PROVISIONS = Resource.VOCABULARY_NAMESPACE
 			+ "ContextProvisions";
 
 	public static class ContextFilterer {
@@ -101,7 +101,7 @@ public class ContextStrategy extends BusStrategy {
 	/**
 	 * Allows a Context Publisher to announce which events it is going to
 	 * publish during its membership at context bus.
-	 * 
+	 *
 	 * @param publisher
 	 *            The Publisher that wants to announce Patterns
 	 * @param providedEvents
@@ -119,7 +119,7 @@ public class ContextStrategy extends BusStrategy {
 	/**
 	 * * Allows a Context Subscriber to register to events in the bus that match
 	 * the given patterns
-	 * 
+	 *
 	 * @param subscriber
 	 *            The Subscriber that wants to register Patterns
 	 * @param initialSubscriptions
@@ -155,7 +155,7 @@ public class ContextStrategy extends BusStrategy {
 			// create a CalledPeers for collecting peer responses
 			ICalledPeers calledPeers = createContextStrategyDataFactory().createCalledPeers();
 			Resource r = new Resource();
-			r.addType(TYPE_uAAL_CONTEXT_BUS_PROVISIONS, true);
+			r.addType(TYPE_CONTEXT_BUS_PROVISIONS, true);
 			((ContextBusImpl) bus).assessContentSerialization(r);
 			BusMessage message = new BusMessage(MessageType.p2p_request, r, bus);
 			send(message);
@@ -295,7 +295,7 @@ public class ContextStrategy extends BusStrategy {
 		if (content instanceof Resource) {
 			Resource resource = (Resource) content;
 			if (isContextBusProvisionList(resource) && resource.numberOfProperties() == 1) {
-				resource.setProperty(PROP_uAAL_CONTEXT_PEER_PROVISIONS, allProvisions.getContextEventPatterns());
+				resource.setProperty(PROP_CONTEXT_PEER_PROVISIONS, allProvisions.getContextEventPatterns());
 				send(message.createReply(content));
 			}
 		} else {
@@ -308,7 +308,7 @@ public class ContextStrategy extends BusStrategy {
 		if (content instanceof Resource) {
 			Resource resource = (Resource) content;
 			if (isContextBusProvisionList(resource)) {
-				Object provisionList = resource.getProperty(PROP_uAAL_CONTEXT_PEER_PROVISIONS);
+				Object provisionList = resource.getProperty(PROP_CONTEXT_PEER_PROVISIONS);
 				if (provisionList instanceof List && !((List) provisionList).isEmpty()) {
 					ICalledPeers calledPeers = numCalledPeers.getCalledPeers(message.getInReplyTo());
 					if (calledPeers != null) {
@@ -340,7 +340,7 @@ public class ContextStrategy extends BusStrategy {
 	}
 
 	private boolean isContextBusProvisionList(Resource resource) {
-		return TYPE_uAAL_CONTEXT_BUS_PROVISIONS.equals(resource.getType());
+		return TYPE_CONTEXT_BUS_PROVISIONS.equals(resource.getType());
 	}
 
 	private void handleEvent(BusMessage message) {
@@ -410,7 +410,7 @@ public class ContextStrategy extends BusStrategy {
 	/**
 	 * Remove the patterns of Context Events that a Context Subscriber is
 	 * interested in, so it no longer receives Events matching them
-	 * 
+	 *
 	 * @param subscriber
 	 *            The Subscriber that wants to remove its Patterns
 	 * @param initialSubscriptions
@@ -453,7 +453,7 @@ public class ContextStrategy extends BusStrategy {
 	/**
 	 * Remove ALL patterns of Context Events that a Context Subscriber is
 	 * interested in, so it no longer receives Events OF ANY KIND
-	 * 
+	 *
 	 * @param subscriber
 	 *            The Subscriber that wants to remove its Patterns
 	 */

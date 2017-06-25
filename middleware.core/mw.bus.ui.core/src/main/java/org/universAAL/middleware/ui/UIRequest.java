@@ -1,18 +1,18 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
+
 	Copyright 2013-2014 Ericsson Nikola Tesla d.d., www.ericsson.com/hr/
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -46,58 +46,58 @@ import org.universAAL.middleware.ui.rdf.Form;
  * privacy level of the content. The {@link IUIBus} will then add the current
  * adaptation parameters to the call (by asking the Dialog Manager) before
  * selecting the appropriate {@link UIHandler} and forwarding the call to it.
- * 
+ *
  * @author mtazari
  * @author eandgrg
  * @author Carsten Stockloew
  */
 public class UIRequest extends ScopedResource implements Request {
 
-	/** The Constant uAAL_UI_NAMESPACE. */
-	public static final String uAAL_UI_NAMESPACE = uAAL_NAMESPACE_PREFIX + "UI.owl#";
+	/** The Constant UI_NAMESPACE. */
+	public static final String UI_NAMESPACE = NAMESPACE_PREFIX + "UI.owl#";
 
 	/** The Constant MY_URI. */
-	public static final String MY_URI = uAAL_UI_NAMESPACE + "UIRequest";
+	public static final String MY_URI = UI_NAMESPACE + "UIRequest";
 
 	// ////////////////////////////////////////////////////////////////
 	// Data added by applications when creating UIRequest
 	// ////////////////////////////////////////////////////////////////
 	/** The Constant PROP_ADDRESSED_USER. */
-	public static final String PROP_ADDRESSED_USER = uAAL_UI_NAMESPACE + "addressedUser";
+	public static final String PROP_ADDRESSED_USER = UI_NAMESPACE + "addressedUser";
 
 	/** The Constant PROP_DIALOG_FORM. */
-	public static final String PROP_DIALOG_FORM = uAAL_UI_NAMESPACE + "dialogForm";
+	public static final String PROP_DIALOG_FORM = UI_NAMESPACE + "dialogForm";
 
 	/** The Constant PROP_DIALOG_PRIORITY. */
-	public static final String PROP_DIALOG_PRIORITY = uAAL_UI_NAMESPACE + "dialogPriority";
+	public static final String PROP_DIALOG_PRIORITY = UI_NAMESPACE + "dialogPriority";
 
 	/** The Constant PROP_DIALOG_LANGUAGE. */
-	public static final String PROP_DIALOG_LANGUAGE = uAAL_UI_NAMESPACE + "dialogLanguage";
+	public static final String PROP_DIALOG_LANGUAGE = UI_NAMESPACE + "dialogLanguage";
 
 	/** The Constant PROP_DIALOG_PRIVACY_LEVEL. */
-	public static final String PROP_DIALOG_PRIVACY_LEVEL = uAAL_UI_NAMESPACE + "dialogPrivacyLevel";
+	public static final String PROP_DIALOG_PRIVACY_LEVEL = UI_NAMESPACE + "dialogPrivacyLevel";
 
 	// ///////////////////////////////////////////////////////////////
 	// Additional data (added by ui.dm)
 	// ///////////////////////////////////////////////////////////////
 
 	/** The Constant PROP_PRESENTATION_LOCATION. */
-	public static final String PROP_PRESENTATION_LOCATION = uAAL_UI_NAMESPACE + "presentationLocation";
+	public static final String PROP_PRESENTATION_LOCATION = UI_NAMESPACE + "presentationLocation";
 
 	/** The Constant PROP_HAS_ACCESS_IMPAIRMENT. */
-	public static final String PROP_HAS_ACCESS_IMPAIRMENT = uAAL_UI_NAMESPACE + "hasAccessImpairment";
+	public static final String PROP_HAS_ACCESS_IMPAIRMENT = UI_NAMESPACE + "hasAccessImpairment";
 
 	/** The Constant PROP_HAS_PREFERENCE. */
-	public static final String PROP_HAS_PREFERENCE = uAAL_UI_NAMESPACE + "hasPreference";
+	public static final String PROP_HAS_PREFERENCE = UI_NAMESPACE + "hasPreference";
 
 	// also obtainable by accessing
 	// InteractionPreferences.preferredModality contained within
 	// uiRequest.getProperty(
 	// UIPreferencesSubProfile.PROP_INTERACTION_PREFERENCES) but this eases the
 	// checks in UIHandlerProfile.getMatchingDegree()
-	public static final String PROP_PRESENTATION_MODALITY = uAAL_UI_NAMESPACE + "presentationModality";
+	public static final String PROP_PRESENTATION_MODALITY = UI_NAMESPACE + "presentationModality";
 
-	public static final String PROP_PRESENTATION_MODALITY_ALT = uAAL_UI_NAMESPACE + "altPresentationModality";
+	public static final String PROP_PRESENTATION_MODALITY_ALT = UI_NAMESPACE + "altPresentationModality";
 
 	/**
 	 * This constructor is for the exclusive usage by deserializers.
@@ -108,7 +108,7 @@ public class UIRequest extends ScopedResource implements Request {
 
 	/**
 	 * Instantiates a new {@link UIRequest}.
-	 * 
+	 *
 	 * @param user
 	 *            the {@link User}. It is declared as Resource because the type
 	 *            User is defined in the Profiling Ontology. The type is not
@@ -144,7 +144,7 @@ public class UIRequest extends ScopedResource implements Request {
 
 	/**
 	 * Gets the addressed {@link User}.
-	 * 
+	 *
 	 * @return the addressed {@link User}, It is declared as Resource because
 	 *         the type User is defined in the Profiling Ontology. The type is
 	 *         not needed for for matchmaking Either.
@@ -155,7 +155,7 @@ public class UIRequest extends ScopedResource implements Request {
 
 	/**
 	 * Gets the dialog {@link Form}.
-	 * 
+	 *
 	 * @return the dialog {@link Form}
 	 */
 	public Form getDialogForm() {
@@ -164,7 +164,7 @@ public class UIRequest extends ScopedResource implements Request {
 
 	/**
 	 * Gets the dialog id.
-	 * 
+	 *
 	 * @return the dialog id
 	 */
 	public String getDialogID() {
@@ -174,7 +174,7 @@ public class UIRequest extends ScopedResource implements Request {
 
 	/**
 	 * Gets the dialog language.
-	 * 
+	 *
 	 * @return the dialog language
 	 */
 	public Locale getDialogLanguage() {
@@ -183,7 +183,7 @@ public class UIRequest extends ScopedResource implements Request {
 
 	/**
 	 * Gets the dialog priority.
-	 * 
+	 *
 	 * @return the dialog priority
 	 */
 	public LevelRating getDialogPriority() {
@@ -192,7 +192,7 @@ public class UIRequest extends ScopedResource implements Request {
 
 	/**
 	 * Gets the dialog privacy level.
-	 * 
+	 *
 	 * @return the dialog privacy level
 	 */
 	public PrivacyLevel getDialogPrivacyLevel() {
@@ -201,7 +201,7 @@ public class UIRequest extends ScopedResource implements Request {
 
 	/**
 	 * Gets the dialog type.
-	 * 
+	 *
 	 * @return the dialog type
 	 */
 	public DialogType getDialogType() {
@@ -211,7 +211,7 @@ public class UIRequest extends ScopedResource implements Request {
 
 	/**
 	 * Gets the impairments.
-	 * 
+	 *
 	 * @return the impairments
 	 */
 	public AccessImpairment[] getImpairments() {
@@ -221,7 +221,7 @@ public class UIRequest extends ScopedResource implements Request {
 
 	/**
 	 * Gets the Preferences.
-	 * 
+	 *
 	 * @return the preferences
 	 */
 	public Preference[] getPreferences() {
@@ -231,7 +231,7 @@ public class UIRequest extends ScopedResource implements Request {
 
 	/**
 	 * Gets the presentation location.
-	 * 
+	 *
 	 * @return the presentation location
 	 */
 	public AbsLocation getPresentationLocation() {
@@ -240,7 +240,7 @@ public class UIRequest extends ScopedResource implements Request {
 
 	/**
 	 * Sets the collected input.
-	 * 
+	 *
 	 * @param data
 	 *            the new collected input, The Resource set as form Root data.
 	 */
@@ -253,7 +253,7 @@ public class UIRequest extends ScopedResource implements Request {
 
 	/**
 	 * Sets the impairments.
-	 * 
+	 *
 	 * @param impairments
 	 *            the new impairments
 	 */
@@ -265,7 +265,7 @@ public class UIRequest extends ScopedResource implements Request {
 
 	/**
 	 * Sets the preferences.
-	 * 
+	 *
 	 * @param preferences
 	 *            the new preferences
 	 */
@@ -277,7 +277,7 @@ public class UIRequest extends ScopedResource implements Request {
 
 	/**
 	 * Sets the presentation location.
-	 * 
+	 *
 	 * @param presentationLocation
 	 *            the new presentation location
 	 */
@@ -289,7 +289,7 @@ public class UIRequest extends ScopedResource implements Request {
 
 	/**
 	 * Sets the presentation modality.
-	 * 
+	 *
 	 * @param modality
 	 *            the new presentation modality
 	 */
@@ -301,7 +301,7 @@ public class UIRequest extends ScopedResource implements Request {
 
 	/**
 	 * Gets the alternative presentation modality.
-	 * 
+	 *
 	 * @return the alternative presentation modality
 	 */
 	public Modality getAltPresentationModality() {
@@ -310,7 +310,7 @@ public class UIRequest extends ScopedResource implements Request {
 
 	/**
 	 * Sets the alternative presentation modality.
-	 * 
+	 *
 	 * @param outputModality
 	 *            the new alternative presentation modality
 	 */

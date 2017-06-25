@@ -1,7 +1,7 @@
 /*
 Copyright 2011-2014 AGH-UST, http://www.agh.edu.pl
 Faculty of Computer Science, Electronics and Telecommunications
-Department of Computer Science 
+Department of Computer Science
 
 Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 Fraunhofer-Gesellschaft - Institute for Computer Graphics Research

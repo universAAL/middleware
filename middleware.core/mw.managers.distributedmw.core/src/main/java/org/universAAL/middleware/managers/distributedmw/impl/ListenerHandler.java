@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2016 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,18 +27,18 @@ import java.util.Set;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.interfaces.PeerCard;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceStatus;
-import org.universAAL.middleware.managers.api.AALSpaceListener;
+import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
+import org.universAAL.middleware.interfaces.space.SpaceStatus;
+import org.universAAL.middleware.managers.api.SpaceListener;
 import org.universAAL.middleware.managers.distributedmw.impl.DistributedMWManagerImpl.Handler;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
- * 
+ *
  * @author Carsten Stockloew
- * 
+ *
  */
-public abstract class ListenerHandler<T> implements AALSpaceListener {
+public abstract class ListenerHandler<T> implements SpaceListener {
 
 	private String TYPE_ADD;
 	private String TYPE_REMOVE;
@@ -74,7 +74,7 @@ public abstract class ListenerHandler<T> implements AALSpaceListener {
 		localListeners = new HashSet<T>();
 		subscribers = new HashSet<PeerCard>();
 		allPeersListeners = new HashSet<T>();
-		SpaceListener.getInstance().register(this);
+		MySpaceListener.getInstance().register(this);
 	}
 
 	public class AddListenerHandler implements Handler {
@@ -125,8 +125,8 @@ public abstract class ListenerHandler<T> implements AALSpaceListener {
 						allPeersListeners.add(listener);
 					}
 
-					// create the list of all nodes from AAL Space Manager
-					nodes = SpaceListener.getInstance().getPeers();
+					// create the list of all nodes from Space Manager
+					nodes = MySpaceListener.getInstance().getPeers();
 					if (nodes == null) {
 						LogUtils.logError(DistributedMWManagerImpl.context, ListenerHandler.class, "addListener",
 								"No peers available, not even this peer?");
@@ -134,7 +134,7 @@ public abstract class ListenerHandler<T> implements AALSpaceListener {
 					}
 				} else if (nodes.size() == 0) {
 					// an empty list -> subscribe to this peer only
-					nodes.add(DistributedMWManagerImpl.shared.getAalSpaceManager().getMyPeerCard());
+					nodes.add(DistributedMWManagerImpl.shared.getSpaceManager().getMyPeerCard());
 				}
 
 				for (PeerCard node : nodes) {
@@ -185,8 +185,8 @@ public abstract class ListenerHandler<T> implements AALSpaceListener {
 						allPeersListeners.remove(listener);
 					}
 
-					// create the list of all nodes from AAL Space Manager
-					nodes = SpaceListener.getInstance().getPeers();
+					// create the list of all nodes from Space Manager
+					nodes = MySpaceListener.getInstance().getPeers();
 					if (nodes == null) {
 						LogUtils.logError(DistributedMWManagerImpl.context, ListenerHandler.class, "addListener",
 								"No peers available, not even this peer?");
@@ -194,7 +194,7 @@ public abstract class ListenerHandler<T> implements AALSpaceListener {
 					}
 				} else if (nodes.size() == 0) {
 					// an empty list -> un-subscribe from this peer only
-					nodes.add(DistributedMWManagerImpl.shared.getAalSpaceManager().getMyPeerCard());
+					nodes.add(DistributedMWManagerImpl.shared.getSpaceManager().getMyPeerCard());
 				}
 
 				for (PeerCard node : nodes) {
@@ -249,12 +249,12 @@ public abstract class ListenerHandler<T> implements AALSpaceListener {
 
 	protected abstract void removeListenerLocally();
 
-	public void aalSpaceJoined(AALSpaceDescriptor spaceDescriptor) {
+	public void spaceJoined(SpaceDescriptor spaceDescriptor) {
 		// TODO: subscribe for all allPeersListeners in all peers?
 		// or do we get a call to newPeerJoined?
 	}
 
-	public void aalSpaceLost(AALSpaceDescriptor spaceDescriptor) {
+	public void spaceLost(SpaceDescriptor spaceDescriptor) {
 		// clear everything
 		synchronized (listeners) {
 			synchronized (localListeners) {
@@ -268,9 +268,9 @@ public abstract class ListenerHandler<T> implements AALSpaceListener {
 		}
 	}
 
-	public void newPeerJoined(final PeerCard peer) {
+	public void peerJoined(final PeerCard peer) {
 		// check if we are called with this peer
-		if (peer.getPeerID().equals(DistributedMWManagerImpl.shared.getAalSpaceManager().getMyPeerCard()))
+		if (peer.getPeerID().equals(DistributedMWManagerImpl.shared.getSpaceManager().getMyPeerCard()))
 			return;
 
 		new Thread() {
@@ -324,7 +324,7 @@ public abstract class ListenerHandler<T> implements AALSpaceListener {
 		}
 	}
 
-	public void aalSpaceStatusChanged(AALSpaceStatus status) {
+	public void spaceStatusChanged(SpaceStatus status) {
 		// not needed
 	}
 }

@@ -36,7 +36,7 @@ import java.util.Locale;
 /**
  * Advertiser implements the SA properties of SLP. Services can be registered
  * and deregistered. The SLP framework handles DA discovery.
- * 
+ *
  * @author Jan S. Rellermeyer, Systems Group, ETH Zurich
  * @since 0.1
  */
@@ -44,14 +44,14 @@ public interface Advertiser {
 
     /**
      * Returns the locale of this Advertiser instance.
-     * 
+     *
      * @return the current Locale.
      */
     Locale getLocale();
 
     /**
      * Get the locale of this instance.
-     * 
+     *
      * @param locale
      *            the Locale.
      * @see Advertiser#getLocale()
@@ -62,7 +62,7 @@ public interface Advertiser {
      * Register a service with the SLP framework. The service will be registered
      * with all known DAs that support the default scope and with the local SA
      * registry for multicast discovery.
-     * 
+     *
      * @param url
      *            the <code>ServiceURL</code> of the service.
      * @param attributes
@@ -80,7 +80,7 @@ public interface Advertiser {
      * Register a service with the SLP framework. The service will be registered
      * with all known DAs that support at least one of the given scopes and with
      * the local SA registry for multicast discovery.
-     * 
+     *
      * @param url
      *            the ServiceURL of the service.
      * @param scopes
@@ -99,7 +99,7 @@ public interface Advertiser {
     /**
      * Unregister a service with the SLP framework. The service will be
      * unregistered with all known DAs in the scopes that it was registered in.
-     * 
+     *
      * @param url
      *            the <code>ServiceURL</code> of the service.
      * @throws ServiceLocationException
@@ -109,7 +109,7 @@ public interface Advertiser {
 
     /**
      * deregister a service in some scopes.
-     * 
+     *
      * @param url
      *            the ServiceURL of the service.
      * @param scopes
@@ -125,7 +125,7 @@ public interface Advertiser {
     /**
      * <b>Not yet implemented.</b> Add attributes to an already registered
      * service. Allows incremental registration.
-     * 
+     *
      * @param url
      *            the <code>ServiceURL</code> of the service.
      * @param attributes
@@ -139,7 +139,7 @@ public interface Advertiser {
     /**
      * <b>Not yet implemented.</b> Remove attributes to an already registered
      * service. Allows incremental registration.
-     * 
+     *
      * @param url
      *            the <code>ServiceURL</code> of the service.
      * @param attributeIds
@@ -153,7 +153,7 @@ public interface Advertiser {
     /**
      * Get the IP address of this machine that is configured as primary jSLP
      * address. Can be used to register Services that are located on this host.
-     * 
+     *
      * @return the local InetAddress.
      */
     InetAddress getMyIP();

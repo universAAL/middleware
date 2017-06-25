@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,7 +27,7 @@ import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
- * A uAAL-specific value function for binding output parameters stating that the
+ * A universAAL-specific value function for binding output parameters stating that the
  * given output parameter represents a converted representation of a reachable
  * property. There are three types of conversions: (1) UnitConversion, e.g. when
  * the value of a reachable property that is originally represented in, say,
@@ -40,25 +40,25 @@ import org.universAAL.middleware.rdf.Resource;
  * defined as subclasses of {@link ManagedIndividual} but this class simply
  * provides support for the definition of the needed constant values as well as
  * helps in constructing a {@link Resource} representation of them.
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ *
  */
 public class Conversion {
-	public static final String PROP_OUTPUT_CONVERSION_SOURCE = Resource.uAAL_SERVICE_NAMESPACE + "sourceProperty";
-	public static final String PROP_OUTPUT_CONVERSION_TARGET_CLASS = Resource.uAAL_SERVICE_NAMESPACE + "targetClass";
-	public static final String PROP_OUTPUT_CONVERSION_TARGET_LANGUAGE = Resource.uAAL_SERVICE_NAMESPACE
+	public static final String PROP_OUTPUT_CONVERSION_SOURCE = Resource.SERVICE_NAMESPACE + "sourceProperty";
+	public static final String PROP_OUTPUT_CONVERSION_TARGET_CLASS = Resource.SERVICE_NAMESPACE + "targetClass";
+	public static final String PROP_OUTPUT_CONVERSION_TARGET_LANGUAGE = Resource.SERVICE_NAMESPACE
 			+ "targetLanguage";
-	public static final String PROP_OUTPUT_CONVERSION_TARGET_UNIT = Resource.uAAL_SERVICE_NAMESPACE + "targetUnit";
-	public static final String TYPE_OUTPUT_CLASS_CONVERSION = Resource.uAAL_SERVICE_NAMESPACE + "ClassConversion";
-	public static final String TYPE_OUTPUT_LANGUAGE_CONVERSION = Resource.uAAL_SERVICE_NAMESPACE + "LanguageConversion";
-	public static final String TYPE_OUTPUT_UNIT_CONVERSION = Resource.uAAL_SERVICE_NAMESPACE + "UnitConversion";
+	public static final String PROP_OUTPUT_CONVERSION_TARGET_UNIT = Resource.SERVICE_NAMESPACE + "targetUnit";
+	public static final String TYPE_OUTPUT_CLASS_CONVERSION = Resource.SERVICE_NAMESPACE + "ClassConversion";
+	public static final String TYPE_OUTPUT_LANGUAGE_CONVERSION = Resource.SERVICE_NAMESPACE + "LanguageConversion";
+	public static final String TYPE_OUTPUT_UNIT_CONVERSION = Resource.SERVICE_NAMESPACE + "UnitConversion";
 
 	/**
 	 * Return true iff the object passed as a parameter represents a Conversion
 	 * resource
-	 * 
+	 *
 	 * @param o
 	 *            - the object to check if it represents a Conversion resource
 	 * @return true iff the object represents a Conversion resource
@@ -92,7 +92,7 @@ public class Conversion {
 
 	/**
 	 * Construct a class conversion
-	 * 
+	 *
 	 * @param sourceProp
 	 *            - the property path of the conversion
 	 * @param targetClass
@@ -109,7 +109,7 @@ public class Conversion {
 
 	/**
 	 * Construct a Language conversion
-	 * 
+	 *
 	 * @param sourceProp
 	 *            - the property path of the conversion
 	 * @param targetLang
@@ -126,7 +126,7 @@ public class Conversion {
 
 	/**
 	 * Construct a Unit conversion
-	 * 
+	 *
 	 * @param sourceProp
 	 *            - the property path of the conversion
 	 * @param targetUnit

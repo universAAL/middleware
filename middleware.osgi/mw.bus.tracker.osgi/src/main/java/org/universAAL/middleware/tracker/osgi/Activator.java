@@ -1,7 +1,7 @@
 /*
 Copyright 2011-2014 AGH-UST, http://www.agh.edu.pl
 Faculty of Computer Science, Electronics and Telecommunications
-Department of Computer Science 
+Department of Computer Science
 
 See the NOTICE file distributed with this work for additional
 information regarding copyright ownership
@@ -23,7 +23,7 @@ package org.universAAL.middleware.tracker.osgi;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.tracker.IBusMemberRegistry;
 
 public class Activator implements BundleActivator {
@@ -34,7 +34,7 @@ public class Activator implements BundleActivator {
 		org.universAAL.middleware.tracker.impl.Activator.fetchParams = new Object[] {
 				IBusMemberRegistry.class.getName() };
 
-		mc = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		mc = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { context });
 	}
 
 	public void stop(BundleContext mc) throws Exception {

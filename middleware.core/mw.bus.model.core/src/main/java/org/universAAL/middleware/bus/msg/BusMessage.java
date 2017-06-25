@@ -2,7 +2,7 @@
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
 
-	See the NOTICE file distributed with this work for additional 
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
 
 	Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,11 +32,11 @@ import org.universAAL.middleware.serialization.MessageContentSerializer;
 /**
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ *
  */
 public class BusMessage implements BrokerMessage {
 	/**
-	 * 
+	 *
 	 */
 	private static long counter = 0;
 	private static MessageContentSerializer contentSerializer = null;
@@ -48,7 +48,7 @@ public class BusMessage implements BrokerMessage {
 	/**
 	 * generates a globally unique ID, based on a counter and some string that
 	 * represents this JVM
-	 * 
+	 *
 	 * @return String - the created unique ID
 	 */
 	public static String createUniqueID() {
@@ -75,7 +75,7 @@ public class BusMessage implements BrokerMessage {
 
 	/**
 	 * A safe wrapping for calling contentSerializer.serialize(o).
-	 * 
+	 *
 	 * @param o
 	 *            - Object to serialize
 	 * @return String 1. the result of o.toString() if the serializer is null;
@@ -105,7 +105,7 @@ public class BusMessage implements BrokerMessage {
 
 	/**
 	 * Constructor - a message of particular type with particular content
-	 * 
+	 *
 	 * @param type
 	 * @param content
 	 *            Content of the message, typically a {@link Resource}.
@@ -127,7 +127,7 @@ public class BusMessage implements BrokerMessage {
 	/**
 	 * Constructor - parses the string passed as a parameter and creates a
 	 * Message object.
-	 * 
+	 *
 	 * @param message
 	 *            the string to parse (the serialization of a message object).
 	 */
@@ -242,7 +242,7 @@ public class BusMessage implements BrokerMessage {
 	/**
 	 * Create reply message to this message, with the content passed as a
 	 * parameter.
-	 * 
+	 *
 	 * @param content
 	 *            the content of the created reply, typically a {@link Resource}
 	 *            .
@@ -276,7 +276,7 @@ public class BusMessage implements BrokerMessage {
 	/**
 	 * Create a reply message to the message with the given ID, with the content
 	 * and receiver passed as a parameter.
-	 * 
+	 *
 	 * @param messageIDInReplyTo
 	 *            ID of the message to which the returned message is a reply to.
 	 * @param receiver
@@ -307,7 +307,7 @@ public class BusMessage implements BrokerMessage {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return Object the content of the message.
 	 */
 	public Object getContent() {
@@ -315,7 +315,7 @@ public class BusMessage implements BrokerMessage {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return String the string serialization of the content.
 	 */
 	public String getContentAsString() {
@@ -326,7 +326,7 @@ public class BusMessage implements BrokerMessage {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return the unique ID of the message.
 	 */
 
@@ -340,7 +340,7 @@ public class BusMessage implements BrokerMessage {
 
 	/**
 	 * Returns the ID of the message this message replies to.
-	 * 
+	 *
 	 * @return String the ID of the message this message replies to.
 	 */
 	public String getInReplyTo() {
@@ -348,7 +348,7 @@ public class BusMessage implements BrokerMessage {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return {@link MessageType}
 	 */
 	public MessageType getType() {
@@ -384,7 +384,7 @@ public class BusMessage implements BrokerMessage {
 	/**
 	 * If the given peer is not null, removes any existing receiver and adds the
 	 * given peer as the only receiver.
-	 * 
+	 *
 	 * @param receiver
 	 */
 	public void setReceiver(PeerCard receiver) {
@@ -396,7 +396,7 @@ public class BusMessage implements BrokerMessage {
 
 	/**
 	 * Serialize the message as string.
-	 * 
+	 *
 	 * @return String the serialized message.
 	 */
 	@Override

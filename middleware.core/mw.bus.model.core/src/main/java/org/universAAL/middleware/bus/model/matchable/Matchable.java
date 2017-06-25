@@ -1,8 +1,8 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
 
-	See the NOTICE file distributed with this work for additional 
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
 
 	Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,10 +21,10 @@ package org.universAAL.middleware.bus.model.matchable;
 
 /**
  * Represents the concept of matchable Classes.
- * 
+ *
  * Implementing Classes must specify how to match against other matchable
  * Classes.
- * 
+ *
  * @author Dominik Schreiber <ow91fibo@rbg.informatik.tu-darmstadt.de>
  */
 public interface Matchable {

@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2016 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,15 +37,15 @@ import org.universAAL.middleware.managers.distributedmw.api.DistributedLogManage
 import org.universAAL.middleware.rdf.Resource;
 
 /**
- * 
+ *
  * @author Carsten Stockloew
- * 
+ *
  */
 public class DistributedMWManagerImpl implements DistributedBusMemberManager, DistributedLogManager {
 	// TODO: split this implementation in two for each interface for security
 	// reasons
 
-	public static final String NAMESPACE = Resource.uAAL_NAMESPACE_PREFIX + "DistributedMWManager.rdf#";
+	public static final String NAMESPACE = Resource.NAMESPACE_PREFIX + "DistributedMWManager.rdf#";
 
 	public static PeerCard myPeer;
 	public static ModuleContext context;
@@ -110,7 +110,7 @@ public class DistributedMWManagerImpl implements DistributedBusMemberManager, Di
 			Object[] removeParamsEvtH) {
 		DistributedMWManagerImpl.context = context;
 		shared = new SharedObjectConnector(context);
-		myPeer = shared.getAalSpaceManager().getMyPeerCard();
+		myPeer = shared.getSpaceManager().getMyPeerCard();
 		this.removeParamsBMLMgmt = removeParamsBMLMgmt;
 		this.removeParamsLLMgmt = removeParamsLLMgmt;
 		this.removeParamsEvtH = removeParamsEvtH;
@@ -153,7 +153,7 @@ public class DistributedMWManagerImpl implements DistributedBusMemberManager, Di
 		context.getContainer().removeSharedObject(context, this, removeParamsLLMgmt);
 		context.getContainer().removeSharedObject(context, this, removeParamsBMLMgmt);
 		context.getContainer().removeSharedObject(context, handler, removeParamsEvtH);
-		SpaceListener.getInstance().stop();
+		MySpaceListener.getInstance().stop();
 	}
 
 	public static void sendMessage(Resource r, Set<PeerCard> receivers) {

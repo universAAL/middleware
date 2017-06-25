@@ -24,15 +24,15 @@ import org.universAAL.middleware.interfaces.configuration.configurationDefinitio
 
 /**
  * An interface for Containers to provide certain files.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public interface FileManagement {
 
 	/**
 	 * check, and store if not, a URL file in the cache.
-	 * 
+	 *
 	 * @param url
 	 * @return
 	 */
@@ -41,7 +41,7 @@ public interface FileManagement {
 	/**
 	 * The master file of the configurator editor, where all the entitites will
 	 * be stored.
-	 * 
+	 *
 	 * @return
 	 */
 	public File getMasterFile();
@@ -49,7 +49,7 @@ public interface FileManagement {
 	/**
 	 * Generate a File path for a specific identificator. These files are where
 	 * {@link ConfigurationFile ConfigurationFiles} will be stored.
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 */
@@ -58,7 +58,7 @@ public interface FileManagement {
 	/**
 	 * Create a temporal file, used when users pull the file before copying it
 	 * else where.
-	 * 
+	 *
 	 * @return
 	 */
 	public File getTemporalFile();

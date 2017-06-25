@@ -43,30 +43,30 @@ import org.universAAL.middleware.ui.UIHandlerProfile;
  * <img style="background-color:white;" src=
  * "doc-files/CoordinatedRegistrationStrategy.png" alt="UIStrategy messages"
  * width="70%"/> </center>
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class CoordinatedRegistrationManagement extends CoordinatedStrategy {
 
 	/**
 	 * Property to Hold the RegistrationID
 	 */
-	public static final String PROP_uAAL_REGISTRATION_ID = Resource.uAAL_VOCABULARY_NAMESPACE + "registrationID";
+	public static final String PROP_REGISTRATION_ID = Resource.VOCABULARY_NAMESPACE + "registrationID";
 
 	/**
 	 * Property to Hold the Registration
 	 */
-	public static final String PROP_uAAL_REGISTRATION = Resource.uAAL_VOCABULARY_NAMESPACE + "registration";
+	public static final String PROP_REGISTRATION = Resource.VOCABULARY_NAMESPACE + "registration";
 
 	private class RegistrationMessage extends Resource implements EventMessage<CoordinatedRegistrationManagement> {
 
-		public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE + "NewRegistration";
+		public static final String MY_URI = Resource.VOCABULARY_NAMESPACE + "NewRegistration";
 
 		public RegistrationMessage(String regID, Matchable reg) {
 			addType(MY_URI, true);
-			setProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION_ID, regID);
-			setProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION, reg);
+			setProperty(CoordinatedRegistrationManagement.PROP_REGISTRATION_ID, regID);
+			setProperty(CoordinatedRegistrationManagement.PROP_REGISTRATION, reg);
 		}
 
 		public RegistrationMessage() {
@@ -75,19 +75,19 @@ public class CoordinatedRegistrationManagement extends CoordinatedStrategy {
 
 		/** {@ inheritDoc} */
 		public void onReceived(CoordinatedRegistrationManagement strategy, BusMessage m, String senderID) {
-			strategy.addRegistration((String) getProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION_ID),
-					(UIHandlerProfile) getProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION));
+			strategy.addRegistration((String) getProperty(CoordinatedRegistrationManagement.PROP_REGISTRATION_ID),
+					(UIHandlerProfile) getProperty(CoordinatedRegistrationManagement.PROP_REGISTRATION));
 
 		}
 	}
 
 	private class UnRegistrationMessage extends Resource implements EventMessage<CoordinatedRegistrationManagement> {
 
-		public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE + "UnRegistration";
+		public static final String MY_URI = Resource.VOCABULARY_NAMESPACE + "UnRegistration";
 
 		public UnRegistrationMessage(String regID) {
 			addType(MY_URI, true);
-			setProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION, regID);
+			setProperty(CoordinatedRegistrationManagement.PROP_REGISTRATION, regID);
 		}
 
 		public UnRegistrationMessage() {
@@ -97,19 +97,19 @@ public class CoordinatedRegistrationManagement extends CoordinatedStrategy {
 		/** {@ inheritDoc} */
 		public void onReceived(CoordinatedRegistrationManagement strategy, BusMessage m, String senderID) {
 			strategy.removeAllRegistries(
-					(String) getProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION));
+					(String) getProperty(CoordinatedRegistrationManagement.PROP_REGISTRATION));
 		}
 	}
 
 	private class RemoveMatchingRegistrationMessage extends Resource
 			implements EventMessage<CoordinatedRegistrationManagement> {
 
-		public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE + "MatchingUnRegistration";
+		public static final String MY_URI = Resource.VOCABULARY_NAMESPACE + "MatchingUnRegistration";
 
 		public RemoveMatchingRegistrationMessage(String regID, Matchable filter) {
 			addType(MY_URI, true);
-			setProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION_ID, regID);
-			setProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION, filter);
+			setProperty(CoordinatedRegistrationManagement.PROP_REGISTRATION_ID, regID);
+			setProperty(CoordinatedRegistrationManagement.PROP_REGISTRATION, filter);
 		}
 
 		public RemoveMatchingRegistrationMessage() {
@@ -119,8 +119,8 @@ public class CoordinatedRegistrationManagement extends CoordinatedStrategy {
 		/** {@ inheritDoc} */
 		public void onReceived(CoordinatedRegistrationManagement strategy, BusMessage m, String senderID) {
 			strategy.removeMatchingRegistries(
-					(String) getProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION_ID),
-					(Matchable) getProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION));
+					(String) getProperty(CoordinatedRegistrationManagement.PROP_REGISTRATION_ID),
+					(Matchable) getProperty(CoordinatedRegistrationManagement.PROP_REGISTRATION));
 		}
 	}
 
@@ -181,7 +181,7 @@ public class CoordinatedRegistrationManagement extends CoordinatedStrategy {
 	public synchronized void start() {
 		super.start();
 		ontology = new CoordinatedRegMessageOnt(
-				Resource.uAAL_NAMESPACE_PREFIX + "CoordinatedRegistrationMessageOntology");
+				Resource.NAMESPACE_PREFIX + "CoordinatedRegistrationMessageOntology");
 		OntologyManagement.getInstance().register(busModule, ontology);
 	}
 

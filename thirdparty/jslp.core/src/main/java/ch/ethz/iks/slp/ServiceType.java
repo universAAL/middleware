@@ -1,7 +1,7 @@
-/* modified version by Jan S. Rellermeyer, ETH Zurich 
+/* modified version by Jan S. Rellermeyer, ETH Zurich
  * Copyright 2005-2007 Systems Group, ETH Zurich. All rights reserved.
  *
- * based on the Java SLP implementation by Solers Corporation 
+ * based on the Java SLP implementation by Solers Corporation
  * Copyright 2003 Solers Corporation. All rights reserved.
  *
  * Modification and use of this SLP API software and associated documentation
@@ -16,7 +16,7 @@ import java.io.Serializable;
 
 /**
  * Implementation of the SLP ServiceType class defined in RFC 2614.
- * 
+ *
  * @author Jan S. Rellermeyer, Systems Group, ETH Zurich
  * @author Patrick Callis, Solers Corp.
  * @since 0.1
@@ -65,10 +65,10 @@ public final class ServiceType implements Serializable {
 
     /**
      * creates a new ServiceType instance.
-     * 
+     *
      * @param serviceType
      *            the string representation of a ServiceType, e.g.
-     * 
+     *
      *            <pre>
      *      service:osgi:remote
      * </pre>
@@ -119,7 +119,7 @@ public final class ServiceType implements Serializable {
 
     /**
      * is the ServiceType instance a ServiceURL ?
-     * 
+     *
      * @return true if this is the case.
      */
     public boolean isServiceURL() {
@@ -128,7 +128,7 @@ public final class ServiceType implements Serializable {
 
     /**
      * is the ServiceType instance an abstract type ?
-     * 
+     *
      * @return true if thie is the case.
      */
     public boolean isAbstractType() {
@@ -137,7 +137,7 @@ public final class ServiceType implements Serializable {
 
     /**
      * is the naming authority default (IANA) ?
-     * 
+     *
      * @return true if this is the case.
      */
     public boolean isNADefault() {
@@ -146,7 +146,7 @@ public final class ServiceType implements Serializable {
 
     /**
      * get the concrete type part of this ServiceType instance.
-     * 
+     *
      * @return a String representing the concrete type.
      */
     public String getConcreteTypeName() {
@@ -155,7 +155,7 @@ public final class ServiceType implements Serializable {
 
     /**
      * get the principle type part of this ServiceType instance.
-     * 
+     *
      * @return a String representing the principle part.
      */
     public String getPrincipleTypeName() {
@@ -164,7 +164,7 @@ public final class ServiceType implements Serializable {
 
     /**
      * get the name of the abstract type of this ServiceType instance.
-     * 
+     *
      * @return a String representing the abstract type.
      */
     public String getAbstractTypeName() {
@@ -173,7 +173,7 @@ public final class ServiceType implements Serializable {
 
     /**
      * get the naming authority.
-     * 
+     *
      * @return the naming authority.
      */
     public String getNamingAuthority() {
@@ -182,7 +182,7 @@ public final class ServiceType implements Serializable {
 
     /**
      * check if two ServiceTypes are equal.
-     * 
+     *
      * @param obj
      *            another ServiceType.
      * @return true if they equal.
@@ -201,7 +201,7 @@ public final class ServiceType implements Serializable {
 
     /**
      * check if a ServiceType matches a ServiceURL or another ServiceType.
-     * 
+     *
      * @param obj
      *            the object to be compared to.
      * @return true if this type matches the other object.
@@ -220,7 +220,7 @@ public final class ServiceType implements Serializable {
 
     /**
      * get a String representation of this ServiceType instance.
-     * 
+     *
      * @return the String representation.
      */
     public String toString() {
@@ -229,7 +229,7 @@ public final class ServiceType implements Serializable {
 
     /**
      * get the hashCode of this ServiceType instance.
-     * 
+     *
      * @return the int value of the hashCode.
      */
     public int hashCode() {

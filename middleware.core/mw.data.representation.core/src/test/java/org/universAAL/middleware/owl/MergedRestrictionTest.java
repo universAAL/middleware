@@ -1,7 +1,7 @@
 package org.universAAL.middleware.owl;
 
-import org.universAAL.container.JUnit.JUnitModuleContext;
 import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.JUnit.JUnitModuleContext;
 import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.owl.testont.MyClass1;
 import org.universAAL.middleware.owl.testont.MyClass2;

@@ -22,7 +22,7 @@ import org.universAAL.middleware.interfaces.PeerCard;
 
 /**
  * Used for entities that are only applicable for the given module and instance.
- * 
+ *
  * @author amedrano
  * @see InstanceScope
  */
@@ -35,7 +35,7 @@ public final class ModuleScope extends InstanceScope {
 
 	/**
 	 * Constructor using strings.
-	 * 
+	 *
 	 * @param id
 	 * @param peerID
 	 * @param moduleID
@@ -53,7 +53,7 @@ public final class ModuleScope extends InstanceScope {
 	/**
 	 * Constructor using default instance (this), and ModuleContext for module
 	 * Id.
-	 * 
+	 *
 	 * @param id
 	 *            unique id.
 	 * @param pc
@@ -68,7 +68,7 @@ public final class ModuleScope extends InstanceScope {
 
 	/**
 	 * Get the set Module Id.
-	 * 
+	 *
 	 * @return
 	 */
 	public String getModuleID() {

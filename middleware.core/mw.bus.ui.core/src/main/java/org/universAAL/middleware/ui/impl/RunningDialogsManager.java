@@ -27,9 +27,9 @@ import org.universAAL.middleware.ui.UIHandler;
 /**
  * Helper class to keep track of the Dialogs that a {@link UIHandler} is
  * managing at each moment, and where a given Dialog is being handled.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class RunningDialogsManager {
 
@@ -37,7 +37,7 @@ public class RunningDialogsManager {
 	private Map<String, String> dialogsToHandlers;
 
 	/**
-	 * 
+	 *
 	 */
 	public RunningDialogsManager() {
 		handlersToDialogs = new Hashtable<String, Set<String>>();

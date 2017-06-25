@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -311,15 +311,15 @@ public class ServiceMatcher {
 
 	@SuppressWarnings("PMD.CollapsibleIfStatements")
 	private void processServiceUri(ServiceWrapper superset, ServiceWrapper subset, HashMap context) {
-		// uAAL_SERVICE_URI_MATCHED:
+		// SERVICE_URI_MATCHED:
 		// if URI of offered service matches exactly URI specified in
 		// ServiceRequest then it is indicated in the context by means of
-		// uAAL_SERVICE_URI_MATCHED property.
+		// SERVICE_URI_MATCHED property.
 		String requestedServiceUri = superset.getService().getURI();
 		String offeredURI = subset.getService().getURI();
 		if (requestedServiceUri != null) {
 			if (requestedServiceUri.equals(offeredURI)) {
-				context.put(ServiceRealization.uAAL_SERVICE_URI_MATCHED, Boolean.TRUE);
+				context.put(ServiceRealization.SERVICE_URI_MATCHED, Boolean.TRUE);
 			}
 		}
 	}
