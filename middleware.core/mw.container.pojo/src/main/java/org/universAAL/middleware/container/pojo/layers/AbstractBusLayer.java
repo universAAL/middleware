@@ -21,11 +21,11 @@ import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.container.Attributes;
 import org.universAAL.middleware.container.ModuleActivator;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.pojo.dummyManagers.DummyAALSpaceManager;
+import org.universAAL.middleware.container.pojo.dummyManagers.DummySpaceManager;
 import org.universAAL.middleware.container.pojo.dummyManagers.DummyCommunicationModule;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.PeerRole;
-import org.universAAL.middleware.managers.api.AALSpaceManager;
+import org.universAAL.middleware.managers.api.SpaceManager;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
 
@@ -51,10 +51,10 @@ public class AbstractBusLayer implements ModuleActivator {
 		final PeerCard myCard = new PeerCard(PeerRole.COORDINATOR,
 				(String) mc.getAttribute(Attributes.CONTAINER_OS_ARCHITECTURE),
 				(String) mc.getAttribute(Attributes.CONTAINER_PLATFORM_NAME));
-		AALSpaceManager sm;
+		SpaceManager sm;
 		CommunicationModule com;
 		if (!isConnected) {
-			sm = new DummyAALSpaceManager(myCard);
+			sm = new DummySpaceManager(myCard);
 			com = new DummyCommunicationModule();
 		} else {
 			// TODO use real managers when set to do so.

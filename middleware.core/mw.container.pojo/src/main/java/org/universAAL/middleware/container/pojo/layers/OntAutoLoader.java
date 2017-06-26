@@ -30,8 +30,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import junit.framework.TestCase;
-
 import org.reflections.Reflections;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
@@ -44,7 +42,6 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.universAAL.middleware.container.LogListener;
 import org.universAAL.middleware.container.ModuleActivator;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.pojo.POJOContainer;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.owl.OntologyManagement;
@@ -171,13 +168,7 @@ public class OntAutoLoader implements ModuleActivator {
 				return;
 			attempts++;
 
-			// mc.getContainer().shareObject(mc, OntologyLoaderTask.this, new
-			// String[] { LogListener.class.getName() });
-			((POJOContainer) mc.getContainer())
-					.registerLogListener(OntologyLoaderTask.this);
-			// TODO Disable output
-			// ((POJOModuleContext) mc).disableLog();
-
+			logWatcherSetup();
 			try {
 				OntologyManagement.getInstance().register(mc, ont);
 			} catch (Throwable e) {
@@ -189,12 +180,7 @@ public class OntAutoLoader implements ModuleActivator {
 								+ ont.getInfo().getURI() }, e);
 			}
 
-			// TODO Reactivate Logs
-			// ((POJOModuleContext) mc).enableLog();
-			// mc.getContainer().removeSharedObject(mc, OntologyLoaderTask.this,
-			// new String[] { LogListener.class.getName() });
-			((POJOContainer) mc.getContainer())
-					.unregisterLogListener(OntologyLoaderTask.this);
+			logWatcherTearDown();
 		}
 
 		void unregister() {
@@ -202,12 +188,11 @@ public class OntAutoLoader implements ModuleActivator {
 			warnings = 0;
 			errors = 0;
 			logEntries.clear();
-			// TODO Disable output
-			// ((POJOModuleContext) mc).disableLog();
+			disableLog();
 			// unregister
 			OntologyManagement.getInstance().unregister(mc, ont);
-			// TODO Reactivate Logs
-			// ((POJOModuleContext) mc).enableLog();
+			// Reactivate Logs
+			enableLog();
 			// refresh ont instance
 			try {
 				ont = (Ontology) ont.getClass().newInstance();
@@ -250,6 +235,45 @@ public class OntAutoLoader implements ModuleActivator {
 				((List) imports).remove(new Resource(registeredA[i]));
 			}
 			return ((List) imports).isEmpty();
+		}
+
+		/**
+		 * 
+		 */
+		private void disableLog() {
+			// TODO Auto-generated method stub
+
+		}
+
+		/**
+		 * 
+		 */
+		private void enableLog() {
+			// TODO Auto-generated method stub
+
+		}
+
+		/**
+		 * 
+		 */
+		private void logWatcherSetup() {
+			// add This as LogListener
+			mc.getContainer().shareObject(mc, OntologyLoaderTask.this,
+					new String[] { LogListener.class.getName() });
+			// Disable output
+			disableLog();
+
+		}
+
+		/**
+		 * 
+		 */
+		private void logWatcherTearDown() {
+			// Reactivate Logs
+			enableLog();
+			// unregister this as loglistener.
+			mc.getContainer().removeSharedObject(mc, OntologyLoaderTask.this,
+					new String[] { LogListener.class.getName() });
 		}
 	}
 
@@ -353,7 +377,14 @@ public class OntAutoLoader implements ModuleActivator {
 	}
 
 	public void stop(ModuleContext mc) {
-		// TODO unregister loaded ontologies in reverse order.
+		// unregister loaded ontologies in reverse order.
+		for (int i = loadingOrder.size(); i == 0; i--) {
+			OntologyManagement.getInstance().unregister(mc,
+					loadingOrder.get(i).ont);
+		}
+		contentSerializer = null;
+		loadingOrder.clear();
+		loadingOrder = null;
 	}
 
 	private void TryLoadingOnts(List<Ontology> toBeLoaded,
@@ -474,28 +505,6 @@ public class OntAutoLoader implements ModuleActivator {
 			Ontology ont = OntologyManagement.getInstance()
 					.getOntology(onts[i]);
 			if (!generateOntFiles4Ont(ont)) {
-				LogUtils.logError(mc, getClass(), "generateOntFiles4All",
-						"Unable to generate file for: " + onts[i]);
-				out = false;
-			}
-		}
-		return out;
-	}
-
-	/**
-	 * Write to target/ontologies the serializations (in TTL, and OWL) of all
-	 * ontologies for the {@link TestCase}, that correspond to ontologies of the
-	 * tested project. Test ontologies (in test-classes) are not considered.
-	 * 
-	 * @return true iif the operation was successful
-	 */
-	protected boolean generateOntFiles4MyProy() {
-		boolean out = true;
-		String[] onts = OntologyManagement.getInstance().getOntoloyURIs();
-		for (int i = 0; i < onts.length; i++) {
-			Ontology ont = OntologyManagement.getInstance()
-					.getOntology(onts[i]);
-			if (isInMyProy(ont) && !generateOntFiles4Ont(ont)) {
 				LogUtils.logError(mc, getClass(), "generateOntFiles4All",
 						"Unable to generate file for: " + onts[i]);
 				out = false;

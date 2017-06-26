@@ -29,22 +29,26 @@ import org.universAAL.middleware.serialization.turtle.TurtleUtil;
  */
 public class TurtleSerialization implements ModuleActivator {
 
-	private MessageContentSerializer mcs;
+	private TurtleSerializer turtleS;
 
 	/** {@ inheritDoc} */
 	public void start(ModuleContext mc) throws Exception {
-		TurtleSerializer turtleS = new TurtleSerializer();
+		turtleS = new TurtleSerializer();
 		mc.getContainer().shareObject(mc, turtleS,
 				new Object[] { MessageContentSerializer.class.getName() });
 		mc.getContainer().shareObject(mc, turtleS,
 				new Object[] { MessageContentSerializerEx.class.getName() });
-		mcs = (MessageContentSerializer) mc.getContainer().fetchSharedObject(
-				mc, new Object[] { MessageContentSerializer.class.getName() });
+
 		TurtleUtil.moduleContext = mc;
 	}
 
 	/** {@ inheritDoc} */
 	public void stop(ModuleContext mc) throws Exception {
+		mc.getContainer().removeSharedObject(mc, turtleS,
+				new Object[] { MessageContentSerializerEx.class.getName() });
+		mc.getContainer().removeSharedObject(mc, turtleS,
+				new Object[] { MessageContentSerializer.class.getName() });
+		turtleS = null;
 
 	}
 

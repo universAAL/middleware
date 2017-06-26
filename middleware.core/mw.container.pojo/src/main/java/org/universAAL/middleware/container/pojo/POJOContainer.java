@@ -62,18 +62,23 @@ public final class POJOContainer implements Container {
 		} catch (IOException e1) {
 			Logger.getLogger(getClass()).error("File system error", e1);
 		}
+		reloadProperties();
+	};
+
+	private void reloadProperties() {
+
 		File sysprop = new File(getConfigurationFolder(), SYS_FILE);
 		// try load other system properties
 		if (sysprop.exists()) {
 			try {
 				System.getProperties().load(new FileInputStream(sysprop));
 			} catch (FileNotFoundException e) {
-				Logger.getLogger(getClass()).error("System File Not found", e);
+				Logger.getLogger(getClass()).info("System File Not found", e);
 			} catch (IOException e) {
 				Logger.getLogger(getClass()).error("File system error", e);
 			}
 		}
-	};
+	}
 
 	/** {@inheritDoc} */
 	public Object fetchSharedObject(ModuleContext requester,
@@ -156,7 +161,10 @@ public final class POJOContainer implements Container {
 
 	public void setConfigFolder(String newConfig) {
 		configFolder = newConfig;
-		// XXX reload confing?
+		// reload config
+		reloadProperties();
+		// XXX this will maintain previous properties which are not overridden
+		// by the file.
 	}
 
 	/**

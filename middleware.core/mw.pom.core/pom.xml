@@ -43,6 +43,7 @@
     <module>../mw.bus.junit</module>
     <module>../mw.managers.distributedmw.core</module>
     <module>../mw.junit</module>
+    <module>../mw.container.pojo</module>
   </modules>
   <properties>
     <nameMatchString>^universAAL Middleware .* \(Core\)$</nameMatchString>
@@ -189,6 +190,11 @@
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.container.junit</artifactId>
+        <version>3.4.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.container.pojo</artifactId>
         <version>3.4.1-SNAPSHOT</version>
       </dependency>
       <dependency>
