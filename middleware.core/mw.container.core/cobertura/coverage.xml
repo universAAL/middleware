@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.1686046511627907" branch-rate="0.09016393442622951" lines-covered="29" lines-valid="172" branches-covered="11" branches-valid="122" complexity="2.0136986301369864" version="2.1.1" timestamp="1498674724654">
+<coverage line-rate="0.1686046511627907" branch-rate="0.09016393442622951" lines-covered="29" lines-valid="172" branches-covered="11" branches-valid="122" complexity="2.0136986301369864" version="2.1.1" timestamp="1498677366639">
 	<sources>
 		<source>--source</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.core/mw.container.core/src/main/java</source>
