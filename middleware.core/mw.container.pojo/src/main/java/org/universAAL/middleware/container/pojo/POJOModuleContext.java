@@ -38,11 +38,9 @@ import org.universAAL.middleware.container.utils.LogUtils;
  */
 public class POJOModuleContext implements ModuleContext {
 
-	public enum LogLevel {
-		ERROR, WARN, INFO, DEBUG, TRACE, NONE
-	}
-
 	private Logger logger;
+
+	private Level loglevel;
 
 	private Map<String, Object> attributeMap;
 
@@ -281,5 +279,16 @@ public class POJOModuleContext implements ModuleContext {
 
 	public File getDataFolder() {
 		return new File(dataFolder, getID());
+	}
+
+	public void setEnableLog(boolean enablelog) {
+		if (enablelog && loglevel != null) {
+			logger.setLevel(loglevel);
+		} else if (enablelog) {
+			logger.setLevel(Level.INFO);
+		} else if (!enablelog) {
+			loglevel = logger.getLevel();
+			logger.setLevel(Level.OFF);
+		}
 	}
 }

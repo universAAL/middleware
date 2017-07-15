@@ -42,6 +42,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.universAAL.middleware.container.LogListener;
 import org.universAAL.middleware.container.ModuleActivator;
 import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.pojo.POJOModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.owl.OntologyManagement;
@@ -241,16 +242,14 @@ public class OntAutoLoader implements ModuleActivator {
 		 * 
 		 */
 		private void disableLog() {
-			// TODO Auto-generated method stub
-
+			((POJOModuleContext) mc).setEnableLog(false);
 		}
 
 		/**
 		 * 
 		 */
 		private void enableLog() {
-			// TODO Auto-generated method stub
-
+			((POJOModuleContext) mc).setEnableLog(true);
 		}
 
 		/**
