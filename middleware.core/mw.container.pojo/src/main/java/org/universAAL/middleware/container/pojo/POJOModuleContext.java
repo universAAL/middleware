@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.jar.Manifest;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -29,6 +30,7 @@ import org.universAAL.middleware.container.Attributes;
 import org.universAAL.middleware.container.Container;
 import org.universAAL.middleware.container.ModuleActivator;
 import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.utils.LogUtils;
 
 /**
  * @author amedrano
@@ -257,13 +259,20 @@ public class POJOModuleContext implements ModuleContext {
 	}
 
 	public String getManifestEntry(String name) {
-		// TODO
-		return null;
+		return getManifestEntry("META-INF/MANIFEST.MF", name);
 	}
 
 	public String getManifestEntry(String manifest, String name) {
-		// TODO
-		return null;
+		Manifest man;
+		try {
+			man = new Manifest(activator.getClass().getClassLoader()
+					.getResourceAsStream(name));
+		} catch (IOException e) {
+			LogUtils.logError(this, getClass(), "getManifestEntry",
+					new String[] { "unable to load manifest." }, e);
+			return null;
+		}
+		return man.getMainAttributes().getValue(name);
 	}
 
 	public File getConfigHome() {
