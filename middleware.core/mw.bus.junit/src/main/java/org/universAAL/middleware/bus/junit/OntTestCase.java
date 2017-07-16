@@ -46,7 +46,6 @@ import org.universAAL.middleware.container.LogListener;
 import org.universAAL.middleware.container.ModuleActivator;
 import org.universAAL.middleware.container.JUnit.JUnitContainer;
 import org.universAAL.middleware.container.JUnit.JUnitModuleContext;
-import org.universAAL.middleware.container.JUnit.JUnitModuleContext.LogLevel;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.owl.OntologyManagement;
@@ -75,8 +74,8 @@ public class OntTestCase extends BusTestCase {
 		Object[] msgPart;
 		Throwable t;
 
-		public LogEntry(int logLevel, String module, String pkg, String cls, String method, Object[] msgPart,
-				Throwable t) {
+		public LogEntry(int logLevel, String module, String pkg, String cls,
+				String method, Object[] msgPart, Throwable t) {
 			super();
 			this.logLevel = logLevel;
 			this.module = module;
@@ -166,28 +165,36 @@ public class OntTestCase extends BusTestCase {
 		}
 
 		void attempt() {
-			if (ont.getInfo() != null && OntologyManagement.getInstance().isRegisteredOntology(ont.getInfo().getURI()))
+			if (ont.getInfo() != null
+					&& OntologyManagement.getInstance().isRegisteredOntology(
+							ont.getInfo().getURI()))
 				return;
 			attempts++;
 
 			// mc.getContainer().shareObject(mc, OntologyLoaderTask.this, new
 			// String[] { LogListener.class.getName() });
-			((JUnitContainer) mc.getContainer()).registerLogListener(OntologyLoaderTask.this);
+			((JUnitContainer) mc.getContainer())
+					.registerLogListener(OntologyLoaderTask.this);
 			// Disable output
 			((JUnitModuleContext) mc).disableLog();
 
 			try {
 				OntologyManagement.getInstance().register(mc, ont);
 			} catch (Throwable e) {
-				LogUtils.logError(mc, getClass(), "attempt",
-						new String[] { "Unexpected Error, could not register ontology: " + ont.getInfo().getURI() }, e);
+				LogUtils.logError(
+						mc,
+						getClass(),
+						"attempt",
+						new String[] { "Unexpected Error, could not register ontology: "
+								+ ont.getInfo().getURI() }, e);
 			}
 
 			// Reactivate Logs
 			((JUnitModuleContext) mc).enableLog();
 			// mc.getContainer().removeSharedObject(mc, OntologyLoaderTask.this,
 			// new String[] { LogListener.class.getName() });
-			((JUnitContainer) mc.getContainer()).unregisterLogListener(OntologyLoaderTask.this);
+			((JUnitContainer) mc.getContainer())
+					.unregisterLogListener(OntologyLoaderTask.this);
 		}
 
 		void unregister() {
@@ -206,14 +213,18 @@ public class OntTestCase extends BusTestCase {
 				ont = (Ontology) ont.getClass().newInstance();
 			} catch (Exception e) {
 				LogUtils.logError(mc, getClass(), "unregister",
-						new String[] { "could not instantiate: " + ont.getClass().getName() }, e);
+						new String[] { "could not instantiate: "
+								+ ont.getClass().getName() }, e);
 			}
 		}
 
-		public void log(int logLevel, String module, String pkg, String cls, String method, Object[] msgPart,
-				Throwable t) {
-			LogEntry le = new LogEntry(logLevel, module, pkg, cls, method, msgPart, t);
-			if (msgPart.length > 0 && !((String) msgPart[0]).contains("Unregistering ontology")
+		public void log(int logLevel, String module, String pkg, String cls,
+				String method, Object[] msgPart, Throwable t) {
+			LogEntry le = new LogEntry(logLevel, module, pkg, cls, method,
+					msgPart, t);
+			if (msgPart.length > 0
+					&& !((String) msgPart[0])
+							.contains("Unregistering ontology")
 					&& !((String) msgPart[0]).contains("Registering ontology"))
 				logEntries.add(le);
 			if (logLevel == LOG_LEVEL_ERROR)
@@ -223,7 +234,8 @@ public class OntTestCase extends BusTestCase {
 		}
 
 		public boolean allImportsRegistered() {
-			Object imports = ont.getInfo().getProperty(Ontology.PROP_OWL_IMPORT);
+			Object imports = ont.getInfo()
+					.getProperty(Ontology.PROP_OWL_IMPORT);
 			if (imports == null) {
 				return true;
 			}
@@ -232,7 +244,8 @@ public class OntTestCase extends BusTestCase {
 				a.add(imports);
 				imports = a;
 			}
-			String[] registeredA = OntologyManagement.getInstance().getOntoloyURIs();
+			String[] registeredA = OntologyManagement.getInstance()
+					.getOntoloyURIs();
 			for (int i = 0; i < registeredA.length; i++) {
 				((List) imports).remove(new Resource(registeredA[i]));
 			}
@@ -256,7 +269,7 @@ public class OntTestCase extends BusTestCase {
 				}
 			folder = s;
 		}
-//		System.out.println("Folder: " + folder);
+		// System.out.println("Folder: " + folder);
 
 		autoLoadOntologies();
 	}
@@ -274,8 +287,34 @@ public class OntTestCase extends BusTestCase {
 		// same way.
 		// Otherwise it can happen that mvn-install will throw an error, but
 		// JUnit won't, which makes debugging difficult.
+		// TODO this sort method forces to declare iterative all imports.
+		// there should be a method to create the tree out of partial import
+		// sets
 		Collections.sort(toBeLoaded, new Comparator<Ontology>() {
+			private List importsFrom(Ontology ont) {
+				Object imports = ont.getInfo().getProperty(
+						Ontology.PROP_OWL_IMPORT);
+				if (imports == null) {
+					return Collections.emptyList();
+				}
+				if (!(imports instanceof List)) {
+					List a = new ArrayList();
+					a.add(imports);
+					return a;
+				} else {
+					return (List) imports;
+				}
+			}
+
 			public int compare(Ontology o1, Ontology o2) {
+				List imports = importsFrom(o2);
+				if (imports.contains(o1.getInfo())) {
+					return -1;
+				}
+				imports = importsFrom(o1);
+				if (imports.contains(o2.getInfo())) {
+					return 1;
+				}
 				return o1.getInfo().getURI().compareTo(o2.getInfo().getURI());
 			}
 		});
@@ -287,10 +326,12 @@ public class OntTestCase extends BusTestCase {
 		}
 
 		// first add all onts that are not from this project
-		TryLoadingOnts(toBeLoaded, false, pendingOnts, loadingOrder, totalOntologiesFound);
+		TryLoadingOnts(toBeLoaded, false, pendingOnts, loadingOrder,
+				totalOntologiesFound);
 
 		// then add all onts that are from this project
-		TryLoadingOnts(toBeLoaded, true, pendingOnts, loadingOrder, totalOntologiesFound);
+		TryLoadingOnts(toBeLoaded, true, pendingOnts, loadingOrder,
+				totalOntologiesFound);
 
 		// while (!toBeLoaded.isEmpty() ) {
 		// Ontology next = toBeLoaded.remove(0);
@@ -313,19 +354,22 @@ public class OntTestCase extends BusTestCase {
 		ls.append(" Load Order:\n");
 		StringBuffer sb = new StringBuffer();
 		sb.append(" Ontology problems found in this project:\n");
-		StringBuffer sbo = new StringBuffer(" Problems detected in other Ontologies:\n");
+		StringBuffer sbo = new StringBuffer(
+				" Problems detected in other Ontologies:\n");
 		boolean problems = false;
 		boolean otherProblems = false;
 		boolean fail = false;
 		for (OntologyLoaderTask olt : loadingOrder) {
-			ls.append(
-					"\t" + (isInMyProy(olt.ont) ? "* " : "  ") + olt.ont.getInfo().getURI() + " " + olt.report() + "\n");
+			ls.append("\t" + (isInMyProy(olt.ont) ? "* " : "  ")
+					+ olt.ont.getInfo().getURI() + " " + olt.report() + "\n");
 			if (isInMyProy(olt.ont)) {
 				if (!olt.logEntries.isEmpty()) {
 					sb.append("\t" + olt.ont.getInfo().getURI() + "\n");
 					problems = true;
 					for (LogEntry le : olt.logEntries) {
-						sb.append("\t\t" + le.toString().replaceAll("\n", "\n\t\t") + "\n");
+						sb.append("\t\t"
+								+ le.toString().replaceAll("\n", "\n\t\t")
+								+ "\n");
 						if (le.logLevel >= LogListener.LOG_LEVEL_WARN)
 							fail = true;
 					}
@@ -335,7 +379,9 @@ public class OntTestCase extends BusTestCase {
 					sbo.append("\t" + olt.ont.getInfo().getURI() + "\n");
 					otherProblems = true;
 					for (LogEntry le : olt.logEntries) {
-						sbo.append("\t\t" + le.toString().replaceAll("\n", "\n\t\t") + "\n");
+						sbo.append("\t\t"
+								+ le.toString().replaceAll("\n", "\n\t\t")
+								+ "\n");
 					}
 				}
 
@@ -343,29 +389,34 @@ public class OntTestCase extends BusTestCase {
 		}
 		LogUtils.logInfo(mc, getClass(), "autoLoadOntologies", ls.toString());
 		if (problems) {
-//			System.err.println(sb.toString());
-			LogUtils.logError(mc, getClass(), "autoLoadOntologies", sb.toString());
+			// System.err.println(sb.toString());
+			LogUtils.logError(mc, getClass(), "autoLoadOntologies",
+					sb.toString());
 		}
 		if (otherProblems) {
-//			System.out.print(sbo.toString());
-			LogUtils.logWarn(mc, getClass(), "autoLoadOntologies", sbo.toString());
+			// System.out.print(sbo.toString());
+			LogUtils.logWarn(mc, getClass(), "autoLoadOntologies",
+					sbo.toString());
 		}
 
 		if (problems) {
 			if (fail) {
-				LogUtils.logError(mc, getClass(), "autoLoadOntologies", "Severe problems found, failing build.");
+				LogUtils.logError(mc, getClass(), "autoLoadOntologies",
+						"Severe problems found, failing build.");
 				fail(sb.toString());
 			} else {
-				LogUtils.logWarn(mc, getClass(), "autoLoadOntologies", "The problems are not severe, build does not fail.");
+				LogUtils.logWarn(mc, getClass(), "autoLoadOntologies",
+						"The problems are not severe, build does not fail.");
 			}
 		}
 
 		mc.logInfo("OntTestCase", "Auto Loading complete.", null);
 	}
 
-	private void TryLoadingOnts(List<Ontology> toBeLoaded, boolean isInMyProject,
-			Map<Ontology, OntologyLoaderTask> pendingOnts, List<OntologyLoaderTask> loadingOrder,
-			int totalOntologiesFound) {
+	private void TryLoadingOnts(List<Ontology> toBeLoaded,
+			boolean isInMyProject,
+			Map<Ontology, OntologyLoaderTask> pendingOnts,
+			List<OntologyLoaderTask> loadingOrder, int totalOntologiesFound) {
 
 		// filter the list of onts to those are isInMyProject
 		List<Ontology> ontStep = new ArrayList<Ontology>();
@@ -383,9 +434,21 @@ public class OntTestCase extends BusTestCase {
 		while (!ontStep.isEmpty()) {
 			Ontology next = ontStep.remove(0);
 			OntologyLoaderTask otl = pendingOnts.get(next);
-
+			if (!otl.allImportsRegistered()
+					&& otl.attempts <= totalOntologiesFound * 2) {
+				// The prerequisites are not loaded
+				otl.log(LogListener.LOG_LEVEL_ERROR,
+						"mw.bus.junit",
+						"",
+						"OntTestCase",
+						"tryLoadingOnts",
+						new String[] { "Coult not find and register all import Ontologies for "
+								+ otl.ont.getInfo().getURI() }, null);
+				ontStep.add(next);
+				continue;
+			}
 			otl.attempt();
-			if ((!otl.allImportsRegistered() || otl.errors > 0) && otl.attempts <= totalOntologiesFound * 2) {
+			if (otl.errors > 0 && otl.attempts <= totalOntologiesFound * 2) {
 				otl.unregister();
 				ontStep.add(next);
 				continue;
@@ -401,10 +464,14 @@ public class OntTestCase extends BusTestCase {
 	 */
 	protected MessageContentSerializer getContentserializer() {
 		if (contentSerializer == null) {
-			contentSerializer = (MessageContentSerializer) mc.getContainer().fetchSharedObject(mc,
-					new Object[] { MessageContentSerializer.class.getName() });
+			contentSerializer = (MessageContentSerializer) mc.getContainer()
+					.fetchSharedObject(
+							mc,
+							new Object[] { MessageContentSerializer.class
+									.getName() });
 			if (contentSerializer == null) {
-				System.out.println("ERROR: no serializer found for serializing the ontology");
+				System.out
+						.println("ERROR: no serializer found for serializing the ontology");
 			}
 		}
 		return contentSerializer;
@@ -422,7 +489,8 @@ public class OntTestCase extends BusTestCase {
 		Reflections reflections = new Reflections("org.universAAL.ontology");
 
 		try {
-			Set<?> subTypes = reflections.getSubTypesOf(Class.forName(Ontology.class.getName()));
+			Set<?> subTypes = reflections.getSubTypesOf(Class
+					.forName(Ontology.class.getName()));
 
 			for (Object o : subTypes) {
 				if (o instanceof Class<?>) {
@@ -430,12 +498,14 @@ public class OntTestCase extends BusTestCase {
 						onts.add((Ontology) ((Class<?>) o).newInstance());
 					} catch (Exception e) {
 						LogUtils.logError(mc, getClass(), "getOntologies",
-								new String[] { "could not instantiate: " + ((Class) o).getName() }, e);
+								new String[] { "could not instantiate: "
+										+ ((Class) o).getName() }, e);
 					}
 				}
 			}
 		} catch (ClassNotFoundException e) {
-			LogUtils.logError(mc, getClass(), "getOntologyModules", new String[] { "Unexpected error" }, e);
+			LogUtils.logError(mc, getClass(), "getOntologyModules",
+					new String[] { "Unexpected error" }, e);
 		}
 
 		return onts;
@@ -455,7 +525,8 @@ public class OntTestCase extends BusTestCase {
 		}
 		String name = ontFileName(ont);
 		File ttlFile = new File(owlDir, name + ".ttl");
-		return writeTTL(ont, ttlFile) && transformTTL2OWL(ttlFile, new File(owlDir, name + ".owl"));
+		return writeTTL(ont, ttlFile)
+				&& transformTTL2OWL(ttlFile, new File(owlDir, name + ".owl"));
 	}
 
 	/**
@@ -468,9 +539,11 @@ public class OntTestCase extends BusTestCase {
 		boolean out = true;
 		String[] onts = OntologyManagement.getInstance().getOntoloyURIs();
 		for (int i = 0; i < onts.length; i++) {
-			Ontology ont = OntologyManagement.getInstance().getOntology(onts[i]);
+			Ontology ont = OntologyManagement.getInstance()
+					.getOntology(onts[i]);
 			if (!generateOntFiles4Ont(ont)) {
-				LogUtils.logError(mc, getClass(), "generateOntFiles4All", "Unable to generate file for: " + onts[i]);
+				LogUtils.logError(mc, getClass(), "generateOntFiles4All",
+						"Unable to generate file for: " + onts[i]);
 				out = false;
 			}
 		}
@@ -488,9 +561,11 @@ public class OntTestCase extends BusTestCase {
 		boolean out = true;
 		String[] onts = OntologyManagement.getInstance().getOntoloyURIs();
 		for (int i = 0; i < onts.length; i++) {
-			Ontology ont = OntologyManagement.getInstance().getOntology(onts[i]);
+			Ontology ont = OntologyManagement.getInstance()
+					.getOntology(onts[i]);
 			if (isInMyProy(ont) && !generateOntFiles4Ont(ont)) {
-				LogUtils.logError(mc, getClass(), "generateOntFiles4All", "Unable to generate file for: " + onts[i]);
+				LogUtils.logError(mc, getClass(), "generateOntFiles4All",
+						"Unable to generate file for: " + onts[i]);
 				out = false;
 			}
 		}
@@ -506,7 +581,8 @@ public class OntTestCase extends BusTestCase {
 	 *         being loaded from the local folder target/classes/.
 	 */
 	private boolean isInMyProy(Ontology ont) {
-		URL ontLoadURL = ont.getClass().getResource(ont.getClass().getSimpleName() + ".class");
+		URL ontLoadURL = ont.getClass().getResource(
+				ont.getClass().getSimpleName() + ".class");
 		if (ontLoadURL == null) {
 			// System.out.println(" -- false1 - " +
 			// ont.getClass().getSimpleName());
@@ -535,8 +611,10 @@ public class OntTestCase extends BusTestCase {
 			name = name.substring(0, name.length() - 4);
 		if (name == null) {
 			LogUtils.logWarn(mc, getClass(), "ontFileName",
-					"unable to get Name for: " + ont.getInfo().getURI() + " , generating random name.");
-			name = Integer.toHexString(new Random(System.currentTimeMillis()).nextInt());
+					"unable to get Name for: " + ont.getInfo().getURI()
+							+ " , generating random name.");
+			name = Integer.toHexString(new Random(System.currentTimeMillis())
+					.nextInt());
 		}
 		return name;
 	}
@@ -551,17 +629,24 @@ public class OntTestCase extends BusTestCase {
 	 * @return true iif the operation was successful.
 	 */
 	private boolean writeTTL(Ontology ont, File ttlFile) {
-		LogUtils.logInfo(mc, getClass(), "writeTTL", "Writing turtle serialization of ontology: "
-				+ ont.getInfo().getURI() + "\n\t to: " + ttlFile.getAbsolutePath());
+		LogUtils.logInfo(
+				mc,
+				getClass(),
+				"writeTTL",
+				"Writing turtle serialization of ontology: "
+						+ ont.getInfo().getURI() + "\n\t to: "
+						+ ttlFile.getAbsolutePath());
 		String serializedOntology = getContentserializer().serialize(ont);
 		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(ttlFile, false));
+			BufferedWriter out = new BufferedWriter(new FileWriter(ttlFile,
+					false));
 			out.write(serializedOntology);
 			out.flush();
 			out.close();
 			return true;
 		} catch (IOException e) {
-			LogUtils.logError(mc, getClass(), "writeTTL", new String[] { "Unexpected Error" }, e);
+			LogUtils.logError(mc, getClass(), "writeTTL",
+					new String[] { "Unexpected Error" }, e);
 			return false;
 		}
 	}
@@ -577,23 +662,30 @@ public class OntTestCase extends BusTestCase {
 	 */
 	private boolean transformTTL2OWL(File ttlFile, File owlFile) {
 		LogUtils.logInfo(mc, getClass(), "transformTTL2OWL",
-				"Transforming file: " + ttlFile.getAbsolutePath() + "\n\t to: " + owlFile.getAbsolutePath());
+				"Transforming file: " + ttlFile.getAbsolutePath() + "\n\t to: "
+						+ owlFile.getAbsolutePath());
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		IRI documentIRI = IRI.create(ttlFile);
 		OWLOntology owlOntology;
 		try {
 			owlOntology = manager.loadOntologyFromOntologyDocument(documentIRI);
-			LogUtils.logInfo(mc, getClass(), "transformTTL2OWL", "   Loaded ontology: " + owlOntology);
+			LogUtils.logInfo(mc, getClass(), "transformTTL2OWL",
+					"   Loaded ontology: " + owlOntology);
 
 			OWLOntologyFormat format = manager.getOntologyFormat(owlOntology);
 
 			RDFXMLOntologyFormat rdfxmlFormat = new RDFXMLOntologyFormat();
 			if (format.isPrefixOWLOntologyFormat()) {
-				rdfxmlFormat.copyPrefixesFrom(format.asPrefixOWLOntologyFormat());
+				rdfxmlFormat.copyPrefixesFrom(format
+						.asPrefixOWLOntologyFormat());
 			}
 			manager.saveOntology(owlOntology, rdfxmlFormat, IRI.create(owlFile));
-			LogUtils.logInfo(mc, getClass(), "transformTTL2OWL",
-					"   Saved ontology " + owlOntology + " in file " + owlFile.getAbsolutePath());
+			LogUtils.logInfo(
+					mc,
+					getClass(),
+					"transformTTL2OWL",
+					"   Saved ontology " + owlOntology + " in file "
+							+ owlFile.getAbsolutePath());
 		} catch (OWLOntologyCreationException e1) {
 			e1.printStackTrace();
 			return false;
