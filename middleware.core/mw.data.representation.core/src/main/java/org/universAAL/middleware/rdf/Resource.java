@@ -36,7 +36,7 @@ import org.universAAL.middleware.util.ResourceComparator;
 
 /**
  * The base class for all RDF and OWL classes.
- *
+ * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * @author Carsten Stockloew
@@ -80,13 +80,16 @@ public class Resource {
 	public static final String NAMESPACE_PREFIX = "http://ontology.universAAL.org/";
 
 	/** URI for the universAAL service namespace. */
-	public static final String SERVICE_NAMESPACE = NAMESPACE_PREFIX + "Service.owl#";
+	public static final String SERVICE_NAMESPACE = NAMESPACE_PREFIX
+			+ "Service.owl#";
 
 	/** URI for the universAAL namespace. */
-	public static final String VOCABULARY_NAMESPACE = NAMESPACE_PREFIX + "uAAL.owl#";
+	public static final String VOCABULARY_NAMESPACE = NAMESPACE_PREFIX
+			+ "uAAL.owl#";
 
 	/** URI for properties linking to the user involved. */
-	public static final String PROP_INVOLVED_HUMAN_USER = VOCABULARY_NAMESPACE + "theInvolvedHumanUser";
+	public static final String PROP_INVOLVED_HUMAN_USER = VOCABULARY_NAMESPACE
+			+ "theInvolvedHumanUser";
 
 	/**
 	 * Legal return values for {@link #getPropSerializationType(String)}.
@@ -207,7 +210,7 @@ public class Resource {
 	 * parameter 'numProps' in order to make it distinct from the other
 	 * constructor that also takes a string. Later versions of Resource may
 	 * decide to make some use of numProps in some way, however.
-	 *
+	 * 
 	 * @param uriPrefix
 	 *            Prefix of the URI.
 	 * @param numProps
@@ -227,7 +230,7 @@ public class Resource {
 	/**
 	 * Creates a new Resource instance which is treated as an RDF list and
 	 * contains the specified list of elements.
-	 *
+	 * 
 	 * @param members
 	 *            The elements of the list. This will be treated as separate
 	 *            Resources to be part of the resulting list.
@@ -268,7 +271,7 @@ public class Resource {
 
 	/**
 	 * Get a Resource with the given class and instance URI.
-	 *
+	 * 
 	 * @param classURI
 	 *            The URI of the class.
 	 * @param instanceURI
@@ -278,13 +281,14 @@ public class Resource {
 	 * @see OntologyManagement#getResource(String, String)
 	 */
 	public static Resource getResource(String classURI, String instanceURI) {
-		return OntologyManagement.getInstance().getResource(classURI, instanceURI);
+		return OntologyManagement.getInstance().getResource(classURI,
+				instanceURI);
 	}
 
 	/**
 	 * Determines if the specified URI is an anonymous URI, i.e. it is either
 	 * null or starts with the the String typical for anonymous URIs.
-	 *
+	 * 
 	 * @see #ANON_URI_PREFIX
 	 */
 	public static final boolean isAnon(String uri) {
@@ -297,13 +301,14 @@ public class Resource {
 	 * ) and is not an anonymous URI.
 	 */
 	public static final boolean isQualifiedName(String uri) {
-		return StringUtils.isQualifiedName(uri) && !uri.startsWith(ANON_URI_PREFIX);
+		return StringUtils.isQualifiedName(uri)
+				&& !uri.startsWith(ANON_URI_PREFIX);
 	}
 
 	/**
 	 * Set or add the type of this Resource. The type complies to rdf:type. A
 	 * Resource can have multiple types.
-	 *
+	 * 
 	 * @param typeURI
 	 *            URI of the type.
 	 * @param blockFurtherTypes
@@ -317,7 +322,10 @@ public class Resource {
 		if (typeURI != null) {
 			Object o = props.get(PROP_RDF_TYPE);
 			Resource type = new Resource(typeURI);
-			if (o instanceof List && !((List) o).contains(type))
+			if (o instanceof List && ((List) o).contains(type))
+				// already added.
+				return true;
+			else if (o instanceof List)
 				((List) o).add(type);
 			else {
 				List l = new ArrayList(2);
@@ -334,7 +342,7 @@ public class Resource {
 	/**
 	 * If this Resource represents an RDF List, retrieve the elements as
 	 * {@link java.util.List}.
-	 *
+	 * 
 	 * @return The list containing the elements of this RDF list.
 	 */
 	public List asList() {
@@ -352,7 +360,7 @@ public class Resource {
 	/**
 	 * If this Resource represents an RDF List, retrieve the elements as
 	 * {@link java.util.List}.
-	 *
+	 * 
 	 * @param l
 	 *            The list to store the elements of this RDF list.
 	 */
@@ -368,8 +376,13 @@ public class Resource {
 						((Resource) o).asList(l);
 					else {
 						if (!RDF_EMPTY_LIST.equals(((Resource) o).getURI())) {
-							LogUtils.logDebug(SharedResources.moduleContext, Resource.class, "asList",
-									new Object[] { "The resource ", getURI(),
+							LogUtils.logDebug(
+									SharedResources.moduleContext,
+									Resource.class,
+									"asList",
+									new Object[] {
+											"The resource ",
+											getURI(),
 											" is of type rdf:list and it defines another element with rdf:rest,"
 													+ " but the rdf:rest is neither rdf:nil nor another rdf:list."
 													+ " The rdf:rest is not further taken into account." },
@@ -380,15 +393,23 @@ public class Resource {
 					// the rest is already a list object
 					l.addAll((List) o);
 				} else {
-					LogUtils.logDebug(SharedResources.moduleContext, Resource.class, "asList",
-							new Object[] { "The resource ", getURI(),
+					LogUtils.logDebug(
+							SharedResources.moduleContext,
+							Resource.class,
+							"asList",
+							new Object[] {
+									"The resource ",
+									getURI(),
 									" is of type rdf:list and it defines another element with rdf:rest,"
 											+ " but the rdf:rest is neither rdf:nil nor another rdf:list nor a List."
 											+ " The rdf:rest is not further taken into account." },
 							null);
 				}
 			} else {
-				LogUtils.logDebug(SharedResources.moduleContext, Resource.class, "asList",
+				LogUtils.logDebug(
+						SharedResources.moduleContext,
+						Resource.class,
+						"asList",
 						new Object[] { "The resource ", getURI(),
 								" is of type rdf:list, but it does not define a rdf:first property." },
 						null);
@@ -400,7 +421,7 @@ public class Resource {
 	 * Change the value (RDF object) of the specified property (RDF predicate)
 	 * to the given object. If the value can't be set, it is ensured that the
 	 * original value is restored.
-	 *
+	 * 
 	 * @param propURI
 	 *            The value has to be changed for this property.
 	 * @param value
@@ -426,7 +447,7 @@ public class Resource {
 	 * Create a copy of this resource. This method only creates a copy of this
 	 * resource and the property references, but not of the property values. If
 	 * all resources of the RDF graph should be copied, use {@link #deepCopy()}.
-	 *
+	 * 
 	 * @return the copied resource as a non-specialized instance of
 	 *         {@link Resource}, not a subclass of it (Note: future versions may
 	 *         change this and return a specialized copy).
@@ -448,7 +469,7 @@ public class Resource {
 	 * object and for the resources of all properties. The copied resources are
 	 * specialized according to the type information stored in the rdf:type
 	 * property.
-	 *
+	 * 
 	 * @return The copied Resource.
 	 */
 	public Resource deepCopy() {
@@ -463,11 +484,13 @@ public class Resource {
 			String[] types = r.getTypes();
 			if (types != null && types.length != 0) {
 				// we have type info -> this resource can be specialized
-				String type = OntologyManagement.getInstance().getMostSpecializedClass(types);
+				String type = OntologyManagement.getInstance()
+						.getMostSpecializedClass(types);
 				if (type == null) {
 					spec = TypeExpressionFactory.specialize(r);
 				} else {
-					spec = OntologyManagement.getInstance().getResource(type, r.getURI());
+					spec = OntologyManagement.getInstance().getResource(type,
+							r.getURI());
 				}
 			}
 			if (spec == null) {
@@ -520,33 +543,37 @@ public class Resource {
 	/** Determines if this Resource equals the specified Resource. */
 	public boolean equals(Object other) {
 		return (this == other) ? true
-				: (other instanceof Resource) ? ((!isAnon() && uri.equals(((Resource) other).uri))
-						|| new ResourceComparator().areEqual(this, (Resource) other)) : false;
+				: (other instanceof Resource) ? ((!isAnon() && uri
+						.equals(((Resource) other).uri)) || new ResourceComparator()
+						.areEqual(this, (Resource) other))
+						: false;
 	}
 
 	/**
 	 * Get the Resource comment. Convenient method to retrieve rdfs:comment.
-	 *
+	 * 
 	 * @return the comment of this resource.
 	 */
 	public String getResourceComment() {
-		LangString ls = getMultiLangProp(PROP_RDFS_COMMENT, getDefaultLang(), true);
+		LangString ls = getMultiLangProp(PROP_RDFS_COMMENT, getDefaultLang(),
+				true);
 		return ls == null ? null : ls.getString();
 	}
 
 	/**
 	 * Get the Resource label. Convenient method to retrieve rdfs:label.
-	 *
+	 * 
 	 * @return the label of this resource.
 	 */
 	public String getResourceLabel() {
-		LangString ls = getMultiLangProp(PROP_RDFS_LABEL, getDefaultLang(), true);
+		LangString ls = getMultiLangProp(PROP_RDFS_LABEL, getDefaultLang(),
+				true);
 		return ls == null ? null : ls.getString();
 	}
 
 	/**
 	 * Get the Resource label. Convenient method to retrieve rdfs:label.
-	 *
+	 * 
 	 * @param lang
 	 *            The preferred language. Should be one of the constants defined
 	 *            in {@link LangString}, e.g. {@link LangString#LANG_ENGLISH}.
@@ -560,7 +587,7 @@ public class Resource {
 	/**
 	 * Get the default language. The language has the form of a language tag
 	 * according to ISO 639-1 (e.g. "en").
-	 *
+	 * 
 	 * @return the default language.
 	 */
 	public String getDefaultLang() {
@@ -571,7 +598,7 @@ public class Resource {
 	/**
 	 * If this resource has no original label, constructs one for it without
 	 * changing the resource itself.
-	 *
+	 * 
 	 * @param type
 	 *            The optional type to be used instead of the return value of
 	 *            'getType()' when constructing a label
@@ -585,7 +612,7 @@ public class Resource {
 	/**
 	 * If this resource has no original label, constructs one for it without
 	 * changing the resource itself.
-	 *
+	 * 
 	 * @param type
 	 *            The optional type to be used instead of the return value of
 	 *            'getType()' when constructing a label
@@ -606,15 +633,17 @@ public class Resource {
 		String retval = "\"";
 		if (type != null)
 			retval = type + " \"";
-		return retval + (hasQualifiedName() ? StringUtils.deriveLabel(uri) : uri) + "\"";
+		return retval
+				+ (hasQualifiedName() ? StringUtils.deriveLabel(uri) : uri)
+				+ "\"";
 	}
 
 	/**
 	 * Get the local name which is the part of the URI after the delimiter
 	 * ('#').
-	 *
+	 * 
 	 * @return The local name of the URI of this resource.
-	 *
+	 * 
 	 * @see #getNamespace()
 	 * @see #getFilename()
 	 */
@@ -625,22 +654,23 @@ public class Resource {
 	/**
 	 * Get the namespace of the URI which is the start of the URI including the
 	 * delimiter ('#'). It is the URI without the local name.
-	 *
+	 * 
 	 * @return The namespace of the URI of this resource.
-	 *
+	 * 
 	 * @see #getLocalName()
 	 * @see #getFilename()
 	 */
 	public String getNamespace() {
-		return (ns_delim_index < 0) ? null : uri.substring(0, ns_delim_index + 1);
+		return (ns_delim_index < 0) ? null : uri.substring(0,
+				ns_delim_index + 1);
 	}
 
 	/**
 	 * Get the filename of the URI which is the part after the last '/' and
 	 * before the symbols '?' and '#'.
-	 *
+	 * 
 	 * @return The filename of the URI of this resource.
-	 *
+	 * 
 	 * @see #getLocalName()
 	 * @see #getNamespace()
 	 */
@@ -658,7 +688,7 @@ public class Resource {
 
 	/**
 	 * Get the RDF object for a specified property.
-	 *
+	 * 
 	 * @param propURI
 	 *            URI of the property.
 	 * @return The object for the given property.
@@ -691,7 +721,7 @@ public class Resource {
 	 * form; in this case the return value should be
 	 * <code>PROP_SERIALIZATION_REDUCED</code>, otherwise
 	 * <code>PROP_SERIALIZATION_FULL</code> can be returned.
-	 *
+	 * 
 	 * Subclasses should normally overwrite this method as this default
 	 * implementation returns always <code>PROP_SERIALIZATION_FULL</code>.
 	 */
@@ -703,7 +733,7 @@ public class Resource {
 	 * Helper method to get the static field of the java class with the given
 	 * field name. If the field is not defined in this class, the given default
 	 * value is returned.
-	 *
+	 * 
 	 * @param fieldName
 	 *            Name of the static field of the java class to retrieve.
 	 * @param defaultValue
@@ -804,7 +834,7 @@ public class Resource {
 	/**
 	 * Determines whether this Resource does not allow to add new type
 	 * information.
-	 *
+	 * 
 	 * @return true, if this Resource does not allow to add new type
 	 *         information.
 	 */
@@ -845,7 +875,7 @@ public class Resource {
 
 	/**
 	 * Set the Resource comment. Convenient method to set rdfs:comment.
-	 *
+	 * 
 	 * @param comment
 	 *            the comment.
 	 */
@@ -856,7 +886,7 @@ public class Resource {
 
 	/**
 	 * Set the Resource label. Convenient method to set rdfs:label.
-	 *
+	 * 
 	 * @param label
 	 *            the label.
 	 */
@@ -868,7 +898,7 @@ public class Resource {
 	/**
 	 * Add a new String literal (with optional language tag) to a multi-value
 	 * property.
-	 *
+	 * 
 	 * @param propURI
 	 *            URI of the property. Typical values are
 	 *            {@link #PROP_RDFS_LABEL} or {@link #PROP_RDFS_COMMENT}.
@@ -912,7 +942,7 @@ public class Resource {
 	/**
 	 * Get a String literal (with optional language tag) from a multi-value
 	 * property.
-	 *
+	 * 
 	 * @param propURI
 	 *            URI of the property. Typical values are
 	 *            {@link #PROP_RDFS_LABEL} or {@link #PROP_RDFS_COMMENT}.
@@ -925,7 +955,8 @@ public class Resource {
 	 *            could also be returned.
 	 * @return The value of the multi-value property.
 	 */
-	public LangString getMultiLangProp(String propURI, String lang, boolean includeDefault) {
+	public LangString getMultiLangProp(String propURI, String lang,
+			boolean includeDefault) {
 		if (propURI == null || lang == null)
 			throw new NullPointerException();
 
@@ -959,7 +990,8 @@ public class Resource {
 				return new LangString((String) o, "");
 			else if (o instanceof LangString) {
 				LangString ls = (LangString) o;
-				if (lang.equals(ls.getLang()) || (includeDefault && ls.getLang().equals("")))
+				if (lang.equals(ls.getLang())
+						|| (includeDefault && ls.getLang().equals("")))
 					return ls;
 			}
 		}
@@ -994,7 +1026,7 @@ public class Resource {
 	 * URI and (2) the serializers get no problems with the value. Also,
 	 * settings via subclasses may be overwritten by this class if a subsequent
 	 * call to {@link #addType(String, boolean)} is made.
-	 *
+	 * 
 	 * @return <tt>true</tt> if the property changed as a result of the call
 	 */
 	public boolean setProperty(String propURI, Object value) {
@@ -1008,7 +1040,8 @@ public class Resource {
 					for (int i = 0; i < ((List) value).size(); i++)
 						if (!setProperty(propURI, ((List) value).get(i)))
 							return false;
-			} else if (PROP_RDFS_COMMENT.equals(propURI) || PROP_RDFS_LABEL.equals(propURI)) {
+			} else if (PROP_RDFS_COMMENT.equals(propURI)
+					|| PROP_RDFS_LABEL.equals(propURI)) {
 				if (!props.containsKey(propURI)) {
 					if (value instanceof String || value instanceof LangString)
 						props.put(propURI, value);
@@ -1017,7 +1050,8 @@ public class Resource {
 							List l = (List) value;
 							for (int i = 0; i < l.size(); i++) {
 								Object o = l.get(i);
-								if (!(o instanceof String) && !(o instanceof LangString))
+								if (!(o instanceof String)
+										&& !(o instanceof LangString))
 									return false;
 							}
 							props.put(propURI, l);
@@ -1033,7 +1067,7 @@ public class Resource {
 	/**
 	 * Set the given value at the end of the given property path, but does not
 	 * force the setting.
-	 *
+	 * 
 	 * @see #setPropertyPathFromOffset(String[], int, Object, boolean)
 	 */
 	public boolean setPropertyPath(String[] propPath, Object value) {
@@ -1042,10 +1076,11 @@ public class Resource {
 
 	/**
 	 * Set the given value at the end of the given property path.
-	 *
+	 * 
 	 * @see #setPropertyPathFromOffset(String[], int, Object, boolean)
 	 */
-	public boolean setPropertyPath(String[] propPath, Object value, boolean force) {
+	public boolean setPropertyPath(String[] propPath, Object value,
+			boolean force) {
 		return setPropertyPathFromOffset(propPath, 0, value, force);
 	}
 
@@ -1056,7 +1091,7 @@ public class Resource {
 	 * yet exist, a new anonymous Resource is automatically created. At the end
 	 * of the property path, the given value is set as RDF object with the last
 	 * property from the path as RDF predicate.
-	 *
+	 * 
 	 * @param propPath
 	 *            The set of properties defining the path through the RDF graph.
 	 * @param fromIndex
@@ -1073,7 +1108,8 @@ public class Resource {
 	 */
 	// TODO: check if fromIndex > propPath.length (otherwise results in infinite
 	// loop)
-	public boolean setPropertyPathFromOffset(String[] propPath, int fromIndex, Object value, boolean force) {
+	public boolean setPropertyPathFromOffset(String[] propPath, int fromIndex,
+			Object value, boolean force) {
 		try {
 			if (fromIndex == propPath.length - 1) {
 				if (force)
@@ -1091,9 +1127,11 @@ public class Resource {
 			} else if (!(tmp instanceof Resource))
 				return false;
 
-			return ((Resource) tmp).setPropertyPathFromOffset(propPath, fromIndex + 1, value, force);
+			return ((Resource) tmp).setPropertyPathFromOffset(propPath,
+					fromIndex + 1, value, force);
 		} catch (Exception e) {
-			LogUtils.logDebug(SharedResources.moduleContext, Resource.class, "setPropertyPathFromOffset",
+			LogUtils.logDebug(SharedResources.moduleContext, Resource.class,
+					"setPropertyPathFromOffset",
 					new Object[] { "An error has occured." }, e);
 			return false;
 		}
@@ -1106,7 +1144,7 @@ public class Resource {
 
 	/**
 	 * Debug method: get a string of this RDF graph.
-	 *
+	 * 
 	 * @return The graph as string.
 	 */
 	public String toStringRecursive() {
@@ -1115,14 +1153,15 @@ public class Resource {
 
 	/**
 	 * Debug method: get a string of this RDF graph.
-	 *
+	 * 
 	 * @param prefix
 	 *            Indention string that every line starts with.
 	 * @param prefixAtStart
 	 *            True iff the first line should start with the prefix string.
 	 * @return The graph as string.
 	 */
-	public String toStringRecursive(String prefix, boolean prefixAtStart, Hashtable visitedElements) {
+	public String toStringRecursive(String prefix, boolean prefixAtStart,
+			Hashtable visitedElements) {
 		if (visitedElements == null)
 			visitedElements = new Hashtable();
 
@@ -1144,7 +1183,8 @@ public class Resource {
 		visitedElements.put(this, this);
 		s += "\n";
 
-		s += prefix + "Properties (Key-Value): " + "(size: " + props.size() + ")\n";
+		s += prefix + "Properties (Key-Value): " + "(size: " + props.size()
+				+ ")\n";
 		Enumeration e = props.keys();
 		while (e.hasMoreElements()) {
 			String key = (String) e.nextElement();
@@ -1152,7 +1192,8 @@ public class Resource {
 			s += prefix + "* K " + key + "\n";
 			s += prefix + "* V ";
 			if (val instanceof Resource)
-				s += ((Resource) val).toStringRecursive(prefix + "    ", false, visitedElements);
+				s += ((Resource) val).toStringRecursive(prefix + "    ", false,
+						visitedElements);
 			else if (val instanceof List) {
 				s += "List (size: " + ((List) val).size() + ")\n";
 				// for (Object o : (List)val) {
@@ -1160,13 +1201,16 @@ public class Resource {
 				while (iter.hasNext()) {
 					Object o = iter.next();
 					if (o instanceof Resource)
-						s += ((Resource) o).toStringRecursive(prefix + "      ", true, visitedElements);
+						s += ((Resource) o).toStringRecursive(
+								prefix + "      ", true, visitedElements);
 					else {
 						String type = TypeMapper.getDatatypeURI(o);
 						if (type == null)
-							s += prefix + "      unknown: " + o.getClass().getName() + "\n";
+							s += prefix + "      unknown: "
+									+ o.getClass().getName() + "\n";
 						else
-							s += prefix + "      Literal: " + type + " " + o + "\n";
+							s += prefix + "      Literal: " + type + " " + o
+									+ "\n";
 					}
 				}
 			} else {
