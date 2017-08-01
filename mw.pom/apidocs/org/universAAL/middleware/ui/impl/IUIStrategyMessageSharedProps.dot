@@ -10,19 +10,19 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.ui.impl.UIStrategyCaller.UIRequestCall
-	c210426 [label=<<table title="org.universAAL.middleware.ui.impl.UIStrategyCaller.UIRequestCall" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UIStrategyCaller.UIRequestCall.html">
+	c218756 [label=<<table title="org.universAAL.middleware.ui.impl.UIStrategyCaller.UIRequestCall" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UIStrategyCaller.UIRequestCall.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> UIRequestCall </td></tr>
 		</table></td></tr>
 		</table>>, URL="./UIStrategyCaller.UIRequestCall.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.ui.impl.IUIStrategyMessageSharedProps
-	c210430 [label=<<table title="org.universAAL.middleware.ui.impl.IUIStrategyMessageSharedProps" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./IUIStrategyMessageSharedProps.html">
+	c218760 [label=<<table title="org.universAAL.middleware.ui.impl.IUIStrategyMessageSharedProps" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./IUIStrategyMessageSharedProps.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> IUIStrategyMessageSharedProps </td></tr>
 		</table></td></tr>
 		</table>>, URL="./IUIStrategyMessageSharedProps.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.ui.impl.UIStrategyCaller.UIRequestCall implements org.universAAL.middleware.ui.impl.IUIStrategyMessageSharedProps
-	c210430:p -> c210426:p [dir=back,arrowtail=empty,style=dashed];
+	c218760:p -> c218756:p [dir=back,arrowtail=empty,style=dashed];
 }
 

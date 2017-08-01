@@ -10,45 +10,45 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor
-	c292415 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../interfaces/configuration/configurationEditionTypes/ConfigurableEntityEditor.html">
+	c304515 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../interfaces/configuration/configurationEditionTypes/ConfigurableEntityEditor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ConfigurableEntityEditor </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../../interfaces/configuration/configurationEditionTypes/ConfigurableEntityEditor.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationParamaterEditor
-	c292534 [label=<<table title="org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationParamaterEditor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RemoteConfigurationParamaterEditor.html">
+	c304634 [label=<<table title="org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationParamaterEditor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RemoteConfigurationParamaterEditor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RemoteConfigurationParamaterEditor </td></tr>
 		</table></td></tr>
 		</table>>, URL="./RemoteConfigurationParamaterEditor.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationEntity
-	c292538 [label=<<table title="org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationEntity" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./RemoteConfigurationEntity.html">
+	c304638 [label=<<table title="org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationEntity" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./RemoteConfigurationEntity.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> RemoteConfigurationEntity </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./RemoteConfigurationEntity.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationFileEditor
-	c292539 [label=<<table title="org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationFileEditor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RemoteConfigurationFileEditor.html">
+	c304639 [label=<<table title="org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationFileEditor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RemoteConfigurationFileEditor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RemoteConfigurationFileEditor </td></tr>
 		</table></td></tr>
 		</table>>, URL="./RemoteConfigurationFileEditor.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.configuration.core.impl.GenericConfigurationEntity
-	c292541 [label=<<table title="org.universAAL.middleware.managers.configuration.core.impl.GenericConfigurationEntity" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GenericConfigurationEntity.html">
+	c304641 [label=<<table title="org.universAAL.middleware.managers.configuration.core.impl.GenericConfigurationEntity" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GenericConfigurationEntity.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> GenericConfigurationEntity </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./GenericConfigurationEntity.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationParamaterEditor extends org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationEntity
-	c292538:p -> c292534:p [dir=back,arrowtail=empty];
+	c304638:p -> c304634:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationEntity extends org.universAAL.middleware.managers.configuration.core.impl.GenericConfigurationEntity
-	c292541:p -> c292538:p [dir=back,arrowtail=empty];
+	c304641:p -> c304638:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationEntity implements org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor
-	c292415:p -> c292538:p [dir=back,arrowtail=empty,style=dashed];
+	c304515:p -> c304638:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationFileEditor extends org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationEntity
-	c292538:p -> c292539:p [dir=back,arrowtail=empty];
+	c304638:p -> c304639:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.managers.configuration.core.impl.GenericConfigurationEntity implements org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor
-	c292415:p -> c292541:p [dir=back,arrowtail=empty,style=dashed];
+	c304515:p -> c304641:p [dir=back,arrowtail=empty,style=dashed];
 }
 

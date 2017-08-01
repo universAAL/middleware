@@ -1,8 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="c215347" href="./InstanceScope.html" title="org.universAAL.middleware.interfaces.configuration.scope.InstanceScope" alt="" coords="15,113,123,138"/>
+<area shape="rect" id="c223767" href="./InstanceScope.html" title="org.universAAL.middleware.interfaces.configuration.scope.InstanceScope" alt="" coords="15,113,123,138"/>
 <area shape="rect" id="node1" href="./InstanceScope.html" title="&lt;TABLE&gt;" alt="" coords="5,101,133,149"/>
-<area shape="rect" id="c215348" href="./ModuleScope.html" title="org.universAAL.middleware.interfaces.configuration.scope.ModuleScope" alt="" coords="19,209,119,234"/>
+<area shape="rect" id="c223768" href="./ModuleScope.html" title="org.universAAL.middleware.interfaces.configuration.scope.ModuleScope" alt="" coords="19,209,119,234"/>
 <area shape="rect" id="node2" href="./ModuleScope.html" title="&lt;TABLE&gt;" alt="" coords="9,197,129,245"/>
-<area shape="rect" id="c215349" href="./SpaceScope.html" title="org.universAAL.middleware.interfaces.configuration.scope.SpaceScope" alt="" coords="22,17,117,42"/>
+<area shape="rect" id="c223769" href="./SpaceScope.html" title="org.universAAL.middleware.interfaces.configuration.scope.SpaceScope" alt="" coords="22,17,117,42"/>
 <area shape="rect" id="node3" href="./SpaceScope.html" title="&lt;TABLE&gt;" alt="" coords="12,5,127,53"/>
 </map>

@@ -10,26 +10,26 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.bus.member.Publisher
-	c145313 [label=<<table title="org.universAAL.middleware.bus.member.Publisher" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../bus/member/Publisher.html">
+	c150758 [label=<<table title="org.universAAL.middleware.bus.member.Publisher" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../bus/member/Publisher.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> Publisher </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../bus/member/Publisher.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.context.DefaultContextPublisher
-	c145340 [label=<<table title="org.universAAL.middleware.context.DefaultContextPublisher" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DefaultContextPublisher.html">
+	c150785 [label=<<table title="org.universAAL.middleware.context.DefaultContextPublisher" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DefaultContextPublisher.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DefaultContextPublisher </td></tr>
 		</table></td></tr>
 		</table>>, URL="./DefaultContextPublisher.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.context.ContextPublisher
-	c145342 [label=<<table title="org.universAAL.middleware.context.ContextPublisher" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ContextPublisher.html">
+	c150787 [label=<<table title="org.universAAL.middleware.context.ContextPublisher" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ContextPublisher.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> ContextPublisher </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./ContextPublisher.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.context.DefaultContextPublisher extends org.universAAL.middleware.context.ContextPublisher
-	c145342:p -> c145340:p [dir=back,arrowtail=empty];
+	c150787:p -> c150785:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.context.ContextPublisher extends org.universAAL.middleware.bus.member.Publisher
-	c145313:p -> c145342:p [dir=back,arrowtail=empty];
+	c150758:p -> c150787:p [dir=back,arrowtail=empty];
 }
 

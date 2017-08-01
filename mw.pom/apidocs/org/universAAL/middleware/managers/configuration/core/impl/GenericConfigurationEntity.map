@@ -1,10 +1,10 @@
 <map id="G" name="G">
-<area shape="rect" id="c190034" href="../../../../interfaces/configuration/configurationEditionTypes/ConfigurableEntityEditor.html" title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor" alt="" coords="138,11,299,53"/>
+<area shape="rect" id="c198014" href="../../../../interfaces/configuration/configurationEditionTypes/ConfigurableEntityEditor.html" title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor" alt="" coords="138,11,299,53"/>
 <area shape="rect" id="node1" href="../../../../interfaces/configuration/configurationEditionTypes/ConfigurableEntityEditor.html" title="&lt;TABLE&gt;" alt="" coords="128,6,309,58"/>
-<area shape="rect" id="c190156" href="./LocalConfigurationEntity.html" title="org.universAAL.middleware.managers.configuration.core.impl.LocalConfigurationEntity" alt="" coords="16,214,179,239"/>
+<area shape="rect" id="c198136" href="./LocalConfigurationEntity.html" title="org.universAAL.middleware.managers.configuration.core.impl.LocalConfigurationEntity" alt="" coords="16,214,179,239"/>
 <area shape="rect" id="node2" href="./LocalConfigurationEntity.html" title="&lt;TABLE&gt;" alt="" coords="5,203,189,251"/>
-<area shape="rect" id="c190157" href="./RemoteConfigurationEntity.html" title="org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationEntity" alt="" coords="251,214,429,239"/>
+<area shape="rect" id="c198137" href="./RemoteConfigurationEntity.html" title="org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationEntity" alt="" coords="251,214,429,239"/>
 <area shape="rect" id="node3" href="./RemoteConfigurationEntity.html" title="&lt;TABLE&gt;" alt="" coords="241,203,439,251"/>
-<area shape="rect" id="c190160" href="./GenericConfigurationEntity.html" title="org.universAAL.middleware.managers.configuration.core.impl.GenericConfigurationEntity" alt="" coords="130,118,307,143"/>
+<area shape="rect" id="c198140" href="./GenericConfigurationEntity.html" title="org.universAAL.middleware.managers.configuration.core.impl.GenericConfigurationEntity" alt="" coords="130,118,307,143"/>
 <area shape="rect" id="node4" href="./GenericConfigurationEntity.html" title="&lt;TABLE&gt;" alt="" coords="120,107,317,155"/>
 </map>

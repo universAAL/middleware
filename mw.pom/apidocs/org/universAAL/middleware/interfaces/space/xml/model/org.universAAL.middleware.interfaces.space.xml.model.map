@@ -1,14 +1,14 @@
 <map id="G" name="G">
-<area shape="rect" id="c4059" href="./ObjectFactory.html" title="org.universAAL.middleware.interfaces.space.xml.model.ObjectFactory" alt="" coords="15,17,118,42"/>
+<area shape="rect" id="c4129" href="./ObjectFactory.html" title="org.universAAL.middleware.interfaces.space.xml.model.ObjectFactory" alt="" coords="15,17,118,42"/>
 <area shape="rect" id="node1" href="./ObjectFactory.html" title="&lt;TABLE&gt;" alt="" coords="5,5,128,53"/>
-<area shape="rect" id="c4060" href="./ChannelDescriptor.html" title="org.universAAL.middleware.interfaces.space.xml.model.ChannelDescriptor" alt="" coords="162,17,291,42"/>
+<area shape="rect" id="c4130" href="./ChannelDescriptor.html" title="org.universAAL.middleware.interfaces.space.xml.model.ChannelDescriptor" alt="" coords="162,17,291,42"/>
 <area shape="rect" id="node2" href="./ChannelDescriptor.html" title="&lt;TABLE&gt;" alt="" coords="152,5,301,53"/>
-<area shape="rect" id="c4061" href="./Space.html" title="org.universAAL.middleware.interfaces.space.xml.model.Space" alt="" coords="335,17,393,42"/>
+<area shape="rect" id="c4131" href="./Space.html" title="org.universAAL.middleware.interfaces.space.xml.model.Space" alt="" coords="335,17,393,42"/>
 <area shape="rect" id="node3" href="./Space.html" title="&lt;TABLE&gt;" alt="" coords="325,5,403,53"/>
-<area shape="rect" id="c4062" href="./Space.CommunicationChannels.html" title="org.universAAL.middleware.interfaces.space.xml.model.Space.CommunicationChannels" alt="" coords="437,17,603,42"/>
+<area shape="rect" id="c4132" href="./Space.CommunicationChannels.html" title="org.universAAL.middleware.interfaces.space.xml.model.Space.CommunicationChannels" alt="" coords="437,17,603,42"/>
 <area shape="rect" id="node4" href="./Space.CommunicationChannels.html" title="&lt;TABLE&gt;" alt="" coords="427,5,613,53"/>
-<area shape="rect" id="c4063" href="./Space.PeeringChannel.html" title="org.universAAL.middleware.interfaces.space.xml.model.Space.PeeringChannel" alt="" coords="647,17,761,42"/>
+<area shape="rect" id="c4133" href="./Space.PeeringChannel.html" title="org.universAAL.middleware.interfaces.space.xml.model.Space.PeeringChannel" alt="" coords="647,17,761,42"/>
 <area shape="rect" id="node5" href="./Space.PeeringChannel.html" title="&lt;TABLE&gt;" alt="" coords="637,5,771,53"/>
-<area shape="rect" id="c4064" href="./Space.SpaceDescriptor.html" title="org.universAAL.middleware.interfaces.space.xml.model.Space.SpaceDescriptor" alt="" coords="805,17,923,42"/>
+<area shape="rect" id="c4134" href="./Space.SpaceDescriptor.html" title="org.universAAL.middleware.interfaces.space.xml.model.Space.SpaceDescriptor" alt="" coords="805,17,923,42"/>
 <area shape="rect" id="node6" href="./Space.SpaceDescriptor.html" title="&lt;TABLE&gt;" alt="" coords="795,5,933,53"/>
 </map>

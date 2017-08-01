@@ -1,14 +1,14 @@
 <map id="G" name="G">
-<area shape="rect" id="c20365" href="./DeployMessageFields.html" title="org.universAAL.middleware.brokers.message.deploy.DeployMessageFields" alt="" coords="16,19,165,45"/>
+<area shape="rect" id="c20715" href="./DeployMessageFields.html" title="org.universAAL.middleware.brokers.message.deploy.DeployMessageFields" alt="" coords="16,19,165,45"/>
 <area shape="rect" id="node1" href="./DeployMessageFields.html" title="&lt;TABLE&gt;" alt="" coords="5,8,176,56"/>
-<area shape="rect" id="c20366" href="./DeployNotificationPayload.html" title="org.universAAL.middleware.brokers.message.deploy.DeployNotificationPayload" alt="" coords="178,118,353,143"/>
+<area shape="rect" id="c20716" href="./DeployNotificationPayload.html" title="org.universAAL.middleware.brokers.message.deploy.DeployNotificationPayload" alt="" coords="178,118,353,143"/>
 <area shape="rect" id="node2" href="./DeployNotificationPayload.html" title="&lt;TABLE&gt;" alt="" coords="168,107,363,155"/>
-<area shape="rect" id="c20367" href="./DeployMessageException.html" title="org.universAAL.middleware.brokers.message.deploy.DeployMessageException" alt="" coords="365,19,539,45"/>
+<area shape="rect" id="c20717" href="./DeployMessageException.html" title="org.universAAL.middleware.brokers.message.deploy.DeployMessageException" alt="" coords="365,19,539,45"/>
 <area shape="rect" id="node3" href="./DeployMessageException.html" title="&lt;TABLE&gt;" alt="" coords="355,8,549,56"/>
-<area shape="rect" id="c20368" href="./DeployPayload.html" title="org.universAAL.middleware.brokers.message.deploy.DeployPayload" alt="" coords="211,19,320,45"/>
+<area shape="rect" id="c20718" href="./DeployPayload.html" title="org.universAAL.middleware.brokers.message.deploy.DeployPayload" alt="" coords="211,19,320,45"/>
 <area shape="rect" id="node4" href="./DeployPayload.html" title="&lt;TABLE&gt;" alt="" coords="200,8,331,56"/>
-<area shape="rect" id="c20369" href="./DeployMessage.html" title="org.universAAL.middleware.brokers.message.deploy.DeployMessage" alt="" coords="584,19,699,45"/>
+<area shape="rect" id="c20719" href="./DeployMessage.html" title="org.universAAL.middleware.brokers.message.deploy.DeployMessage" alt="" coords="584,19,699,45"/>
 <area shape="rect" id="node5" href="./DeployMessage.html" title="&lt;TABLE&gt;" alt="" coords="573,8,709,56"/>
-<area shape="rect" id="c20370" href="./DeployMessage.DeployMessageType.html" title="org.universAAL.middleware.brokers.message.deploy.DeployMessage.DeployMessageType" alt="" coords="744,11,888,53"/>
+<area shape="rect" id="c20720" href="./DeployMessage.DeployMessageType.html" title="org.universAAL.middleware.brokers.message.deploy.DeployMessage.DeployMessageType" alt="" coords="744,11,888,53"/>
 <area shape="rect" id="node6" href="./DeployMessage.DeployMessageType.html" title="&lt;TABLE&gt;" alt="" coords="733,6,899,58"/>
 </map>

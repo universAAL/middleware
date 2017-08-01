@@ -1,10 +1,10 @@
 <map id="G" name="G">
-<area shape="rect" id="c18631" href="./BrokerMessageFields.html" title="org.universAAL.middleware.brokers.message.BrokerMessageFields" alt="" coords="16,19,163,45"/>
+<area shape="rect" id="c18951" href="./BrokerMessageFields.html" title="org.universAAL.middleware.brokers.message.BrokerMessageFields" alt="" coords="16,19,163,45"/>
 <area shape="rect" id="node1" href="./BrokerMessageFields.html" title="&lt;TABLE&gt;" alt="" coords="5,8,173,56"/>
-<area shape="rect" id="c18632" href="./Payload.html" title="org.universAAL.middleware.brokers.message.Payload" alt="" coords="207,19,275,45"/>
+<area shape="rect" id="c18952" href="./Payload.html" title="org.universAAL.middleware.brokers.message.Payload" alt="" coords="207,19,275,45"/>
 <area shape="rect" id="node2" href="./Payload.html" title="&lt;TABLE&gt;" alt="" coords="197,8,285,56"/>
-<area shape="rect" id="c18633" href="./BrokerMessage.html" title="org.universAAL.middleware.brokers.message.BrokerMessage" alt="" coords="320,11,432,53"/>
+<area shape="rect" id="c18953" href="./BrokerMessage.html" title="org.universAAL.middleware.brokers.message.BrokerMessage" alt="" coords="320,11,432,53"/>
 <area shape="rect" id="node3" href="./BrokerMessage.html" title="&lt;TABLE&gt;" alt="" coords="309,6,443,58"/>
-<area shape="rect" id="c18634" href="./BrokerMessage.BrokerMessageTypes.html" title="org.universAAL.middleware.brokers.message.BrokerMessage.BrokerMessageTypes" alt="" coords="477,11,625,53"/>
+<area shape="rect" id="c18954" href="./BrokerMessage.BrokerMessageTypes.html" title="org.universAAL.middleware.brokers.message.BrokerMessage.BrokerMessageTypes" alt="" coords="477,11,625,53"/>
 <area shape="rect" id="node4" href="./BrokerMessage.BrokerMessageTypes.html" title="&lt;TABLE&gt;" alt="" coords="467,6,635,58"/>
 </map>

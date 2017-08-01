@@ -10,28 +10,36 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.managers.api.SpaceManager
-	c339094 [label=<<table title="org.universAAL.middleware.managers.api.SpaceManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./SpaceManager.html">
+	c352004 [label=<<table title="org.universAAL.middleware.managers.api.SpaceManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./SpaceManager.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> SpaceManager </td></tr>
 		</table></td></tr>
 		</table>>, URL="./SpaceManager.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.api.Manager
-	c339104 [label=<<table title="org.universAAL.middleware.managers.api.Manager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Manager.html">
+	c352014 [label=<<table title="org.universAAL.middleware.managers.api.Manager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Manager.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Manager </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Manager.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.space.SpaceManagerImpl
-	c339115 [label=<<table title="org.universAAL.middleware.managers.space.SpaceManagerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../space/SpaceManagerImpl.html">
+	c352025 [label=<<table title="org.universAAL.middleware.managers.space.SpaceManagerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../space/SpaceManagerImpl.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SpaceManagerImpl </td></tr>
 		</table></td></tr>
 		</table>>, URL="../space/SpaceManagerImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.container.pojo.dummyManagers.DummySpaceManager
+	c352274 [label=<<table title="org.universAAL.middleware.container.pojo.dummyManagers.DummySpaceManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../container/pojo/dummyManagers/DummySpaceManager.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> DummySpaceManager </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../container/pojo/dummyManagers/DummySpaceManager.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.managers.api.SpaceManager implements org.universAAL.middleware.managers.api.Manager
-	c339104:p -> c339094:p [dir=back,arrowtail=empty,style=dashed];
+	c352014:p -> c352004:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.managers.space.SpaceManagerImpl implements org.universAAL.middleware.managers.api.SpaceManager
-	c339094:p -> c339115:p [dir=back,arrowtail=empty,style=dashed];
+	c352004:p -> c352025:p [dir=back,arrowtail=empty,style=dashed];
+	//org.universAAL.middleware.container.pojo.dummyManagers.DummySpaceManager implements org.universAAL.middleware.managers.api.SpaceManager
+	c352004:p -> c352274:p [dir=back,arrowtail=empty,style=dashed];
 }
 

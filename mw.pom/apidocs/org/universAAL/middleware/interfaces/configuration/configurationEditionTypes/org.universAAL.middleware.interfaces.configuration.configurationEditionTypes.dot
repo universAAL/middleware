@@ -10,36 +10,36 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurationFileEditor
-	c12838 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurationFileEditor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationFileEditor.html">
+	c13058 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurationFileEditor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationFileEditor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ConfigurationFileEditor </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ConfigurationFileEditor.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditorListener
-	c12839 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditorListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurableEntityEditorListener.html">
+	c13059 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditorListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurableEntityEditorListener.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ConfigurableEntityEditorListener </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ConfigurableEntityEditorListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor
-	c12840 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurableEntityEditor.html">
+	c13060 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurableEntityEditor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ConfigurableEntityEditor </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ConfigurableEntityEditor.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurationParameterEditor
-	c12841 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurationParameterEditor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationParameterEditor.html">
+	c13061 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurationParameterEditor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationParameterEditor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ConfigurationParameterEditor </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ConfigurationParameterEditor.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurationFileEditor implements org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor
-	c12840:p -> c12838:p [dir=back,arrowtail=empty,style=dashed];
+	c13060:p -> c13058:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurationParameterEditor implements org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor
-	c12840:p -> c12841:p [dir=back,arrowtail=empty,style=dashed];
+	c13060:p -> c13061:p [dir=back,arrowtail=empty,style=dashed];
 }
 

@@ -1,16 +1,16 @@
 <map id="G" name="G">
-<area shape="rect" id="c48194" href="./AccessImpairment.html" title="org.universAAL.middleware.ui.owl.AccessImpairment" alt="" coords="15,17,145,42"/>
+<area shape="rect" id="c49024" href="./AccessImpairment.html" title="org.universAAL.middleware.ui.owl.AccessImpairment" alt="" coords="15,17,145,42"/>
 <area shape="rect" id="node1" href="./AccessImpairment.html" title="&lt;TABLE&gt;" alt="" coords="5,5,155,53"/>
-<area shape="rect" id="c48195" href="./Modality.html" title="org.universAAL.middleware.ui.owl.Modality" alt="" coords="189,17,259,42"/>
+<area shape="rect" id="c49025" href="./Modality.html" title="org.universAAL.middleware.ui.owl.Modality" alt="" coords="189,17,259,42"/>
 <area shape="rect" id="node2" href="./Modality.html" title="&lt;TABLE&gt;" alt="" coords="179,5,269,53"/>
-<area shape="rect" id="c48196" href="./Preference.html" title="org.universAAL.middleware.ui.owl.Preference" alt="" coords="303,17,387,42"/>
+<area shape="rect" id="c49026" href="./Preference.html" title="org.universAAL.middleware.ui.owl.Preference" alt="" coords="303,17,387,42"/>
 <area shape="rect" id="node3" href="./Preference.html" title="&lt;TABLE&gt;" alt="" coords="293,5,397,53"/>
-<area shape="rect" id="c48197" href="./DialogType.html" title="org.universAAL.middleware.ui.owl.DialogType" alt="" coords="431,17,518,42"/>
+<area shape="rect" id="c49027" href="./DialogType.html" title="org.universAAL.middleware.ui.owl.DialogType" alt="" coords="431,17,518,42"/>
 <area shape="rect" id="node4" href="./DialogType.html" title="&lt;TABLE&gt;" alt="" coords="421,5,528,53"/>
-<area shape="rect" id="c48198" href="./Recommendation.html" title="org.universAAL.middleware.ui.owl.Recommendation" alt="" coords="563,17,685,42"/>
+<area shape="rect" id="c49028" href="./Recommendation.html" title="org.universAAL.middleware.ui.owl.Recommendation" alt="" coords="563,17,685,42"/>
 <area shape="rect" id="node5" href="./Recommendation.html" title="&lt;TABLE&gt;" alt="" coords="552,5,696,53"/>
-<area shape="rect" id="c48199" href="./PrivacyLevel.html" title="org.universAAL.middleware.ui.owl.PrivacyLevel" alt="" coords="731,17,827,42"/>
+<area shape="rect" id="c49029" href="./PrivacyLevel.html" title="org.universAAL.middleware.ui.owl.PrivacyLevel" alt="" coords="731,17,827,42"/>
 <area shape="rect" id="node6" href="./PrivacyLevel.html" title="&lt;TABLE&gt;" alt="" coords="720,5,837,53"/>
-<area shape="rect" id="c48200" href="./UIBusOntology.html" title="org.universAAL.middleware.ui.owl.UIBusOntology" alt="" coords="872,17,981,42"/>
+<area shape="rect" id="c49030" href="./UIBusOntology.html" title="org.universAAL.middleware.ui.owl.UIBusOntology" alt="" coords="872,17,981,42"/>
 <area shape="rect" id="node7" href="./UIBusOntology.html" title="&lt;TABLE&gt;" alt="" coords="861,5,992,53"/>
 </map>

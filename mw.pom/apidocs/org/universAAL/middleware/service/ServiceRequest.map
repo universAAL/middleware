@@ -1,10 +1,10 @@
 <map id="G" name="G">
-<area shape="rect" id="c322853" href="../rdf/ScopedResource.html" title="org.universAAL.middleware.rdf.ScopedResource" alt="" coords="15,19,137,45"/>
+<area shape="rect" id="c335483" href="../rdf/ScopedResource.html" title="org.universAAL.middleware.rdf.ScopedResource" alt="" coords="15,19,137,45"/>
 <area shape="rect" id="node1" href="../rdf/ScopedResource.html" title="&lt;TABLE&gt;" alt="" coords="5,8,147,56"/>
-<area shape="rect" id="c323112" href="./ServiceRequest.html" title="org.universAAL.middleware.service.ServiceRequest" alt="" coords="93,118,206,143"/>
+<area shape="rect" id="c335742" href="./ServiceRequest.html" title="org.universAAL.middleware.service.ServiceRequest" alt="" coords="93,118,206,143"/>
 <area shape="rect" id="node3" href="./ServiceRequest.html" title="&lt;TABLE&gt;" alt="" coords="83,107,216,155"/>
-<area shape="rect" id="c323055" href="../bus/model/matchable/Request.html" title="org.universAAL.middleware.bus.model.matchable.Request" alt="" coords="181,11,267,53"/>
+<area shape="rect" id="c335685" href="../bus/model/matchable/Request.html" title="org.universAAL.middleware.bus.model.matchable.Request" alt="" coords="181,11,267,53"/>
 <area shape="rect" id="node2" href="../bus/model/matchable/Request.html" title="&lt;TABLE&gt;" alt="" coords="171,6,277,58"/>
-<area shape="rect" id="c323119" href="./aapi/AapiServiceRequest.html" title="org.universAAL.middleware.service.aapi.AapiServiceRequest" alt="" coords="79,214,219,239"/>
+<area shape="rect" id="c335749" href="./aapi/AapiServiceRequest.html" title="org.universAAL.middleware.service.aapi.AapiServiceRequest" alt="" coords="79,214,219,239"/>
 <area shape="rect" id="node4" href="./aapi/AapiServiceRequest.html" title="&lt;TABLE&gt;" alt="" coords="69,203,229,251"/>
 </map>

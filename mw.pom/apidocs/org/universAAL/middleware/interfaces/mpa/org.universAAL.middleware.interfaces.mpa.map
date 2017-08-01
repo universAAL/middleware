@@ -1,10 +1,10 @@
 <map id="G" name="G">
-<area shape="rect" id="c14582" href="./UAPPPartStatus.html" title="org.universAAL.middleware.interfaces.mpa.UAPPPartStatus" alt="" coords="16,11,136,53"/>
+<area shape="rect" id="c14832" href="./UAPPPartStatus.html" title="org.universAAL.middleware.interfaces.mpa.UAPPPartStatus" alt="" coords="16,11,136,53"/>
 <area shape="rect" id="node1" href="./UAPPPartStatus.html" title="&lt;TABLE&gt;" alt="" coords="5,6,147,58"/>
-<area shape="rect" id="c14583" href="./Pair.html" title="org.universAAL.middleware.interfaces.mpa.Pair" alt="" coords="185,19,229,45"/>
+<area shape="rect" id="c14833" href="./Pair.html" title="org.universAAL.middleware.interfaces.mpa.Pair" alt="" coords="185,19,229,45"/>
 <area shape="rect" id="node2" href="./Pair.html" title="&lt;TABLE&gt;" alt="" coords="171,8,243,56"/>
-<area shape="rect" id="c14584" href="./UAPPStatus.html" title="org.universAAL.middleware.interfaces.mpa.UAPPStatus" alt="" coords="277,19,373,45"/>
+<area shape="rect" id="c14834" href="./UAPPStatus.html" title="org.universAAL.middleware.interfaces.mpa.UAPPStatus" alt="" coords="277,19,373,45"/>
 <area shape="rect" id="node3" href="./UAPPStatus.html" title="&lt;TABLE&gt;" alt="" coords="267,8,384,56"/>
-<area shape="rect" id="c14585" href="./UAPPCard.html" title="org.universAAL.middleware.interfaces.mpa.UAPPCard" alt="" coords="419,19,504,45"/>
+<area shape="rect" id="c14835" href="./UAPPCard.html" title="org.universAAL.middleware.interfaces.mpa.UAPPCard" alt="" coords="419,19,504,45"/>
 <area shape="rect" id="node4" href="./UAPPCard.html" title="&lt;TABLE&gt;" alt="" coords="408,8,515,56"/>
 </map>
