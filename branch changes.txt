@@ -1,5 +1,7 @@
 jslp.core:
 	Modified functionality, fixed bugs
+mw.schemas:
+	Added possibility of manually adding channels
 mw.managers.aalspace.core:
 	Modified functionality, hardcoded config
 mw.bus.tracker.core:
