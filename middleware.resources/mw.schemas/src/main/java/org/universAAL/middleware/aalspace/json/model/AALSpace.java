@@ -80,6 +80,13 @@ public class AALSpace implements Serializable, IAALSpace {
 		public void unsetChannelDescriptor() {
 			this.channelDescriptor = null;
 		}
+		
+		public void addChannelDescriptor(IChannelDescriptor desc) {
+		    if (this.channelDescriptor == null) {
+			this.channelDescriptor = new ArrayList<ChannelDescriptor>();
+		    }
+		    this.channelDescriptor.add((ChannelDescriptor) desc);
+		}
 
 	}
 

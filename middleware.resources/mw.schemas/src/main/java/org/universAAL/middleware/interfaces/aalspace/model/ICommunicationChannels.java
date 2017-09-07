@@ -59,5 +59,7 @@ public interface ICommunicationChannels {
 	public abstract boolean isSetChannelDescriptor();
 
 	public abstract void unsetChannelDescriptor();
+	
+	public abstract void addChannelDescriptor(IChannelDescriptor desc);
 
 }

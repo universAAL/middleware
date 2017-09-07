@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.universAAL.middleware.aalspace.json.model.ChannelDescriptor;
 import org.universAAL.middleware.interfaces.aalspace.model.IAALSpace;
 import org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor;
 import org.universAAL.middleware.interfaces.aalspace.model.ICommunicationChannels;
@@ -374,6 +375,13 @@ public class Aalspace implements Serializable, IAALSpace {
 		 */
 		public void unsetChannelDescriptor() {
 			this.channelDescriptor = null;
+		}
+
+		public void addChannelDescriptor(IChannelDescriptor desc) {
+		    if (this.channelDescriptor == null) {
+			this.channelDescriptor = new ArrayList<ChannelDescriptor>();
+		    }
+		    this.channelDescriptor.add((ChannelDescriptor) desc);
 		}
 
 	}
