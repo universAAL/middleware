@@ -1,0 +1,8 @@
+jslp.core:
+	Modified functionality, fixed bugs
+mw.managers.aalspace.core:
+	Modified functionality, hardcoded config
+mw.bus.tracker.core:
+	Removed UI bus listening
+mw.data.representation.core:
+	Allow changing URIs of Resources
