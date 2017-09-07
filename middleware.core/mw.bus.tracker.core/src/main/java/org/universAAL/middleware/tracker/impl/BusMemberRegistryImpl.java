@@ -40,8 +40,8 @@ import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.bus.model.util.IRegistryListener;
 import org.universAAL.middleware.tracker.IBusMemberRegistry;
 import org.universAAL.middleware.tracker.IBusMemberRegistryListener;
-import org.universAAL.middleware.ui.IUIBus;
-import org.universAAL.middleware.ui.UIBusFacade;
+//import org.universAAL.middleware.ui.IUIBus;
+//import org.universAAL.middleware.ui.UIBusFacade;
 
 //TODO: synchronize map and listener for concurrent access
 public class BusMemberRegistryImpl implements IBusMemberRegistry {
@@ -210,10 +210,10 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 			((AbstractBus) serviceBus).removeRegistryListener(contextListener);
 		}
 
-		if (uiListener != null) {
-			IUIBus uiBus = UIBusFacade.fetchBus(mc);
-			((AbstractBus) uiBus).removeRegistryListener(uiListener);
-		}
+//		if (uiListener != null) {
+//			IUIBus uiBus = UIBusFacade.fetchBus(mc);
+//			((AbstractBus) uiBus).removeRegistryListener(uiListener);
+//		}
 	}
 
 	private IRegistryListener createBusListener(AbstractBus bus, BusType type) {
@@ -233,8 +233,8 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 	}
 
 	private void addUIBusListener() {
-		final IUIBus uiBus = UIBusFacade.fetchBus(mc);
-		uiListener = createBusListener((AbstractBus) uiBus, BusType.UI);
+//		final IUIBus uiBus = UIBusFacade.fetchBus(mc);
+//		uiListener = createBusListener((AbstractBus) uiBus, BusType.UI);
 	}
 
 	private void removeBusMemberFromRegistry(String id, BusMember member, BusType type) {
