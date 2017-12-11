@@ -35,7 +35,6 @@
     <module>../mw.data.serialization.turtle.osgi</module>
     <module>../mw.managers.configuration.osgi</module>
     <module>../mw.connectors.deploy.karaf.osgi</module>
-    <module>../mw.karaf.branding.osgi</module>
     <module>../mw.karaf.shell.universAAL.osgi</module>
     <module>../mw.bus.model.osgi</module>
     <module>../mw.bus.context.osgi</module>
