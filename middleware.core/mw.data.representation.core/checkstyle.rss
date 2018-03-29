@@ -23,12 +23,12 @@ under the License.
     <link>http://middleware/middleware.core/mw.data.representation.core/</link>
     <description>universAAL Middleware Data Representation (Core) - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2017 universAAL Consortium</copyright>
+    <copyright>&#169;2018 universAAL Consortium</copyright>
     <item>
       <title>File: 80,
              Errors: 699,
              Warnings: 71,
-             Infos: 78
+             Infos: 115
       </title>
             <link>http://middleware/middleware.core/mw.data.representation.core//checkstyle.html</link>
       <description>
@@ -875,7 +875,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.rdf.Resource.java">org/universAAL/middleware/rdf/Resource.java</a>
                 </td>
                 <td>
-                  0
+                  37
                 </td>
                 <td>
                   1

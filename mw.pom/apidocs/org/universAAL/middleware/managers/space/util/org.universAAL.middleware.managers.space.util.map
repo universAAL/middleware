@@ -1,12 +1,12 @@
 <map id="G" name="G">
-<area shape="rect" id="c30717" href="./Consts.html" title="org.universAAL.middleware.managers.space.util.Consts" alt="" coords="15,17,78,42"/>
-<area shape="rect" id="node1" href="./Consts.html" title="&lt;TABLE&gt;" alt="" coords="5,5,88,53"/>
-<area shape="rect" id="c30718" href="./RefreshSpaceThread.html" title="org.universAAL.middleware.managers.space.util.RefreshSpaceThread" alt="" coords="123,17,267,42"/>
-<area shape="rect" id="node2" href="./RefreshSpaceThread.html" title="&lt;TABLE&gt;" alt="" coords="112,5,277,53"/>
-<area shape="rect" id="c30719" href="./Joiner.html" title="org.universAAL.middleware.managers.space.util.Joiner" alt="" coords="312,17,368,42"/>
-<area shape="rect" id="node3" href="./Joiner.html" title="&lt;TABLE&gt;" alt="" coords="301,5,379,53"/>
-<area shape="rect" id="c30720" href="./CheckPeerThread.html" title="org.universAAL.middleware.managers.space.util.CheckPeerThread" alt="" coords="413,17,539,42"/>
-<area shape="rect" id="node4" href="./CheckPeerThread.html" title="&lt;TABLE&gt;" alt="" coords="403,5,549,53"/>
-<area shape="rect" id="c30721" href="./SpaceSchemaEventHandler.html" title="org.universAAL.middleware.managers.space.util.SpaceSchemaEventHandler" alt="" coords="583,17,769,42"/>
-<area shape="rect" id="node5" href="./SpaceSchemaEventHandler.html" title="&lt;TABLE&gt;" alt="" coords="573,5,779,53"/>
+<area shape="rect" id="node1_0" href="./Consts.html" title="org.universAAL.middleware.managers.space.util.Consts" alt="" coords="15,16,78,43"/>
+<area shape="rect" id="node1" href="./Consts.html" title="&lt;TABLE&gt;" alt="" coords="5,5,89,53"/>
+<area shape="rect" id="node2_1" href="./RefreshSpaceThread.html" title="org.universAAL.middleware.managers.space.util.RefreshSpaceThread" alt="" coords="124,16,268,43"/>
+<area shape="rect" id="node2" href="./RefreshSpaceThread.html" title="&lt;TABLE&gt;" alt="" coords="113,5,279,53"/>
+<area shape="rect" id="node3_2" href="./Joiner.html" title="org.universAAL.middleware.managers.space.util.Joiner" alt="" coords="313,16,369,43"/>
+<area shape="rect" id="node3" href="./Joiner.html" title="&lt;TABLE&gt;" alt="" coords="303,5,380,53"/>
+<area shape="rect" id="node4_3" href="./CheckPeerThread.html" title="org.universAAL.middleware.managers.space.util.CheckPeerThread" alt="" coords="415,16,540,43"/>
+<area shape="rect" id="node4" href="./CheckPeerThread.html" title="&lt;TABLE&gt;" alt="" coords="404,5,551,53"/>
+<area shape="rect" id="node5_4" href="./SpaceSchemaEventHandler.html" title="org.universAAL.middleware.managers.space.util.SpaceSchemaEventHandler" alt="" coords="586,16,771,43"/>
+<area shape="rect" id="node5" href="./SpaceSchemaEventHandler.html" title="&lt;TABLE&gt;" alt="" coords="575,5,782,53"/>
 </map>

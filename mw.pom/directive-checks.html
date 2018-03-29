@@ -194,6 +194,20 @@ Artifact Name: universAAL Middleware JUnit<br />
 does not match convention: ^universAAL Middleware .* \(Core\)$<br />
 <br /></tt></td></tr>
 <tr class="a">
+<td>mw.container.pojo</td>
+<td>MavenCoordinateCheck</td>
+<td><b>Failed</b><br /><tt>ArtifactId: mw.container.pojo<br />
+does not match convention: (^mw\..*\.core$|^mw.container.junit$)<br />
+Artifact Name: universAAL Middleware Container POJORunner<br />
+does not match convention: ^universAAL Middleware .* \(Core\)$<br />
+<br /></tt></td></tr>
+<tr class="b">
+<td>mw.container.pojo</td>
+<td>LicenseFileCheckFix</td>
+<td><b>Failed</b><br /><tt>License File does not exist: ASL2.0.txt<br />
+License File does not exist: NOTICE.txt<br />
+<br /></tt></td></tr>
+<tr class="a">
 <td>jslp.osgi</td>
 <td>MavenCoordinateCheck</td>
 <td><b>Failed</b><br /><tt>ArtifactId: jslp.osgi<br />
@@ -221,29 +235,23 @@ License File does not exist: NOTICE.txt<br />
 Make sure all your classes have an Apache Software Licence Header<br />
  see license at <a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a><br /></tt></td></tr>
 <tr class="a">
-<td>mw.karaf.branding.osgi</td>
-<td>MavenCoordinateCheck</td>
-<td><b>Failed</b><br /><tt>Artifact Name: universAAL Middleware Karaf Branding<br />
-does not match convention: ^universAAL Middleware .* (\(OSGi\))|(\(KARAF\))$<br />
-<br /></tt></td></tr>
-<tr class="b">
 <td>mw.karaf.shell.universAAL.osgi</td>
 <td>MavenCoordinateCheck</td>
 <td><b>Failed</b><br /><tt>Artifact Name: universAAL Middleware Karaf Shell<br />
 does not match convention: ^universAAL Middleware .* (\(OSGi\))|(\(KARAF\))$<br />
 <br /></tt></td></tr>
-<tr class="a">
+<tr class="b">
 <td>mw.felix.shell.universAAL.osgi</td>
 <td>MavenCoordinateCheck</td>
 <td><b>Failed</b><br /><tt>Artifact Name: universAAL Middleware Felix Shell<br />
 does not match convention: ^universAAL Middleware .* (\(OSGi\))|(\(KARAF\))$<br />
 <br /></tt></td></tr>
-<tr class="b">
+<tr class="a">
 <td>mw.felix.shell.universAAL.osgi</td>
 <td>DecoupleCheck</td>
 <td><b>Failed</b><br /><tt>The following Files are not Container Decoupled:<br />&#160;&#160;&#160;&#160;<a href="xref/org/universAAL/middleware/felix/shell/commands/Activator.html">org.universAAL.middleware.felix.shell.commands.Activator</a><br />&#160;&#160;&#160;&#160;<a href="xref/org/universAAL/middleware/felix/shell/commands/SpaceCommand.html">org.universAAL.middleware.felix.shell.commands.SpaceCommand</a><br />
 To solve this problem, make sure there are no OSGi imports in your classes, unless the package that contains them has explicitly &quot;osgi&quot; in it's name.<br /></tt></td></tr>
-<tr class="a">
+<tr class="b">
 <td>mw.composite</td>
 <td>MavenCoordinateCheck</td>
 <td><b>Failed</b><br /><tt>ArtifactId: mw.composite<br />
@@ -251,7 +259,7 @@ does not match convention: ^mw\..*(\.osgi)|(\.karaf)$<br />
 Artifact Name: universAAL Middleware Suite Composite<br />
 does not match convention: ^universAAL Middleware .* (\(OSGi\))|(\(KARAF\))$<br />
 <br /></tt></td></tr>
-<tr class="b">
+<tr class="a">
 <td>mw.karaf.feature</td>
 <td>MavenCoordinateCheck</td>
 <td><b>Failed</b><br /><tt>ArtifactId: mw.karaf.feature<br />

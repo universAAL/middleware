@@ -107,6 +107,326 @@
 <th>Project</th>
 <th>Line</th></tr>
 <tr class="b">
+<td>org/universAAL/middleware/bus/junit/OntTestCase.java</td>
+<td>universAAL Middleware Bus JUnit</td>
+<td>364</td></tr>
+<tr class="a">
+<td>org/universAAL/middleware/container/pojo/layers/OntAutoLoader.java</td>
+<td>universAAL Middleware Container POJORunner</td>
+<td>387</td></tr>
+<tr class="b"><td colspan='3'>
+<div>
+<pre>	}
+
+	private void TryLoadingOnts(List&lt;Ontology&gt; toBeLoaded, boolean isInMyProject,
+			Map&lt;Ontology, OntologyLoaderTask&gt; pendingOnts, List&lt;OntologyLoaderTask&gt; loadingOrder,
+			int totalOntologiesFound) {
+
+		// filter the list of onts to those are isInMyProject
+		List&lt;Ontology&gt; ontStep = new ArrayList&lt;Ontology&gt;();
+		for (Ontology o : toBeLoaded) {
+			if (isInMyProy(o) == isInMyProject)
+				ontStep.add(o);
+		}
+
+		// System.out.println(&quot;-- Try loading the following onts: &quot; +
+		// ontStep.size());
+		// for (Ontology o : ontStep) {
+		// System.out.println(&quot; ---- &quot; + o.getInfo().getURI());
+		// }
+
+		while (!ontStep.isEmpty()) {
+			Ontology next = ontStep.remove(0);
+			OntologyLoaderTask otl = pendingOnts.get(next);
+
+			otl.attempt();
+			if ((!otl.allImportsRegistered() || otl.errors &gt; 0) &amp;&amp; otl.attempts &lt;= totalOntologiesFound * 2) {
+				otl.unregister();
+				ontStep.add(next);
+				continue;
+			}
+			loadingOrder.add(otl);
+		}
+	}
+
+	/**
+	 * Recovers the serializer.
+	 *
+	 * @return the serializer.
+	 */
+	protected MessageContentSerializer getContentserializer() {
+		if (contentSerializer == null) {
+			contentSerializer = (MessageContentSerializer) mc.getContainer().fetchSharedObject(mc,
+					new Object[] { MessageContentSerializer.class.getName() });
+			if (contentSerializer == null) {
+				System.out.println(&quot;ERROR: no serializer found for serializing the ontology&quot;);
+			}
+		}
+		return contentSerializer;
+	}
+
+	/**
+	 * Uses reflection to locate all {@link ModuleActivator}s in the package
+	 * org.universAAL.ontology .
+	 *
+	 * @return all instances of module activators.
+	 */
+	private List&lt;Ontology&gt; getOntologies() {
+		List&lt;Ontology&gt; onts = new ArrayList&lt;Ontology&gt;();
+
+		Reflections reflections = new Reflections(&quot;org.universAAL.ontology&quot;);
+
+		try {
+			Set&lt;?&gt; subTypes = reflections.getSubTypesOf(Class.forName(Ontology.class.getName()));
+
+			for (Object o : subTypes) {
+				if (o instanceof Class&lt;?&gt;) {
+					try {
+						onts.add((Ontology) ((Class&lt;?&gt;) o).newInstance());
+					} catch (Exception e) {
+						LogUtils.logError(mc, getClass(), &quot;getOntologies&quot;,
+								new String[] { &quot;could not instantiate: &quot; + ((Class) o).getName() }, e);
+					}
+				}
+			}
+		} catch (ClassNotFoundException e) {
+			LogUtils.logError(mc, getClass(), &quot;getOntologyModules&quot;, new String[] { &quot;Unexpected error&quot; }, e);
+		}
+
+		return onts;
+	}
+
+	/**
+	 * Write to target/ontologies the serializations (in TTL, and OWL) of a
+	 * given ontology.
+	 *
+	 * @param ont
+	 *            the ontology to be serialized.
+	 * @return true iif the operation was successful.
+	 */
+	protected boolean generateOntFiles4Ont(Ontology ont) {
+		if (!owlDir.exists() &amp;&amp; !owlDir.mkdirs()) {
+			return false;
+		}
+		String name = ontFileName(ont);
+		File ttlFile = new File(owlDir, name + &quot;.ttl&quot;);
+		return writeTTL(ont, ttlFile) &amp;&amp; transformTTL2OWL(ttlFile, new File(owlDir, name + &quot;.owl&quot;));
+	}
+
+	/**
+	 * Write to target/ontologies the serializations (in TTL, and OWL) of all
+	 * loaded ontologies for the testcase.
+	 *
+	 * @return true iif the operation was successful
+	 */
+	protected boolean generateOntFiles4ALL() {
+		boolean out = true;
+		String[] onts = OntologyManagement.getInstance().getOntoloyURIs();
+		for (int i = 0; i &lt; onts.length; i++) {
+			Ontology ont = OntologyManagement.getInstance().getOntology(onts[i]);
+			if (!generateOntFiles4Ont(ont)) {
+				LogUtils.logError(mc, getClass(), &quot;generateOntFiles4All&quot;, &quot;Unable to generate file for: &quot; + onts[i]);
+				out = false;
+			}
+		}
+		return out;
+	}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/universAAL/middleware/bus/junit/OntTestCase.java</td>
+<td>universAAL Middleware Bus JUnit</td>
+<td>521</td></tr>
+<tr class="a">
+<td>org/universAAL/middleware/container/pojo/layers/OntAutoLoader.java</td>
+<td>universAAL Middleware Container POJORunner</td>
+<td>525</td></tr>
+<tr class="b"><td colspan='3'>
+<div>
+<pre>		return false;
+	}
+
+	/**
+	 * Construct an appropriate filename for a given ontology.
+	 *
+	 * @param ont
+	 *            the ontology to generate the filename
+	 * @return the file name corresponding to the filename stated in the URI, if
+	 *         not possible to determine a random name is given.
+	 */
+	private String ontFileName(Ontology ont) {
+		String name = ont.getInfo().getFilename();
+		if (name.endsWith(&quot;.owl&quot;)) // remove &quot;.owl&quot; at the end
+			name = name.substring(0, name.length() - 4);
+		if (name == null) {
+			LogUtils.logWarn(mc, getClass(), &quot;ontFileName&quot;,
+					&quot;unable to get Name for: &quot; + ont.getInfo().getURI() + &quot; , generating random name.&quot;);
+			name = Integer.toHexString(new Random(System.currentTimeMillis()).nextInt());
+		}
+		return name;
+	}
+
+	/**
+	 * Serializes and writes a TTL for a given {@link Ontology}.
+	 *
+	 * @param ont
+	 *            The ontology to be serialized.
+	 * @param ttlFile
+	 *            The target file.
+	 * @return true iif the operation was successful.
+	 */
+	private boolean writeTTL(Ontology ont, File ttlFile) {
+		LogUtils.logInfo(mc, getClass(), &quot;writeTTL&quot;, &quot;Writing turtle serialization of ontology: &quot;
+				+ ont.getInfo().getURI() + &quot;\n\t to: &quot; + ttlFile.getAbsolutePath());
+		String serializedOntology = getContentserializer().serialize(ont);
+		try {
+			BufferedWriter out = new BufferedWriter(new FileWriter(ttlFile, false));
+			out.write(serializedOntology);
+			out.flush();
+			out.close();
+			return true;
+		} catch (IOException e) {
+			LogUtils.logError(mc, getClass(), &quot;writeTTL&quot;, new String[] { &quot;Unexpected Error&quot; }, e);
+			return false;
+		}
+	}
+
+	/**
+	 * Transform a given TTL file into an OWL file.
+	 *
+	 * @param ttlFile
+	 *            the source file.
+	 * @param owlFile
+	 *            the target file
+	 * @return true iif the operation was successful.
+	 */
+	private boolean transformTTL2OWL(File ttlFile, File owlFile) {
+		LogUtils.logInfo(mc, getClass(), &quot;transformTTL2OWL&quot;,
+				&quot;Transforming file: &quot; + ttlFile.getAbsolutePath() + &quot;\n\t to: &quot; + owlFile.getAbsolutePath());
+		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+		IRI documentIRI = IRI.create(ttlFile);
+		OWLOntology owlOntology;
+		try {
+			owlOntology = manager.loadOntologyFromOntologyDocument(documentIRI);
+			LogUtils.logInfo(mc, getClass(), &quot;transformTTL2OWL&quot;, &quot;   Loaded ontology: &quot; + owlOntology);
+
+			OWLOntologyFormat format = manager.getOntologyFormat(owlOntology);
+
+			RDFXMLOntologyFormat rdfxmlFormat = new RDFXMLOntologyFormat();
+			if (format.isPrefixOWLOntologyFormat()) {
+				rdfxmlFormat.copyPrefixesFrom(format.asPrefixOWLOntologyFormat());
+			}
+			manager.saveOntology(owlOntology, rdfxmlFormat, IRI.create(owlFile));
+			LogUtils.logInfo(mc, getClass(), &quot;transformTTL2OWL&quot;,
+					&quot;   Saved ontology &quot; + owlOntology + &quot; in file &quot; + owlFile.getAbsolutePath());
+		} catch (OWLOntologyCreationException e1) {
+			e1.printStackTrace();
+			return false;
+		} catch (OWLOntologyStorageException e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
+	}
+}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/universAAL/middleware/bus/junit/OntTestCase.java</td>
+<td>universAAL Middleware Bus JUnit</td>
+<td>284</td></tr>
+<tr class="a">
+<td>org/universAAL/middleware/container/pojo/layers/OntAutoLoader.java</td>
+<td>universAAL Middleware Container POJORunner</td>
+<td>301</td></tr>
+<tr class="b"><td colspan='3'>
+<div>
+<pre>		List&lt;OntologyLoaderTask&gt; loadingOrder = new ArrayList&lt;OntTestCase.OntologyLoaderTask&gt;();
+		for (Ontology ont : toBeLoaded) {
+			pendingOnts.put(ont, new OntologyLoaderTask(ont));
+		}
+
+		// first add all onts that are not from this project
+		TryLoadingOnts(toBeLoaded, false, pendingOnts, loadingOrder, totalOntologiesFound);
+
+		// then add all onts that are from this project
+		TryLoadingOnts(toBeLoaded, true, pendingOnts, loadingOrder, totalOntologiesFound);
+
+		// while (!toBeLoaded.isEmpty() ) {
+		// Ontology next = toBeLoaded.remove(0);
+		// OntologyLoaderTask otl = pendingOnts.get(next);
+		//
+		// otl.attempt();
+		// if ((!otl.allImportsRegistered()
+		// || otl.errors &gt; 0)
+		// &amp;&amp; otl.attempts &lt;= totalOntologiesFound*2){
+		// otl.unregister();
+		// toBeLoaded.add(next);
+		// continue;
+		// }
+		// loadingOrder.add(otl);
+		// }
+
+		// Print Summary
+		StringBuffer ls = new StringBuffer();
+		ls.append(&quot;AUTO LOAD RESULT\n&quot;);
+		ls.append(&quot; Load Order:\n&quot;);
+		StringBuffer sb = new StringBuffer();
+		sb.append(&quot; Ontology problems found in this project:\n&quot;);
+		StringBuffer sbo = new StringBuffer(&quot; Problems detected in other Ontologies:\n&quot;);
+		boolean problems = false;
+		boolean otherProblems = false;
+		boolean fail = false;
+		for (OntologyLoaderTask olt : loadingOrder) {
+			ls.append(
+					&quot;\t&quot; + (isInMyProy(olt.ont) ? &quot;* &quot; : &quot;  &quot;) + olt.ont.getInfo().getURI() + &quot; &quot; + olt.report() + &quot;\n&quot;);
+			if (isInMyProy(olt.ont)) {
+				if (!olt.logEntries.isEmpty()) {
+					sb.append(&quot;\t&quot; + olt.ont.getInfo().getURI() + &quot;\n&quot;);
+					problems = true;
+					for (LogEntry le : olt.logEntries) {
+						sb.append(&quot;\t\t&quot; + le.toString().replaceAll(&quot;\n&quot;, &quot;\n\t\t&quot;) + &quot;\n&quot;);
+						if (le.logLevel &gt;= LogListener.LOG_LEVEL_WARN)
+							fail = true;
+					}
+				}
+			} else {
+				if (!olt.logEntries.isEmpty()) {
+					sbo.append(&quot;\t&quot; + olt.ont.getInfo().getURI() + &quot;\n&quot;);
+					otherProblems = true;
+					for (LogEntry le : olt.logEntries) {
+						sbo.append(&quot;\t\t&quot; + le.toString().replaceAll(&quot;\n&quot;, &quot;\n\t\t&quot;) + &quot;\n&quot;);
+					}
+				}
+
+			}
+		}
+		LogUtils.logInfo(mc, getClass(), &quot;autoLoadOntologies&quot;, ls.toString());
+		if (problems) {
+//			System.err.println(sb.toString());
+			LogUtils.logError(mc, getClass(), &quot;autoLoadOntologies&quot;, sb.toString());
+		}
+		if (otherProblems) {
+//			System.out.print(sbo.toString());
+			LogUtils.logWarn(mc, getClass(), &quot;autoLoadOntologies&quot;, sbo.toString());
+		}
+
+		if (problems) {
+			if (fail) {
+				LogUtils.logError(mc, getClass(), &quot;autoLoadOntologies&quot;, &quot;Severe problems found, failing build.&quot;);</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="b">
 <td>org/universAAL/middleware/managers/configuration/core/impl/secondaryManagers/SharedObjectConnector.java</td>
 <td>universAAL Middleware Manager Configuration (Core)</td>
 <td>32</td></tr>
@@ -214,6 +534,419 @@
 		stopping = true;
 	}
 }</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/universAAL/middleware/container/JUnit/JUnitModuleContext.java</td>
+<td>universAAL Middleware Container JUnit</td>
+<td>214</td></tr>
+<tr class="a">
+<td>org/universAAL/middleware/container/pojo/POJOModuleContext.java</td>
+<td>universAAL Middleware Container POJORunner</td>
+<td>162</td></tr>
+<tr class="b"><td colspan='3'>
+<div>
+<pre>	}
+
+	/** {@inheritDoc} */
+	public boolean isLogErrorEnabled() {
+		return Level.ERROR.isGreaterOrEqual(logger.getEffectiveLevel());
+	}
+
+	/** {@inheritDoc} */
+	public boolean isLogWarnEnabled() {
+		return Level.WARN.isGreaterOrEqual(logger.getEffectiveLevel());
+	}
+
+	/** {@inheritDoc} */
+	public boolean isLogInfoEnabled() {
+		return logger.isInfoEnabled();
+	}
+
+	/** {@inheritDoc} */
+	public boolean isLogDebugEnabled() {
+		return logger.isDebugEnabled();
+	}
+
+	/** {@inheritDoc} */
+	public boolean isLogTraceEnabled() {
+		return logger.isTraceEnabled();
+	}
+
+	/** {@inheritDoc} */
+	public void registerConfigFile(Object[] configFileParams) {
+		configFiles.add((File) configFileParams[0]);
+	}
+
+	/** {@inheritDoc} */
+	public void setAttribute(String attrName, Object attrValue) {
+		attributeMap.put(attrName, attrValue);
+	}
+
+	/** {@inheritDoc} */
+	public boolean start(ModuleContext requester) {
+		if (canBeStarted(requester)) {
+			try {
+				activator.start(this);
+				return true;
+			} catch (Exception e) {
+				logger.error(&quot;Unable to start: &quot;
+						+ activator.getClass().getPackage().getName(), e);
+			}
+		}
+		return false;
+	}
+
+	/** {@inheritDoc} */
+	public boolean stop(ModuleContext requester) {
+		if (canBeStopped(requester)) {
+			try {
+				activator.stop(this);
+				return true;
+			} catch (Exception e) {
+				logger.error(&quot;Unable to stop: &quot;
+						+ activator.getClass().getPackage().getName(), e);
+			}
+		}
+		return false;
+	}
+
+	/** {@inheritDoc} */
+	public boolean uninstall(ModuleContext requester) {
+		return false;
+	}
+
+	/** {@inheritDoc} */
+	public Object getProperty(String name) {
+
+		Object value = getAttribute(name);
+		if (value != null)
+			return value;
+
+		value = System.getProperty(name);
+		if (value != null)
+			return value;
+
+		value = System.getenv(name);
+		if (value != null)
+			return value;
+
+		return null;
+	}
+
+	/** {@inheritDoc} */
+	public Object getProperty(String name, Object def) {
+		Object value = getProperty(name);
+		if (value == null)
+			return def;
+		return value;
+	}
+
+	public String getManifestEntry(String name) {
+		return null;</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/universAAL/middleware/bus/junit/OntTestCase.java</td>
+<td>universAAL Middleware Bus JUnit</td>
+<td>69</td></tr>
+<tr class="a">
+<td>org/universAAL/middleware/container/pojo/layers/OntAutoLoader.java</td>
+<td>universAAL Middleware Container POJORunner</td>
+<td>66</td></tr>
+<tr class="b"><td colspan='3'>
+<div>
+<pre>	private class LogEntry {
+		int logLevel;
+		String module;
+		String pkg;
+		String cls;
+		String method;
+		Object[] msgPart;
+		Throwable t;
+
+		public LogEntry(int logLevel, String module, String pkg, String cls, String method, Object[] msgPart,
+				Throwable t) {
+			super();
+			this.logLevel = logLevel;
+			this.module = module;
+			this.pkg = pkg;
+			this.cls = cls;
+			this.method = method;
+			this.msgPart = msgPart;
+			this.t = t;
+		}
+
+		/**
+		 * Internal method to create a single String from a list of objects.
+		 *
+		 * @param msgPart
+		 *            The message of this log entry. All elements of this array
+		 *            are converted to a string object and concatenated.
+		 * @return The String.
+		 */
+		private String buildMsg(Object[] msgPart) {
+			StringBuffer sb = new StringBuffer(256);
+			if (msgPart != null)
+				for (int i = 0; i &lt; msgPart.length; i++)
+					sb.append(msgPart[i]);
+			return sb.toString();
+		}
+
+		public String toString() {
+			StringBuffer sb = new StringBuffer();
+			sb.append(&quot;[&quot;);
+			switch (logLevel) {
+			case LogListener.LOG_LEVEL_TRACE:
+				sb.append(&quot;TRACE&quot;);
+				break;
+			case LogListener.LOG_LEVEL_DEBUG:
+				sb.append(&quot;DEBUG&quot;);
+				break;
+			case LogListener.LOG_LEVEL_INFO:
+				sb.append(&quot;INFO&quot;);
+				break;
+			case LogListener.LOG_LEVEL_WARN:
+				sb.append(&quot;WARN&quot;);
+				break;
+			case LogListener.LOG_LEVEL_ERROR:
+				sb.append(&quot;ERROR&quot;);
+				break;
+			}
+
+			sb.append(&quot;] -&gt; &quot;);
+			sb.append(buildMsg(msgPart));
+			if (t != null) {
+				StringWriter sw = new StringWriter();
+				PrintWriter pw = new PrintWriter(sw);
+				t.printStackTrace(pw);
+				sw.toString();
+				sb.append(&quot;\n&quot; + t.toString() + &quot;\n&quot;);
+				sb.append(sw.getBuffer());
+			}
+			return sb.toString();
+		}
+	}
+
+	private class OntologyLoaderTask implements LogListener {
+		Ontology ont;
+		int attempts = 0;
+		int warnings = 0;
+		int errors = 0;
+		List&lt;LogEntry&gt; logEntries = new ArrayList&lt;OntTestCase.LogEntry&gt;();</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/universAAL/middleware/bus/junit/OntTestCase.java</td>
+<td>universAAL Middleware Bus JUnit</td>
+<td>203</td></tr>
+<tr class="a">
+<td>org/universAAL/middleware/container/pojo/layers/OntAutoLoader.java</td>
+<td>universAAL Middleware Container POJORunner</td>
+<td>196</td></tr>
+<tr class="b"><td colspan='3'>
+<div>
+<pre>			((JUnitModuleContext) mc).enableLog();
+			// refresh ont instance
+			try {
+				ont = (Ontology) ont.getClass().newInstance();
+			} catch (Exception e) {
+				LogUtils.logError(mc, getClass(), &quot;unregister&quot;,
+						new String[] { &quot;could not instantiate: &quot; + ont.getClass().getName() }, e);
+			}
+		}
+
+		public void log(int logLevel, String module, String pkg, String cls, String method, Object[] msgPart,
+				Throwable t) {
+			LogEntry le = new LogEntry(logLevel, module, pkg, cls, method, msgPart, t);
+			if (msgPart.length &gt; 0 &amp;&amp; !((String) msgPart[0]).contains(&quot;Unregistering ontology&quot;)
+					&amp;&amp; !((String) msgPart[0]).contains(&quot;Registering ontology&quot;))
+				logEntries.add(le);
+			if (logLevel == LOG_LEVEL_ERROR)
+				errors++;
+			if (logLevel == LOG_LEVEL_WARN)
+				warnings++;
+		}
+
+		public boolean allImportsRegistered() {
+			Object imports = ont.getInfo().getProperty(Ontology.PROP_OWL_IMPORT);
+			if (imports == null) {
+				return true;
+			}
+			if (!(imports instanceof List)) {
+				List a = new ArrayList();
+				a.add(imports);
+				imports = a;
+			}
+			String[] registeredA = OntologyManagement.getInstance().getOntoloyURIs();
+			for (int i = 0; i &lt; registeredA.length; i++) {
+				((List) imports).remove(new Resource(registeredA[i]));
+			}
+			return ((List) imports).isEmpty();
+		}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/universAAL/middleware/bus/junit/BusTestCase.java</td>
+<td>universAAL Middleware Bus JUnit</td>
+<td>174</td></tr>
+<tr class="a">
+<td>org/universAAL/middleware/container/pojo/dummyManagers/DummyCommunicationModule.java</td>
+<td>universAAL Middleware Container POJORunner</td>
+<td>32</td></tr>
+<tr class="b"><td colspan='3'>
+<div>
+<pre>		CommunicationModule com = new CommunicationModule() {
+			public void dispose() {
+			}
+
+			public String getDescription() {
+				return null;
+			}
+
+			public String getName() {
+				return null;
+			}
+
+			public String getProvider() {
+				return null;
+			}
+
+			public String getVersion() {
+				return null;
+			}
+
+			public boolean init() {
+				return false;
+			}
+
+			public void loadConfigurations(Dictionary arg0) {
+			}
+
+			public void addMessageListener(MessageListener arg0, String arg1) {
+			}
+
+			public MessageListener getListenerByNameAndType(String arg0, Class arg1) {
+				return null;
+			}
+
+			public boolean hasChannel(String arg0) {
+				return true;
+			}
+
+			public void messageReceived(ChannelMessage arg0) {
+			}
+
+			public void removeMessageListener(MessageListener arg0, String arg1) {
+			}
+
+			public void send(ChannelMessage arg0, PeerCard arg1) throws CommunicationModuleException {
+			}
+
+			public void send(ChannelMessage arg0, MessageListener arg1, PeerCard arg2)
+					throws CommunicationModuleException {
+			}
+
+			public void sendAll(ChannelMessage arg0) throws CommunicationModuleException {
+			}
+
+			public void sendAll(ChannelMessage arg0, List&lt;PeerCard&gt; arg1) throws CommunicationModuleException {
+			}
+
+			public void sendAll(ChannelMessage arg0, MessageListener arg1) throws CommunicationModuleException {
+			}
+
+			public void sendAll(ChannelMessage arg0, List&lt;PeerCard&gt; arg1, MessageListener arg2)
+					throws CommunicationModuleException {
+			}
+		};</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/universAAL/middleware/bus/junit/BusTestCase.java</td>
+<td>universAAL Middleware Bus JUnit</td>
+<td>113</td></tr>
+<tr class="a">
+<td>org/universAAL/middleware/container/pojo/dummyManagers/DummySpaceManager.java</td>
+<td>universAAL Middleware Container POJORunner</td>
+<td>50</td></tr>
+<tr class="b"><td colspan='3'>
+<div>
+<pre>			public void dispose() {
+			}
+
+			public boolean init() {
+				return false;
+			}
+
+			public void loadConfigurations(Dictionary arg0) {
+			}
+
+			public void addSpaceListener(SpaceListener arg0) {
+			}
+
+			public SpaceDescriptor getSpaceDescriptor() {
+				return new SpaceDescriptor() {
+					private static final long serialVersionUID = -7504183020450042989L;
+
+					public SpaceCard getSpaceCard() {
+						SpaceCard sc = new SpaceCard();
+						sc.setSpaceID(&quot;TestSpaceID&quot;);
+						return sc;
+					}
+				};
+			}
+
+			public Set&lt;SpaceCard&gt; getSpaces() {
+				return null;
+			}
+
+			public Map&lt;String, SpaceDescriptor&gt; getManagedSpaces() {
+				return null;
+			}
+
+			public MatchingResult getMatchingPeers(Map&lt;String, Serializable&gt; arg0) {
+				return null;
+			}
+
+			public PeerCard getMyPeerCard() {
+				return myCard;
+			}
+
+			public Map&lt;String, Serializable&gt; getPeerAttributes(List&lt;String&gt; arg0, PeerCard arg1) {
+				return null;
+			}
+
+			public Map&lt;String, PeerCard&gt; getPeers() {
+				HashMap map = new HashMap();
+				map.put(myCard.getPeerID(), myCard);
+				return map;
+			}
+
+			public void join(SpaceCard arg0) {
+			}
+
+			public void leaveSpace(SpaceDescriptor arg0) {
+			}
+
+			public void removeSpaceListener(SpaceListener arg0) {
+			}
+		};</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>File</th>
@@ -386,6 +1119,50 @@
 <th>Project</th>
 <th>Line</th></tr>
 <tr class="b">
+<td>org/universAAL/middleware/container/pojo/POJOModuleContext.java</td>
+<td>universAAL Middleware Container POJORunner</td>
+<td>137</td></tr>
+<tr class="a">
+<td>org/universAAL/middleware/container/osgi/OSGiModuleContext.java</td>
+<td>universAAL Middleware Container (OSGi)</td>
+<td>224</td></tr>
+<tr class="b"><td colspan='3'>
+<div>
+<pre>	}
+
+	/** {@inheritDoc} */
+	public void logDebug(String tag, String message, Throwable t) {
+		logger.debug(tag + &quot;: &quot; + message, t);
+	}
+
+	/** {@inheritDoc} */
+	public void logError(String tag, String message, Throwable t) {
+		logger.error(tag + &quot;: &quot; + message, t);
+	}
+
+	/** {@inheritDoc} */
+	public void logInfo(String tag, String message, Throwable t) {
+		logger.info(tag + &quot;: &quot; + message, t);
+	}
+
+	/** {@inheritDoc} */
+	public void logWarn(String tag, String message, Throwable t) {
+		logger.warn(tag + &quot;: &quot; + message, t);
+	}
+
+	/** {@inheritDoc} */
+	public void logTrace(String tag, String message, Throwable t) {
+		logger.trace(tag + &quot;: &quot; + message, t);
+	}
+
+	/** {@inheritDoc} */
+	public boolean isLogErrorEnabled() {</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="b">
 <td>org/universAAL/middleware/service/impl/ServiceStrategy.java</td>
 <td>universAAL Middleware Service Bus (Core)</td>
 <td>725</td></tr>
@@ -449,6 +1226,47 @@
 													float dk = ((AbsLocation) ok)
 															.getDistanceTo((AbsLocation) params.get(1));
 													if (dj &lt; dk)</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/universAAL/middleware/bus/junit/OntTestCase.java</td>
+<td>universAAL Middleware Bus JUnit</td>
+<td>146</td></tr>
+<tr class="a">
+<td>org/universAAL/middleware/container/pojo/layers/OntAutoLoader.java</td>
+<td>universAAL Middleware Container POJORunner</td>
+<td>143</td></tr>
+<tr class="b"><td colspan='3'>
+<div>
+<pre>		List&lt;LogEntry&gt; logEntries = new ArrayList&lt;OntTestCase.LogEntry&gt;();
+
+		public OntologyLoaderTask(Ontology ont) {
+			super();
+			this.ont = ont;
+		}
+
+		String report() {
+			if (warnings == 0 &amp;&amp; errors == 0) {
+				return &quot;&quot;;
+			}
+			String ret = &quot;(&quot;;
+			if (warnings &gt; 0) {
+				ret += &quot;warnings: &quot; + Integer.toString(warnings) + &quot; &quot;;
+			}
+			if (errors &gt; 0) {
+				ret += &quot;errors: &quot; + Integer.toString(errors) + &quot; &quot;;
+			}
+			ret += &quot;)&quot;;
+			return ret;
+		}
+
+		void attempt() {
+			if (ont.getInfo() != null &amp;&amp; OntologyManagement.getInstance().isRegisteredOntology(ont.getInfo().getURI()))
+				return;
+			attempts++;</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>File</th>
@@ -583,6 +1401,53 @@
 				}
 			} else if (propURI.equals(PROP_OWLS_PROFILE_S_PARAMETER)) {
 				if (value instanceof Integer &amp;&amp; ((Integer) value).intValue() &gt; -1) {</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/universAAL/middleware/container/JUnit/JUnitContainer.java</td>
+<td>universAAL Middleware Container JUnit</td>
+<td>56</td></tr>
+<tr class="a">
+<td>org/universAAL/middleware/container/pojo/POJOContainer.java</td>
+<td>universAAL Middleware Container POJORunner</td>
+<td>81</td></tr>
+<tr class="b"><td colspan='3'>
+<div>
+<pre>	}
+
+	/** {@inheritDoc} */
+	public Object fetchSharedObject(ModuleContext requester, Object[] fetchParams) {
+		return sharedObjectMap.get(fetchParams[0]);
+	}
+
+	/** {@inheritDoc} */
+	public Object[] fetchSharedObject(ModuleContext requester, Object[] fetchParams, SharedObjectListener listener) {
+		synchronized (listeners) {
+			listeners.add(listener);
+		}
+		return new Object[] { fetchSharedObject(requester, fetchParams) };
+	}
+
+	/** {@inheritDoc} */
+	public void removeSharedObjectListener(SharedObjectListener listener) {
+		if (listener != null) {
+			synchronized (listeners) {
+				listeners.remove(listener);
+			}
+		}
+	}
+
+	/** {@inheritDoc} */
+	public ModuleContext installModule(ModuleContext requester, Object[] installParams) {
+		// no installing.
+		return null;
+	}
+
+	/** Register a LogListener */
+	public void registerLogListener(LogListener listener) {</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>File</th>

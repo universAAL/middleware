@@ -1,14 +1,14 @@
 <map id="G" name="G">
-<area shape="rect" id="c229906" href="./ChoiceList.html" title="org.universAAL.middleware.ui.rdf.ChoiceList" alt="" coords="16,115,99,141"/>
+<area shape="rect" id="node1_0" href="./ChoiceList.html" title="org.universAAL.middleware.ui.rdf.ChoiceList" alt="" coords="16,115,99,141"/>
 <area shape="rect" id="node1" href="./ChoiceList.html" title="&lt;TABLE&gt;" alt="" coords="5,104,109,152"/>
-<area shape="rect" id="c229908" href="./Label.html" title="org.universAAL.middleware.ui.rdf.Label" alt="" coords="125,230,177,255"/>
-<area shape="rect" id="node3" href="./Label.html" title="&lt;TABLE&gt;" alt="" coords="115,219,187,267"/>
-<area shape="rect" id="c229907" href="./ChoiceItem.html" title="org.universAAL.middleware.ui.rdf.ChoiceItem" alt="" coords="107,329,195,354"/>
-<area shape="rect" id="node2" href="./ChoiceItem.html" title="&lt;TABLE&gt;" alt="" coords="96,317,205,365"/>
-<area shape="rect" id="c229910" href="./FormElement.html" title="org.universAAL.middleware.ui.rdf.FormElement" alt="" coords="133,17,232,42"/>
+<area shape="rect" id="node3_1" href="./Label.html" title="org.universAAL.middleware.ui.rdf.Label" alt="" coords="125,227,177,253"/>
+<area shape="rect" id="node3" href="./Label.html" title="&lt;TABLE&gt;" alt="" coords="114,216,187,264"/>
+<area shape="rect" id="node2_2" href="./ChoiceItem.html" title="org.universAAL.middleware.ui.rdf.ChoiceItem" alt="" coords="107,325,195,352"/>
+<area shape="rect" id="node2" href="./ChoiceItem.html" title="&lt;TABLE&gt;" alt="" coords="96,315,205,363"/>
+<area shape="rect" id="node4_3" href="./FormElement.html" title="org.universAAL.middleware.ui.rdf.FormElement" alt="" coords="133,16,232,43"/>
 <area shape="rect" id="node4" href="./FormElement.html" title="&lt;TABLE&gt;" alt="" coords="123,5,243,53"/>
-<area shape="rect" id="c229911" href="./FormControl.html" title="org.universAAL.middleware.ui.rdf.FormControl" alt="" coords="199,115,292,141"/>
+<area shape="rect" id="node5_4" href="./FormControl.html" title="org.universAAL.middleware.ui.rdf.FormControl" alt="" coords="199,115,292,141"/>
 <area shape="rect" id="node5" href="./FormControl.html" title="&lt;TABLE&gt;" alt="" coords="188,104,303,152"/>
-<area shape="rect" id="c229913" href="./Select.html" title="org.universAAL.middleware.ui.rdf.Select" alt="" coords="337,115,394,141"/>
-<area shape="rect" id="node6" href="./Select.html" title="&lt;TABLE&gt;" alt="" coords="327,104,404,152"/>
+<area shape="rect" id="node6_5" href="./Select.html" title="org.universAAL.middleware.ui.rdf.Select" alt="" coords="338,115,395,141"/>
+<area shape="rect" id="node6" href="./Select.html" title="&lt;TABLE&gt;" alt="" coords="327,104,406,152"/>
 </map>

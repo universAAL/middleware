@@ -23,12 +23,12 @@ under the License.
     <link>http://middleware/mw.pom/</link>
     <description>universAAL Middleware Suite - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2017 universAAL Consortium</copyright>
+    <copyright>&#169;2018 universAAL Consortium</copyright>
     <item>
-      <title>File: 537,
-             Errors: 7800,
-             Warnings: 455,
-             Infos: 349
+      <title>File: 548,
+             Errors: 7997,
+             Warnings: 460,
+             Infos: 406
       </title>
             <link>http://middleware/mw.pom//checkstyle.html</link>
       <description>
@@ -476,6 +476,20 @@ under the License.
                 </td>
                 <td>
                   20
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.container.pojo.layers.OntAutoLoader.java">org/universAAL/middleware/container/pojo/layers/OntAutoLoader.java</a>
+                </td>
+                <td>
+                  12
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  46
                 </td>
               </tr>
                           <tr>
@@ -1698,6 +1712,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://middleware/mw.pom//checkstyle.html#system.properties">system.properties</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.interfaces.mpa.UAPPStatus.java">org/universAAL/middleware/interfaces/mpa/UAPPStatus.java</a>
                 </td>
                 <td>
@@ -2016,6 +2044,20 @@ under the License.
                 </td>
                 <td>
                   15
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/mw.pom//checkstyle.html#attributes.properties">attributes.properties</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
               </tr>
                           <tr>
@@ -2720,6 +2762,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.container.pojo.dummyManagers.DummySpaceManager.java">org/universAAL/middleware/container/pojo/dummyManagers/DummySpaceManager.java</a>
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  23
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.managers.distributedmw.impl.SharedObjectConnector.java">org/universAAL/middleware/managers/distributedmw/impl/SharedObjectConnector.java</a>
                 </td>
                 <td>
@@ -2874,6 +2930,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.container.pojo.POJOModuleContext.java">org/universAAL/middleware/container/pojo/POJOModuleContext.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  44
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.interfaces.ChannelDescriptor.java">org/universAAL/middleware/interfaces/ChannelDescriptor.java</a>
                 </td>
                 <td>
@@ -3010,6 +3080,20 @@ under the License.
                 </td>
                 <td>
                   6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.container.pojo.layers.BusesLayer.java">org/universAAL/middleware/container/pojo/layers/BusesLayer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  8
                 </td>
               </tr>
                           <tr>
@@ -3406,6 +3490,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.container.pojo.layers.TurtleSerialization.java">org/universAAL/middleware/container/pojo/layers/TurtleSerialization.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  9
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.TypeRestriction.java">org/universAAL/middleware/owl/TypeRestriction.java</a>
                 </td>
                 <td>
@@ -3703,7 +3801,7 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.rdf.Resource.java">org/universAAL/middleware/rdf/Resource.java</a>
                 </td>
                 <td>
-                  0
+                  37
                 </td>
                 <td>
                   1
@@ -3966,6 +4064,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.container.pojo.POJORunner.java">org/universAAL/middleware/container/pojo/POJORunner.java</a>
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.serialization.turtle.TurtleWriter.java">org/universAAL/middleware/serialization/turtle/TurtleWriter.java</a>
                 </td>
                 <td>
@@ -4060,6 +4172,20 @@ under the License.
                 </td>
                 <td>
                   7
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.container.pojo.layers.DataRepresentation.java">org/universAAL/middleware/container/pojo/layers/DataRepresentation.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  8
                 </td>
               </tr>
                           <tr>
@@ -4340,6 +4466,20 @@ under the License.
                 </td>
                 <td>
                   7
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.container.pojo.POJOContainer.java">org/universAAL/middleware/container/pojo/POJOContainer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  19
                 </td>
               </tr>
                           <tr>
@@ -5338,20 +5478,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/mw.pom//checkstyle.html#org.apache.karaf.branding.branding.properties">org/apache/karaf/branding/branding.properties</a>
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.ui.rdf.Select1.java">org/universAAL/middleware/ui/rdf/Select1.java</a>
                 </td>
                 <td>
@@ -5786,6 +5912,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.container.pojo.dummyManagers.DummyCommunicationModule.java">org/universAAL/middleware/container/pojo/dummyManagers/DummyCommunicationModule.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  25
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.shell.universAAL.osgi.TenantCommand.java">org/universAAL/middleware/shell/universAAL/osgi/TenantCommand.java</a>
                 </td>
                 <td>
@@ -5880,6 +6020,20 @@ under the License.
                 </td>
                 <td>
                   0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.container.pojo.layers.AbstractBusLayer.java">org/universAAL/middleware/container/pojo/layers/AbstractBusLayer.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  9
                 </td>
               </tr>
                           <tr>

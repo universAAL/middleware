@@ -1,10 +1,10 @@
 <map id="G" name="G">
-<area shape="rect" id="c148242" href="../rdf/FinalizedResource.html" title="org.universAAL.middleware.rdf.FinalizedResource" alt="" coords="15,19,145,45"/>
-<area shape="rect" id="node1" href="../rdf/FinalizedResource.html" title="&lt;TABLE&gt;" alt="" coords="5,8,155,56"/>
-<area shape="rect" id="c148449" href="./ContextEventPattern.html" title="org.universAAL.middleware.context.ContextEventPattern" alt="" coords="187,118,330,143"/>
-<area shape="rect" id="node4" href="./ContextEventPattern.html" title="&lt;TABLE&gt;" alt="" coords="177,107,340,155"/>
-<area shape="rect" id="c148427" href="../bus/model/matchable/EventAdvertisement.html" title="org.universAAL.middleware.bus.model.matchable.EventAdvertisement" alt="" coords="189,11,328,53"/>
-<area shape="rect" id="node2" href="../bus/model/matchable/EventAdvertisement.html" title="&lt;TABLE&gt;" alt="" coords="179,6,339,58"/>
-<area shape="rect" id="c148428" href="../bus/model/matchable/Subscription.html" title="org.universAAL.middleware.bus.model.matchable.Subscription" alt="" coords="373,11,467,53"/>
-<area shape="rect" id="node3" href="../bus/model/matchable/Subscription.html" title="&lt;TABLE&gt;" alt="" coords="363,6,477,58"/>
+<area shape="rect" id="node1_0" href="../rdf/FinalizedResource.html" title="org.universAAL.middleware.rdf.FinalizedResource" alt="" coords="15,20,145,47"/>
+<area shape="rect" id="node1" href="../rdf/FinalizedResource.html" title="&lt;TABLE&gt;" alt="" coords="5,9,155,57"/>
+<area shape="rect" id="node4_1" href="./ContextEventPattern.html" title="org.universAAL.middleware.context.ContextEventPattern" alt="" coords="189,120,331,147"/>
+<area shape="rect" id="node4" href="./ContextEventPattern.html" title="&lt;TABLE&gt;" alt="" coords="178,109,342,157"/>
+<area shape="rect" id="node2_2" href="../bus/model/matchable/EventAdvertisement.html" title="org.universAAL.middleware.bus.model.matchable.EventAdvertisement" alt="" coords="191,11,329,55"/>
+<area shape="rect" id="node2" href="../bus/model/matchable/EventAdvertisement.html" title="&lt;TABLE&gt;" alt="" coords="180,6,340,61"/>
+<area shape="rect" id="node3_3" href="../bus/model/matchable/Subscription.html" title="org.universAAL.middleware.bus.model.matchable.Subscription" alt="" coords="375,11,468,55"/>
+<area shape="rect" id="node3" href="../bus/model/matchable/Subscription.html" title="&lt;TABLE&gt;" alt="" coords="364,6,479,61"/>
 </map>

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<rss version="0.91">
+  <channel>
+    <title>universAAL Middleware Container POJORunner - Checkstyle report</title>
+    <link>http://middleware/middleware.core/mw.container.pojo/</link>
+    <description>universAAL Middleware Container POJORunner - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2018 universAAL Consortium</copyright>
+    <item>
+      <title>File: 12,
+             Errors: 197,
+             Warnings: 5,
+             Infos: 21
+      </title>
+            <link>http://middleware/middleware.core/mw.container.pojo//checkstyle.html</link>
+      <description>
+        <p>Click <a href="http://middleware/middleware.core/mw.container.pojo//checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.container.pojo//checkstyle.html#org.universAAL.middleware.container.pojo.layers.TurtleSerialization.java">org/universAAL/middleware/container/pojo/layers/TurtleSerialization.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  9
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.container.pojo//checkstyle.html#org.universAAL.middleware.container.pojo.layers.BusesLayer.java">org/universAAL/middleware/container/pojo/layers/BusesLayer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  8
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.container.pojo//checkstyle.html#org.universAAL.middleware.container.pojo.POJOContainer.java">org/universAAL/middleware/container/pojo/POJOContainer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  19
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.container.pojo//checkstyle.html#org.universAAL.middleware.container.pojo.dummyManagers.DummySpaceManager.java">org/universAAL/middleware/container/pojo/dummyManagers/DummySpaceManager.java</a>
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  23
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.container.pojo//checkstyle.html#org.universAAL.middleware.container.pojo.layers.AbstractBusLayer.java">org/universAAL/middleware/container/pojo/layers/AbstractBusLayer.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  9
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.container.pojo//checkstyle.html#attributes.properties">attributes.properties</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.container.pojo//checkstyle.html#system.properties">system.properties</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.container.pojo//checkstyle.html#org.universAAL.middleware.container.pojo.POJORunner.java">org/universAAL/middleware/container/pojo/POJORunner.java</a>
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.container.pojo//checkstyle.html#org.universAAL.middleware.container.pojo.POJOModuleContext.java">org/universAAL/middleware/container/pojo/POJOModuleContext.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  44
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.container.pojo//checkstyle.html#org.universAAL.middleware.container.pojo.dummyManagers.DummyCommunicationModule.java">org/universAAL/middleware/container/pojo/dummyManagers/DummyCommunicationModule.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  25
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.container.pojo//checkstyle.html#org.universAAL.middleware.container.pojo.layers.DataRepresentation.java">org/universAAL/middleware/container/pojo/layers/DataRepresentation.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  8
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.container.pojo//checkstyle.html#org.universAAL.middleware.container.pojo.layers.OntAutoLoader.java">org/universAAL/middleware/container/pojo/layers/OntAutoLoader.java</a>
+                </td>
+                <td>
+                  12
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  46
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+

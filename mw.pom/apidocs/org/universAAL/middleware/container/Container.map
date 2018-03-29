@@ -1,10 +1,10 @@
 <map id="G" name="G">
-<area shape="rect" id="c144008" href="./Container.html" title="org.universAAL.middleware.container.Container" alt="" coords="181,11,267,53"/>
-<area shape="rect" id="node1" href="./Container.html" title="&lt;TABLE&gt;" alt="" coords="171,6,277,58"/>
-<area shape="rect" id="c144015" href="./JUnit/JUnitContainer.html" title="org.universAAL.middleware.container.JUnit.JUnitContainer" alt="" coords="15,118,123,143"/>
-<area shape="rect" id="node2" href="./JUnit/JUnitContainer.html" title="&lt;TABLE&gt;" alt="" coords="5,107,133,155"/>
-<area shape="rect" id="c144531" href="./pojo/POJOContainer.html" title="org.universAAL.middleware.container.pojo.POJOContainer" alt="" coords="167,118,281,143"/>
-<area shape="rect" id="node3" href="./pojo/POJOContainer.html" title="&lt;TABLE&gt;" alt="" coords="157,107,291,155"/>
-<area shape="rect" id="c144540" href="./osgi/OSGiContainer.html" title="org.universAAL.middleware.container.osgi.OSGiContainer" alt="" coords="325,118,435,143"/>
-<area shape="rect" id="node4" href="./osgi/OSGiContainer.html" title="&lt;TABLE&gt;" alt="" coords="315,107,445,155"/>
+<area shape="rect" id="node1_0" href="./Container.html" title="org.universAAL.middleware.container.Container" alt="" coords="183,11,268,55"/>
+<area shape="rect" id="node1" href="./Container.html" title="&lt;TABLE&gt;" alt="" coords="172,6,279,61"/>
+<area shape="rect" id="node2_1" href="./JUnit/JUnitContainer.html" title="org.universAAL.middleware.container.JUnit.JUnitContainer" alt="" coords="15,120,123,147"/>
+<area shape="rect" id="node2" href="./JUnit/JUnitContainer.html" title="&lt;TABLE&gt;" alt="" coords="5,109,134,157"/>
+<area shape="rect" id="node3_2" href="./pojo/POJOContainer.html" title="org.universAAL.middleware.container.pojo.POJOContainer" alt="" coords="169,120,282,147"/>
+<area shape="rect" id="node3" href="./pojo/POJOContainer.html" title="&lt;TABLE&gt;" alt="" coords="158,109,293,157"/>
+<area shape="rect" id="node4_3" href="./osgi/OSGiContainer.html" title="org.universAAL.middleware.container.osgi.OSGiContainer" alt="" coords="328,120,437,147"/>
+<area shape="rect" id="node4" href="./osgi/OSGiContainer.html" title="&lt;TABLE&gt;" alt="" coords="317,109,448,157"/>
 </map>

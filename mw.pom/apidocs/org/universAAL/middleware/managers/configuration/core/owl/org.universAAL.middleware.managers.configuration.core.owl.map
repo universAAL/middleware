@@ -1,12 +1,12 @@
 <map id="G" name="G">
-<area shape="rect" id="c35426" href="./ConfigurationFile.html" title="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationFile" alt="" coords="15,113,134,138"/>
-<area shape="rect" id="node1" href="./ConfigurationFile.html" title="&lt;TABLE&gt;" alt="" coords="5,101,144,149"/>
-<area shape="rect" id="c35427" href="./ConfigurationParameter.html" title="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter" alt="" coords="179,113,336,138"/>
-<area shape="rect" id="node2" href="./ConfigurationParameter.html" title="&lt;TABLE&gt;" alt="" coords="168,101,347,149"/>
-<area shape="rect" id="c35428" href="./ConfigurationOntology.html" title="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology" alt="" coords="237,17,387,42"/>
-<area shape="rect" id="node3" href="./ConfigurationOntology.html" title="&lt;TABLE&gt;" alt="" coords="227,5,397,53"/>
-<area shape="rect" id="c35429" href="./ConfigurationOntology.Factory.html" title="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology.Factory" alt="" coords="431,17,497,42"/>
-<area shape="rect" id="node4" href="./ConfigurationOntology.Factory.html" title="&lt;TABLE&gt;" alt="" coords="421,5,507,53"/>
-<area shape="rect" id="c35430" href="./Entity.html" title="org.universAAL.middleware.managers.configuration.core.owl.Entity" alt="" coords="138,17,193,42"/>
-<area shape="rect" id="node5" href="./Entity.html" title="&lt;TABLE&gt;" alt="" coords="128,5,203,53"/>
+<area shape="rect" id="node1_0" href="./ConfigurationFile.html" title="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationFile" alt="" coords="15,112,134,139"/>
+<area shape="rect" id="node1" href="./ConfigurationFile.html" title="&lt;TABLE&gt;" alt="" coords="5,101,145,149"/>
+<area shape="rect" id="node2_1" href="./ConfigurationParameter.html" title="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter" alt="" coords="180,112,337,139"/>
+<area shape="rect" id="node2" href="./ConfigurationParameter.html" title="&lt;TABLE&gt;" alt="" coords="169,101,348,149"/>
+<area shape="rect" id="node3_2" href="./ConfigurationOntology.html" title="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology" alt="" coords="240,16,389,43"/>
+<area shape="rect" id="node3" href="./ConfigurationOntology.html" title="&lt;TABLE&gt;" alt="" coords="229,5,400,53"/>
+<area shape="rect" id="node4_3" href="./ConfigurationOntology.Factory.html" title="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology.Factory" alt="" coords="435,16,501,43"/>
+<area shape="rect" id="node4" href="./ConfigurationOntology.Factory.html" title="&lt;TABLE&gt;" alt="" coords="425,5,511,53"/>
+<area shape="rect" id="node5_4" href="./Entity.html" title="org.universAAL.middleware.managers.configuration.core.owl.Entity" alt="" coords="139,16,194,43"/>
+<area shape="rect" id="node5" href="./Entity.html" title="&lt;TABLE&gt;" alt="" coords="129,5,205,53"/>
 </map>

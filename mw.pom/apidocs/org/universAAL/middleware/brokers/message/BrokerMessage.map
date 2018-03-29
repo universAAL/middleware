@@ -1,16 +1,16 @@
 <map id="G" name="G">
-<area shape="rect" id="c100903" href="./BrokerMessage.html" title="org.universAAL.middleware.brokers.message.BrokerMessage" alt="" coords="463,11,575,53"/>
-<area shape="rect" id="node1" href="./BrokerMessage.html" title="&lt;TABLE&gt;" alt="" coords="452,6,585,58"/>
-<area shape="rect" id="c100905" href="./configuration/ConfigurationMessage.html" title="org.universAAL.middleware.brokers.message.configuration.ConfigurationMessage" alt="" coords="15,118,166,143"/>
-<area shape="rect" id="node2" href="./configuration/ConfigurationMessage.html" title="&lt;TABLE&gt;" alt="" coords="5,107,176,155"/>
-<area shape="rect" id="c100907" href="./control/ControlMessage.html" title="org.universAAL.middleware.brokers.message.control.ControlMessage" alt="" coords="210,118,326,143"/>
-<area shape="rect" id="node3" href="./control/ControlMessage.html" title="&lt;TABLE&gt;" alt="" coords="200,107,336,155"/>
-<area shape="rect" id="c100914" href="./deploy/DeployMessage.html" title="org.universAAL.middleware.brokers.message.deploy.DeployMessage" alt="" coords="371,118,485,143"/>
-<area shape="rect" id="node4" href="./deploy/DeployMessage.html" title="&lt;TABLE&gt;" alt="" coords="360,107,496,155"/>
-<area shape="rect" id="c100916" href="./distributedmw/DistributedMWMessage.html" title="org.universAAL.middleware.brokers.message.distributedmw.DistributedMWMessage" alt="" coords="530,118,691,143"/>
-<area shape="rect" id="node5" href="./distributedmw/DistributedMWMessage.html" title="&lt;TABLE&gt;" alt="" coords="520,107,701,155"/>
-<area shape="rect" id="c100919" href="./space/SpaceMessage.html" title="org.universAAL.middleware.brokers.message.space.SpaceMessage" alt="" coords="735,118,846,143"/>
-<area shape="rect" id="node6" href="./space/SpaceMessage.html" title="&lt;TABLE&gt;" alt="" coords="725,107,856,155"/>
-<area shape="rect" id="c101024" href="../../bus/msg/BusMessage.html" title="org.universAAL.middleware.bus.msg.BusMessage" alt="" coords="890,118,987,143"/>
-<area shape="rect" id="node7" href="../../bus/msg/BusMessage.html" title="&lt;TABLE&gt;" alt="" coords="880,107,997,155"/>
+<area shape="rect" id="node1_0" href="./BrokerMessage.html" title="org.universAAL.middleware.brokers.message.BrokerMessage" alt="" coords="467,11,579,55"/>
+<area shape="rect" id="node1" href="./BrokerMessage.html" title="&lt;TABLE&gt;" alt="" coords="456,6,589,61"/>
+<area shape="rect" id="node2_1" href="./configuration/ConfigurationMessage.html" title="org.universAAL.middleware.brokers.message.configuration.ConfigurationMessage" alt="" coords="15,120,166,147"/>
+<area shape="rect" id="node2" href="./configuration/ConfigurationMessage.html" title="&lt;TABLE&gt;" alt="" coords="5,109,177,157"/>
+<area shape="rect" id="node3_2" href="./control/ControlMessage.html" title="org.universAAL.middleware.brokers.message.control.ControlMessage" alt="" coords="211,120,327,147"/>
+<area shape="rect" id="node3" href="./control/ControlMessage.html" title="&lt;TABLE&gt;" alt="" coords="201,109,338,157"/>
+<area shape="rect" id="node4_3" href="./deploy/DeployMessage.html" title="org.universAAL.middleware.brokers.message.deploy.DeployMessage" alt="" coords="373,120,488,147"/>
+<area shape="rect" id="node4" href="./deploy/DeployMessage.html" title="&lt;TABLE&gt;" alt="" coords="363,109,499,157"/>
+<area shape="rect" id="node5_4" href="./distributedmw/DistributedMWMessage.html" title="org.universAAL.middleware.brokers.message.distributedmw.DistributedMWMessage" alt="" coords="534,120,695,147"/>
+<area shape="rect" id="node5" href="./distributedmw/DistributedMWMessage.html" title="&lt;TABLE&gt;" alt="" coords="523,109,706,157"/>
+<area shape="rect" id="node6_5" href="./space/SpaceMessage.html" title="org.universAAL.middleware.brokers.message.space.SpaceMessage" alt="" coords="741,120,851,147"/>
+<area shape="rect" id="node6" href="./space/SpaceMessage.html" title="&lt;TABLE&gt;" alt="" coords="730,109,862,157"/>
+<area shape="rect" id="node7_6" href="../../bus/msg/BusMessage.html" title="org.universAAL.middleware.bus.msg.BusMessage" alt="" coords="897,120,994,147"/>
+<area shape="rect" id="node7" href="../../bus/msg/BusMessage.html" title="&lt;TABLE&gt;" alt="" coords="886,109,1005,157"/>
 </map>

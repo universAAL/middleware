@@ -1,12 +1,12 @@
 <map id="G" name="G">
-<area shape="rect" id="c66678" href="./TargetSpaceCommand.html" title="org.universAAL.middleware.shell.universAAL.osgi.TargetSpaceCommand" alt="" coords="16,17,171,42"/>
+<area shape="rect" id="node1_0" href="./TargetSpaceCommand.html" title="org.universAAL.middleware.shell.universAAL.osgi.TargetSpaceCommand" alt="" coords="16,16,171,43"/>
 <area shape="rect" id="node1" href="./TargetSpaceCommand.html" title="&lt;TABLE&gt;" alt="" coords="5,5,181,53"/>
-<area shape="rect" id="c66679" href="./TenantCommand.html" title="org.universAAL.middleware.shell.universAAL.osgi.TenantCommand" alt="" coords="215,17,337,42"/>
-<area shape="rect" id="node2" href="./TenantCommand.html" title="&lt;TABLE&gt;" alt="" coords="205,5,347,53"/>
-<area shape="rect" id="c66680" href="./ListOfPeerCommand.html" title="org.universAAL.middleware.shell.universAAL.osgi.ListOfPeerCommand" alt="" coords="381,17,523,42"/>
-<area shape="rect" id="node3" href="./ListOfPeerCommand.html" title="&lt;TABLE&gt;" alt="" coords="371,5,533,53"/>
-<area shape="rect" id="c66681" href="./SpaceCommand.html" title="org.universAAL.middleware.shell.universAAL.osgi.SpaceCommand" alt="" coords="568,17,685,42"/>
-<area shape="rect" id="node4" href="./SpaceCommand.html" title="&lt;TABLE&gt;" alt="" coords="557,5,696,53"/>
-<area shape="rect" id="c66682" href="./UAPPCommand.html" title="org.universAAL.middleware.shell.universAAL.osgi.UAPPCommand" alt="" coords="731,17,848,42"/>
-<area shape="rect" id="node5" href="./UAPPCommand.html" title="&lt;TABLE&gt;" alt="" coords="720,5,859,53"/>
+<area shape="rect" id="node2_1" href="./TenantCommand.html" title="org.universAAL.middleware.shell.universAAL.osgi.TenantCommand" alt="" coords="217,16,338,43"/>
+<area shape="rect" id="node2" href="./TenantCommand.html" title="&lt;TABLE&gt;" alt="" coords="206,5,349,53"/>
+<area shape="rect" id="node3_2" href="./ListOfPeerCommand.html" title="org.universAAL.middleware.shell.universAAL.osgi.ListOfPeerCommand" alt="" coords="383,16,526,43"/>
+<area shape="rect" id="node3" href="./ListOfPeerCommand.html" title="&lt;TABLE&gt;" alt="" coords="373,5,537,53"/>
+<area shape="rect" id="node4_3" href="./SpaceCommand.html" title="org.universAAL.middleware.shell.universAAL.osgi.SpaceCommand" alt="" coords="572,16,689,43"/>
+<area shape="rect" id="node4" href="./SpaceCommand.html" title="&lt;TABLE&gt;" alt="" coords="561,5,700,53"/>
+<area shape="rect" id="node5_4" href="./UAPPCommand.html" title="org.universAAL.middleware.shell.universAAL.osgi.UAPPCommand" alt="" coords="735,16,852,43"/>
+<area shape="rect" id="node5" href="./UAPPCommand.html" title="&lt;TABLE&gt;" alt="" coords="724,5,863,53"/>
 </map>

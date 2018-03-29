@@ -1,10 +1,10 @@
 <map id="G" name="G">
-<area shape="rect" id="c141279" href="./DeployConnector.html" title="org.universAAL.middleware.connectors.DeployConnector" alt="" coords="15,113,137,154"/>
-<area shape="rect" id="node1" href="./DeployConnector.html" title="&lt;TABLE&gt;" alt="" coords="5,107,147,159"/>
-<area shape="rect" id="c141280" href="./CommunicationConnector.html" title="org.universAAL.middleware.connectors.CommunicationConnector" alt="" coords="181,113,353,154"/>
-<area shape="rect" id="node2" href="./CommunicationConnector.html" title="&lt;TABLE&gt;" alt="" coords="171,107,363,159"/>
-<area shape="rect" id="c141282" href="./Connector.html" title="org.universAAL.middleware.connectors.Connector" alt="" coords="224,11,309,53"/>
-<area shape="rect" id="node3" href="./Connector.html" title="&lt;TABLE&gt;" alt="" coords="213,6,320,58"/>
-<area shape="rect" id="c141283" href="./DiscoveryConnector.html" title="org.universAAL.middleware.connectors.DiscoveryConnector" alt="" coords="397,113,537,154"/>
-<area shape="rect" id="node4" href="./DiscoveryConnector.html" title="&lt;TABLE&gt;" alt="" coords="387,107,547,159"/>
+<area shape="rect" id="node1_0" href="./DeployConnector.html" title="org.universAAL.middleware.connectors.DeployConnector" alt="" coords="15,115,137,159"/>
+<area shape="rect" id="node1" href="./DeployConnector.html" title="&lt;TABLE&gt;" alt="" coords="5,110,147,165"/>
+<area shape="rect" id="node2_1" href="./CommunicationConnector.html" title="org.universAAL.middleware.connectors.CommunicationConnector" alt="" coords="182,115,354,159"/>
+<area shape="rect" id="node2" href="./CommunicationConnector.html" title="&lt;TABLE&gt;" alt="" coords="171,110,365,165"/>
+<area shape="rect" id="node3_2" href="./Connector.html" title="org.universAAL.middleware.connectors.Connector" alt="" coords="225,11,311,55"/>
+<area shape="rect" id="node3" href="./Connector.html" title="&lt;TABLE&gt;" alt="" coords="215,6,321,61"/>
+<area shape="rect" id="node4_3" href="./DiscoveryConnector.html" title="org.universAAL.middleware.connectors.DiscoveryConnector" alt="" coords="399,115,539,159"/>
+<area shape="rect" id="node4" href="./DiscoveryConnector.html" title="&lt;TABLE&gt;" alt="" coords="389,110,550,165"/>
 </map>

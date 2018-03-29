@@ -1,12 +1,12 @@
 <map id="G" name="G">
-<area shape="rect" id="c304515" href="../../../../interfaces/configuration/configurationEditionTypes/ConfigurableEntityEditor.html" title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor" alt="" coords="185,11,346,53"/>
-<area shape="rect" id="node1" href="../../../../interfaces/configuration/configurationEditionTypes/ConfigurableEntityEditor.html" title="&lt;TABLE&gt;" alt="" coords="175,6,356,58"/>
-<area shape="rect" id="c304638" href="./RemoteConfigurationEntity.html" title="org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationEntity" alt="" coords="177,214,354,239"/>
-<area shape="rect" id="node3" href="./RemoteConfigurationEntity.html" title="&lt;TABLE&gt;" alt="" coords="167,203,364,251"/>
-<area shape="rect" id="c304641" href="./GenericConfigurationEntity.html" title="org.universAAL.middleware.managers.configuration.core.impl.GenericConfigurationEntity" alt="" coords="245,118,422,143"/>
-<area shape="rect" id="node5" href="./GenericConfigurationEntity.html" title="&lt;TABLE&gt;" alt="" coords="235,107,432,155"/>
-<area shape="rect" id="c304634" href="./RemoteConfigurationParamaterEditor.html" title="org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationParamaterEditor" alt="" coords="16,310,253,335"/>
-<area shape="rect" id="node2" href="./RemoteConfigurationParamaterEditor.html" title="&lt;TABLE&gt;" alt="" coords="5,299,264,347"/>
-<area shape="rect" id="c304639" href="./RemoteConfigurationFileEditor.html" title="org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationFileEditor" alt="" coords="298,310,497,335"/>
-<area shape="rect" id="node4" href="./RemoteConfigurationFileEditor.html" title="&lt;TABLE&gt;" alt="" coords="288,299,507,347"/>
+<area shape="rect" id="node1_0" href="../../../../interfaces/configuration/configurationEditionTypes/ConfigurableEntityEditor.html" title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor" alt="" coords="186,11,347,55"/>
+<area shape="rect" id="node1" href="../../../../interfaces/configuration/configurationEditionTypes/ConfigurableEntityEditor.html" title="&lt;TABLE&gt;" alt="" coords="175,6,358,61"/>
+<area shape="rect" id="node3_1" href="./RemoteConfigurationEntity.html" title="org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationEntity" alt="" coords="178,216,355,243"/>
+<area shape="rect" id="node3" href="./RemoteConfigurationEntity.html" title="&lt;TABLE&gt;" alt="" coords="167,205,366,253"/>
+<area shape="rect" id="node5_2" href="./GenericConfigurationEntity.html" title="org.universAAL.middleware.managers.configuration.core.impl.GenericConfigurationEntity" alt="" coords="246,120,423,147"/>
+<area shape="rect" id="node5" href="./GenericConfigurationEntity.html" title="&lt;TABLE&gt;" alt="" coords="235,109,434,157"/>
+<area shape="rect" id="node2_3" href="./RemoteConfigurationParamaterEditor.html" title="org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationParamaterEditor" alt="" coords="16,312,253,339"/>
+<area shape="rect" id="node2" href="./RemoteConfigurationParamaterEditor.html" title="&lt;TABLE&gt;" alt="" coords="5,301,264,349"/>
+<area shape="rect" id="node4_4" href="./RemoteConfigurationFileEditor.html" title="org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationFileEditor" alt="" coords="299,312,498,339"/>
+<area shape="rect" id="node4" href="./RemoteConfigurationFileEditor.html" title="&lt;TABLE&gt;" alt="" coords="289,301,509,349"/>
 </map>

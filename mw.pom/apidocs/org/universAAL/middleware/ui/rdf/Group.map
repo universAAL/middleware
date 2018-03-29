@@ -1,10 +1,10 @@
 <map id="G" name="G">
-<area shape="rect" id="c203575" href="./Form.html" title="org.universAAL.middleware.ui.rdf.Form" alt="" coords="104,71,155,97"/>
-<area shape="rect" id="node1" href="./Form.html" title="&lt;TABLE&gt;" alt="" coords="93,60,165,108"/>
-<area shape="rect" id="c203580" href="./Group.html" title="org.universAAL.middleware.ui.rdf.Group" alt="" coords="101,221,157,246"/>
-<area shape="rect" id="node3" href="./Group.html" title="&lt;TABLE&gt;" alt="" coords="91,209,168,257"/>
-<area shape="rect" id="c203576" href="./Repeat.html" title="org.universAAL.middleware.ui.rdf.Repeat" alt="" coords="15,335,78,361"/>
-<area shape="rect" id="node2" href="./Repeat.html" title="&lt;TABLE&gt;" alt="" coords="5,324,88,372"/>
-<area shape="rect" id="c203582" href="./FormControl.html" title="org.universAAL.middleware.ui.rdf.FormControl" alt="" coords="123,335,216,361"/>
-<area shape="rect" id="node4" href="./FormControl.html" title="&lt;TABLE&gt;" alt="" coords="112,324,227,372"/>
+<area shape="rect" id="node1_0" href="./Form.html" title="org.universAAL.middleware.ui.rdf.Form" alt="" coords="104,65,155,92"/>
+<area shape="rect" id="node1" href="./Form.html" title="&lt;TABLE&gt;" alt="" coords="93,55,165,103"/>
+<area shape="rect" id="node3_1" href="./Group.html" title="org.universAAL.middleware.ui.rdf.Group" alt="" coords="101,207,157,233"/>
+<area shape="rect" id="node3" href="./Group.html" title="&lt;TABLE&gt;" alt="" coords="91,196,168,244"/>
+<area shape="rect" id="node2_2" href="./Repeat.html" title="org.universAAL.middleware.ui.rdf.Repeat" alt="" coords="15,319,78,345"/>
+<area shape="rect" id="node2" href="./Repeat.html" title="&lt;TABLE&gt;" alt="" coords="5,308,89,356"/>
+<area shape="rect" id="node4_3" href="./FormControl.html" title="org.universAAL.middleware.ui.rdf.FormControl" alt="" coords="124,319,217,345"/>
+<area shape="rect" id="node4" href="./FormControl.html" title="&lt;TABLE&gt;" alt="" coords="113,308,228,356"/>
 </map>

@@ -1,10 +1,10 @@
 <map id="G" name="G">
-<area shape="rect" id="c256940" href="./ModuleContext.html" title="org.universAAL.middleware.container.ModuleContext" alt="" coords="217,11,327,53"/>
-<area shape="rect" id="node1" href="./ModuleContext.html" title="&lt;TABLE&gt;" alt="" coords="207,6,337,58"/>
-<area shape="rect" id="c256949" href="./JUnit/JUnitModuleContext.html" title="org.universAAL.middleware.container.JUnit.JUnitModuleContext" alt="" coords="15,118,155,143"/>
-<area shape="rect" id="node2" href="./JUnit/JUnitModuleContext.html" title="&lt;TABLE&gt;" alt="" coords="5,107,165,155"/>
-<area shape="rect" id="c257463" href="./pojo/POJOModuleContext.html" title="org.universAAL.middleware.container.pojo.POJOModuleContext" alt="" coords="199,118,345,143"/>
-<area shape="rect" id="node3" href="./pojo/POJOModuleContext.html" title="&lt;TABLE&gt;" alt="" coords="189,107,355,155"/>
-<area shape="rect" id="c257474" href="./osgi/OSGiModuleContext.html" title="org.universAAL.middleware.container.osgi.OSGiModuleContext" alt="" coords="389,118,531,143"/>
-<area shape="rect" id="node4" href="./osgi/OSGiModuleContext.html" title="&lt;TABLE&gt;" alt="" coords="379,107,541,155"/>
+<area shape="rect" id="node1_0" href="./ModuleContext.html" title="org.universAAL.middleware.container.ModuleContext" alt="" coords="219,11,328,55"/>
+<area shape="rect" id="node1" href="./ModuleContext.html" title="&lt;TABLE&gt;" alt="" coords="208,6,339,61"/>
+<area shape="rect" id="node2_1" href="./JUnit/JUnitModuleContext.html" title="org.universAAL.middleware.container.JUnit.JUnitModuleContext" alt="" coords="15,120,155,147"/>
+<area shape="rect" id="node2" href="./JUnit/JUnitModuleContext.html" title="&lt;TABLE&gt;" alt="" coords="5,109,166,157"/>
+<area shape="rect" id="node3_2" href="./pojo/POJOModuleContext.html" title="org.universAAL.middleware.container.pojo.POJOModuleContext" alt="" coords="201,120,346,147"/>
+<area shape="rect" id="node3" href="./pojo/POJOModuleContext.html" title="&lt;TABLE&gt;" alt="" coords="190,109,357,157"/>
+<area shape="rect" id="node4_3" href="./osgi/OSGiModuleContext.html" title="org.universAAL.middleware.container.osgi.OSGiModuleContext" alt="" coords="392,120,533,147"/>
+<area shape="rect" id="node4" href="./osgi/OSGiModuleContext.html" title="&lt;TABLE&gt;" alt="" coords="381,109,544,157"/>
 </map>

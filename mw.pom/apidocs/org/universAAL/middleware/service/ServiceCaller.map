@@ -1,8 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="c329822" href="../bus/member/Caller.html" title="org.universAAL.middleware.bus.member.Caller" alt="" coords="59,17,114,42"/>
-<area shape="rect" id="node1" href="../bus/member/Caller.html" title="&lt;TABLE&gt;" alt="" coords="49,5,124,53"/>
-<area shape="rect" id="c329890" href="./ServiceCaller.html" title="org.universAAL.middleware.service.ServiceCaller" alt="" coords="37,113,136,138"/>
+<area shape="rect" id="node1_0" href="../bus/member/Caller.html" title="org.universAAL.middleware.bus.member.Caller" alt="" coords="59,16,114,43"/>
+<area shape="rect" id="node1" href="../bus/member/Caller.html" title="&lt;TABLE&gt;" alt="" coords="49,5,125,53"/>
+<area shape="rect" id="node2_1" href="./ServiceCaller.html" title="org.universAAL.middleware.service.ServiceCaller" alt="" coords="37,112,136,139"/>
 <area shape="rect" id="node2" href="./ServiceCaller.html" title="&lt;TABLE&gt;" alt="" coords="27,101,147,149"/>
-<area shape="rect" id="c329893" href="./DefaultServiceCaller.html" title="org.universAAL.middleware.service.DefaultServiceCaller" alt="" coords="16,209,157,234"/>
+<area shape="rect" id="node3_2" href="./DefaultServiceCaller.html" title="org.universAAL.middleware.service.DefaultServiceCaller" alt="" coords="16,208,157,235"/>
 <area shape="rect" id="node3" href="./DefaultServiceCaller.html" title="&lt;TABLE&gt;" alt="" coords="5,197,168,245"/>
 </map>
