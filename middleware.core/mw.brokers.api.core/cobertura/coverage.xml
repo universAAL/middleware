@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.4403292181069959" branch-rate="0.42857142857142855" lines-covered="107" lines-valid="243" branches-covered="9" branches-valid="21" complexity="1.369047619047619" version="2.1.1" timestamp="1501592928510">
+<coverage line-rate="0.4380165289256198" branch-rate="0.42857142857142855" lines-covered="106" lines-valid="242" branches-covered="9" branches-valid="21" complexity="1.369047619047619" version="2.1.1" timestamp="1522289781505">
 	<sources>
 		<source>--source</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.core/mw.brokers.api.core/src/main/java</source>
@@ -817,13 +817,12 @@
 				</class>
 			</classes>
 		</package>
-		<package name="org.universAAL.middleware.brokers.message.gson" line-rate="0.64" branch-rate="0.6153846153846154" complexity="2.090909090909091">
+		<package name="org.universAAL.middleware.brokers.message.gson" line-rate="0.6326530612244898" branch-rate="0.6153846153846154" complexity="2.090909090909091">
 			<classes>
-				<class name="org.universAAL.middleware.brokers.message.gson.BrokerMessageSerializer" filename="org/universAAL/middleware/brokers/message/gson/BrokerMessageSerializer.java" line-rate="0.6" branch-rate="0.4" complexity="2.5">
+				<class name="org.universAAL.middleware.brokers.message.gson.BrokerMessageSerializer" filename="org/universAAL/middleware/brokers/message/gson/BrokerMessageSerializer.java" line-rate="0.5789473684210527" branch-rate="0.4" complexity="2.5">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="71" hits="1" branch="false"/>
 							</lines>
 						</method>
 						<method name="deserialize" signature="(Lcom/google/gson/JsonElement;Ljava/lang/reflect/Type;Lcom/google/gson/JsonDeserializationContext;)Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0" complexity="0">
@@ -897,7 +896,6 @@
 						<line number="66" hits="2" branch="false"/>
 						<line number="68" hits="0" branch="false"/>
 						<line number="69" hits="0" branch="false"/>
-						<line number="71" hits="1" branch="false"/>
 						<line number="76" hits="2" branch="false"/>
 					</lines>
 				</class>

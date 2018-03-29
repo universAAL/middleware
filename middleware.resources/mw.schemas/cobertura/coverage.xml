@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.13427109974424553" branch-rate="0.005649717514124294" lines-covered="105" lines-valid="782" branches-covered="2" branches-valid="354" complexity="1.1383399209486167" version="2.1.1" timestamp="1501592909221">
+<coverage line-rate="0.125810635538262" branch-rate="0.005649717514124294" lines-covered="97" lines-valid="771" branches-covered="2" branches-valid="354" complexity="1.1383399209486167" version="2.1.1" timestamp="1522289763216">
 	<sources>
 		<source>--source</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.resources/mw.schemas/src/main/java</source>
@@ -41,7 +41,7 @@
 				</class>
 			</classes>
 		</package>
-		<package name="org.universAAL.middleware.interfaces.space.xml.model" line-rate="0.10126582278481013" branch-rate="0.0" complexity="1.0377358490566038">
+		<package name="org.universAAL.middleware.interfaces.space.xml.model" line-rate="0.08974358974358974" branch-rate="0.0" complexity="1.0377358490566038">
 			<classes>
 				<class name="org.universAAL.middleware.interfaces.space.xml.model.ChannelDescriptor" filename="org/universAAL/middleware/interfaces/space/xml/model/ChannelDescriptor.java" line-rate="0.07692307692307693" branch-rate="0.0" complexity="1.0">
 					<methods>
@@ -183,12 +183,11 @@
 						<line number="91" hits="0" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.universAAL.middleware.interfaces.space.xml.model.Space" filename="org/universAAL/middleware/interfaces/space/xml/model/Space.java" line-rate="0.13333333333333333" branch-rate="0.0" complexity="1.0526315789473684">
+				<class name="org.universAAL.middleware.interfaces.space.xml.model.Space" filename="org/universAAL/middleware/interfaces/space/xml/model/Space.java" line-rate="0.10344827586206896" branch-rate="0.0" complexity="1.0526315789473684">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="103" hits="1" branch="false"/>
-								<line number="472" hits="1" branch="false"/>
 							</lines>
 						</method>
 						<method name="getAdmin" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0" complexity="0">
@@ -378,7 +377,6 @@
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="472" hits="1" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.interfaces.space.xml.model.Space$CommunicationChannels" filename="org/universAAL/middleware/interfaces/space/xml/model/Space.java" line-rate="0.14285714285714285" branch-rate="0.0" complexity="1.0526315789473684">
@@ -607,14 +605,13 @@
 				</class>
 			</classes>
 		</package>
-		<package name="org.universAAL.middleware.managers.deploy.uapp.model" line-rate="0.1379800853485064" branch-rate="0.00625" complexity="1.1642512077294687">
+		<package name="org.universAAL.middleware.managers.deploy.uapp.model" line-rate="0.12987012987012986" branch-rate="0.00625" complexity="1.1642512077294687">
 			<classes>
-				<class name="org.universAAL.middleware.managers.deploy.uapp.model.AalUapp" filename="org/universAAL/middleware/managers/deploy/uapp/model/AalUapp.java" line-rate="0.13636363636363635" branch-rate="0.0" complexity="1.125">
+				<class name="org.universAAL.middleware.managers.deploy.uapp.model.AalUapp" filename="org/universAAL/middleware/managers/deploy/uapp/model/AalUapp.java" line-rate="0.09523809523809523" branch-rate="0.0" complexity="1.125">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="181" hits="1" branch="false"/>
-								<line number="1462" hits="1" branch="false"/>
 							</lines>
 						</method>
 						<method name="getApp" signature="()Lorg/universAAL/middleware/managers/deploy/uapp/model/AalUapp$App;" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -760,15 +757,13 @@
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="1462" hits="1" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.universAAL.middleware.managers.deploy.uapp.model.AalUapp$App" filename="org/universAAL/middleware/managers/deploy/uapp/model/AalUapp.java" line-rate="0.041666666666666664" branch-rate="0.0" complexity="1.125">
+				<class name="org.universAAL.middleware.managers.deploy.uapp.model.AalUapp$App" filename="org/universAAL/middleware/managers/deploy/uapp/model/AalUapp.java" line-rate="0.02127659574468085" branch-rate="0.0" complexity="1.125">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="397" hits="1" branch="false"/>
-								<line number="930" hits="1" branch="false"/>
 							</lines>
 						</method>
 						<method name="getAppId" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -1088,15 +1083,13 @@
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="930" hits="1" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.universAAL.middleware.managers.deploy.uapp.model.AalUapp$App$Licenses" filename="org/universAAL/middleware/managers/deploy/uapp/model/AalUapp.java" line-rate="0.16666666666666666" branch-rate="0.0" complexity="1.125">
+				<class name="org.universAAL.middleware.managers.deploy.uapp.model.AalUapp$App$Licenses" filename="org/universAAL/middleware/managers/deploy/uapp/model/AalUapp.java" line-rate="0.09090909090909091" branch-rate="0.0" complexity="1.125">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="738" hits="1" branch="false"/>
-								<line number="830" hits="1" branch="false"/>
 							</lines>
 						</method>
 						<method name="getLicense" signature="()Ljava/util/List;" line-rate="0.0" branch-rate="0.0" complexity="0">
@@ -1172,7 +1165,6 @@
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="830" hits="1" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.managers.deploy.uapp.model.AalUapp$App$Licenses$Sla" filename="org/universAAL/middleware/managers/deploy/uapp/model/AalUapp.java" line-rate="0.1111111111111111" branch-rate="0.0" complexity="1.125">
@@ -1248,7 +1240,6 @@
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="932" hits="0" branch="false"/>
-								<line number="1040" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getIcon" signature="()Lorg/universAAL/middleware/managers/deploy/uapp/model/AalUapp$App$MenuEntry$Icon;" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -1338,7 +1329,6 @@
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="1040" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.managers.deploy.uapp.model.AalUapp$App$MenuEntry$Icon" filename="org/universAAL/middleware/managers/deploy/uapp/model/AalUapp.java" line-rate="0.0" branch-rate="0.0" complexity="1.125">
@@ -1468,7 +1458,6 @@
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="1211" hits="0" branch="false"/>
-								<line number="1293" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getContactPoint" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -1530,7 +1519,6 @@
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="1293" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.managers.deploy.uapp.model.AalUapp$ApplicationManagement$RemoteManagement" filename="org/universAAL/middleware/managers/deploy/uapp/model/AalUapp.java" line-rate="0.0" branch-rate="0.0" complexity="1.125">
@@ -2211,12 +2199,11 @@
 						</line>
 					</lines>
 				</class>
-				<class name="org.universAAL.middleware.managers.deploy.uapp.model.ContactType" filename="org/universAAL/middleware/managers/deploy/uapp/model/ContactType.java" line-rate="0.058823529411764705" branch-rate="0.0" complexity="1.0">
+				<class name="org.universAAL.middleware.managers.deploy.uapp.model.ContactType" filename="org/universAAL/middleware/managers/deploy/uapp/model/ContactType.java" line-rate="0.030303030303030304" branch-rate="0.0" complexity="1.0">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="74" hits="1" branch="false"/>
-								<line number="312" hits="1" branch="false"/>
 							</lines>
 						</method>
 						<method name="getCertificate" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -2446,7 +2433,6 @@
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="312" hits="1" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.managers.deploy.uapp.model.ContactType$OtherChannel" filename="org/universAAL/middleware/managers/deploy/uapp/model/ContactType.java" line-rate="0.0" branch-rate="0.0" complexity="1.0">
@@ -2597,12 +2583,11 @@
 						</line>
 					</lines>
 				</class>
-				<class name="org.universAAL.middleware.managers.deploy.uapp.model.DeploymentUnit" filename="org/universAAL/middleware/managers/deploy/uapp/model/DeploymentUnit.java" line-rate="0.16666666666666666" branch-rate="0.0" complexity="1.0444444444444445">
+				<class name="org.universAAL.middleware.managers.deploy.uapp.model.DeploymentUnit" filename="org/universAAL/middleware/managers/deploy/uapp/model/DeploymentUnit.java" line-rate="0.11764705882352941" branch-rate="0.0" complexity="1.0444444444444445">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="104" hits="1" branch="false"/>
-								<line number="266" hits="1" branch="false"/>
 							</lines>
 						</method>
 						<method name="getContainerUnit" signature="()Lorg/universAAL/middleware/managers/deploy/uapp/model/DeploymentUnit$ContainerUnit;" line-rate="1.0" branch-rate="1.0" complexity="0">
@@ -2720,15 +2705,13 @@
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="266" hits="1" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.universAAL.middleware.managers.deploy.uapp.model.DeploymentUnit$ContainerUnit" filename="org/universAAL/middleware/managers/deploy/uapp/model/DeploymentUnit.java" line-rate="0.11538461538461539" branch-rate="0.0" complexity="1.0444444444444445">
+				<class name="org.universAAL.middleware.managers.deploy.uapp.model.DeploymentUnit$ContainerUnit" filename="org/universAAL/middleware/managers/deploy/uapp/model/DeploymentUnit.java" line-rate="0.08" branch-rate="0.0" complexity="1.0444444444444445">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="268" hits="1" branch="false"/>
-								<line number="582" hits="1" branch="false"/>
 							</lines>
 						</method>
 						<method name="getAndroid" signature="()Lorg/universAAL/middleware/managers/deploy/uapp/model/DeploymentUnit$ContainerUnit$Android;" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -2902,7 +2885,6 @@
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="582" hits="1" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.managers.deploy.uapp.model.DeploymentUnit$ContainerUnit$Android" filename="org/universAAL/middleware/managers/deploy/uapp/model/DeploymentUnit.java" line-rate="0.0" branch-rate="0.0" complexity="1.0444444444444445">
@@ -4116,7 +4098,6 @@
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="74" hits="0" branch="false"/>
-								<line number="184" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getLocation" signature="()Lorg/universAAL/middleware/managers/deploy/uapp/model/OntologyType$Location;" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -4206,7 +4187,6 @@
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="184" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.managers.deploy.uapp.model.OntologyType$Location" filename="org/universAAL/middleware/managers/deploy/uapp/model/OntologyType.java" line-rate="0.0" branch-rate="0.0" complexity="1.1666666666666667">
@@ -4333,12 +4313,11 @@
 						<line number="72" hits="0" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.universAAL.middleware.managers.deploy.uapp.model.Part" filename="org/universAAL/middleware/managers/deploy/uapp/model/Part.java" line-rate="0.14705882352941177" branch-rate="0.045454545454545456" complexity="1.2962962962962963">
+				<class name="org.universAAL.middleware.managers.deploy.uapp.model.Part" filename="org/universAAL/middleware/managers/deploy/uapp/model/Part.java" line-rate="0.12121212121212122" branch-rate="0.045454545454545456" complexity="1.2962962962962963">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="90" hits="1" branch="false"/>
-								<line number="401" hits="1" branch="false"/>
 							</lines>
 						</method>
 						<method name="getBundleId" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0" complexity="0">
@@ -4568,7 +4547,6 @@
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="401" hits="1" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.managers.deploy.uapp.model.Part$PartCapabilities" filename="org/universAAL/middleware/managers/deploy/uapp/model/Part.java" line-rate="0.0" branch-rate="0.0" complexity="1.2962962962962963">

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="572" branches-covered="0" branches-valid="146" complexity="1.8717948717948718" version="2.1.1" timestamp="1501592996170">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="571" branches-covered="0" branches-valid="146" complexity="1.8717948717948718" version="2.1.1" timestamp="1522289852549">
 	<sources>
 		<source>--source</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.core/mw.container.pojo/src/main/java</source>
@@ -1156,9 +1156,8 @@
 								<line number="61" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="138" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="TryLoadingOnts" signature="(Ljava/util/List;ZLjava/util/Map;Ljava/util/List;I)V" line-rate="0.0" branch-rate="0.0" complexity="0">
@@ -1502,7 +1501,6 @@
 					<lines>
 						<line number="59" hits="0" branch="false"/>
 						<line number="61" hits="0" branch="false"/>
-						<line number="138" hits="0" branch="false"/>
 						<line number="284" hits="0" branch="false"/>
 						<line number="285" hits="0" branch="false"/>
 						<line number="286" hits="0" branch="false"/>

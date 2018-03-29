@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.1686046511627907" branch-rate="0.09016393442622951" lines-covered="29" lines-valid="172" branches-covered="11" branches-valid="122" complexity="2.0136986301369864" version="2.1.1" timestamp="1501592900201">
+<coverage line-rate="0.1686046511627907" branch-rate="0.09016393442622951" lines-covered="29" lines-valid="172" branches-covered="11" branches-valid="122" complexity="2.0136986301369864" version="2.1.1" timestamp="1522289754715">
 	<sources>
 		<source>--source</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.core/mw.container.core/src/main/java</source>
@@ -347,7 +347,7 @@
 						</method>
 						<method name="internationalizedFile" signature="(Ljava/util/Locale;)Ljava/net/URL;" line-rate="0.5" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="177" hits="7" branch="false"/>
+								<line number="177" hits="14" branch="false"/>
 								<line number="178" hits="7" branch="false"/>
 								<line number="179" hits="0" branch="false"/>
 								<line number="180" hits="0" branch="false"/>
@@ -427,7 +427,7 @@
 						<line number="156" hits="5" branch="false"/>
 						<line number="158" hits="7" branch="false"/>
 						<line number="166" hits="0" branch="false"/>
-						<line number="177" hits="7" branch="false"/>
+						<line number="177" hits="14" branch="false"/>
 						<line number="178" hits="7" branch="false"/>
 						<line number="179" hits="0" branch="false"/>
 						<line number="180" hits="0" branch="false"/>

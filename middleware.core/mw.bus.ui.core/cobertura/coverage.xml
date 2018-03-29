@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.12977369165487979" branch-rate="0.08597285067873303" lines-covered="367" lines-valid="2828" branches-covered="152" branches-valid="1768" complexity="3.015625" version="2.1.1" timestamp="1501592983328">
+<coverage line-rate="0.12977369165487979" branch-rate="0.08597285067873303" lines-covered="367" lines-valid="2828" branches-covered="152" branches-valid="1768" complexity="3.015625" version="2.1.1" timestamp="1522289838640">
 	<sources>
 		<source>/home/travis/build/universAAL/middleware/middleware.core/mw.bus.ui.core/src/main/java</source>
 		<source>--source</source>
@@ -12101,7 +12101,7 @@
 						</method>
 						<method name="getValue" signature="([Ljava/lang/String;)Ljava/lang/Object;" line-rate="0.5" branch-rate="0.6666666666666666" complexity="0">
 							<lines>
-								<line number="360" hits="8" branch="true" condition-coverage="66% (4/6)">
+								<line number="360" hits="16" branch="true" condition-coverage="66% (4/6)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 										<condition number="1" type="jump" coverage="50%"/>
@@ -12612,7 +12612,7 @@
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="360" hits="8" branch="true" condition-coverage="66% (4/6)">
+						<line number="360" hits="16" branch="true" condition-coverage="66% (4/6)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 								<condition number="1" type="jump" coverage="50%"/>
