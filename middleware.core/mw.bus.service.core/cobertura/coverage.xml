@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.410615339749198" branch-rate="0.27450980392156865" lines-covered="1408" lines-valid="3429" branches-covered="630" branches-valid="2295" complexity="4.079664570230608" version="2.1.1" timestamp="1525369919261">
+<coverage line-rate="0.410615339749198" branch-rate="0.27450980392156865" lines-covered="1408" lines-valid="3429" branches-covered="630" branches-valid="2295" complexity="4.079664570230608" version="2.1.1" timestamp="1525371949177">
 	<sources>
 		<source>--source</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.core/mw.bus.service.core/src/main/java</source>
@@ -4009,7 +4009,7 @@
 						</method>
 						<method name="getMatchingServices" signature="(Ljava/lang/String;)Ljava/util/HashMap;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="199" hits="455" branch="false"/>
+								<line number="199" hits="453" branch="false"/>
 							</lines>
 						</method>
 						<method name="getMatchingServices" signature="(Ljava/lang/String;Ljava/lang/String;)[Lorg/universAAL/middleware/service/owls/profile/ServiceProfile;" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -4227,7 +4227,7 @@
 						<line number="178" hits="0" branch="false"/>
 						<line number="185" hits="0" branch="false"/>
 						<line number="192" hits="0" branch="false"/>
-						<line number="199" hits="455" branch="false"/>
+						<line number="199" hits="453" branch="false"/>
 						<line number="207" hits="0" branch="false"/>
 						<line number="215" hits="0" branch="true" condition-coverage="0% (0/4)">
 							<conditions>
@@ -5377,7 +5377,7 @@
 						</method>
 						<method name="getProvider" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="287" hits="691" branch="false"/>
+								<line number="287" hits="689" branch="false"/>
 							</lines>
 						</method>
 						<method name="getResponseTimeout" signature="()I" line-rate="0.0" branch-rate="0.0" complexity="0">
@@ -5780,7 +5780,7 @@
 								<condition number="0" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
-						<line number="287" hits="691" branch="false"/>
+						<line number="287" hits="689" branch="false"/>
 						<line number="297" hits="0" branch="false"/>
 						<line number="298" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
@@ -6448,7 +6448,7 @@
 						</method>
 						<method name="getAllServiceProfilesWithCalleeIDs" signature="(Ljava/lang/String;)Ljava/util/HashMap;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="2078" hits="455" branch="false"/>
+								<line number="2078" hits="453" branch="false"/>
 							</lines>
 						</method>
 						<method name="getCoordinatorServices" signature="(Ljava/lang/String;)[Lorg/universAAL/middleware/service/owls/profile/ServiceProfile;" line-rate="0.0" branch-rate="0.0" complexity="0">
@@ -6486,37 +6486,37 @@
 						</method>
 						<method name="getCoordinatorServicesWithCalleeIDs" signature="(Ljava/lang/String;)Ljava/util/HashMap;" line-rate="1.0" branch-rate="0.75" complexity="0">
 							<lines>
-								<line number="2082" hits="455" branch="false"/>
-								<line number="2083" hits="455" branch="true" condition-coverage="50% (1/2)">
+								<line number="2082" hits="453" branch="false"/>
+								<line number="2083" hits="453" branch="true" condition-coverage="50% (1/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
-								<line number="2084" hits="455" branch="false"/>
-								<line number="2085" hits="455" branch="false"/>
-								<line number="2086" hits="455" branch="true" condition-coverage="100% (2/2)">
+								<line number="2084" hits="453" branch="false"/>
+								<line number="2085" hits="453" branch="false"/>
+								<line number="2086" hits="453" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="2087" hits="451" branch="true" condition-coverage="100% (2/2)">
+								<line number="2087" hits="448" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="2088" hits="370" branch="false"/>
-								<line number="2089" hits="370" branch="false"/>
-								<line number="2091" hits="370" branch="false"/>
-								<line number="2092" hits="370" branch="true" condition-coverage="50% (1/2)">
+								<line number="2088" hits="368" branch="false"/>
+								<line number="2089" hits="368" branch="false"/>
+								<line number="2091" hits="368" branch="false"/>
+								<line number="2092" hits="368" branch="true" condition-coverage="50% (1/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
-								<line number="2093" hits="370" branch="false"/>
-								<line number="2095" hits="370" branch="false"/>
-								<line number="2096" hits="370" branch="false"/>
-								<line number="2098" hits="455" branch="false"/>
-								<line number="2101" hits="455" branch="false"/>
+								<line number="2093" hits="368" branch="false"/>
+								<line number="2095" hits="368" branch="false"/>
+								<line number="2096" hits="368" branch="false"/>
+								<line number="2098" hits="453" branch="false"/>
+								<line number="2101" hits="453" branch="false"/>
 							</lines>
 						</method>
 						<method name="getList" signature="(Ljava/util/Map;Ljava/lang/String;)Ljava/util/ArrayList;" line-rate="0.0" branch-rate="0.0" complexity="0">
@@ -10756,38 +10756,38 @@
 						<line number="2071" hits="0" branch="false"/>
 						<line number="2073" hits="0" branch="false"/>
 						<line number="2074" hits="0" branch="false"/>
-						<line number="2078" hits="455" branch="false"/>
-						<line number="2082" hits="455" branch="false"/>
-						<line number="2083" hits="455" branch="true" condition-coverage="50% (1/2)">
+						<line number="2078" hits="453" branch="false"/>
+						<line number="2082" hits="453" branch="false"/>
+						<line number="2083" hits="453" branch="true" condition-coverage="50% (1/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
-						<line number="2084" hits="455" branch="false"/>
-						<line number="2085" hits="455" branch="false"/>
-						<line number="2086" hits="455" branch="true" condition-coverage="100% (2/2)">
+						<line number="2084" hits="453" branch="false"/>
+						<line number="2085" hits="453" branch="false"/>
+						<line number="2086" hits="453" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="2087" hits="451" branch="true" condition-coverage="100% (2/2)">
+						<line number="2087" hits="448" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="2088" hits="370" branch="false"/>
-						<line number="2089" hits="370" branch="false"/>
-						<line number="2091" hits="370" branch="false"/>
-						<line number="2092" hits="370" branch="true" condition-coverage="50% (1/2)">
+						<line number="2088" hits="368" branch="false"/>
+						<line number="2089" hits="368" branch="false"/>
+						<line number="2091" hits="368" branch="false"/>
+						<line number="2092" hits="368" branch="true" condition-coverage="50% (1/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
-						<line number="2093" hits="370" branch="false"/>
-						<line number="2095" hits="370" branch="false"/>
-						<line number="2096" hits="370" branch="false"/>
-						<line number="2098" hits="455" branch="false"/>
-						<line number="2101" hits="455" branch="false"/>
+						<line number="2093" hits="368" branch="false"/>
+						<line number="2095" hits="368" branch="false"/>
+						<line number="2096" hits="368" branch="false"/>
+						<line number="2098" hits="453" branch="false"/>
+						<line number="2101" hits="453" branch="false"/>
 						<line number="2113" hits="0" branch="false"/>
 						<line number="2114" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
