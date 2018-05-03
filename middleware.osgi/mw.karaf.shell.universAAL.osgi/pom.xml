@@ -57,7 +57,6 @@
             <Bundle-Name>${project.name}</Bundle-Name>
             <Bundle-Description>${project.description}</Bundle-Description>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-            <Bundle-Provider>ISTI-CNR</Bundle-Provider>
             <Import-Package>org.apache.felix.service.command,
 							org.apache.felix.gogo.commands,
 							org.apache.karaf.shell.console;version="${karaf.version}",

@@ -41,7 +41,6 @@
             <Bundle-Name>${project.name}</Bundle-Name>
             <Bundle-Description>${project.description}</Bundle-Description>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-            <Bundle-Provider>ISTI-CNR</Bundle-Provider>
             <Export-Package>org.universAAL.middleware.brokers.control,
 							org.universAAL.middleware.brokers.control.osgi</Export-Package>
             <Import-Package>org.universAAL.middleware.brokers.control,

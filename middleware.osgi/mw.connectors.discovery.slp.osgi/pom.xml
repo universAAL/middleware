@@ -56,7 +56,6 @@
             <Bundle-Name>${project.name}</Bundle-Name>
             <Bundle-Description>${project.description}</Bundle-Description>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-            <Bundle-Provider>ISTI-CNR</Bundle-Provider>
             <Import-Package>org.osgi.framework;version="[1,2)",*</Import-Package>
             <Export-Package>org.universAAL.middleware.connectors.discovery.slp.*</Export-Package>
             <Bundle-Activator>org.universAAL.middleware.connectors.discovery.slp.osgi.Activator</Bundle-Activator>
