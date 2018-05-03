@@ -84,7 +84,7 @@ public interface Container {
 	 * Returns an {@link java.util.Iterator} object over all registered
 	 * instances of {@link LogListener}.
 	 */
-	public Iterator logListeners();
+	public Iterator<LogListener> logListeners();
 
 	/**
 	 * Provides possibility for wrapping container-specific context for a module
