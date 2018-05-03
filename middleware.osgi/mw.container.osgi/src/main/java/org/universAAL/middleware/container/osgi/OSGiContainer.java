@@ -201,7 +201,7 @@ public final class OSGiContainer implements Container, ServiceListener {
 		// NOTE: Not handling ServiceEvent.MODIFIED event
 		if (se == null || se.getType() == ServiceEvent.MODIFIED)
 			return;
-		ServiceReference<?> sr = se.getServiceReference();
+		ServiceReference sr = se.getServiceReference();
 		if (sr == null)
 			return;
 		final BundleContext bc = sr.getBundle().getBundleContext();
