@@ -87,6 +87,7 @@ public class StringUtils {
 	 * upper case letters and written in one word are separated (e.g. 'myName'
 	 * is transformed to 'My Name').
 	 */
+	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = "SF_SWITCH_NO_DEFAULT", justification = "Switch parameter is only set locally to exactly these values.")
 	public static String deriveLabel(String arg) {
 		if (arg == null)
 			return null;
