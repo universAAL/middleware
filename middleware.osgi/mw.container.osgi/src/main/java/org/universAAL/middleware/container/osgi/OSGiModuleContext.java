@@ -54,7 +54,7 @@ import org.universAAL.middleware.container.ModuleContext;
  */
 public class OSGiModuleContext implements ModuleContext {
 	private BundleContext bundle;
-	private Hashtable extension = new Hashtable();
+	private Hashtable<String, Object> extension = new Hashtable<String, Object>();
 	private Logger logger;
 
 	/**
