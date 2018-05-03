@@ -23,18 +23,17 @@ package org.universAAL.middleware.felix.shell.commands;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceRegistration;
 
 public class Activator implements BundleActivator {
+	ServiceRegistration sr;
 
 	public void start(BundleContext context) throws Exception {
-
 		// Register the command service.
-		context.registerService(org.apache.felix.shell.Command.class.getName(), new SpaceCommand(context), null);
+		sr = context.registerService(org.apache.felix.shell.Command.class.getName(), new SpaceCommand(context), null);
 	}
 
-	public void stop(BundleContext arg0) throws Exception {
-		// TODO Auto-generated method stub
-
+	public void stop(BundleContext context) throws Exception {
+		sr.unregister();
 	}
-
 }

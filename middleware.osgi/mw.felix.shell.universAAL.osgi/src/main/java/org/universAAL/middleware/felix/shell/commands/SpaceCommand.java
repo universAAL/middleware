@@ -58,7 +58,6 @@ public class SpaceCommand implements Command {
 					out.println(space.toString());
 			}
 		}
-
 	}
 
 	public String getName() {
@@ -70,7 +69,6 @@ public class SpaceCommand implements Command {
 	}
 
 	public String getUsage() {
-		// TODO Auto-generated method stub
-		return null;
+		return "universAAL:spaces";
 	}
 }
