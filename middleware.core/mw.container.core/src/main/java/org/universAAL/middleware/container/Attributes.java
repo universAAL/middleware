@@ -121,9 +121,9 @@ public interface Attributes {
 	public final String CONTAINER_PLATFORM_NAME = "org.universAAL.container.platform.name";
 
 	/**
-	 * This is the name of the attribute of the  container that represent
-	 * the version of platform where the Container is running on (i.e.: for
-	 * JavaVM-7 it returns 1.7.0)
+	 * This is the name of the attribute of the container that represent the
+	 * version of platform where the Container is running on (i.e.: for JavaVM-7
+	 * it returns 1.7.0)
 	 *
 	 * @since 2.0.1
 	 */
