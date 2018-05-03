@@ -118,7 +118,9 @@ public interface Container {
 	 * @param requester
 	 *            The module in the context of which the shared object was
 	 *            shared.
-	 * @param fetchParams
+	 * @param objToRemove
+	 *            The actual object to be removed.
+	 * @param shareParams
 	 *            Container-specific parameters for removing shared objects. The
 	 *            params must be the same that were used to share the object.
 	 */
