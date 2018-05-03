@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2018 universAAL Consortium</copyright>
     <item>
       <title>File: 9,
-             Errors: 93,
+             Errors: 65,
              Warnings: 6,
-             Infos: 1
+             Infos: 3
       </title>
             <link>/checkstyle.html</link>
       <description>
@@ -55,7 +55,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  7
+                  0
                 </td>
               </tr>
                           <tr>
@@ -83,7 +83,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  5
+                  0
                 </td>
               </tr>
                           <tr>
@@ -111,7 +111,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  14
+                  1
                 </td>
               </tr>
                           <tr>
@@ -125,7 +125,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  3
+                  0
                 </td>
               </tr>
                           <tr>
@@ -147,7 +147,7 @@ under the License.
                   <a href="/checkstyle.html#org.universAAL.middleware.container.utils.LogUtils.java">org/universAAL/middleware/container/utils/LogUtils.java</a>
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   3
@@ -161,7 +161,7 @@ under the License.
                   <a href="/checkstyle.html#org.universAAL.middleware.container.utils.StringUtils.java">org/universAAL/middleware/container/utils/StringUtils.java</a>
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   2

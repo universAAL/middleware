@@ -183,8 +183,8 @@ implements <a href="../../../../../org/universAAL/middleware/container/Container
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/osgi/OSGiContainer.html#fetchSharedObject-org.universAAL.middleware.container.ModuleContext-java.lang.Object:A-org.universAAL.middleware.container.SharedObjectListener-">fetchSharedObject</a></span>(<a href="../../../../../org/universAAL/middleware/container/ModuleContext.html" title="interface in org.universAAL.middleware.container">ModuleContext</a>&nbsp;requester,
                  <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>[]&nbsp;fetchParams,
                  <a href="../../../../../org/universAAL/middleware/container/SharedObjectListener.html" title="interface in org.universAAL.middleware.container">SharedObjectListener</a>&nbsp;listener)</code>
-<div class="block">Returns an object previously shared by another module for usage within
- this container.</div>
+<div class="block">Returns a set of objects previously shared by another module for usage
+ within this container.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
@@ -222,7 +222,7 @@ implements <a href="../../../../../org/universAAL/middleware/container/Container
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/osgi/OSGiContainer.html#removeSharedObjectListener-org.universAAL.middleware.container.SharedObjectListener-">removeSharedObjectListener</a></span>(<a href="../../../../../org/universAAL/middleware/container/SharedObjectListener.html" title="interface in org.universAAL.middleware.container">SharedObjectListener</a>&nbsp;listener)</code>
 <div class="block">This method allows a SharedObjectListener instance to be removed from the
- list of listeners managed by this container</div>
+ list of listeners managed by this container.</div>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
@@ -334,8 +334,8 @@ implements <a href="../../../../../org/universAAL/middleware/container/Container
                                   <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>[]&nbsp;fetchParams,
                                   <a href="../../../../../org/universAAL/middleware/container/SharedObjectListener.html" title="interface in org.universAAL.middleware.container">SharedObjectListener</a>&nbsp;listener)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../org/universAAL/middleware/container/Container.html#fetchSharedObject-org.universAAL.middleware.container.ModuleContext-java.lang.Object:A-org.universAAL.middleware.container.SharedObjectListener-">Container</a></code></span></div>
-<div class="block">Returns an object previously shared by another module for usage within
- this container.</div>
+<div class="block">Returns a set of objects previously shared by another module for usage
+ within this container.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../../org/universAAL/middleware/container/Container.html#fetchSharedObject-org.universAAL.middleware.container.ModuleContext-java.lang.Object:A-org.universAAL.middleware.container.SharedObjectListener-">fetchSharedObject</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/universAAL/middleware/container/Container.html" title="interface in org.universAAL.middleware.container">Container</a></code></dd>
@@ -345,6 +345,8 @@ implements <a href="../../../../../org/universAAL/middleware/container/Container
 <dd><code>fetchParams</code> - Container-specific parameters for fetching shared objects.</dd>
 <dd><code>listener</code> - If not null, the listener will be notified asynchronously each
             time a new matching object is shared within this container.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The previously shared objects.</dd>
 </dl>
 </li>
 </ul>
@@ -404,6 +406,8 @@ implements <a href="../../../../../org/universAAL/middleware/container/Container
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../../org/universAAL/middleware/container/Container.html#logListeners--">logListeners</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/universAAL/middleware/container/Container.html" title="interface in org.universAAL.middleware.container">Container</a></code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The iterator.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../../org/universAAL/middleware/container/Container.html#logListeners--"><code>Container.logListeners()</code></a></dd>
 </dl>
@@ -505,6 +509,9 @@ implements <a href="../../../../../org/universAAL/middleware/container/Container
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>requester</code> - The module in the context of which the shared object was
             shared.</dd>
+<dd><code>objToRemove</code> - The actual object to be removed.</dd>
+<dd><code>shareParams</code> - Container-specific parameters for removing shared objects. The
+            params must be the same that were used to share the object.</dd>
 </dl>
 </li>
 </ul>
@@ -517,7 +524,7 @@ implements <a href="../../../../../org/universAAL/middleware/container/Container
 <pre>public&nbsp;void&nbsp;removeSharedObjectListener(<a href="../../../../../org/universAAL/middleware/container/SharedObjectListener.html" title="interface in org.universAAL.middleware.container">SharedObjectListener</a>&nbsp;listener)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../org/universAAL/middleware/container/Container.html#removeSharedObjectListener-org.universAAL.middleware.container.SharedObjectListener-">Container</a></code></span></div>
 <div class="block">This method allows a SharedObjectListener instance to be removed from the
- list of listeners managed by this container</div>
+ list of listeners managed by this container.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../../org/universAAL/middleware/container/Container.html#removeSharedObjectListener-org.universAAL.middleware.container.SharedObjectListener-">removeSharedObjectListener</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/universAAL/middleware/container/Container.html" title="interface in org.universAAL.middleware.container">Container</a></code></dd>

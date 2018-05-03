@@ -176,11 +176,17 @@ implements <a href="../../../../../org/universAAL/middleware/container/ModuleAct
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/tracker/impl/Activator.html#start-org.universAAL.middleware.container.ModuleContext-">start</a></span>(<a href="../../../../../org/universAAL/middleware/container/ModuleContext.html" title="interface in org.universAAL.middleware.container">ModuleContext</a>&nbsp;mc)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/tracker/impl/Activator.html#start-org.universAAL.middleware.container.ModuleContext-">start</a></span>(<a href="../../../../../org/universAAL/middleware/container/ModuleContext.html" title="interface in org.universAAL.middleware.container">ModuleContext</a>&nbsp;mc)</code>
+<div class="block">Called when this module is started so the Framework can perform the
+ module-specific activities necessary to start this module.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/tracker/impl/Activator.html#stop-org.universAAL.middleware.container.ModuleContext-">stop</a></span>(<a href="../../../../../org/universAAL/middleware/container/ModuleContext.html" title="interface in org.universAAL.middleware.container">ModuleContext</a>&nbsp;mc)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/tracker/impl/Activator.html#stop-org.universAAL.middleware.container.ModuleContext-">stop</a></span>(<a href="../../../../../org/universAAL/middleware/container/ModuleContext.html" title="interface in org.universAAL.middleware.container">ModuleContext</a>&nbsp;mc)</code>
+<div class="block">Called when this module is stopped so the Framework can perform the
+ module-specific activities necessary to stop the module.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -255,11 +261,20 @@ implements <a href="../../../../../org/universAAL/middleware/container/ModuleAct
 <h4>start</h4>
 <pre>public&nbsp;void&nbsp;start(<a href="../../../../../org/universAAL/middleware/container/ModuleContext.html" title="interface in org.universAAL.middleware.container">ModuleContext</a>&nbsp;mc)
            throws <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../org/universAAL/middleware/container/ModuleActivator.html#start-org.universAAL.middleware.container.ModuleContext-">ModuleActivator</a></code></span></div>
+<div class="block">Called when this module is started so the Framework can perform the
+ module-specific activities necessary to start this module. This method
+ can be used to register shared objects or to allocate any resources that
+ this module needs.
+
+ This method must complete and return to its caller in a timely manner.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../../org/universAAL/middleware/container/ModuleActivator.html#start-org.universAAL.middleware.container.ModuleContext-">start</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/universAAL/middleware/container/ModuleActivator.html" title="interface in org.universAAL.middleware.container">ModuleActivator</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>mc</code> - The execution context of the module being started.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code></dd>
+<dd><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code> - An exception indicating a problem.</dd>
 </dl>
 </li>
 </ul>
@@ -271,11 +286,22 @@ implements <a href="../../../../../org/universAAL/middleware/container/ModuleAct
 <h4>stop</h4>
 <pre>public&nbsp;void&nbsp;stop(<a href="../../../../../org/universAAL/middleware/container/ModuleContext.html" title="interface in org.universAAL.middleware.container">ModuleContext</a>&nbsp;mc)
           throws <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../org/universAAL/middleware/container/ModuleActivator.html#stop-org.universAAL.middleware.container.ModuleContext-">ModuleActivator</a></code></span></div>
+<div class="block">Called when this module is stopped so the Framework can perform the
+ module-specific activities necessary to stop the module. In general, this
+ method should undo the work that the ModuleActivator.start method
+ started. There should be no active threads that were started by this
+ module when this module returns. A stopped module must not call any
+ Framework objects.
+
+ This method must complete and return to its caller in a timely manner.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../../org/universAAL/middleware/container/ModuleActivator.html#stop-org.universAAL.middleware.container.ModuleContext-">stop</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/universAAL/middleware/container/ModuleActivator.html" title="interface in org.universAAL.middleware.container">ModuleActivator</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>mc</code> - The execution context of the module being stopped.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code></dd>
+<dd><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code> - An exception indicating a problem.</dd>
 </dl>
 </li>
 </ul>
