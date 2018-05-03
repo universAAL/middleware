@@ -46,8 +46,6 @@ import org.universAAL.middleware.container.osgi.run.Activator;
  *
  * @author mtazari
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
- * @version $LastChangedRevision$ ( $LastChangedDate$ )
- *
  */
 public final class OSGiContainer implements Container, ServiceListener {
 	public static final OSGiContainer THE_CONTAINER = new OSGiContainer();
