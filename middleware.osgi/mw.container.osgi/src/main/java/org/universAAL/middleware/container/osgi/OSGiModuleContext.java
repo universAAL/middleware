@@ -303,7 +303,7 @@ public class OSGiModuleContext implements ModuleContext {
 		}
 	}
 
-	public void removesharedObject(String[] xface, Object obj, Dictionary props) {
+	public void removeSharedObject(String[] xface, Object obj, Dictionary props) {
 		for (String xf : xface) {
 			sharedObjects.get(xf).unregister();
 			sharedObjects.remove(xf);

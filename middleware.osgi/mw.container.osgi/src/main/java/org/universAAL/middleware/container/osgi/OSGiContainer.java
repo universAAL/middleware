@@ -319,7 +319,7 @@ public final class OSGiContainer implements Container, ServiceListener {
 					return;
 				}
 			if (shareParams[n] instanceof String)
-				((OSGiModuleContext) requester).removesharedObject((String[]) shareParams, objToRemove, null);
+				((OSGiModuleContext) requester).removeSharedObject((String[]) shareParams, objToRemove, null);
 			else if (shareParams[n] instanceof Dictionary)
 				if (n == 1)
 					((OSGiModuleContext) requester).removeSharedObject((String) shareParams[0], objToRemove,
@@ -328,7 +328,7 @@ public final class OSGiContainer implements Container, ServiceListener {
 					String[] xfaces = new String[n];
 					for (int i = 0; i < n; i++)
 						xfaces[i] = (String) shareParams[i];
-					((OSGiModuleContext) requester).removesharedObject(xfaces, objToRemove,
+					((OSGiModuleContext) requester).removeSharedObject(xfaces, objToRemove,
 							(Dictionary) shareParams[n]);
 				}
 			else
