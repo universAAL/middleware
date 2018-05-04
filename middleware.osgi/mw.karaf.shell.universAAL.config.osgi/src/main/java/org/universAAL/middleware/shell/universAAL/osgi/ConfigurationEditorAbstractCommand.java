@@ -18,7 +18,7 @@ package org.universAAL.middleware.shell.universAAL.osgi;
 
 import org.apache.karaf.shell.console.OsgiCommandSupport;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.managers.api.ConfigurationEditor;
 
 /**
@@ -40,7 +40,7 @@ public abstract class ConfigurationEditorAbstractCommand extends
 	if (bundleContext == null){
 	    throw new IllegalArgumentException("bundleContext is null");
 	}
-	ModuleContext context = uAALBundleContainer.THE_CONTAINER
+	ModuleContext context = OSGiContainer.THE_CONTAINER
             .registerModule(new Object[] {bundleContext});	
 	
 	if (context != null) {
