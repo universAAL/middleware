@@ -3097,38 +3097,38 @@
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;2077</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> HashMap&lt;String, List&lt;ServiceProfile&gt;&gt; getAllServiceProfilesWithCalleeIDs(String serviceURI) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;2078</td>  <td class="nbHitsCovered">&nbsp;469</td>  <td class="src"><pre class="src">&nbsp;                <span class="keyword">return</span> getCoordinatorServicesWithCalleeIDs(serviceURI);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;2078</td>  <td class="nbHitsCovered">&nbsp;470</td>  <td class="src"><pre class="src">&nbsp;                <span class="keyword">return</span> getCoordinatorServicesWithCalleeIDs(serviceURI);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;2079</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;2080</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;2081</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="keyword">private</span> HashMap&lt;String, List&lt;ServiceProfile&gt;&gt; getCoordinatorServicesWithCalleeIDs(String serviceURI) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;2082</td>  <td class="nbHitsCovered">&nbsp;469</td>  <td class="src"><pre class="src">&nbsp;                HashMap&lt;String, List&lt;ServiceProfile&gt;&gt; map = <span class="keyword">new</span> HashMap&lt;String, List&lt;ServiceProfile&gt;&gt;();</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;2083</td>  <td class="nbHitsUncovered"><a title="Line 2083: Conditional coverage 50% (1/2).">&nbsp;469</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 2083: Conditional coverage 50% (1/2).">                <span class="keyword">if</span> (<span class="keyword">this</span>.isCoordinator) {</a></span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;2084</td>  <td class="nbHitsCovered">&nbsp;469</td>  <td class="src"><pre class="src">&nbsp;                        <span class="keyword">synchronized</span> (allServicesIndex) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;2085</td>  <td class="nbHitsCovered">&nbsp;469</td>  <td class="src"><pre class="src">&nbsp;                                ArrayList&lt;ServiceRealization&gt; neededProfiles = allServicesIndex.get(serviceURI);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;2086</td>  <td class="nbHitsCovered"><a title="Line 2086: Conditional coverage 100% (2/2).">&nbsp;469</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 2086: Conditional coverage 100% (2/2).">                                <span class="keyword">if</span> (neededProfiles != <span class="keyword">null</span>) {</a></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;2087</td>  <td class="nbHitsCovered"><a title="Line 2087: Conditional coverage 100% (2/2).">&nbsp;465</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 2087: Conditional coverage 100% (2/2).">                                        <span class="keyword">for</span> (ServiceRealization reg : neededProfiles) {</a></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;2088</td>  <td class="nbHitsCovered">&nbsp;379</td>  <td class="src"><pre class="src">&nbsp;                                                ServiceProfile profile = (ServiceProfile) reg</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;2089</td>  <td class="nbHitsCovered">&nbsp;379</td>  <td class="src"><pre class="src">&nbsp;                                                                .getProperty(ServiceRealization.SERVICE_PROFILE);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;2082</td>  <td class="nbHitsCovered">&nbsp;470</td>  <td class="src"><pre class="src">&nbsp;                HashMap&lt;String, List&lt;ServiceProfile&gt;&gt; map = <span class="keyword">new</span> HashMap&lt;String, List&lt;ServiceProfile&gt;&gt;();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;2083</td>  <td class="nbHitsUncovered"><a title="Line 2083: Conditional coverage 50% (1/2).">&nbsp;470</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 2083: Conditional coverage 50% (1/2).">                <span class="keyword">if</span> (<span class="keyword">this</span>.isCoordinator) {</a></span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;2084</td>  <td class="nbHitsCovered">&nbsp;470</td>  <td class="src"><pre class="src">&nbsp;                        <span class="keyword">synchronized</span> (allServicesIndex) {</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;2085</td>  <td class="nbHitsCovered">&nbsp;470</td>  <td class="src"><pre class="src">&nbsp;                                ArrayList&lt;ServiceRealization&gt; neededProfiles = allServicesIndex.get(serviceURI);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;2086</td>  <td class="nbHitsCovered"><a title="Line 2086: Conditional coverage 100% (2/2).">&nbsp;470</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 2086: Conditional coverage 100% (2/2).">                                <span class="keyword">if</span> (neededProfiles != <span class="keyword">null</span>) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;2087</td>  <td class="nbHitsCovered"><a title="Line 2087: Conditional coverage 100% (2/2).">&nbsp;466</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 2087: Conditional coverage 100% (2/2).">                                        <span class="keyword">for</span> (ServiceRealization reg : neededProfiles) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;2088</td>  <td class="nbHitsCovered">&nbsp;382</td>  <td class="src"><pre class="src">&nbsp;                                                ServiceProfile profile = (ServiceProfile) reg</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;2089</td>  <td class="nbHitsCovered">&nbsp;382</td>  <td class="src"><pre class="src">&nbsp;                                                                .getProperty(ServiceRealization.SERVICE_PROFILE);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;2090</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;2091</td>  <td class="nbHitsCovered">&nbsp;379</td>  <td class="src"><pre class="src">&nbsp;                                                String provider = (String) reg.getProvider();</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;2092</td>  <td class="nbHitsUncovered"><a title="Line 2092: Conditional coverage 50% (1/2).">&nbsp;379</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 2092: Conditional coverage 50% (1/2).">                                                <span class="keyword">if</span> (map.get(provider) == <span class="keyword">null</span>) {</a></span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;2093</td>  <td class="nbHitsCovered">&nbsp;379</td>  <td class="src"><pre class="src">&nbsp;                                                        map.put(provider, <span class="keyword">new</span> ArrayList&lt;ServiceProfile&gt;());</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;2091</td>  <td class="nbHitsCovered">&nbsp;382</td>  <td class="src"><pre class="src">&nbsp;                                                String provider = (String) reg.getProvider();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;2092</td>  <td class="nbHitsUncovered"><a title="Line 2092: Conditional coverage 50% (1/2).">&nbsp;382</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 2092: Conditional coverage 50% (1/2).">                                                <span class="keyword">if</span> (map.get(provider) == <span class="keyword">null</span>) {</a></span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;2093</td>  <td class="nbHitsCovered">&nbsp;382</td>  <td class="src"><pre class="src">&nbsp;                                                        map.put(provider, <span class="keyword">new</span> ArrayList&lt;ServiceProfile&gt;());</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;2094</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                                }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;2095</td>  <td class="nbHitsCovered">&nbsp;379</td>  <td class="src"><pre class="src">&nbsp;                                                map.get(provider).add(profile);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;2096</td>  <td class="nbHitsCovered">&nbsp;379</td>  <td class="src"><pre class="src">&nbsp;                                        }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;2095</td>  <td class="nbHitsCovered">&nbsp;382</td>  <td class="src"><pre class="src">&nbsp;                                                map.get(provider).add(profile);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;2096</td>  <td class="nbHitsCovered">&nbsp;382</td>  <td class="src"><pre class="src">&nbsp;                                        }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;2097</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;2098</td>  <td class="nbHitsCovered">&nbsp;469</td>  <td class="src"><pre class="src">&nbsp;                        }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;2098</td>  <td class="nbHitsCovered">&nbsp;470</td>  <td class="src"><pre class="src">&nbsp;                        }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;2099</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;2100</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;2101</td>  <td class="nbHitsCovered">&nbsp;469</td>  <td class="src"><pre class="src">&nbsp;                <span class="keyword">return</span> map;</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;2101</td>  <td class="nbHitsCovered">&nbsp;470</td>  <td class="src"><pre class="src">&nbsp;                <span class="keyword">return</span> map;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;2102</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;2103</td>  <td class="nbHits">&nbsp;</td>
@@ -3204,6 +3204,6 @@
   <td class="src"><pre class="src">&nbsp;}</pre></td></tr>
 </table>
 
-<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.1.1 on 5/3/18 9:27 PM.</div>
+<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.1.1 on 5/4/18 9:42 AM.</div>
 </body>
 </html>
