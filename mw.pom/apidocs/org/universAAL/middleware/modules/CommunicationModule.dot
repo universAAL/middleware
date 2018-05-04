@@ -10,47 +10,47 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.modules.ConfigurableCommunicationModule
-	c123759 [label=<<table title="org.universAAL.middleware.modules.ConfigurableCommunicationModule" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurableCommunicationModule.html">
+	c125829 [label=<<table title="org.universAAL.middleware.modules.ConfigurableCommunicationModule" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurableCommunicationModule.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ConfigurableCommunicationModule </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ConfigurableCommunicationModule.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.modules.CommunicationModule
-	c123760 [label=<<table title="org.universAAL.middleware.modules.CommunicationModule" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./CommunicationModule.html">
+	c125830 [label=<<table title="org.universAAL.middleware.modules.CommunicationModule" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./CommunicationModule.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> CommunicationModule </td></tr>
 		</table></td></tr>
 		</table>>, URL="./CommunicationModule.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.modules.Module
-	c123761 [label=<<table title="org.universAAL.middleware.modules.Module" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Module.html">
+	c125831 [label=<<table title="org.universAAL.middleware.modules.Module" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Module.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Module </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Module.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.modules.communication.CommunicationModuleImpl
-	c123771 [label=<<table title="org.universAAL.middleware.modules.communication.CommunicationModuleImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./communication/CommunicationModuleImpl.html">
+	c125841 [label=<<table title="org.universAAL.middleware.modules.communication.CommunicationModuleImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./communication/CommunicationModuleImpl.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CommunicationModuleImpl </td></tr>
 		</table></td></tr>
 		</table>>, URL="./communication/CommunicationModuleImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.container.pojo.dummyManagers.DummyCommunicationModule
-	c124051 [label=<<table title="org.universAAL.middleware.container.pojo.dummyManagers.DummyCommunicationModule" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../container/pojo/dummyManagers/DummyCommunicationModule.html">
+	c126121 [label=<<table title="org.universAAL.middleware.container.pojo.dummyManagers.DummyCommunicationModule" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../container/pojo/dummyManagers/DummyCommunicationModule.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DummyCommunicationModule </td></tr>
 		</table></td></tr>
 		</table>>, URL="../container/pojo/dummyManagers/DummyCommunicationModule.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.modules.ConfigurableCommunicationModule implements org.universAAL.middleware.modules.CommunicationModule
-	c123760:p -> c123759:p [dir=back,arrowtail=empty,style=dashed];
+	c125830:p -> c125829:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.modules.CommunicationModule implements org.universAAL.middleware.modules.Module
-	c123761:p -> c123760:p [dir=back,arrowtail=empty,style=dashed];
+	c125831:p -> c125830:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.modules.communication.CommunicationModuleImpl implements org.universAAL.middleware.modules.CommunicationModule
-	c123760:p -> c123771:p [dir=back,arrowtail=empty,style=dashed];
+	c125830:p -> c125841:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.modules.communication.CommunicationModuleImpl implements org.universAAL.middleware.modules.ConfigurableCommunicationModule
-	c123759:p -> c123771:p [dir=back,arrowtail=empty,style=dashed];
+	c125829:p -> c125841:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.container.pojo.dummyManagers.DummyCommunicationModule implements org.universAAL.middleware.modules.CommunicationModule
-	c123760:p -> c124051:p [dir=back,arrowtail=empty,style=dashed];
+	c125830:p -> c126121:p [dir=back,arrowtail=empty,style=dashed];
 }
 

@@ -10,36 +10,36 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.rdf.FinalizedResource
-	c148242 [label=<<table title="org.universAAL.middleware.rdf.FinalizedResource" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../rdf/FinalizedResource.html">
+	c154755 [label=<<table title="org.universAAL.middleware.rdf.FinalizedResource" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../rdf/FinalizedResource.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> FinalizedResource </td></tr>
 		</table></td></tr>
 		</table>>, URL="../rdf/FinalizedResource.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.bus.model.matchable.EventAdvertisement
-	c148427 [label=<<table title="org.universAAL.middleware.bus.model.matchable.EventAdvertisement" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../bus/model/matchable/EventAdvertisement.html">
+	c154940 [label=<<table title="org.universAAL.middleware.bus.model.matchable.EventAdvertisement" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../bus/model/matchable/EventAdvertisement.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> EventAdvertisement </td></tr>
 		</table></td></tr>
 		</table>>, URL="../bus/model/matchable/EventAdvertisement.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.bus.model.matchable.Subscription
-	c148428 [label=<<table title="org.universAAL.middleware.bus.model.matchable.Subscription" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../bus/model/matchable/Subscription.html">
+	c154941 [label=<<table title="org.universAAL.middleware.bus.model.matchable.Subscription" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../bus/model/matchable/Subscription.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Subscription </td></tr>
 		</table></td></tr>
 		</table>>, URL="../bus/model/matchable/Subscription.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.context.ContextEventPattern
-	c148449 [label=<<table title="org.universAAL.middleware.context.ContextEventPattern" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ContextEventPattern.html">
+	c154962 [label=<<table title="org.universAAL.middleware.context.ContextEventPattern" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ContextEventPattern.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ContextEventPattern </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ContextEventPattern.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.context.ContextEventPattern extends org.universAAL.middleware.rdf.FinalizedResource
-	c148242:p -> c148449:p [dir=back,arrowtail=empty];
+	c154755:p -> c154962:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.context.ContextEventPattern implements org.universAAL.middleware.bus.model.matchable.EventAdvertisement
-	c148427:p -> c148449:p [dir=back,arrowtail=empty,style=dashed];
+	c154940:p -> c154962:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.context.ContextEventPattern implements org.universAAL.middleware.bus.model.matchable.Subscription
-	c148428:p -> c148449:p [dir=back,arrowtail=empty,style=dashed];
+	c154941:p -> c154962:p [dir=back,arrowtail=empty,style=dashed];
 }
 

@@ -107,6 +107,7 @@ org.universAAL.middleware.service.owl
 org.universAAL.middleware.service.owls.process
 org.universAAL.middleware.service.owls.profile
 org.universAAL.middleware.shell.universAAL.osgi
+org.universAAL.middleware.shell.universAAL.osgi.completers
 org.universAAL.middleware.tracker
 org.universAAL.middleware.tracker.impl
 org.universAAL.middleware.tracker.osgi

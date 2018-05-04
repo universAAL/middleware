@@ -25,10 +25,10 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2018 universAAL Consortium</copyright>
     <item>
-      <title>File: 548,
-             Errors: 7972,
-             Warnings: 460,
-             Infos: 408
+      <title>File: 555,
+             Errors: 8007,
+             Warnings: 478,
+             Infos: 503
       </title>
             <link>http://middleware/mw.pom//checkstyle.html</link>
       <description>
@@ -2174,6 +2174,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.shell.universAAL.osgi.ConfigurationEditorAbstractCommand.java">org/universAAL/middleware/shell/universAAL/osgi/ConfigurationEditorAbstractCommand.java</a>
+                </td>
+                <td>
+                  9
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.util.GraphIterator.java">org/universAAL/middleware/util/GraphIterator.java</a>
                 </td>
                 <td>
@@ -2632,6 +2646,20 @@ under the License.
                 </td>
                 <td>
                   47
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.shell.universAAL.osgi.ConfigPushCommand.java">org/universAAL/middleware/shell/universAAL/osgi/ConfigPushCommand.java</a>
+                </td>
+                <td>
+                  13
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  6
                 </td>
               </tr>
                           <tr>
@@ -3164,6 +3192,20 @@ under the License.
                 </td>
                 <td>
                   17
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.shell.universAAL.osgi.ConfigPullCommand.java">org/universAAL/middleware/shell/universAAL/osgi/ConfigPullCommand.java</a>
+                </td>
+                <td>
+                  15
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  6
                 </td>
               </tr>
                           <tr>
@@ -6136,6 +6178,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.shell.universAAL.osgi.ConfigChangeCommand.java">org/universAAL/middleware/shell/universAAL/osgi/ConfigChangeCommand.java</a>
+                </td>
+                <td>
+                  21
+                </td>
+                <td>
+                  9
+                </td>
+                <td>
+                  8
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor.java">org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/ConfigurableEntityEditor.java</a>
                 </td>
                 <td>
@@ -6752,6 +6808,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.shell.universAAL.osgi.ConfigListCommand.java">org/universAAL/middleware/shell/universAAL/osgi/ConfigListCommand.java</a>
+                </td>
+                <td>
+                  35
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.bus.model.matchable.Advertisement.java">org/universAAL/middleware/bus/model/matchable/Advertisement.java</a>
                 </td>
                 <td>
@@ -7014,6 +7084,20 @@ under the License.
                 </td>
                 <td>
                   8
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.shell.universAAL.osgi.completers.ConfigEntityCompleter.java">org/universAAL/middleware/shell/universAAL/osgi/completers/ConfigEntityCompleter.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  6
                 </td>
               </tr>
                           <tr>
@@ -7686,6 +7770,20 @@ under the License.
                 </td>
                 <td>
                   29
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.shell.universAAL.osgi.completers.ConfigFileCompleter.java">org/universAAL/middleware/shell/universAAL/osgi/completers/ConfigFileCompleter.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
               </tr>
                           <tr>

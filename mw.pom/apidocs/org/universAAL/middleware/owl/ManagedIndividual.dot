@@ -10,114 +10,114 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.owl.PrivateResource
-	c245312 [label=<<table title="org.universAAL.middleware.owl.PrivateResource" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PrivateResource.html">
+	c252984 [label=<<table title="org.universAAL.middleware.owl.PrivateResource" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PrivateResource.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> PrivateResource </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./PrivateResource.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.ManagedIndividual
-	c245351 [label=<<table title="org.universAAL.middleware.owl.ManagedIndividual" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ManagedIndividual.html">
+	c253023 [label=<<table title="org.universAAL.middleware.owl.ManagedIndividual" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ManagedIndividual.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> ManagedIndividual </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./ManagedIndividual.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.ComparableIndividual
-	c245352 [label=<<table title="org.universAAL.middleware.owl.ComparableIndividual" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ComparableIndividual.html">
+	c253024 [label=<<table title="org.universAAL.middleware.owl.ComparableIndividual" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ComparableIndividual.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> ComparableIndividual </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./ComparableIndividual.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.generic.GenericManagedIndividual
-	c245355 [label=<<table title="org.universAAL.middleware.owl.generic.GenericManagedIndividual" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./generic/GenericManagedIndividual.html">
+	c253027 [label=<<table title="org.universAAL.middleware.owl.generic.GenericManagedIndividual" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./generic/GenericManagedIndividual.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GenericManagedIndividual </td></tr>
 		</table></td></tr>
 		</table>>, URL="./generic/GenericManagedIndividual.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.rdf.FinalizedResource
-	c245379 [label=<<table title="org.universAAL.middleware.rdf.FinalizedResource" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../rdf/FinalizedResource.html">
+	c253051 [label=<<table title="org.universAAL.middleware.rdf.FinalizedResource" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../rdf/FinalizedResource.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> FinalizedResource </td></tr>
 		</table></td></tr>
 		</table>>, URL="../rdf/FinalizedResource.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.configuration.core.owl.Entity
-	c245552 [label=<<table title="org.universAAL.middleware.managers.configuration.core.owl.Entity" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../managers/configuration/core/owl/Entity.html">
+	c253224 [label=<<table title="org.universAAL.middleware.managers.configuration.core.owl.Entity" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../managers/configuration/core/owl/Entity.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Entity </td></tr>
 		</table></td></tr>
 		</table>>, URL="../managers/configuration/core/owl/Entity.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.context.owl.ContextProviderType
-	c245610 [label=<<table title="org.universAAL.middleware.context.owl.ContextProviderType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../context/owl/ContextProviderType.html">
+	c253282 [label=<<table title="org.universAAL.middleware.context.owl.ContextProviderType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../context/owl/ContextProviderType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ContextProviderType </td></tr>
 		</table></td></tr>
 		</table>>, URL="../context/owl/ContextProviderType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.context.owl.ContextProvider
-	c245611 [label=<<table title="org.universAAL.middleware.context.owl.ContextProvider" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../context/owl/ContextProvider.html">
+	c253283 [label=<<table title="org.universAAL.middleware.context.owl.ContextProvider" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../context/owl/ContextProvider.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ContextProvider </td></tr>
 		</table></td></tr>
 		</table>>, URL="../context/owl/ContextProvider.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.service.owl.Service
-	c245652 [label=<<table title="org.universAAL.middleware.service.owl.Service" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../service/owl/Service.html">
+	c253324 [label=<<table title="org.universAAL.middleware.service.owl.Service" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../service/owl/Service.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> Service </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../service/owl/Service.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.ui.owl.AccessImpairment
-	c245691 [label=<<table title="org.universAAL.middleware.ui.owl.AccessImpairment" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ui/owl/AccessImpairment.html">
+	c253363 [label=<<table title="org.universAAL.middleware.ui.owl.AccessImpairment" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ui/owl/AccessImpairment.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AccessImpairment </td></tr>
 		</table></td></tr>
 		</table>>, URL="../ui/owl/AccessImpairment.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.ui.owl.Modality
-	c245692 [label=<<table title="org.universAAL.middleware.ui.owl.Modality" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ui/owl/Modality.html">
+	c253364 [label=<<table title="org.universAAL.middleware.ui.owl.Modality" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ui/owl/Modality.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Modality </td></tr>
 		</table></td></tr>
 		</table>>, URL="../ui/owl/Modality.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.ui.owl.Preference
-	c245693 [label=<<table title="org.universAAL.middleware.ui.owl.Preference" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ui/owl/Preference.html">
+	c253365 [label=<<table title="org.universAAL.middleware.ui.owl.Preference" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ui/owl/Preference.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> Preference </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../ui/owl/Preference.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.ui.owl.DialogType
-	c245694 [label=<<table title="org.universAAL.middleware.ui.owl.DialogType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ui/owl/DialogType.html">
+	c253366 [label=<<table title="org.universAAL.middleware.ui.owl.DialogType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ui/owl/DialogType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DialogType </td></tr>
 		</table></td></tr>
 		</table>>, URL="../ui/owl/DialogType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.ui.owl.Recommendation
-	c245695 [label=<<table title="org.universAAL.middleware.ui.owl.Recommendation" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ui/owl/Recommendation.html">
+	c253367 [label=<<table title="org.universAAL.middleware.ui.owl.Recommendation" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ui/owl/Recommendation.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> Recommendation </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../ui/owl/Recommendation.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.owl.PrivateResource extends org.universAAL.middleware.owl.ManagedIndividual
-	c245351:p -> c245312:p [dir=back,arrowtail=empty];
+	c253023:p -> c252984:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.owl.ManagedIndividual extends org.universAAL.middleware.rdf.FinalizedResource
-	c245379:p -> c245351:p [dir=back,arrowtail=empty];
+	c253051:p -> c253023:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.owl.ComparableIndividual extends org.universAAL.middleware.owl.ManagedIndividual
-	c245351:p -> c245352:p [dir=back,arrowtail=empty];
+	c253023:p -> c253024:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.owl.generic.GenericManagedIndividual extends org.universAAL.middleware.owl.ManagedIndividual
-	c245351:p -> c245355:p [dir=back,arrowtail=empty];
+	c253023:p -> c253027:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.managers.configuration.core.owl.Entity extends org.universAAL.middleware.owl.ManagedIndividual
-	c245351:p -> c245552:p [dir=back,arrowtail=empty];
+	c253023:p -> c253224:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.context.owl.ContextProviderType extends org.universAAL.middleware.owl.ManagedIndividual
-	c245351:p -> c245610:p [dir=back,arrowtail=empty];
+	c253023:p -> c253282:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.context.owl.ContextProvider extends org.universAAL.middleware.owl.ManagedIndividual
-	c245351:p -> c245611:p [dir=back,arrowtail=empty];
+	c253023:p -> c253283:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.service.owl.Service extends org.universAAL.middleware.owl.ManagedIndividual
-	c245351:p -> c245652:p [dir=back,arrowtail=empty];
+	c253023:p -> c253324:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.ui.owl.AccessImpairment extends org.universAAL.middleware.owl.ManagedIndividual
-	c245351:p -> c245691:p [dir=back,arrowtail=empty];
+	c253023:p -> c253363:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.ui.owl.Modality extends org.universAAL.middleware.owl.ManagedIndividual
-	c245351:p -> c245692:p [dir=back,arrowtail=empty];
+	c253023:p -> c253364:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.ui.owl.Preference extends org.universAAL.middleware.owl.ManagedIndividual
-	c245351:p -> c245693:p [dir=back,arrowtail=empty];
+	c253023:p -> c253365:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.ui.owl.DialogType extends org.universAAL.middleware.owl.ManagedIndividual
-	c245351:p -> c245694:p [dir=back,arrowtail=empty];
+	c253023:p -> c253366:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.ui.owl.Recommendation extends org.universAAL.middleware.owl.ManagedIndividual
-	c245351:p -> c245695:p [dir=back,arrowtail=empty];
+	c253023:p -> c253367:p [dir=back,arrowtail=empty];
 }
 

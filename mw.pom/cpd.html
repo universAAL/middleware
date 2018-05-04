@@ -1063,6 +1063,55 @@
 <th>Project</th>
 <th>Line</th></tr>
 <tr class="b">
+<td>org/universAAL/middleware/shell/universAAL/osgi/ConfigPullCommand.java</td>
+<td>universAAL Middleware Karaf Shell Commands for configuring stuff</td>
+<td>42</td></tr>
+<tr class="a">
+<td>org/universAAL/middleware/shell/universAAL/osgi/ConfigPushCommand.java</td>
+<td>universAAL Middleware Karaf Shell Commands for configuring stuff</td>
+<td>42</td></tr>
+<tr class="b"><td colspan='3'>
+<div>
+<pre>    @Argument(index = 1, name = &quot;path&quot;, description = &quot;Local Path to copy the file to&quot;, required = true, multiValued = false)
+    String path = null;
+    
+    @Override
+    protected Object doExecute() throws Exception {
+
+	List&lt;EntityPattern&gt; pattern = new ArrayList&lt;EntityPattern&gt;();
+	// only for File configuration.
+	pattern.add(new ConfigurationFileTypePattern());
+
+	if (parameter != null &amp;&amp; !parameter.isEmpty()){
+	    pattern.add(new IdPattern(parameter));
+	}
+	else {
+	    System.out.println(&quot;no parameter selected&quot;);
+	}
+	String locale = &quot;en&quot;;
+	List&lt;ConfigurableEntityEditor&gt; ents = getConfigurationEditor().getMatchingConfigurationEditors(pattern, new Locale(locale));
+
+	if (ents.size() == 0){
+	    System.out.println(&quot;No Entity found by the given Id&quot;);
+	    return null;
+	}
+
+	ConfigurationFileEditor selected = null;
+
+	if (ents.size() &gt; 1){
+	    //TODO select menu
+	}
+	else {
+	    selected = (ConfigurationFileEditor) ents.get(0);
+	}
+	
+	File dest = new File(path);</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="b">
 <td>ch/ethz/iks/slp/impl/AttributeReply.java</td>
 <td>universAAL Thirdparty jslp library (Core)</td>
 <td>187</td></tr>

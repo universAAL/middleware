@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.rdf.UnmodifiableResource
-	c387564 [label=<<table title="org.universAAL.middleware.rdf.UnmodifiableResource" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./UnmodifiableResource.html">
+	c396937 [label=<<table title="org.universAAL.middleware.rdf.UnmodifiableResource" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./UnmodifiableResource.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> UnmodifiableResource </td></tr>
 		</table></td></tr>
 		</table>>, URL="./UnmodifiableResource.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.rdf.Resource
-	c387581 [label=<<table title="org.universAAL.middleware.rdf.Resource" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Resource.html">
+	c396954 [label=<<table title="org.universAAL.middleware.rdf.Resource" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Resource.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Resource </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Resource.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.rdf.UnmodifiableResource extends org.universAAL.middleware.rdf.Resource
-	c387581:p -> c387564:p [dir=back,arrowtail=empty];
+	c396954:p -> c396937:p [dir=back,arrowtail=empty];
 }
 

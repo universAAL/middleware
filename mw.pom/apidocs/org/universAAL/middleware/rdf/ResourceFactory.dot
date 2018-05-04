@@ -10,59 +10,59 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.datarep.DataRepFactory
-	c311437 [label=<<table title="org.universAAL.middleware.datarep.DataRepFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../datarep/DataRepFactory.html">
+	c319900 [label=<<table title="org.universAAL.middleware.datarep.DataRepFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../datarep/DataRepFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DataRepFactory </td></tr>
 		</table></td></tr>
 		</table>>, URL="../datarep/DataRepFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.generic.GenericResourceFactory
-	c311480 [label=<<table title="org.universAAL.middleware.owl.generic.GenericResourceFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../owl/generic/GenericResourceFactory.html">
+	c319943 [label=<<table title="org.universAAL.middleware.owl.generic.GenericResourceFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../owl/generic/GenericResourceFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GenericResourceFactory </td></tr>
 		</table></td></tr>
 		</table>>, URL="../owl/generic/GenericResourceFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.rdf.ResourceFactory
-	c311497 [label=<<table title="org.universAAL.middleware.rdf.ResourceFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ResourceFactory.html">
+	c319960 [label=<<table title="org.universAAL.middleware.rdf.ResourceFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ResourceFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ResourceFactory </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ResourceFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology.Factory
-	c311677 [label=<<table title="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology.Factory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../managers/configuration/core/owl/ConfigurationOntology.Factory.html">
+	c320140 [label=<<table title="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology.Factory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../managers/configuration/core/owl/ConfigurationOntology.Factory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Factory </td></tr>
 		</table></td></tr>
 		</table>>, URL="../managers/configuration/core/owl/ConfigurationOntology.Factory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.context.impl.ContextBusFactory
-	c311732 [label=<<table title="org.universAAL.middleware.context.impl.ContextBusFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../context/impl/ContextBusFactory.html">
+	c320195 [label=<<table title="org.universAAL.middleware.context.impl.ContextBusFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../context/impl/ContextBusFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ContextBusFactory </td></tr>
 		</table></td></tr>
 		</table>>, URL="../context/impl/ContextBusFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.service.impl.ServiceBusFactory
-	c311769 [label=<<table title="org.universAAL.middleware.service.impl.ServiceBusFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../service/impl/ServiceBusFactory.html">
+	c320232 [label=<<table title="org.universAAL.middleware.service.impl.ServiceBusFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../service/impl/ServiceBusFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ServiceBusFactory </td></tr>
 		</table></td></tr>
 		</table>>, URL="../service/impl/ServiceBusFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.ui.impl.UIBusFactory
-	c311809 [label=<<table title="org.universAAL.middleware.ui.impl.UIBusFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ui/impl/UIBusFactory.html">
+	c320272 [label=<<table title="org.universAAL.middleware.ui.impl.UIBusFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ui/impl/UIBusFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> UIBusFactory </td></tr>
 		</table></td></tr>
 		</table>>, URL="../ui/impl/UIBusFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.datarep.DataRepFactory implements org.universAAL.middleware.rdf.ResourceFactory
-	c311497:p -> c311437:p [dir=back,arrowtail=empty,style=dashed];
+	c319960:p -> c319900:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.owl.generic.GenericResourceFactory implements org.universAAL.middleware.rdf.ResourceFactory
-	c311497:p -> c311480:p [dir=back,arrowtail=empty,style=dashed];
+	c319960:p -> c319943:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology.Factory implements org.universAAL.middleware.rdf.ResourceFactory
-	c311497:p -> c311677:p [dir=back,arrowtail=empty,style=dashed];
+	c319960:p -> c320140:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.context.impl.ContextBusFactory implements org.universAAL.middleware.rdf.ResourceFactory
-	c311497:p -> c311732:p [dir=back,arrowtail=empty,style=dashed];
+	c319960:p -> c320195:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.service.impl.ServiceBusFactory implements org.universAAL.middleware.rdf.ResourceFactory
-	c311497:p -> c311769:p [dir=back,arrowtail=empty,style=dashed];
+	c319960:p -> c320232:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.ui.impl.UIBusFactory implements org.universAAL.middleware.rdf.ResourceFactory
-	c311497:p -> c311809:p [dir=back,arrowtail=empty,style=dashed];
+	c319960:p -> c320272:p [dir=back,arrowtail=empty,style=dashed];
 }
 

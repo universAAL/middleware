@@ -10,74 +10,74 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.owl.Complement
-	c371136 [label=<<table title="org.universAAL.middleware.owl.Complement" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Complement.html">
+	c380313 [label=<<table title="org.universAAL.middleware.owl.Complement" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Complement.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Complement </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Complement.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.TypeURI
-	c371138 [label=<<table title="org.universAAL.middleware.owl.TypeURI" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TypeURI.html">
+	c380315 [label=<<table title="org.universAAL.middleware.owl.TypeURI" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TypeURI.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TypeURI </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TypeURI.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.Union
-	c371145 [label=<<table title="org.universAAL.middleware.owl.Union" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Union.html">
+	c380322 [label=<<table title="org.universAAL.middleware.owl.Union" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Union.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Union </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Union.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.Enumeration
-	c371152 [label=<<table title="org.universAAL.middleware.owl.Enumeration" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Enumeration.html">
+	c380329 [label=<<table title="org.universAAL.middleware.owl.Enumeration" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Enumeration.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Enumeration </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Enumeration.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.TypeRestriction
-	c371155 [label=<<table title="org.universAAL.middleware.owl.TypeRestriction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TypeRestriction.html">
+	c380332 [label=<<table title="org.universAAL.middleware.owl.TypeRestriction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TypeRestriction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TypeRestriction </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./TypeRestriction.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.PropertyRestriction
-	c371162 [label=<<table title="org.universAAL.middleware.owl.PropertyRestriction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PropertyRestriction.html">
+	c380339 [label=<<table title="org.universAAL.middleware.owl.PropertyRestriction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PropertyRestriction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> PropertyRestriction </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./PropertyRestriction.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.TypeExpression
-	c371165 [label=<<table title="org.universAAL.middleware.owl.TypeExpression" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeExpression.html">
+	c380342 [label=<<table title="org.universAAL.middleware.owl.TypeExpression" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeExpression.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TypeExpression </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./TypeExpression.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.Intersection
-	c371166 [label=<<table title="org.universAAL.middleware.owl.Intersection" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Intersection.html">
+	c380343 [label=<<table title="org.universAAL.middleware.owl.Intersection" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Intersection.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Intersection </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Intersection.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.rdf.Resource
-	c371197 [label=<<table title="org.universAAL.middleware.rdf.Resource" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../rdf/Resource.html">
+	c380374 [label=<<table title="org.universAAL.middleware.rdf.Resource" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../rdf/Resource.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Resource </td></tr>
 		</table></td></tr>
 		</table>>, URL="../rdf/Resource.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.owl.Complement extends org.universAAL.middleware.owl.TypeExpression
-	c371165:p -> c371136:p [dir=back,arrowtail=empty];
+	c380342:p -> c380313:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.owl.TypeURI extends org.universAAL.middleware.owl.TypeExpression
-	c371165:p -> c371138:p [dir=back,arrowtail=empty];
+	c380342:p -> c380315:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.owl.Union extends org.universAAL.middleware.owl.TypeExpression
-	c371165:p -> c371145:p [dir=back,arrowtail=empty];
+	c380342:p -> c380322:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.owl.Enumeration extends org.universAAL.middleware.owl.TypeExpression
-	c371165:p -> c371152:p [dir=back,arrowtail=empty];
+	c380342:p -> c380329:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.owl.TypeRestriction extends org.universAAL.middleware.owl.TypeExpression
-	c371165:p -> c371155:p [dir=back,arrowtail=empty];
+	c380342:p -> c380332:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.owl.PropertyRestriction extends org.universAAL.middleware.owl.TypeExpression
-	c371165:p -> c371162:p [dir=back,arrowtail=empty];
+	c380342:p -> c380339:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.owl.TypeExpression extends org.universAAL.middleware.rdf.Resource
-	c371197:p -> c371165:p [dir=back,arrowtail=empty];
+	c380374:p -> c380342:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.owl.Intersection extends org.universAAL.middleware.owl.TypeExpression
-	c371165:p -> c371166:p [dir=back,arrowtail=empty];
+	c380342:p -> c380343:p [dir=back,arrowtail=empty];
 }
 

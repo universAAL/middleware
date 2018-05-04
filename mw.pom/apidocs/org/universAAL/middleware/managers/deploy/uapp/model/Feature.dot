@@ -10,15 +10,15 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.managers.deploy.uapp.model.Feature
-	c190844 [label=<<table title="org.universAAL.middleware.managers.deploy.uapp.model.Feature" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Feature.html">
+	c197868 [label=<<table title="org.universAAL.middleware.managers.deploy.uapp.model.Feature" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Feature.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Feature </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Feature.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.managers.deploy.uapp.model.Feature implements java.io.Serializable
-	c191387:p -> c190844:p [dir=back,arrowtail=empty,style=dashed];
+	c198418:p -> c197868:p [dir=back,arrowtail=empty,style=dashed];
 	// java.io.Serializable
-	c191387 [label=<<table title="java.io.Serializable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/java/io/Serializable.html">
+	c198418 [label=<<table title="java.io.Serializable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/java/io/Serializable.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Serializable </td></tr>

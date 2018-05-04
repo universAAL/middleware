@@ -10,28 +10,28 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.managers.api.DeployManager
-	c164162 [label=<<table title="org.universAAL.middleware.managers.api.DeployManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DeployManager.html">
+	c170864 [label=<<table title="org.universAAL.middleware.managers.api.DeployManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DeployManager.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> DeployManager </td></tr>
 		</table></td></tr>
 		</table>>, URL="./DeployManager.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.api.Manager
-	c164167 [label=<<table title="org.universAAL.middleware.managers.api.Manager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Manager.html">
+	c170869 [label=<<table title="org.universAAL.middleware.managers.api.Manager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Manager.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Manager </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Manager.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.deploy.DeployManagerImpl
-	c164186 [label=<<table title="org.universAAL.middleware.managers.deploy.DeployManagerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../deploy/DeployManagerImpl.html">
+	c170888 [label=<<table title="org.universAAL.middleware.managers.deploy.DeployManagerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../deploy/DeployManagerImpl.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DeployManagerImpl </td></tr>
 		</table></td></tr>
 		</table>>, URL="../deploy/DeployManagerImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.managers.api.DeployManager implements org.universAAL.middleware.managers.api.Manager
-	c164167:p -> c164162:p [dir=back,arrowtail=empty,style=dashed];
+	c170869:p -> c170864:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.managers.deploy.DeployManagerImpl implements org.universAAL.middleware.managers.api.DeployManager
-	c164162:p -> c164186:p [dir=back,arrowtail=empty,style=dashed];
+	c170864:p -> c170888:p [dir=back,arrowtail=empty,style=dashed];
 }
 

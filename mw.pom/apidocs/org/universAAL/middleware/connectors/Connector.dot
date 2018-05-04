@@ -10,38 +10,38 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.connectors.DeployConnector
-	c141279 [label=<<table title="org.universAAL.middleware.connectors.DeployConnector" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DeployConnector.html">
+	c147708 [label=<<table title="org.universAAL.middleware.connectors.DeployConnector" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DeployConnector.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> DeployConnector </td></tr>
 		</table></td></tr>
 		</table>>, URL="./DeployConnector.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.connectors.CommunicationConnector
-	c141280 [label=<<table title="org.universAAL.middleware.connectors.CommunicationConnector" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CommunicationConnector.html">
+	c147709 [label=<<table title="org.universAAL.middleware.connectors.CommunicationConnector" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CommunicationConnector.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> CommunicationConnector </td></tr>
 		</table></td></tr>
 		</table>>, URL="./CommunicationConnector.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.connectors.Connector
-	c141282 [label=<<table title="org.universAAL.middleware.connectors.Connector" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Connector.html">
+	c147711 [label=<<table title="org.universAAL.middleware.connectors.Connector" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Connector.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Connector </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Connector.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.connectors.DiscoveryConnector
-	c141283 [label=<<table title="org.universAAL.middleware.connectors.DiscoveryConnector" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DiscoveryConnector.html">
+	c147712 [label=<<table title="org.universAAL.middleware.connectors.DiscoveryConnector" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DiscoveryConnector.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> DiscoveryConnector </td></tr>
 		</table></td></tr>
 		</table>>, URL="./DiscoveryConnector.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.connectors.DeployConnector implements org.universAAL.middleware.connectors.Connector
-	c141282:p -> c141279:p [dir=back,arrowtail=empty,style=dashed];
+	c147711:p -> c147708:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.connectors.CommunicationConnector implements org.universAAL.middleware.connectors.Connector
-	c141282:p -> c141280:p [dir=back,arrowtail=empty,style=dashed];
+	c147711:p -> c147709:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.connectors.DiscoveryConnector implements org.universAAL.middleware.connectors.Connector
-	c141282:p -> c141283:p [dir=back,arrowtail=empty,style=dashed];
+	c147711:p -> c147712:p [dir=back,arrowtail=empty,style=dashed];
 }
 
