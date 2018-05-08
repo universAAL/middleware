@@ -36,6 +36,7 @@
     <module>../mw.managers.configuration.osgi</module>
     <module>../mw.connectors.deploy.karaf.osgi</module>
     <module>../mw.karaf.shell.universAAL.osgi</module>
+    <module>../mw.karaf.shell.universAAL.config.osgi</module>
     <module>../mw.bus.model.osgi</module>
     <module>../mw.bus.context.osgi</module>
     <module>../mw.bus.service.osgi</module>
@@ -156,7 +157,7 @@
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.karaf.branding.osgi</artifactId>
+        <artifactId>mw.karaf.shell.universAAL.config.osgi</artifactId>
         <version>3.4.2-SNAPSHOT</version>
       </dependency>
       <dependency>
