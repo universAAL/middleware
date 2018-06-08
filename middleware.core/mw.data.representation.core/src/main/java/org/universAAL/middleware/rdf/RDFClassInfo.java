@@ -96,6 +96,11 @@ public class RDFClassInfo extends FinalizedResource {
 	protected boolean locked = false;
 
 	/**
+	 * Certain classes will be allowed to add named instances even after the setup has been finished and locked.
+	 */
+	protected HashSet exemptedClasses4addInstance = new HashSet();
+
+	/**
 	 * The setup interface.
 	 */
 	protected PrivateRDFSetup rdfsetup = null;
@@ -115,14 +120,15 @@ public class RDFClassInfo extends FinalizedResource {
 
 		/** {@inheritDoc} */
 		public final void addInstance(Resource instance) {
-			if (locked)
-				return;
 
 			if (instance == null) {
 				LogUtils.logWarn(SharedResources.moduleContext, PrivateRDFSetup.class, "addInstance",
 						new Object[] { "Called with null." }, null);
 				return;
 			}
+			
+			if (locked  &&  !exemptedClasses4addInstance.contains(instance.getClass()))
+				return;
 
 			if (instance.isAnon()) {
 				if (instance instanceof ManagedIndividual) {
@@ -213,6 +219,12 @@ public class RDFClassInfo extends FinalizedResource {
 			al.add(new Resource(namedSuperClass));
 			combinedSuperClasses = al;
 			setProperty(TypeExpression.PROP_RDFS_SUB_CLASS_OF, Collections.unmodifiableList(combinedSuperClasses));
+		}
+
+		/** {@inheritDoc} */
+		public void allowInstancesOf(Class c) {
+			if (!locked  &&  c != null)
+				exemptedClasses4addInstance.add(c);
 		}
 
 		/** {@inheritDoc} */

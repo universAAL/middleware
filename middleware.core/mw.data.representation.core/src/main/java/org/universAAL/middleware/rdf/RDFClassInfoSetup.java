@@ -65,6 +65,11 @@ public interface RDFClassInfoSetup {
 	public void addInstance(Resource instance);
 
 	/**
+	 * Unlock {@link #addInstance(Resource)} for instances of the given class <code>c</code>, even after the setup has finished.
+	 */
+	public void allowInstancesOf(Class c);
+
+	/**
 	 * Get the {@link RDFClassInfo} for this setup.
 	 *
 	 * @return the info object.
