@@ -418,7 +418,7 @@ public class OSGiModuleContext implements ModuleContext {
 	public File getDataFolder() {
 		// XXX maybe set another system property to point to the main data
 		// folder
-		return new File("./Data", getID());
+		return new File("./data", getID());
 	}
 
 	/** {@inheritDoc} */
