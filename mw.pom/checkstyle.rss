@@ -28,7 +28,7 @@ under the License.
       <title>File: 555,
              Errors: 8009,
              Warnings: 478,
-             Infos: 503
+             Infos: 508
       </title>
             <link>http://middleware/mw.pom//checkstyle.html</link>
       <description>
@@ -6419,7 +6419,7 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.managers.space.SpaceManagerImpl.java">org/universAAL/middleware/managers/space/SpaceManagerImpl.java</a>
                 </td>
                 <td>
-                  1
+                  6
                 </td>
                 <td>
                   9
