@@ -64,6 +64,12 @@ digraph G {
 <tr><td align="center" balign="center"> CoordinatedStrategy </td></tr>
 		</table></td></tr>
 		</table>>, URL="../ui/impl/generic/CoordinatedStrategy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.tracker.impl.BusMemberRegistryImpl
+	c349924 [label=<<table title="org.universAAL.middleware.tracker.impl.BusMemberRegistryImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../tracker/impl/BusMemberRegistryImpl.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BusMemberRegistryImpl </td></tr>
+		</table></td></tr>
+		</table>>, URL="../tracker/impl/BusMemberRegistryImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.distributedmw.impl.MySpaceListener
 	c349948 [label=<<table title="org.universAAL.middleware.managers.distributedmw.impl.MySpaceListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../managers/distributedmw/impl/MySpaceListener.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
@@ -98,6 +104,8 @@ digraph G {
 	c349441:p -> c349744:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy implements org.universAAL.middleware.container.SharedObjectListener
 	c349441:p -> c349884:p [dir=back,arrowtail=empty,style=dashed];
+	//org.universAAL.middleware.tracker.impl.BusMemberRegistryImpl implements org.universAAL.middleware.container.SharedObjectListener
+	c349441:p -> c349924:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.managers.distributedmw.impl.MySpaceListener implements org.universAAL.middleware.container.SharedObjectListener
 	c349441:p -> c349948:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.managers.distributedmw.impl.SharedObjectConnector implements org.universAAL.middleware.container.SharedObjectListener

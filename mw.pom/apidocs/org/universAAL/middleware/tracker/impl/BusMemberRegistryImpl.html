@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -95,10 +95,12 @@ var activeTableTab = "activeTableTab";
 <div class="subTitle">org.universAAL.middleware.tracker.impl</div>
 <h2 title="Class BusMemberRegistryImpl" class="title">Class BusMemberRegistryImpl</h2>
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="../IBusMemberRegistry.html" title="org.universAAL.middleware.tracker.IBusMemberRegistry" alt="" coords="27,11,171,55"/>
-<area shape="rect" id="node1" href="../IBusMemberRegistry.html" title="&lt;TABLE&gt;" alt="" coords="16,6,181,61"/>
-<area shape="rect" id="node2_1" href="./BusMemberRegistryImpl.html" title="org.universAAL.middleware.tracker.impl.BusMemberRegistryImpl" alt="" coords="16,120,181,147"/>
-<area shape="rect" id="node2" href="./BusMemberRegistryImpl.html" title="&lt;TABLE&gt;" alt="" coords="5,109,192,157"/>
+<area shape="rect" id="node1_0" href="../../container/SharedObjectListener.html" title="org.universAAL.middleware.container.SharedObjectListener" alt="" coords="15,11,161,55"/>
+<area shape="rect" id="node1" href="../../container/SharedObjectListener.html" title="&lt;TABLE&gt;" alt="" coords="5,6,171,61"/>
+<area shape="rect" id="node3_1" href="./BusMemberRegistryImpl.html" title="org.universAAL.middleware.tracker.impl.BusMemberRegistryImpl" alt="" coords="100,120,265,147"/>
+<area shape="rect" id="node3" href="./BusMemberRegistryImpl.html" title="&lt;TABLE&gt;" alt="" coords="89,109,276,157"/>
+<area shape="rect" id="node2_2" href="../IBusMemberRegistry.html" title="org.universAAL.middleware.tracker.IBusMemberRegistry" alt="" coords="207,11,351,55"/>
+<area shape="rect" id="node2" href="../IBusMemberRegistry.html" title="&lt;TABLE&gt;" alt="" coords="196,6,361,61"/>
 </map>
 <!-- UML diagram added by UMLGraph version R5_6-24-gf6e263 (http://www.umlgraph.org/) -->
 <div align="center"><img src="BusMemberRegistryImpl.png" alt="Package class diagram package BusMemberRegistryImpl" usemap="#G" border=0/></div>
@@ -117,13 +119,13 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><a href="../../../../../org/universAAL/middleware/tracker/IBusMemberRegistry.html" title="interface in org.universAAL.middleware.tracker">IBusMemberRegistry</a></dd>
+<dd><a href="../../../../../org/universAAL/middleware/container/SharedObjectListener.html" title="interface in org.universAAL.middleware.container">SharedObjectListener</a>, <a href="../../../../../org/universAAL/middleware/tracker/IBusMemberRegistry.html" title="interface in org.universAAL.middleware.tracker">IBusMemberRegistry</a></dd>
 </dl>
 <hr>
 <br>
 <pre>public class <span class="typeNameLabel">BusMemberRegistryImpl</span>
 extends <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>
-implements <a href="../../../../../org/universAAL/middleware/tracker/IBusMemberRegistry.html" title="interface in org.universAAL.middleware.tracker">IBusMemberRegistry</a></pre>
+implements <a href="../../../../../org/universAAL/middleware/tracker/IBusMemberRegistry.html" title="interface in org.universAAL.middleware.tracker">IBusMemberRegistry</a>, <a href="../../../../../org/universAAL/middleware/container/SharedObjectListener.html" title="interface in org.universAAL.middleware.container">SharedObjectListener</a></pre>
 </li>
 </ul>
 </div>
@@ -207,6 +209,15 @@ implements <a href="../../../../../org/universAAL/middleware/tracker/IBusMemberR
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/tracker/impl/BusMemberRegistryImpl.html#removeRegistryListeners--">removeRegistryListeners</a></span>()</code>&nbsp;</td>
 </tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/tracker/impl/BusMemberRegistryImpl.html#sharedObjectAdded-java.lang.Object-java.lang.Object-">sharedObjectAdded</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;sharedObj,
+                 <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;removeHook)</code></td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/tracker/impl/BusMemberRegistryImpl.html#sharedObjectRemoved-java.lang.Object-">sharedObjectRemoved</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;sharedObj)</code></td>
+</tr>
 </table>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">
@@ -279,7 +290,7 @@ implements <a href="../../../../../org/universAAL/middleware/tracker/IBusMemberR
 <a name="removeListener-org.universAAL.middleware.tracker.IBusMemberRegistryListener-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>removeListener</h4>
 <pre>public&nbsp;void&nbsp;removeListener(<a href="../../../../../org/universAAL/middleware/tracker/IBusMemberRegistryListener.html" title="interface in org.universAAL.middleware.tracker">IBusMemberRegistryListener</a>&nbsp;listener)</pre>
@@ -290,6 +301,33 @@ implements <a href="../../../../../org/universAAL/middleware/tracker/IBusMemberR
 <dd><code><a href="../../../../../org/universAAL/middleware/tracker/IBusMemberRegistry.html#removeListener-org.universAAL.middleware.tracker.IBusMemberRegistryListener-">removeListener</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/universAAL/middleware/tracker/IBusMemberRegistry.html" title="interface in org.universAAL.middleware.tracker">IBusMemberRegistry</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>listener</code> - - listener to be removed</dd>
+</dl>
+</li>
+</ul>
+<a name="sharedObjectAdded-java.lang.Object-java.lang.Object-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sharedObjectAdded</h4>
+<pre>public&nbsp;void&nbsp;sharedObjectAdded(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;sharedObj,
+                              <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;removeHook)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../../org/universAAL/middleware/container/SharedObjectListener.html#sharedObjectAdded-java.lang.Object-java.lang.Object-">sharedObjectAdded</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/universAAL/middleware/container/SharedObjectListener.html" title="interface in org.universAAL.middleware.container">SharedObjectListener</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="sharedObjectRemoved-java.lang.Object-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>sharedObjectRemoved</h4>
+<pre>public&nbsp;void&nbsp;sharedObjectRemoved(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;sharedObj)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../../org/universAAL/middleware/container/SharedObjectListener.html#sharedObjectRemoved-java.lang.Object-">sharedObjectRemoved</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/universAAL/middleware/container/SharedObjectListener.html" title="interface in org.universAAL.middleware.container">SharedObjectListener</a></code></dd>
 </dl>
 </li>
 </ul>

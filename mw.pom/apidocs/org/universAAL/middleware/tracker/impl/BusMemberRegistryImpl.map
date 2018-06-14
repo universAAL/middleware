@@ -1,6 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="../IBusMemberRegistry.html" title="org.universAAL.middleware.tracker.IBusMemberRegistry" alt="" coords="27,11,171,55"/>
-<area shape="rect" id="node1" href="../IBusMemberRegistry.html" title="&lt;TABLE&gt;" alt="" coords="16,6,181,61"/>
-<area shape="rect" id="node2_1" href="./BusMemberRegistryImpl.html" title="org.universAAL.middleware.tracker.impl.BusMemberRegistryImpl" alt="" coords="16,120,181,147"/>
-<area shape="rect" id="node2" href="./BusMemberRegistryImpl.html" title="&lt;TABLE&gt;" alt="" coords="5,109,192,157"/>
+<area shape="rect" id="node1_0" href="../../container/SharedObjectListener.html" title="org.universAAL.middleware.container.SharedObjectListener" alt="" coords="15,11,161,55"/>
+<area shape="rect" id="node1" href="../../container/SharedObjectListener.html" title="&lt;TABLE&gt;" alt="" coords="5,6,171,61"/>
+<area shape="rect" id="node3_1" href="./BusMemberRegistryImpl.html" title="org.universAAL.middleware.tracker.impl.BusMemberRegistryImpl" alt="" coords="100,120,265,147"/>
+<area shape="rect" id="node3" href="./BusMemberRegistryImpl.html" title="&lt;TABLE&gt;" alt="" coords="89,109,276,157"/>
+<area shape="rect" id="node2_2" href="../IBusMemberRegistry.html" title="org.universAAL.middleware.tracker.IBusMemberRegistry" alt="" coords="207,11,351,55"/>
+<area shape="rect" id="node2" href="../IBusMemberRegistry.html" title="&lt;TABLE&gt;" alt="" coords="196,6,361,61"/>
 </map>
