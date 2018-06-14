@@ -69,7 +69,6 @@
                      org.universAAL.middleware.container.osgi,
                      org.universAAL.middleware.container.utils,
                      org.universAAL.middleware.interfaces.mpa,
-                     org.universAAL.middleware.interfaces.mpa.model,
                      org.universAAL.middleware.interfaces.utils,
                      javax.xml.bind.annotation,
                      org.apache.karaf.deployer.kar;version="${karaf.version}"</Import-Package>
