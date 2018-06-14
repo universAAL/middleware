@@ -39,16 +39,13 @@ import org.universAAL.middleware.container.SharedObjectListener;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextBus;
 import org.universAAL.middleware.context.ContextBusFacade;
-import org.universAAL.middleware.context.impl.ContextBusImpl;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.ServiceBus;
 import org.universAAL.middleware.service.ServiceBusFacade;
-import org.universAAL.middleware.service.impl.ServiceBusImpl;
 import org.universAAL.middleware.tracker.IBusMemberRegistry;
 import org.universAAL.middleware.tracker.IBusMemberRegistryListener;
 import org.universAAL.middleware.ui.IUIBus;
 import org.universAAL.middleware.ui.UIBusFacade;
-import org.universAAL.middleware.ui.impl.UIBusImpl;
 
 //TODO: synchronize map and listener for concurrent access
 public class BusMemberRegistryImpl implements IBusMemberRegistry,
@@ -239,7 +236,7 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry,
 
 	private void addServiceBusListener() {
 		Object[] sbuses = mc.getContainer().fetchSharedObject(mc,
-				ServiceBusImpl.getServiceBusFetchParams(), this);
+				ServiceBusFacade.getServiceBusFetchParams(), this);
 		if (sbuses.length > 0 && sbuses[0] instanceof ServiceBus) {
 			sharedObjectAdded(sbuses[0], null);
 		}
@@ -247,7 +244,7 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry,
 
 	private void addContextBusListener() {
 		Object[] cbuses = mc.getContainer().fetchSharedObject(mc,
-				ContextBusImpl.getContextBusFetchParams(), this);
+				ContextBusFacade.getContextBusFetchParams(), this);
 		if (cbuses.length > 0 && cbuses[0] instanceof ServiceBus) {
 			sharedObjectAdded(cbuses[0], null);
 		}
@@ -255,7 +252,7 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry,
 
 	private void addUIBusListener() {
 		Object[] ubuses = mc.getContainer().fetchSharedObject(mc,
-				UIBusImpl.getUIBusFetchParams(), this);
+				UIBusFacade.getUIBusFetchParams(), this);
 		if (ubuses.length > 0 && ubuses[0] instanceof ServiceBus) {
 			sharedObjectAdded(ubuses[0], null);
 		}

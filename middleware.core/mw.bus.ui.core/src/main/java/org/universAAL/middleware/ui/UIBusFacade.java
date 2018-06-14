@@ -21,6 +21,14 @@ import org.universAAL.middleware.ui.impl.UIBusImpl;
 
 public class UIBusFacade {
 	public static IUIBus fetchBus(ModuleContext mc) {
-		return (IUIBus) mc.getContainer().fetchSharedObject(mc, UIBusImpl.getUIBusFetchParams());
+		return (IUIBus) mc.getContainer().fetchSharedObject(mc,
+				UIBusImpl.getUIBusFetchParams());
+	}
+
+	/**
+	 * @return
+	 */
+	public static Object[] getUIBusFetchParams() {
+		return UIBusImpl.getUIBusFetchParams();
 	}
 }
