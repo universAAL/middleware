@@ -52,7 +52,7 @@ public class ConfigSample {
 
 			public MergedRestriction getType() {
 				MergedRestriction mr = MergedRestriction.getAllValuesRestrictionWithCardinality(
-						ConfigurationParameter.PROP_CONFIG_VALUE, TypeMapper.getDatatypeURI(Integer.class), 1, 1);
+						ConfigurationParameter.PROP_CONFIG_LITERAL_VALUE, TypeMapper.getDatatypeURI(Integer.class), 1, 1);
 				mr.addType(new IntRestriction(0, true, 10, true));
 				return mr;
 			}
@@ -74,7 +74,7 @@ public class ConfigSample {
 
 			public MergedRestriction getType() {
 				return MergedRestriction.getAllValuesRestrictionWithCardinality(
-						ConfigurationParameter.PROP_CONFIG_VALUE, TypeMapper.getDatatypeURI(String.class), 1, 1);
+						ConfigurationParameter.PROP_CONFIG_LITERAL_VALUE, TypeMapper.getDatatypeURI(String.class), 1, 1);
 			}
 
 			public Object getDefaultValue() {
@@ -91,7 +91,7 @@ public class ConfigSample {
 			}
 
 			public MergedRestriction getType() {
-				return MergedRestriction.getAllValuesRestrictionWithCardinality(PROP_CONFIG_VALUE,
+				return MergedRestriction.getAllValuesRestrictionWithCardinality(PROP_CONFIG_LITERAL_VALUE,
 						TypeMapper.getDatatypeURI(Integer.class), 0, 1);
 			}
 

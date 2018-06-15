@@ -21,24 +21,45 @@ import org.universAAL.middleware.interfaces.configuration.ConfigurableModule;
 import org.universAAL.middleware.owl.MergedRestriction;
 
 /**
- * An Configuration entity that refers to a configuration parameter.
- * 
+ * An Configuration entity that consists of a key and a direct value (as opposed to {@link ConfigurationFile}
+ * whose value is a reference to a file when that file as a whole serves as the value). The key is the 
+ *
  * @author amedrano
  * 
  */
 public interface ConfigurationParameter extends DescribedEntity {
 
 	/**
-	 * The default value, for when a value is not set.
-	 * 
+	 * The property-URI to be used in the role of <code>"owl:onProperty"</code> when constructing the
+	 * {@link MergedRestriction} to be used as the type of the values of a conf param if the conf
+	 * param is supposed to have literal values. In other words, when {@link MergedRestriction#getOnProperty()}
+	 * called on {@link #getType()} of a conf param returns this property-URI, it means that the conf param
+	 * accepts only literal values. 
+	 */
+	public static final String PROP_CONFIG_LITERAL_VALUE = "http://ontology.universAAL.org/ConfigurationOntology#" + "hasLiteralValue";
+	
+	/**
+	 * The property-URI to be used in the role of <code>"owl:onProperty"</code> when constructing the
+	 * {@link MergedRestriction} to be used as the type of the values of a conf param if the conf
+	 * param is supposed to have object values. In other words, when {@link MergedRestriction#getOnProperty()}
+	 * called on {@link #getType()} of a conf param returns this property-URI, it means that the conf param
+	 * accepts only instances of {@link ManagedIndividual}.
+	 */
+	public static final String PROP_CONFIG_OBJECT_VALUE = "http://ontology.universAAL.org/ConfigurationOntology#" + "hasObjectValue";
+
+	/**
+	 * The default value for a mandatory conf param whose value may not be set. Optional conf params do not need any default value.
+	 * By defining a default value for a mandatory conf param, de facto it is made optional!
+	 *
 	 * @return default vaule to use.
 	 */
 	public Object getDefaultValue();
 
 	/**
-	 * The type that the configuration parameter is allowed to take. The
-	 * {@link MergedRestriction} has to be bounded to the property
-	 * {@link ConfigurationParameter#PROP_CONFIG_VALUE}, otherwise the
+	 * The type of the value(s) that the configuration parameter is allowed to have. The
+	 * {@link MergedRestriction} has to be bounded to one of the two properties
+	 * {@link ConfigurationParameter#PROP_CONFIG_LITERAL_VALUE} or {@link ConfigurationParameter#PROP_CONFIG_OBJECT_VALUE}
+	 * depending on whether the conf param accepts literal values or object values (instances of {@link ManagedIndividual}, otherwise the
 	 * {@link ConfigurationParameter} will not register properly.
 	 * 
 	 * @return a {@link MergedRestriction} over the property that defines the
@@ -47,6 +68,4 @@ public interface ConfigurationParameter extends DescribedEntity {
 	 *         for the scope of this Configuration Parameter Entity.
 	 */
 	public MergedRestriction getType();
-
-	public static String PROP_CONFIG_VALUE = "http://ontology.universAAL.org/AALConfigurationOntology#" + "hasValue";
 }

@@ -50,7 +50,7 @@ public class LocalConfigurationParameterEditor extends LocalConfigurationEntity
 	public MergedRestriction getType() {
 		Entity e = getEntity();
 		if (e instanceof ConfigurationParameter) {
-			return ((ConfigurationParameter) e).getParameterRestriction();
+			return ((ConfigurationParameter) e).getValueRestriction();
 		}
 		return null;
 	}
@@ -104,6 +104,13 @@ public class LocalConfigurationParameterEditor extends LocalConfigurationEntity
 			return ((ConfigurationParameter) e).getValue();
 		}
 		return null;
+	}
+
+	public boolean hasLiteralValue() {
+		Entity e = getEntity();
+		if (e instanceof ConfigurationParameter)
+			return ((ConfigurationParameter) e).hasLiteralValue();
+		return false;
 	}
 
 }
