@@ -89,17 +89,16 @@ public class ConfigurationParameter extends Entity {
 	}
 
 	private boolean checkValue(Object newPropValue) {
-		Resource test = this.copy(false);
-		if (hasLiteralValue())
-			test.changeProperty(PROP_LITERAL_VALUE, newPropValue);
-		else
-			test.changeProperty(PROP_OBJECT_VALUE, newPropValue);
+		if (newPropValue == null)
+			return true;
 		
 		// check Restrictions
 		MergedRestriction mr = getValueRestriction();
-		if (mr != null)
+		if (mr != null) {
+			Resource test = new Resource();
+			test.setProperty(isLiteral? PROP_LITERAL_VALUE : PROP_OBJECT_VALUE, newPropValue);
 			return mr.hasMember(test);
-		else
+		} else
 			return false;
 	}
 
@@ -144,6 +143,7 @@ public class ConfigurationParameter extends Entity {
 		return (o instanceof MergedRestriction)?  (MergedRestriction) o : null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public boolean setProperty(String propURI, Object value) {
 		if (PROP_VALUE_RESTRICTION.equals(propURI)) {
 			if (value instanceof MergedRestriction)
@@ -151,19 +151,20 @@ public class ConfigurationParameter extends Entity {
 			return props.get(propURI) == value;
 		}
 		
-		if (isLiteral != null) {
+		if (isLiteral != null)
 			// when isLiteral is not null, we can do a more controlled setting of the other props
 			// otherwise, they have to be set through the implementation in the super class as can be seen further below
-			if (PROP_LITERAL_VALUE.equals(propURI)  ||  PROP_OBJECT_VALUE.equals(propURI)) {
-				setValue(value);
-				return getValue() == value;
+			if (PROP_LITERAL_VALUE.equals(propURI)  ||  PROP_DEFAULT_LITERAL_VALUE.equals(propURI)
+					||  PROP_OBJECT_VALUE.equals(propURI)  ||  PROP_DEFAULT_OBJECT_VALUE.equals(propURI)) {
+				if (checkValue(value))
+					if (value == null)
+						props.remove(propURI);
+					else
+						props.put(propURI, value);
+				else
+					return false;
+				return true;
 			}
-		
-			if (PROP_DEFAULT_LITERAL_VALUE.equals(propURI)  ||  PROP_DEFAULT_OBJECT_VALUE.equals(propURI)) {
-				setDefaultValue(value);
-				return getDefaultValue() == value;
-			}
-		}
 		
 		return super.setProperty(propURI, value);
 	}
