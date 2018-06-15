@@ -73,7 +73,7 @@ public class EntFactoryTest {
 
 			public MergedRestriction getType() {
 				MergedRestriction mr = MergedRestriction.getAllValuesRestrictionWithCardinality(
-						ConfigurationParameter.PROP_CONFIG_VALUE, TypeMapper.getDatatypeURI(Integer.class), 1, 1);
+						ConfigurationParameter.PROP_CONFIG_LITERAL_VALUE, TypeMapper.getDatatypeURI(Integer.class), 1, 1);
 				mr.addType(new IntRestriction(0, true, 10, true));
 				return mr;
 			}

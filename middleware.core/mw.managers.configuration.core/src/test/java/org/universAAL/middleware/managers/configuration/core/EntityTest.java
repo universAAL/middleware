@@ -72,7 +72,7 @@ public class EntityTest {
 
 			public MergedRestriction getType() {
 				MergedRestriction mr = MergedRestriction.getAllValuesRestrictionWithCardinality(
-						ConfigurationParameter.PROP_CONFIG_VALUE, new IntRestriction(0, true, 10, true), 1, 1);
+						ConfigurationParameter.PROP_CONFIG_LITERAL_VALUE, new IntRestriction(0, true, 10, true), 1, 1);
 				return mr;
 			}
 

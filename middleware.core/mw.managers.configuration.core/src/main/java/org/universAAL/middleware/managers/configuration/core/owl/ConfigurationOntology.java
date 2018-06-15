@@ -93,14 +93,15 @@ public final class ConfigurationOntology extends Ontology {
 				ConfigurationFile.PROP_CONTENT, TypeMapper.getDatatypeURI(Base64Binary.class), 1, 1));
 
 		oci_ConfigurationParameter.setResourceComment("An entity that is represented by a Parameter");
-		oci_ConfigurationParameter.setResourceLabel("ConfigurationParameter");
+		oci_ConfigurationParameter.setResourceLabel("Configuration Parameter");
 		oci_ConfigurationParameter.addSuperClass(Entity.MY_URI);
-		oci_ConfigurationParameter.addObjectProperty(ConfigurationParameter.PROP_DEFAULT_VALUE).setFunctional();
+		oci_ConfigurationParameter.addDatatypeProperty(ConfigurationParameter.PROP_LITERAL_VALUE);
+		oci_ConfigurationParameter.addDatatypeProperty(ConfigurationParameter.PROP_DEFAULT_LITERAL_VALUE);
+		oci_ConfigurationParameter.addObjectProperty(ConfigurationParameter.PROP_OBJECT_VALUE);
+		oci_ConfigurationParameter.addObjectProperty(ConfigurationParameter.PROP_DEFAULT_OBJECT_VALUE);
+		oci_ConfigurationParameter.addObjectProperty(ConfigurationParameter.PROP_VALUE_RESTRICTION).setFunctional();
 		oci_ConfigurationParameter.addRestriction(
-				MergedRestriction.getCardinalityRestriction(ConfigurationParameter.PROP_DEFAULT_VALUE, 1, 1));
-		oci_ConfigurationParameter.addObjectProperty(ConfigurationParameter.PROP_VALUE).setFunctional();
-		oci_ConfigurationParameter
-				.addRestriction(MergedRestriction.getCardinalityRestriction(ConfigurationParameter.PROP_VALUE, 1, 1));
+				MergedRestriction.getCardinalityRestriction(ConfigurationParameter.PROP_VALUE_RESTRICTION, 1, 1));
 
 	}
 }
