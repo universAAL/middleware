@@ -61,7 +61,11 @@
             <Export-Package>org.universAAL.middleware.tracker</Export-Package>
             <Private-Package>org.universAAL.middleware.tracker.osgi,
             	org.universAAL.middleware.tracker.impl</Private-Package>
-            <Import-Package>org.osgi.framework;version="[1,2)",*</Import-Package>
+            <Import-Package>org.osgi.framework;version="[1,2)",
+            org.universAAL.middleware.context; resolution:="optional",
+            org.universAAL.middleware.service; resolution:="optional",
+            org.universAAL.middleware.ui; resolution:="optional",
+            *</Import-Package>
           </instructions>
         </configuration>
       </plugin>

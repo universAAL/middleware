@@ -213,18 +213,47 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry,
 
 	public void removeRegistryListeners() {
 		if (serviceListener != null) {
-			ServiceBus serviceBus = ServiceBusFacade.fetchBus(mc);
-			((AbstractBus) serviceBus).removeRegistryListener(serviceListener);
+			try {
+				ServiceBus serviceBus = ServiceBusFacade.fetchBus(mc);
+				((AbstractBus) serviceBus)
+						.removeRegistryListener(serviceListener);
+			} catch (Throwable e) {
+				LogUtils.logError(
+						mc,
+						getClass(),
+						"removeRegistryListeners",
+						new String[] { "Service Bus might have been stoped before tracker." },
+						e);
+			}
 		}
 
 		if (contextListener != null) {
-			ContextBus serviceBus = ContextBusFacade.fetchBus(mc);
-			((AbstractBus) serviceBus).removeRegistryListener(contextListener);
+			try {
+				ContextBus serviceBus = ContextBusFacade.fetchBus(mc);
+				((AbstractBus) serviceBus)
+						.removeRegistryListener(contextListener);
+			} catch (Exception e) {
+				LogUtils.logError(
+						mc,
+						getClass(),
+						"removeRegistryListeners",
+						new String[] { "Context Bus might have been stoped before tracker." },
+						e);
+			}
 		}
 
 		if (uiListener != null) {
-			IUIBus uiBus = UIBusFacade.fetchBus(mc);
-			((AbstractBus) uiBus).removeRegistryListener(uiListener);
+			try {
+				IUIBus uiBus = UIBusFacade.fetchBus(mc);
+				((AbstractBus) uiBus).removeRegistryListener(uiListener);
+			} catch (Exception e) {
+				LogUtils.logError(
+						mc,
+						getClass(),
+						"removeRegistryListeners",
+						new String[] { "UI Bus might have been stoped before tracker." },
+						e);
+			}
 		}
 	}
 
@@ -235,26 +264,41 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry,
 	}
 
 	private void addServiceBusListener() {
-		Object[] sbuses = mc.getContainer().fetchSharedObject(mc,
-				ServiceBusFacade.getServiceBusFetchParams(), this);
-		if (sbuses.length > 0 && sbuses[0] instanceof ServiceBus) {
-			sharedObjectAdded(sbuses[0], null);
+		try {
+			Object[] sbuses = mc.getContainer().fetchSharedObject(mc,
+					ServiceBusFacade.getServiceBusFetchParams(), this);
+			if (sbuses.length > 0 && sbuses[0] instanceof ServiceBus) {
+				sharedObjectAdded(sbuses[0], null);
+			}
+		} catch (Throwable e) {
+			LogUtils.logError(mc, getClass(), "addServiceBusListener",
+					new String[] { "Service Bus not available." }, e);
 		}
 	}
 
 	private void addContextBusListener() {
-		Object[] cbuses = mc.getContainer().fetchSharedObject(mc,
-				ContextBusFacade.getContextBusFetchParams(), this);
-		if (cbuses.length > 0 && cbuses[0] instanceof ServiceBus) {
-			sharedObjectAdded(cbuses[0], null);
+		try {
+			Object[] cbuses = mc.getContainer().fetchSharedObject(mc,
+					ContextBusFacade.getContextBusFetchParams(), this);
+			if (cbuses.length > 0 && cbuses[0] instanceof ContextBus) {
+				sharedObjectAdded(cbuses[0], null);
+			}
+		} catch (Throwable e) {
+			LogUtils.logError(mc, getClass(), "addContextBusListener",
+					new String[] { "Context Bus not available." }, e);
 		}
 	}
 
 	private void addUIBusListener() {
-		Object[] ubuses = mc.getContainer().fetchSharedObject(mc,
-				UIBusFacade.getUIBusFetchParams(), this);
-		if (ubuses.length > 0 && ubuses[0] instanceof ServiceBus) {
-			sharedObjectAdded(ubuses[0], null);
+		try {
+			Object[] ubuses = mc.getContainer().fetchSharedObject(mc,
+					UIBusFacade.getUIBusFetchParams(), this);
+			if (ubuses.length > 0 && ubuses[0] instanceof IUIBus) {
+				sharedObjectAdded(ubuses[0], null);
+			}
+		} catch (Throwable e) {
+			LogUtils.logError(mc, getClass(), "addUIBusListener",
+					new String[] { "UI Bus not available." }, e);
 		}
 	}
 
@@ -345,20 +389,31 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry,
 	/** {@inheritDoc} */
 	public void sharedObjectRemoved(Object sharedObj) {
 		// this should only be called when a bus is stoped.
-		if (serviceListener != null && sharedObj instanceof ServiceBus) {
-			((AbstractBus) sharedObj).removeRegistryListener(serviceListener);
-			serviceListener.busCleared();
-			serviceListener = null;
-		}
-		if (contextListener != null & sharedObj instanceof ContextBus) {
-			((AbstractBus) sharedObj).removeRegistryListener(contextListener);
-			contextListener.busCleared();
-			contextListener = null;
-		}
-		if (uiListener != null && sharedObj instanceof IUIBus) {
-			((AbstractBus) sharedObj).removeRegistryListener(uiListener);
-			uiListener.busCleared();
-			uiListener = null;
+		try {
+			if (serviceListener != null && sharedObj instanceof ServiceBus) {
+				((AbstractBus) sharedObj)
+						.removeRegistryListener(serviceListener);
+				serviceListener.busCleared();
+				serviceListener = null;
+				return;
+			}
+			if (contextListener != null && sharedObj instanceof ContextBus) {
+				((AbstractBus) sharedObj)
+						.removeRegistryListener(contextListener);
+				contextListener.busCleared();
+				contextListener = null;
+				return;
+			}
+			if (uiListener != null && sharedObj instanceof IUIBus) {
+				((AbstractBus) sharedObj).removeRegistryListener(uiListener);
+				uiListener.busCleared();
+				uiListener = null;
+				return;
+			}
+		} catch (Throwable e) {
+			LogUtils.logError(mc, getClass(), "sharedObjectRemoved",
+					new String[] { "Error when receiving new shared object." },
+					e);
 		}
 
 	}
