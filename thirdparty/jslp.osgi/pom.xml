@@ -50,7 +50,6 @@
             <Bundle-Name>${project.name}</Bundle-Name>
             <Bundle-Description>${project.description}</Bundle-Description>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-            <Bundle-Provider>ISTI-CNR</Bundle-Provider>
             <Bundle-Activator>ch.ethz.iks.slp.impl.Activator</Bundle-Activator>
             <Export-Package>ch.ethz.iks.slp</Export-Package>
             <Private-Package>ch.ethz.iks.slp.impl.*</Private-Package>

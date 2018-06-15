@@ -46,16 +46,14 @@ import org.universAAL.middleware.container.osgi.run.Activator;
  *
  * @author mtazari
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
- * @version $LastChangedRevision$ ( $LastChangedDate$ )
- *
  */
 public final class OSGiContainer implements Container, ServiceListener {
 	public static final OSGiContainer THE_CONTAINER = new OSGiContainer();
 
-	private List listeners;
+	private List<SharedObjectListener> listeners;
 
 	private OSGiContainer() {
-		listeners = Collections.synchronizedList(new ArrayList());
+		listeners = Collections.synchronizedList(new ArrayList<SharedObjectListener>());
 	}
 
 	/**
@@ -211,12 +209,12 @@ public final class OSGiContainer implements Container, ServiceListener {
 		}
 		switch (se.getType()) {
 		case ServiceEvent.REGISTERED:
-			for (Iterator i = listenersLocalCopy.iterator(); i.hasNext();)
-				((SharedObjectListener) i.next()).sharedObjectAdded(bc.getService(sr), sr);
+			for (Iterator<SharedObjectListener> i = listenersLocalCopy.iterator(); i.hasNext();)
+				i.next().sharedObjectAdded(bc.getService(sr), sr);
 			break;
 		case ServiceEvent.UNREGISTERING:
-			for (Iterator i = listenersLocalCopy.iterator(); i.hasNext();) {
-				SharedObjectListener sol = (SharedObjectListener) i.next();
+			for (Iterator<SharedObjectListener> i = listenersLocalCopy.iterator(); i.hasNext();) {
+				SharedObjectListener sol = i.next();
 				if (sol != null && bc != null) {
 					sol.sharedObjectRemoved(bc.getService(sr));
 				}
@@ -258,7 +256,8 @@ public final class OSGiContainer implements Container, ServiceListener {
 			if (shareParams[0] instanceof String)
 				((OSGiModuleContext) requester).shareObject((String) shareParams[0], objToShare, null);
 			else if (shareParams[0] instanceof Dictionary)
-				((OSGiModuleContext) requester).shareObject((String) null, objToShare, (Dictionary) shareParams[0]);
+				((OSGiModuleContext) requester).shareObject((String) null, objToShare,
+						(Dictionary<?, ?>) shareParams[0]);
 			else
 				requester.logWarn(this.getClass().getName() + "shareObject",
 						"'shareParams' passed to 'shareObject' do not satisfy the requirements of mw.container.osgi!",
@@ -276,12 +275,12 @@ public final class OSGiContainer implements Container, ServiceListener {
 			else if (shareParams[n] instanceof Dictionary)
 				if (n == 1)
 					((OSGiModuleContext) requester).shareObject((String) shareParams[0], objToShare,
-							(Dictionary) shareParams[1]);
+							(Dictionary<?, ?>) shareParams[1]);
 				else {
 					String[] xfaces = new String[n];
 					for (int i = 0; i < n; i++)
 						xfaces[i] = (String) shareParams[i];
-					((OSGiModuleContext) requester).shareObject(xfaces, objToShare, (Dictionary) shareParams[n]);
+					((OSGiModuleContext) requester).shareObject(xfaces, objToShare, (Dictionary<?, ?>) shareParams[n]);
 				}
 			else
 				requester.logWarn(this.getClass().getName() + "shareObject",
@@ -305,7 +304,7 @@ public final class OSGiContainer implements Container, ServiceListener {
 				((OSGiModuleContext) requester).removeSharedObject((String) shareParams[0], objToRemove, null);
 			else if (shareParams[0] instanceof Dictionary)
 				((OSGiModuleContext) requester).removeSharedObject((String) null, objToRemove,
-						(Dictionary) shareParams[0]);
+						(Dictionary<?, ?>) shareParams[0]);
 			else
 				requester.logWarn(this.getClass().getName() + "removeSharedObject",
 						"'shareParams' passed to 'removeSharedObject' do not satisfy the requirements of mw.container.osgi!",
@@ -319,17 +318,17 @@ public final class OSGiContainer implements Container, ServiceListener {
 					return;
 				}
 			if (shareParams[n] instanceof String)
-				((OSGiModuleContext) requester).removesharedObject((String[]) shareParams, objToRemove, null);
+				((OSGiModuleContext) requester).removeSharedObject((String[]) shareParams, objToRemove, null);
 			else if (shareParams[n] instanceof Dictionary)
 				if (n == 1)
 					((OSGiModuleContext) requester).removeSharedObject((String) shareParams[0], objToRemove,
-							(Dictionary) shareParams[1]);
+							(Dictionary<?, ?>) shareParams[1]);
 				else {
 					String[] xfaces = new String[n];
 					for (int i = 0; i < n; i++)
 						xfaces[i] = (String) shareParams[i];
-					((OSGiModuleContext) requester).removesharedObject(xfaces, objToRemove,
-							(Dictionary) shareParams[n]);
+					((OSGiModuleContext) requester).removeSharedObject(xfaces, objToRemove,
+							(Dictionary<?, ?>) shareParams[n]);
 				}
 			else
 				requester.logWarn(this.getClass().getName() + "removeSharedObject",
@@ -343,7 +342,6 @@ public final class OSGiContainer implements Container, ServiceListener {
 			synchronized (listeners) {
 				listeners.remove(listener);
 			}
-
 		}
 	}
 }

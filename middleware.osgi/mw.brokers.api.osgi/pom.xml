@@ -31,7 +31,6 @@
             <Bundle-Name>${project.name}</Bundle-Name>
             <Bundle-Description>${project.description}</Bundle-Description>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-            <Bundle-Provider>ISTI-CNR</Bundle-Provider>
             <Import-Package>org.universAAL.middleware.interfaces,
 							org.universAAL.middleware.interfaces.space,
 							org.universAAL.middleware.interfaces.mpa,com.google.gson</Import-Package>

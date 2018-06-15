@@ -20,10 +20,44 @@ limitations under the License.
  */
 package org.universAAL.middleware.container;
 
+/**
+ * Customizes the starting and stopping of a module.
+ *
+ * The specified ModuleActivator class must have a public constructor that takes
+ * no parameters so that a ModuleActivator object can be created by
+ * Class.newInstance().
+ */
 public interface ModuleActivator {
 
+	/**
+	 * Called when this module is started so the Framework can perform the
+	 * module-specific activities necessary to start this module. This method
+	 * can be used to register shared objects or to allocate any resources that
+	 * this module needs.
+	 *
+	 * This method must complete and return to its caller in a timely manner.
+	 *
+	 * @param mc
+	 *            The execution context of the module being started.
+	 * @throws Exception
+	 *             An exception indicating a problem.
+	 */
 	public void start(ModuleContext mc) throws Exception;
 
+	/**
+	 * Called when this module is stopped so the Framework can perform the
+	 * module-specific activities necessary to stop the module. In general, this
+	 * method should undo the work that the ModuleActivator.start method
+	 * started. There should be no active threads that were started by this
+	 * module when this module returns. A stopped module must not call any
+	 * Framework objects.
+	 *
+	 * This method must complete and return to its caller in a timely manner.
+	 *
+	 * @param mc
+	 *            The execution context of the module being stopped.
+	 * @throws Exception
+	 *             An exception indicating a problem.
+	 */
 	public void stop(ModuleContext mc) throws Exception;
-
 }

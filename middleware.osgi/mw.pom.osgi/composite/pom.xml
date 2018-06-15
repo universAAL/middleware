@@ -39,11 +39,19 @@
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.managers.tenant.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.managers.configuration.osgi</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.managers.distributedmw.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.felix.shell.universAAL.osgi</artifactId>
     </dependency>
   </dependencies>
 </project>

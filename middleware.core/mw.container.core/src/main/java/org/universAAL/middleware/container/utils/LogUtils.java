@@ -70,8 +70,8 @@ public class LogUtils {
 		return sb.toString();
 	}
 
-	private static void log(int level, ModuleContext mc, Class claz, String method, Object[] msgPart, Throwable t) {
-
+	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = "SF_SWITCH_NO_DEFAULT", justification = "Private method not called with different parameter.")
+	private static void log(int level, ModuleContext mc, Class<?> claz, String method, Object[] msgPart, Throwable t) {
 		String pkg, cls;
 		if (claz == null)
 			pkg = cls = "null";
@@ -103,9 +103,9 @@ public class LogUtils {
 			}
 			module = mc.getID();
 
-			for (Iterator i = mc.getContainer().logListeners(); i.hasNext();)
+			for (Iterator<LogListener> i = mc.getContainer().logListeners(); i.hasNext();)
 				try {
-					((LogListener) i.next()).log(level, module, pkg, cls, method, msgPart, t);
+					i.next().log(level, module, pkg, cls, method, msgPart, t);
 				} catch (Exception e) {
 					mc.logDebug(buildTag("LogUtils", "log"), "One of the LogListeners has thrown an exception.", e);
 				}
@@ -143,7 +143,7 @@ public class LogUtils {
 	 *            An optional {@link java.lang.Throwable} object like an
 	 *            exception that might have caused the log request
 	 */
-	public static void logDebug(ModuleContext mc, Class claz, String method, Object[] msgPart, Throwable t) {
+	public static void logDebug(ModuleContext mc, Class<?> claz, String method, Object[] msgPart, Throwable t) {
 		log(LogListener.LOG_LEVEL_DEBUG, mc, claz, method, msgPart, t);
 	}
 
@@ -163,7 +163,7 @@ public class LogUtils {
 	 * @param msg
 	 *            The log message as a simple String
 	 */
-	public static void logDebug(ModuleContext mc, Class claz, String method, String msg) {
+	public static void logDebug(ModuleContext mc, Class<?> claz, String method, String msg) {
 		logDebug(mc, claz, method, new String[] { msg }, null);
 	}
 
@@ -198,7 +198,7 @@ public class LogUtils {
 	 *            An optional {@link java.lang.Throwable} object like an
 	 *            exception that might have caused the log request
 	 */
-	public static void logError(ModuleContext mc, Class claz, String method, Object[] msgPart, Throwable t) {
+	public static void logError(ModuleContext mc, Class<?> claz, String method, Object[] msgPart, Throwable t) {
 		log(LogListener.LOG_LEVEL_ERROR, mc, claz, method, msgPart, t);
 	}
 
@@ -218,7 +218,7 @@ public class LogUtils {
 	 * @param msg
 	 *            The log message as a simple String
 	 */
-	public static void logError(ModuleContext mc, Class claz, String method, String msg) {
+	public static void logError(ModuleContext mc, Class<?> claz, String method, String msg) {
 		logError(mc, claz, method, new String[] { msg }, null);
 	}
 
@@ -253,7 +253,7 @@ public class LogUtils {
 	 *            An optional {@link java.lang.Throwable} object like an
 	 *            exception that might have caused the log request
 	 */
-	public static void logInfo(ModuleContext mc, Class claz, String method, Object[] msgPart, Throwable t) {
+	public static void logInfo(ModuleContext mc, Class<?> claz, String method, Object[] msgPart, Throwable t) {
 		log(LogListener.LOG_LEVEL_INFO, mc, claz, method, msgPart, t);
 	}
 
@@ -273,7 +273,7 @@ public class LogUtils {
 	 * @param msg
 	 *            The log message as a simple String
 	 */
-	public static void logInfo(ModuleContext mc, Class claz, String method, String msg) {
+	public static void logInfo(ModuleContext mc, Class<?> claz, String method, String msg) {
 		logInfo(mc, claz, method, new String[] { msg }, null);
 	}
 
@@ -308,7 +308,7 @@ public class LogUtils {
 	 *            An optional {@link java.lang.Throwable} object like an
 	 *            exception that might have caused the log request
 	 */
-	public static void logWarn(ModuleContext mc, Class claz, String method, Object[] msgPart, Throwable t) {
+	public static void logWarn(ModuleContext mc, Class<?> claz, String method, Object[] msgPart, Throwable t) {
 		log(LogListener.LOG_LEVEL_WARN, mc, claz, method, msgPart, t);
 	}
 
@@ -328,7 +328,7 @@ public class LogUtils {
 	 * @param msg
 	 *            The log message as a simple String
 	 */
-	public static void logWarn(ModuleContext mc, Class claz, String method, String msg) {
+	public static void logWarn(ModuleContext mc, Class<?> claz, String method, String msg) {
 		logWarn(mc, claz, method, new String[] { msg }, null);
 	}
 
@@ -363,7 +363,7 @@ public class LogUtils {
 	 *            An optional {@link java.lang.Throwable} object like an
 	 *            exception that might have caused the log request
 	 */
-	public static void logTrace(ModuleContext mc, Class claz, String method, Object[] msgPart, Throwable t) {
+	public static void logTrace(ModuleContext mc, Class<?> claz, String method, Object[] msgPart, Throwable t) {
 		log(LogListener.LOG_LEVEL_TRACE, mc, claz, method, msgPart, t);
 	}
 
@@ -383,7 +383,7 @@ public class LogUtils {
 	 * @param msg
 	 *            The log message as a simple String
 	 */
-	public static void logTrace(ModuleContext mc, Class claz, String method, String msg) {
+	public static void logTrace(ModuleContext mc, Class<?> claz, String method, String msg) {
 		logTrace(mc, claz, method, new String[] { msg }, null);
 	}
 }

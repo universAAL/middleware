@@ -39,12 +39,13 @@ public interface Container {
 	 *            to be used.
 	 * @param fetchParams
 	 *            Container-specific parameters for fetching shared objects.
+	 * @return The previously shared object.
 	 */
 	public Object fetchSharedObject(ModuleContext requester, Object[] fetchParams);
 
 	/**
-	 * Returns an object previously shared by another module for usage within
-	 * this container.
+	 * Returns a set of objects previously shared by another module for usage
+	 * within this container.
 	 *
 	 * @param requester
 	 *            The module in the context of which the shared object is going
@@ -54,12 +55,13 @@ public interface Container {
 	 * @param listener
 	 *            If not null, the listener will be notified asynchronously each
 	 *            time a new matching object is shared within this container.
+	 * @return The previously shared objects.
 	 */
 	public Object[] fetchSharedObject(ModuleContext requester, Object[] fetchParams, SharedObjectListener listener);
 
 	/**
 	 * This method allows a SharedObjectListener instance to be removed from the
-	 * list of listeners managed by this container
+	 * list of listeners managed by this container.
 	 *
 	 * @param listener
 	 *            the SharedObjectListener to be removed
@@ -83,8 +85,10 @@ public interface Container {
 	/**
 	 * Returns an {@link java.util.Iterator} object over all registered
 	 * instances of {@link LogListener}.
+	 *
+	 * @return The iterator.
 	 */
-	public Iterator logListeners();
+	public Iterator<LogListener> logListeners();
 
 	/**
 	 * Provides possibility for wrapping container-specific context for a module
@@ -118,7 +122,9 @@ public interface Container {
 	 * @param requester
 	 *            The module in the context of which the shared object was
 	 *            shared.
-	 * @param fetchParams
+	 * @param objToRemove
+	 *            The actual object to be removed.
+	 * @param shareParams
 	 *            Container-specific parameters for removing shared objects. The
 	 *            params must be the same that were used to share the object.
 	 */

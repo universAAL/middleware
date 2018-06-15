@@ -21,6 +21,14 @@ import org.universAAL.middleware.context.impl.ContextBusImpl;
 
 public class ContextBusFacade {
 	public static ContextBus fetchBus(ModuleContext mc) {
-		return (ContextBus) mc.getContainer().fetchSharedObject(mc, ContextBusImpl.getContextBusFetchParams());
+		return (ContextBus) mc.getContainer().fetchSharedObject(mc,
+				ContextBusImpl.getContextBusFetchParams());
+	}
+
+	/**
+	 * @return
+	 */
+	public static Object[] getContextBusFetchParams() {
+		return ContextBusImpl.getContextBusFetchParams();
 	}
 }

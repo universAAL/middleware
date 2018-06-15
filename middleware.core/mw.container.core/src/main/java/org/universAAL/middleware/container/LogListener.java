@@ -42,10 +42,15 @@ package org.universAAL.middleware.container;
  */
 public interface LogListener {
 
+	/** Log level trace. */
 	public static final int LOG_LEVEL_TRACE = 0;
+	/** Log level debug. */
 	public static final int LOG_LEVEL_DEBUG = 1;
+	/** Log level info. */
 	public static final int LOG_LEVEL_INFO = 2;
+	/** Log level warn. */
 	public static final int LOG_LEVEL_WARN = 3;
+	/** Log level error. */
 	public static final int LOG_LEVEL_ERROR = 4;
 
 	/**

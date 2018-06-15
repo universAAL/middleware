@@ -8,11 +8,10 @@
     <version>3.4.2-SNAPSHOT</version>
     <relativePath>../mw.pom.osgi</relativePath>
   </parent>
-  <groupId>org.universAAL.middleware</groupId>
-  <artifactId>mw.karaf.shell.universAAL.osgi</artifactId>
+  <artifactId>mw.karaf.shell.universAAL.config.osgi</artifactId>
   <version>3.4.2-SNAPSHOT</version>
   <packaging>bundle</packaging>
-  <name>universAAL Middleware Karaf Shell</name>
+  <name>universAAL Middleware Karaf Shell Commands for configuring stuff</name>
   <dependencies>
     <dependency>
       <groupId>org.osgi</groupId>
@@ -53,19 +52,15 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Bundle-Author>Michele Girolami &lt;michele.girolami@isti.cnr.it>,  Francesco Furfari &lt;francesco.furfari@isti.cnr.it></Bundle-Author>
             <Bundle-Name>${project.name}</Bundle-Name>
             <Bundle-Description>${project.description}</Bundle-Description>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Import-Package>org.apache.felix.service.command,
-							org.apache.felix.gogo.commands,
-							org.apache.karaf.shell.console;version="${karaf.version}",
-							org.osgi.framework, org.osgi.service.blueprint, org.slf4j,
-							org.universAAL.middleware.interfaces.space,
-							org.universAAL.middleware.managers.api,
-							org.universAAL.middleware.interfaces,
-							org.universAAL.middleware.interfaces.mpa,
-							org.universAAL.middleware.interfaces.space.model</Import-Package>
+			    org.apache.felix.gogo.commands,
+			    org.apache.karaf.shell.console,
+			    org.osgi.framework, org.osgi.service.blueprint, org.slf4j,
+			    *
+</Import-Package>
             <Private-Package />
           </instructions>
         </configuration>

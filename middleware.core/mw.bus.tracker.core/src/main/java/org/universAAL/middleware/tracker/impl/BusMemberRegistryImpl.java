@@ -6,6 +6,9 @@ Department of Computer Science
 Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
 
+Copyright 2007-2014 UPM LST http://www.lst.tfo.upm.es
+Universidad Politécnica de Madrid - Life Supporting Technologies
+
 See the NOTICE file distributed with this work for additional
 information regarding copyright ownership
 
@@ -28,23 +31,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.universAAL.middleware.bus.member.BusMember;
+import org.universAAL.middleware.bus.model.AbstractBus;
+import org.universAAL.middleware.bus.model.util.IRegistryListener;
 import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.SharedObjectListener;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextBus;
 import org.universAAL.middleware.context.ContextBusFacade;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.ServiceBus;
 import org.universAAL.middleware.service.ServiceBusFacade;
-import org.universAAL.middleware.bus.model.AbstractBus;
-import org.universAAL.middleware.bus.member.BusMember;
-import org.universAAL.middleware.bus.model.util.IRegistryListener;
 import org.universAAL.middleware.tracker.IBusMemberRegistry;
 import org.universAAL.middleware.tracker.IBusMemberRegistryListener;
 import org.universAAL.middleware.ui.IUIBus;
 import org.universAAL.middleware.ui.UIBusFacade;
 
 //TODO: synchronize map and listener for concurrent access
-public class BusMemberRegistryImpl implements IBusMemberRegistry {
+public class BusMemberRegistryImpl implements IBusMemberRegistry,
+		SharedObjectListener {
 
 	/**
 	 * The list of listeners that we have to notify about changes.
@@ -84,11 +89,14 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 		}
 
 		private void log(String action, BusMember busMember) {
-			log(action, busMember.getClass().getSimpleName(), busMember.getURI());
+			log(action, busMember.getClass().getSimpleName(),
+					busMember.getURI());
 		}
 
-		private void log(String action, String busMemberClass, String busMemberURI) {
-			logInfo("%s", "[BusMember" + action + "] " + busMemberClass + ": " + busMemberURI);
+		private void log(String action, String busMemberClass,
+				String busMemberURI) {
+			logInfo("%s", "[BusMember" + action + "] " + busMemberClass + ": "
+					+ busMemberURI);
 		}
 
 		public void busMemberAdded(BusMember busMember) {
@@ -143,9 +151,12 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 				Resource[] oldAllParams = regParams.get(busMemberID);
 				if (oldAllParams == null)
 					oldAllParams = new Resource[0];
-				Resource[] newAllParams = new Resource[oldAllParams.length + params.length];
-				System.arraycopy(oldAllParams, 0, newAllParams, 0, oldAllParams.length);
-				System.arraycopy(params, 0, newAllParams, oldAllParams.length, params.length);
+				Resource[] newAllParams = new Resource[oldAllParams.length
+						+ params.length];
+				System.arraycopy(oldAllParams, 0, newAllParams, 0,
+						oldAllParams.length);
+				System.arraycopy(params, 0, newAllParams, oldAllParams.length,
+						params.length);
 				regParams.put(busMemberID, newAllParams);
 			}
 		}
@@ -160,7 +171,8 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 				Resource[] oldAllParams = regParams.get(busMemberID);
 				if (oldAllParams == null) // should not happen
 					oldAllParams = new Resource[0];
-				ArrayList<Resource> lst = new ArrayList<Resource>(oldAllParams.length);
+				ArrayList<Resource> lst = new ArrayList<Resource>(
+						oldAllParams.length);
 				boolean found;
 				for (Resource r1 : oldAllParams) {
 					found = false;
@@ -201,18 +213,47 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 
 	public void removeRegistryListeners() {
 		if (serviceListener != null) {
-			ServiceBus serviceBus = ServiceBusFacade.fetchBus(mc);
-			((AbstractBus) serviceBus).removeRegistryListener(serviceListener);
+			try {
+				ServiceBus serviceBus = ServiceBusFacade.fetchBus(mc);
+				((AbstractBus) serviceBus)
+						.removeRegistryListener(serviceListener);
+			} catch (Throwable e) {
+				LogUtils.logError(
+						mc,
+						getClass(),
+						"removeRegistryListeners",
+						new String[] { "Service Bus might have been stoped before tracker." },
+						e);
+			}
 		}
 
 		if (contextListener != null) {
-			ContextBus serviceBus = ContextBusFacade.fetchBus(mc);
-			((AbstractBus) serviceBus).removeRegistryListener(contextListener);
+			try {
+				ContextBus serviceBus = ContextBusFacade.fetchBus(mc);
+				((AbstractBus) serviceBus)
+						.removeRegistryListener(contextListener);
+			} catch (Exception e) {
+				LogUtils.logError(
+						mc,
+						getClass(),
+						"removeRegistryListeners",
+						new String[] { "Context Bus might have been stoped before tracker." },
+						e);
+			}
 		}
 
 		if (uiListener != null) {
-			IUIBus uiBus = UIBusFacade.fetchBus(mc);
-			((AbstractBus) uiBus).removeRegistryListener(uiListener);
+			try {
+				IUIBus uiBus = UIBusFacade.fetchBus(mc);
+				((AbstractBus) uiBus).removeRegistryListener(uiListener);
+			} catch (Exception e) {
+				LogUtils.logError(
+						mc,
+						getClass(),
+						"removeRegistryListeners",
+						new String[] { "UI Bus might have been stoped before tracker." },
+						e);
+			}
 		}
 	}
 
@@ -223,21 +264,46 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 	}
 
 	private void addServiceBusListener() {
-		final ServiceBus serviceBus = ServiceBusFacade.fetchBus(mc);
-		serviceListener = createBusListener((AbstractBus) serviceBus, BusType.Service);
+		try {
+			Object[] sbuses = mc.getContainer().fetchSharedObject(mc,
+					ServiceBusFacade.getServiceBusFetchParams(), this);
+			if (sbuses.length > 0 && sbuses[0] instanceof ServiceBus) {
+				sharedObjectAdded(sbuses[0], null);
+			}
+		} catch (Throwable e) {
+			LogUtils.logError(mc, getClass(), "addServiceBusListener",
+					new String[] { "Service Bus not available." }, e);
+		}
 	}
 
 	private void addContextBusListener() {
-		final ContextBus contextBus = ContextBusFacade.fetchBus(mc);
-		contextListener = createBusListener((AbstractBus) contextBus, BusType.Context);
+		try {
+			Object[] cbuses = mc.getContainer().fetchSharedObject(mc,
+					ContextBusFacade.getContextBusFetchParams(), this);
+			if (cbuses.length > 0 && cbuses[0] instanceof ContextBus) {
+				sharedObjectAdded(cbuses[0], null);
+			}
+		} catch (Throwable e) {
+			LogUtils.logError(mc, getClass(), "addContextBusListener",
+					new String[] { "Context Bus not available." }, e);
+		}
 	}
 
 	private void addUIBusListener() {
-		final IUIBus uiBus = UIBusFacade.fetchBus(mc);
-		uiListener = createBusListener((AbstractBus) uiBus, BusType.UI);
+		try {
+			Object[] ubuses = mc.getContainer().fetchSharedObject(mc,
+					UIBusFacade.getUIBusFetchParams(), this);
+			if (ubuses.length > 0 && ubuses[0] instanceof IUIBus) {
+				sharedObjectAdded(ubuses[0], null);
+			}
+		} catch (Throwable e) {
+			LogUtils.logError(mc, getClass(), "addUIBusListener",
+					new String[] { "UI Bus not available." }, e);
+		}
 	}
 
-	private void removeBusMemberFromRegistry(String id, BusMember member, BusType type) {
+	private void removeBusMemberFromRegistry(String id, BusMember member,
+			BusType type) {
 		switch (type) {
 		case Service:
 			serviceBusMembers.remove(id);
@@ -251,7 +317,8 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 		}
 	}
 
-	private void addBusMemberToRegistry(String id, BusMember member, BusType type) {
+	private void addBusMemberToRegistry(String id, BusMember member,
+			BusType type) {
 		switch (type) {
 		case Service:
 			serviceBusMembers.put(id, member);
@@ -265,7 +332,8 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 		}
 	}
 
-	private void notifyAboutPreviouslyRegisteredMembers(IBusMemberRegistryListener listener,
+	private void notifyAboutPreviouslyRegisteredMembers(
+			IBusMemberRegistryListener listener,
 			Map<String, BusMember> members, BusType busType) {
 		for (BusMember member : members.values()) {
 			listener.busMemberAdded(member, busType);
@@ -277,12 +345,16 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 		}
 	}
 
-	public void addListener(IBusMemberRegistryListener listener, boolean notifyAboutPreviouslyRegisteredMembers) {
+	public void addListener(IBusMemberRegistryListener listener,
+			boolean notifyAboutPreviouslyRegisteredMembers) {
 		listeners.add(listener);
 		if (notifyAboutPreviouslyRegisteredMembers) {
-			notifyAboutPreviouslyRegisteredMembers(listener, serviceBusMembers, BusType.Service);
-			notifyAboutPreviouslyRegisteredMembers(listener, contextBusMembers, BusType.Context);
-			notifyAboutPreviouslyRegisteredMembers(listener, uiBusMembers, BusType.UI);
+			notifyAboutPreviouslyRegisteredMembers(listener, serviceBusMembers,
+					BusType.Service);
+			notifyAboutPreviouslyRegisteredMembers(listener, contextBusMembers,
+					BusType.Context);
+			notifyAboutPreviouslyRegisteredMembers(listener, uiBusMembers,
+					BusType.UI);
 		}
 	}
 
@@ -291,8 +363,58 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 	}
 
 	void logInfo(String format, Object... args) {
-		StackTraceElement callingMethod = Thread.currentThread().getStackTrace()[2];
-		LogUtils.logInfo(mc, BusMemberRegistryImpl.class, callingMethod.getMethodName(),
+		StackTraceElement callingMethod = Thread.currentThread()
+				.getStackTrace()[2];
+		LogUtils.logInfo(mc, BusMemberRegistryImpl.class,
+				callingMethod.getMethodName(),
 				new Object[] { String.format(format, args) }, null);
+	}
+
+	/** {@inheritDoc} */
+	public void sharedObjectAdded(Object sharedObj, Object removeHook) {
+		if (sharedObj instanceof ServiceBus) {
+			serviceListener = createBusListener((AbstractBus) sharedObj,
+					BusType.Service);
+		}
+		if (sharedObj instanceof ContextBus) {
+			contextListener = createBusListener((AbstractBus) sharedObj,
+					BusType.Context);
+		}
+		if (sharedObj instanceof IUIBus) {
+			uiListener = createBusListener((AbstractBus) sharedObj, BusType.UI);
+		}
+
+	}
+
+	/** {@inheritDoc} */
+	public void sharedObjectRemoved(Object sharedObj) {
+		// this should only be called when a bus is stoped.
+		try {
+			if (serviceListener != null && sharedObj instanceof ServiceBus) {
+				((AbstractBus) sharedObj)
+						.removeRegistryListener(serviceListener);
+				serviceListener.busCleared();
+				serviceListener = null;
+				return;
+			}
+			if (contextListener != null && sharedObj instanceof ContextBus) {
+				((AbstractBus) sharedObj)
+						.removeRegistryListener(contextListener);
+				contextListener.busCleared();
+				contextListener = null;
+				return;
+			}
+			if (uiListener != null && sharedObj instanceof IUIBus) {
+				((AbstractBus) sharedObj).removeRegistryListener(uiListener);
+				uiListener.busCleared();
+				uiListener = null;
+				return;
+			}
+		} catch (Throwable e) {
+			LogUtils.logError(mc, getClass(), "sharedObjectRemoved",
+					new String[] { "Error when receiving new shared object." },
+					e);
+		}
+
 	}
 }

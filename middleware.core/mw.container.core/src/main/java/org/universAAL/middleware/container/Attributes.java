@@ -22,108 +22,107 @@ package org.universAAL.middleware.container;
 
 /**
  * A set of attribute name that the {@link ModuleContext} has to provide through
- * the {@link ModuleContext#getAttribute(String)} method
+ * the {@link ModuleContext#getAttribute(String)} method.
  *
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
- * @version $LastChangedRevision$ ( $LastChangedDate$ )
  * @since 2.0.1
  *
  */
 public interface Attributes {
 
 	/**
-	 * This is the name of the attribute of the container that represent
-	 * the version of the middleware that is running on this container
+	 * This is the name of the attribute of the container that represent the
+	 * version of the middleware that is running on this container.
 	 *
 	 * @since 2.0.1
 	 */
 	public final String MIDDLEWARE_VERSION = "org.universAAL.platform.version";
 
 	/**
-	 * This is the name of the attribute of the container that represent
-	 * the name of the Container that is running universAAL (e.g.: Karaf, Android,
-	 * Felix, and so on)
+	 * This is the name of the attribute of the container that represent the
+	 * name of the Container that is running universAAL (e.g.: Karaf, Android,
+	 * Felix, and so on).
 	 *
 	 * @since 2.0.1
 	 */
 	public final String CONTAINER_NAME = "org.universAAL.container.name";
 
 	/**
-	 * This is the name of the attribute of the container that represent
-	 * the version of the Container that is running universAAL (e.g.: 2.3.0, 4.2.0,
-	 * and so on)
+	 * This is the name of the attribute of the container that represent the
+	 * version of the Container that is running universAAL (e.g.: 2.3.0, 4.2.0,
+	 * and so on).
 	 *
 	 * @since 2.0.1
 	 */
 	public final String CONTAINER_VERSION = "org.universAAL.container.version";
 
 	/**
-	 * This is the name of the attribute of the container that represent
-	 * the name of the Execution Environment where the Container that is running
-	 * on(e.g.: Felix, Eclipse, Android, Java, and so on)
+	 * This is the name of the attribute of the container that represent the
+	 * name of the Execution Environment where the Container that is running
+	 * on(e.g.: Felix, Eclipse, Android, Java, and so on).
 	 *
 	 * @since 2.0.1
 	 */
 	public final String CONTAINER_EE_NAME = "org.universAAL.container.ee.name";
 
 	/**
-	 * This is the name of the attribute of the container that represent
-	 * the version of the Execution Environment where the Container that is
-	 * running on(e.g.: 2.3.1, 4.2.0, and so on)
+	 * This is the name of the attribute of the container that represent the
+	 * version of the Execution Environment where the Container that is running
+	 * on(e.g.: 2.3.1, 4.2.0, and so on).
 	 *
 	 * @since 2.0.1
 	 */
 	public final String CONTAINER_EE_VERSION = "org.universAAL.container.ee.version";
 
 	/**
-	 * This is the name of the attribute of the container that represent
-	 * the architecture of the Execution Environment where the Container that is
-	 * running on(e.g.: x86, arm, and so on)
+	 * This is the name of the attribute of the container that represent the
+	 * architecture of the Execution Environment where the Container that is
+	 * running on(e.g.: x86, arm, and so on).
 	 *
 	 * @since 2.0.1
 	 */
 	public final String CONTAINER_EE_ARCHITECTURE = "org.universAAL.container.ee.architecture";
 
 	/**
-	 * This is the name of the attribute of the container that represent
-	 * the name of the OS where Container that is running on (i.e.: for Windows
-	 * Vista it returns WindowsVista)
+	 * This is the name of the attribute of the container that represent the
+	 * name of the OS where Container that is running on (i.e.: for Windows
+	 * Vista it returns WindowsVista).
 	 *
 	 * @since 2.0.1
 	 */
 	public final String CONTAINER_OS_NAME = "org.universAAL.container.os.name";
 
 	/**
-	 * This is the name of the attribute of the container that represent
-	 * the version of the OS where Container that is running on (i.e.: for
-	 * Windows Vista it returns 6.0.0)
+	 * This is the name of the attribute of the container that represent the
+	 * version of the OS where Container that is running on (i.e.: for Windows
+	 * Vista it returns 6.0.0).
 	 *
 	 * @since 2.0.1
 	 */
 	public final String CONTAINER_OS_VERSION = "org.universAAL.container.os.version";
 
 	/**
-	 * This is the name of the attribute of the container that represent
-	 * the architecture of the OS where Container that is running on (i.e.: for
-	 * Windows Vista 32bit it returns x86)
+	 * This is the name of the attribute of the container that represent the
+	 * architecture of the OS where Container that is running on (i.e.: for
+	 * Windows Vista 32bit it returns x86).
 	 *
 	 * @since 2.0.1
 	 */
 	public final String CONTAINER_OS_ARCHITECTURE = "org.universAAL.container.os.architecture";
 
 	/**
-	 * This is the name of the attribute of the  container that represent
-	 * the version of platform where the Container is running on (i.e.: for
-	 * JavaVM-7 it returns java)
+	 * This is the name of the attribute of the container that represent the
+	 * version of platform where the Container is running on (i.e.: for JavaVM-7
+	 * it returns java).
 	 *
 	 * @since 2.0.1
 	 */
 	public final String CONTAINER_PLATFORM_NAME = "org.universAAL.container.platform.name";
 
 	/**
-	 * This is the name of the attribute of the  container that represent
-	 * the version of platform where the Container is running on (i.e.: for
-	 * JavaVM-7 it returns 1.7.0)
+	 * This is the name of the attribute of the container that represent the
+	 * version of platform where the Container is running on (i.e.: for JavaVM-7
+	 * it returns 1.7.0).
 	 *
 	 * @since 2.0.1
 	 */
@@ -131,7 +130,7 @@ public interface Attributes {
 
 	/**
 	 * This is the prefix name that should be used by the attributes of the
-	 * container that provides more detail of the container
+	 * container that provides more detail of the container.
 	 *
 	 * @since 2.0.1
 	 */

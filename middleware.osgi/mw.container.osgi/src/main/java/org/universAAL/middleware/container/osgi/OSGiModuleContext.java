@@ -49,12 +49,10 @@ import org.universAAL.middleware.container.ModuleContext;
  *
  * @author mtazari
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
- * @version $LastChangedRevision$ ( $LastChangedDate$ )
- *
  */
 public class OSGiModuleContext implements ModuleContext {
 	private BundleContext bundle;
-	private Hashtable extension = new Hashtable();
+	private Hashtable<String, Object> extension = new Hashtable<String, Object>();
 	private Logger logger;
 
 	/**
@@ -303,7 +301,7 @@ public class OSGiModuleContext implements ModuleContext {
 		}
 	}
 
-	public void removesharedObject(String[] xface, Object obj, Dictionary props) {
+	public void removeSharedObject(String[] xface, Object obj, Dictionary props) {
 		for (String xf : xface) {
 			sharedObjects.get(xf).unregister();
 			sharedObjects.remove(xf);
@@ -420,7 +418,7 @@ public class OSGiModuleContext implements ModuleContext {
 	public File getDataFolder() {
 		// XXX maybe set another system property to point to the main data
 		// folder
-		return new File("./Data", getID());
+		return new File("./data", getID());
 	}
 
 	/** {@inheritDoc} */

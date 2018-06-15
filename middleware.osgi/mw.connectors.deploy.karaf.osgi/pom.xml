@@ -57,7 +57,6 @@
             <Bundle-Description>${project.description}</Bundle-Description>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Bundle-Activator>org.universAAL.middleware.connectors.deploy.karaf.osgi.Activator</Bundle-Activator>
-            <Bundle-Provider>ISTI-CNR</Bundle-Provider>
             <Export-Package>org.universAAL.middleware.connectors.deploy.karaf,
                      org.universAAL.middleware.connectors.deploy.karaf.osgi</Export-Package>
             <Import-Package>org.osgi.framework,javax.xml.bind,javax.xml.namespace,
@@ -70,7 +69,6 @@
                      org.universAAL.middleware.container.osgi,
                      org.universAAL.middleware.container.utils,
                      org.universAAL.middleware.interfaces.mpa,
-                     org.universAAL.middleware.interfaces.mpa.model,
                      org.universAAL.middleware.interfaces.utils,
                      javax.xml.bind.annotation,
                      org.apache.karaf.deployer.kar;version="${karaf.version}"</Import-Package>
