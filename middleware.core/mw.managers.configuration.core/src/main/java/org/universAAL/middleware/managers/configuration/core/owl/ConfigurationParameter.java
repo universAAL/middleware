@@ -28,12 +28,12 @@ import org.universAAL.middleware.rdf.Resource;
  * @author Generated initially by the OntologyUML2Java transformation of Studio; then completed manually by mtazari
  */
 public class ConfigurationParameter extends Entity {
-	public static final String MY_URI = ConfigurationOntology.NAMESPACE + "ConfigurationParameter";
+	public static final String MY_URI = AALConfigurationOntology.NAMESPACE + "ConfigurationParameter";
 	
-	public static final String PROP_VALUE_RESTRICTION = ConfigurationOntology.NAMESPACE + "valueRestriction";
+	public static final String PROP_VALUE_RESTRICTION = AALConfigurationOntology.NAMESPACE + "valueRestriction";
 	
-	public static final String PROP_DEFAULT_LITERAL_VALUE = ConfigurationOntology.NAMESPACE + "defaultLiteralValue";
-	public static final String PROP_DEFAULT_OBJECT_VALUE = ConfigurationOntology.NAMESPACE + "defaultObjectValue";
+	public static final String PROP_DEFAULT_LITERAL_VALUE = AALConfigurationOntology.NAMESPACE + "defaultLiteralValue";
+	public static final String PROP_DEFAULT_OBJECT_VALUE = AALConfigurationOntology.NAMESPACE + "defaultObjectValue";
 
 	public static final String PROP_LITERAL_VALUE = org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationParameter.PROP_CONFIG_LITERAL_VALUE;
 	public static final String PROP_OBJECT_VALUE = org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationParameter.PROP_CONFIG_OBJECT_VALUE;

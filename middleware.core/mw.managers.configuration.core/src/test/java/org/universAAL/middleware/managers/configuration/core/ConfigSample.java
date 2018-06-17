@@ -36,7 +36,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
  */
 public class ConfigSample {
 
-	public static DescribedEntity[] getConfigurationDescription() {
+	public static final DescribedEntity[] getConfigurationDescription() {
 		return new DescribedEntity[] { new ConfigurationParameter() {
 
 			public Scope getScope() {
