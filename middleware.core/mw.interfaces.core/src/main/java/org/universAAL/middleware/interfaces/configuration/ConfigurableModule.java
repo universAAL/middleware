@@ -31,6 +31,12 @@ import org.universAAL.middleware.interfaces.configuration.scope.Scope;
 public interface ConfigurableModule {
 
 	/**
+	 * The namespace to be used in the configuration framework of universAAL when constructing standard URIs of ontological classes and properties.
+	 * "Standard" URIs are those defined within the implementation of the universAAL middleware core.
+	 */
+	public static final String uAAL_CONFIG_FRAMEWORK_NAMESPACE = "http://ontology.universAAL.org/ConfigurationOntology#";
+	
+	/**
 	 * When a configuration is changed this method is called.
 	 *
 	 * @param param

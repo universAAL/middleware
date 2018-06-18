@@ -84,10 +84,10 @@ public class ConfigurationEditorPool {
 		map.put(uri, ref);
 	}
 
-	private void remove(GenericConfigurationEntity cEditor) {
-		String uri = cEditor.getURI();
-		map.remove(uri);
-	}
+//	private void remove(GenericConfigurationEntity cEditor) {
+//		String uri = cEditor.getURI();
+//		map.remove(uri);
+//	}
 
 	/**
 	 * This method is called to update any existing Editor for the

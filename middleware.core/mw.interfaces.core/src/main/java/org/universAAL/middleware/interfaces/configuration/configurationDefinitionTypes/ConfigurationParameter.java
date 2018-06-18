@@ -17,7 +17,7 @@
 
 package org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes;
 
-import org.universAAL.middleware.owl.ManagedIndividual;
+import org.universAAL.middleware.interfaces.configuration.ConfigurableModule;
 import org.universAAL.middleware.owl.MergedRestriction;
 
 /**
@@ -36,7 +36,7 @@ public interface ConfigurationParameter extends DescribedEntity {
 	 * called on {@link #getType()} of a conf param returns this property-URI, it means that the conf param
 	 * accepts only literal values. 
 	 */
-	public static final String PROP_CONFIG_LITERAL_VALUE = "http://ontology.universAAL.org/ConfigurationOntology#" + "hasLiteralValue";
+	public static final String PROP_CONFIG_LITERAL_VALUE = ConfigurableModule.uAAL_CONFIG_FRAMEWORK_NAMESPACE + "hasLiteralValue";
 	
 	/**
 	 * The property-URI to be used in the role of <code>"owl:onProperty"</code> when constructing the
@@ -45,7 +45,7 @@ public interface ConfigurationParameter extends DescribedEntity {
 	 * called on {@link #getType()} of a conf param returns this property-URI, it means that the conf param
 	 * accepts only instances of {@link ManagedIndividual}.
 	 */
-	public static final String PROP_CONFIG_OBJECT_VALUE = "http://ontology.universAAL.org/ConfigurationOntology#" + "hasObjectValue";
+	public static final String PROP_CONFIG_OBJECT_VALUE = ConfigurableModule.uAAL_CONFIG_FRAMEWORK_NAMESPACE + "hasObjectValue";
 
 	/**
 	 * The default value for a mandatory conf param whose value may not be set. Optional conf params do not need any default value.
