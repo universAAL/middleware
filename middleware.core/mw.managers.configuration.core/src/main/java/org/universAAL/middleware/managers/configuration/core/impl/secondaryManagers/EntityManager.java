@@ -78,6 +78,7 @@ public class EntityManager {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
+	@SuppressWarnings({ "unchecked", "resource" })
 	private List<Entity> load() throws FileNotFoundException {
 		String serialized = "";
 
@@ -220,12 +221,15 @@ public class EntityManager {
 			if (ent == null) {
 				continue;
 			}
+			
+			// make sure that "ent" as a "Resource" does not have the flag "Resource#isXMLLiteral" equal to true
 			ent.unliteral();
-			Entity existing = emap.get(ent.getURI());
 
 			if (!checkAdd(ent, emap)) {
-				rejected.add(existing);
+				// do not need to add this one because according to "checkAdd()" it is equivalent to an existing one
+				rejected.add(ent);
 			} else {
+				// this will override the existing one
 				emap.put(ent.getURI(), ent);
 			}
 		}

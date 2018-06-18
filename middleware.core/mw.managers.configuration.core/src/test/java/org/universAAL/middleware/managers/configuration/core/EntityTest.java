@@ -34,7 +34,6 @@ import org.universAAL.middleware.owl.DataRepOntology;
 import org.universAAL.middleware.owl.IntRestriction;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.OntologyManagement;
-import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
 import org.universAAL.middleware.serialization.turtle.TurtleSerializer;
 import org.universAAL.middleware.serialization.turtle.TurtleUtil;
@@ -79,7 +78,7 @@ public class EntityTest {
 			public Object getDefaultValue() {
 				return Integer.valueOf(1);
 			}
-		}, Locale.ENGLISH);
+		}, Locale.getDefault());
 		for (int i = 0; i < 10; i++) {
 			assertTrue(((org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter) e)
 					.setValue(Integer.valueOf(i)));

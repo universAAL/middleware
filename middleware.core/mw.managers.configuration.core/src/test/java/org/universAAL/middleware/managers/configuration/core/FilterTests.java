@@ -32,7 +32,6 @@ import org.universAAL.middleware.interfaces.configuration.configurationEditionTy
 import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.IdPattern;
 import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ModulePattern;
 import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.NotPattern;
-import org.universAAL.middleware.interfaces.configuration.scope.AALSpaceScope;
 import org.universAAL.middleware.interfaces.configuration.scope.Scope;
 import org.universAAL.middleware.managers.configuration.core.impl.factories.EntityFactory;
 import org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.EntityManager;
@@ -88,7 +87,7 @@ public class FilterTests {
 			public Object getDefaultValue() {
 				return Integer.valueOf(1);
 			}
-		}, Locale.ENGLISH);
+		}, Locale.getDefault());
 		assertTrue(new ApplicationPartPattern("myPart").getRestriction().hasMember(e));
 		assertFalse(new ApplicationPartPattern("yourPart").getRestriction().hasMember(e));
 		assertTrue(new ApplicationPartPattern().getRestriction().hasMember(e));
@@ -122,7 +121,7 @@ public class FilterTests {
 			public Object getDefaultValue() {
 				return Integer.valueOf(1);
 			}
-		}, Locale.ENGLISH);
+		}, Locale.getDefault());
 
 		List<Entity> in = new ArrayList<Entity>();
 		in.add(e);

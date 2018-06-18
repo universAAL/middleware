@@ -18,6 +18,7 @@
 package org.universAAL.middleware.managers.configuration.core;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationDefinedElsewhere;
@@ -51,14 +52,16 @@ public class ConfigSample {
 			}
 
 			public MergedRestriction getType() {
-				MergedRestriction mr = MergedRestriction.getAllValuesRestrictionWithCardinality(
-						ConfigurationParameter.PROP_CONFIG_LITERAL_VALUE, TypeMapper.getDatatypeURI(Integer.class), 1, 1);
-				mr.addType(new IntRestriction(0, true, 10, true));
+				MergedRestriction mr = MergedRestriction.getAllValuesRestriction(
+						ConfigurationParameter.PROP_CONFIG_LITERAL_VALUE, TypeMapper.getDatatypeURI(Integer.class));
 				return mr;
 			}
 
 			public Object getDefaultValue() {
-				return 1;
+				ArrayList<Integer> al = new ArrayList<Integer>();
+				al.add(Integer.valueOf(0));
+				al.add(Integer.valueOf(1));
+				return al;
 			}
 		}, new ConfigurationParameter() {
 
@@ -91,8 +94,10 @@ public class ConfigSample {
 			}
 
 			public MergedRestriction getType() {
-				return MergedRestriction.getAllValuesRestrictionWithCardinality(PROP_CONFIG_LITERAL_VALUE,
+				MergedRestriction mr =  MergedRestriction.getAllValuesRestrictionWithCardinality(PROP_CONFIG_LITERAL_VALUE,
 						TypeMapper.getDatatypeURI(Integer.class), 0, 1);
+				mr.addType(new IntRestriction(0, true, 10, true));
+				return mr;
 			}
 
 			public Object getDefaultValue() {

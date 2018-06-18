@@ -15,25 +15,26 @@
  ******************************************************************************/
 package org.universAAL.middleware.managers.configuration.core.owl;
 
+import org.universAAL.middleware.interfaces.configuration.ConfigurableModule;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
- * Ontological representation of ConfigurationParameter in the aalconfiguration
- * ontology. Methods included in this class are the mandatory ones for
- * representing an ontological concept in Java classes for the universAAL
- * platform. In addition getters and setters for properties are included.
+ * Ontological representation of ConfigurationParameter in the AAL configuration
+ * ontology. When creating instances of this class, it is recommended to make sure that the property
+ * {@link #PROP_VALUE_RESTRICTION} is set before the properties related to the (default) value,
+ * otherwise there is the risk of getting a {@link NullPointerException} when calling certain methods.
  * 
  * @author amedrano
  * @author Generated initially by the OntologyUML2Java transformation of Studio; then completed manually by mtazari
  */
 public class ConfigurationParameter extends Entity {
-	public static final String MY_URI = AALConfigurationOntology.NAMESPACE + "ConfigurationParameter";
+	public static final String MY_URI = ConfigurableModule.uAAL_CONFIG_FRAMEWORK_NAMESPACE + "ConfigurationParameter";
 	
-	public static final String PROP_VALUE_RESTRICTION = AALConfigurationOntology.NAMESPACE + "valueRestriction";
+	public static final String PROP_VALUE_RESTRICTION = ConfigurableModule.uAAL_CONFIG_FRAMEWORK_NAMESPACE + "valueRestriction";
 	
-	public static final String PROP_DEFAULT_LITERAL_VALUE = AALConfigurationOntology.NAMESPACE + "defaultLiteralValue";
-	public static final String PROP_DEFAULT_OBJECT_VALUE = AALConfigurationOntology.NAMESPACE + "defaultObjectValue";
+	public static final String PROP_DEFAULT_LITERAL_VALUE = ConfigurableModule.uAAL_CONFIG_FRAMEWORK_NAMESPACE + "defaultLiteralValue";
+	public static final String PROP_DEFAULT_OBJECT_VALUE = ConfigurableModule.uAAL_CONFIG_FRAMEWORK_NAMESPACE + "defaultObjectValue";
 
 	public static final String PROP_LITERAL_VALUE = org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationParameter.PROP_CONFIG_LITERAL_VALUE;
 	public static final String PROP_OBJECT_VALUE = org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationParameter.PROP_CONFIG_OBJECT_VALUE;
@@ -53,6 +54,9 @@ public class ConfigurationParameter extends Entity {
 	}
 
 	public int getPropSerializationType(String propURI) {
+		if (!isWellFormed())
+			return PROP_SERIALIZATION_OPTIONAL;
+		
 		if (PROP_VALUE_RESTRICTION.equals(propURI))
 			return PROP_SERIALIZATION_FULL;
 		
@@ -88,54 +92,83 @@ public class ConfigurationParameter extends Entity {
 		return hasLiteralValue()?  props.get(PROP_LITERAL_VALUE) : props.get(PROP_OBJECT_VALUE);
 	}
 
-	private boolean checkValue(Object newPropValue) {
+	private boolean checkValue(MergedRestriction mr, Object newPropValue) {
 		if (newPropValue == null)
 			return true;
 		
-		// check Restrictions
-		MergedRestriction mr = getValueRestriction();
-		if (mr != null) {
+		if (mr == null)
+			return false;
+		
+		String prop = mr.getOnProperty();
+		if (PROP_LITERAL_VALUE.equals(prop)  ||  PROP_OBJECT_VALUE.equals(prop)) {
 			Resource test = new Resource();
-			test.setProperty(isLiteral? PROP_LITERAL_VALUE : PROP_OBJECT_VALUE, newPropValue);
+			test.setProperty(prop, newPropValue);
 			return mr.hasMember(test);
 		} else
 			return false;
+			
 	}
 
-	public boolean setValue(Object newPropValue) {
-		if (newPropValue == null  ||  checkValue(newPropValue)) {
-			return hasLiteralValue()? changeProperty(PROP_LITERAL_VALUE, newPropValue)
-					: changeProperty(PROP_OBJECT_VALUE, newPropValue);
-		}
-		return false;
-	}
-
-	public Object getDefaultValue() {
-		return hasLiteralValue()? getProperty(PROP_DEFAULT_LITERAL_VALUE)
-				: getProperty(PROP_DEFAULT_OBJECT_VALUE);
-	}
-
-	public void setDefaultValue(Object newPropValue) {
-		if (newPropValue != null  &&  checkValue(newPropValue))
-			if (hasLiteralValue())
-				changeProperty(PROP_LITERAL_VALUE, newPropValue);
-			else
-				changeProperty(PROP_OBJECT_VALUE, newPropValue);
+	private boolean checkValue(Object newPropValue) {
+		return checkValue(getValueRestriction(), newPropValue);
 	}
 
 	@SuppressWarnings("unchecked")
-	public void setValueRestriction(MergedRestriction r) {
+	public boolean setValue(Object newPropValue) {
+		if (newPropValue == null) {
+			props.remove(PROP_LITERAL_VALUE);
+			props.remove(PROP_OBJECT_VALUE);
+		} else if (checkValue(newPropValue)) {
+			props.put(isLiteral? PROP_LITERAL_VALUE : PROP_OBJECT_VALUE, newPropValue);
+			props.remove(isLiteral? PROP_OBJECT_VALUE : PROP_LITERAL_VALUE);
+		} else
+			return false;
+		
+		return true;
+	}
+
+	public Object getDefaultValue() {
+		return hasLiteralValue()? props.get(PROP_DEFAULT_LITERAL_VALUE)
+				: props.get(PROP_DEFAULT_OBJECT_VALUE);
+	}
+
+	@SuppressWarnings("unchecked")
+	public boolean setDefaultValue(Object newPropValue) {
+		if (newPropValue == null) {
+			props.remove(PROP_DEFAULT_LITERAL_VALUE);
+			props.remove(PROP_DEFAULT_OBJECT_VALUE);
+		} else if (checkValue(newPropValue)) {
+			props.put(isLiteral? PROP_DEFAULT_LITERAL_VALUE : PROP_DEFAULT_OBJECT_VALUE, newPropValue);
+			props.remove(isLiteral? PROP_DEFAULT_OBJECT_VALUE : PROP_DEFAULT_LITERAL_VALUE);
+		} else
+			return false;
+		
+		return true;
+	}
+
+	@SuppressWarnings("unchecked")
+	public boolean setValueRestriction(MergedRestriction r) {
 		if (r == null  ||  props.containsKey(PROP_VALUE_RESTRICTION))
-			return;
+			return false;
 
 		String prop = r.getOnProperty();
-		if (PROP_LITERAL_VALUE.equals(prop))
+		if (PROP_LITERAL_VALUE.equals(prop)) {
+			if (props.get(PROP_DEFAULT_OBJECT_VALUE) != null  ||  props.get(PROP_OBJECT_VALUE) != null
+					||  !checkValue(r, props.get(PROP_DEFAULT_LITERAL_VALUE))
+					||  !checkValue(r, props.get(PROP_LITERAL_VALUE)))
+				return false;
 			isLiteral = Boolean.TRUE;
-		else if (PROP_OBJECT_VALUE.equals(prop))
+		} else if (PROP_OBJECT_VALUE.equals(prop)) {
+			if (props.get(PROP_DEFAULT_LITERAL_VALUE) != null  ||  props.get(PROP_LITERAL_VALUE) != null
+					||  !checkValue(r, props.get(PROP_DEFAULT_OBJECT_VALUE))
+					||  !checkValue(r, props.get(PROP_OBJECT_VALUE)))
+				return false;
 			isLiteral = Boolean.FALSE;
-		else return;
+		} else
+			return false;
 		
 		props.put(PROP_VALUE_RESTRICTION, r);
+		return true;
 	}
 
 	public MergedRestriction getValueRestriction() {
@@ -143,29 +176,28 @@ public class ConfigurationParameter extends Entity {
 		return (o instanceof MergedRestriction)?  (MergedRestriction) o : null;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public boolean setProperty(String propURI, Object value) {
-		if (PROP_VALUE_RESTRICTION.equals(propURI)) {
-			if (value instanceof MergedRestriction)
-				setValueRestriction((MergedRestriction) value);
-			return props.get(propURI) == value;
-		}
+		if (PROP_VALUE_RESTRICTION.equals(propURI))
+			return (value instanceof MergedRestriction)?
+					setValueRestriction((MergedRestriction) value)
+					: false;
+
+		if (isLiteral == null
+				||  (!PROP_LITERAL_VALUE.equals(propURI)  &&  !PROP_DEFAULT_LITERAL_VALUE.equals(propURI)
+						&&  !PROP_OBJECT_VALUE.equals(propURI)  &&  !PROP_DEFAULT_OBJECT_VALUE.equals(propURI)))
+			// when isLiteral is null, we cannot do a more controlled setting of the above props
+			// --> they are handled like other unknown props
+			return super.setProperty(propURI, value);
 		
-		if (isLiteral != null)
-			// when isLiteral is not null, we can do a more controlled setting of the other props
-			// otherwise, they have to be set through the implementation in the super class as can be seen further below
-			if (PROP_LITERAL_VALUE.equals(propURI)  ||  PROP_DEFAULT_LITERAL_VALUE.equals(propURI)
-					||  PROP_OBJECT_VALUE.equals(propURI)  ||  PROP_DEFAULT_OBJECT_VALUE.equals(propURI)) {
-				if (checkValue(value))
-					if (value == null)
-						props.remove(propURI);
-					else
-						props.put(propURI, value);
-				else
-					return false;
-				return true;
-			}
-		
-		return super.setProperty(propURI, value);
+		// in this case, isLiteral is not null AND propURI is one of the four props related to the (default) value of the conf param
+		// --> we can do a more controlled setting of these props
+		if ((isLiteral  &&  PROP_LITERAL_VALUE.equals(propURI))
+				||  (!isLiteral  &&  PROP_OBJECT_VALUE.equals(propURI)))
+			return setValue(value);
+		else if ((isLiteral  &&  PROP_DEFAULT_LITERAL_VALUE.equals(propURI))
+				||  (!isLiteral  &&  PROP_DEFAULT_OBJECT_VALUE.equals(propURI)))
+			return setDefaultValue(value);
+		else
+			return false;
 	}
 }

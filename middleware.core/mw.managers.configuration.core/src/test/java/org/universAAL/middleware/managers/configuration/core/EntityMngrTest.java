@@ -31,20 +31,14 @@ import java.util.Locale;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.universAAL.container.JUnit.JUnitModuleContext;
-import org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationParameter;
 import org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.DescribedEntity;
-import org.universAAL.middleware.interfaces.configuration.scope.AALSpaceScope;
-import org.universAAL.middleware.interfaces.configuration.scope.Scope;
 import org.universAAL.middleware.managers.configuration.core.impl.factories.EntityFactory;
 import org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.EntityManager;
 import org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.SharedObjectConnector;
 import org.universAAL.middleware.managers.configuration.core.owl.AALConfigurationOntology;
 import org.universAAL.middleware.managers.configuration.core.owl.Entity;
 import org.universAAL.middleware.owl.DataRepOntology;
-import org.universAAL.middleware.owl.IntRestriction;
-import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.OntologyManagement;
-import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
 import org.universAAL.middleware.serialization.turtle.TurtleSerializer;
 import org.universAAL.middleware.serialization.turtle.TurtleUtil;
@@ -81,26 +75,7 @@ public class EntityMngrTest {
 	@Test
 	public void addTest() {
 
-		Entity e = EntityFactory.getEntity(new ConfigurationParameter() {
-
-			public Scope getScope() {
-				return new AALSpaceScope("aalspace.config");
-			}
-
-			public String getDescription(Locale loc) {
-				return "some config";
-			}
-
-			public MergedRestriction getType() {
-				MergedRestriction mr = MergedRestriction.getAllValuesRestrictionWithCardinality(
-						ConfigurationParameter.PROP_CONFIG_LITERAL_VALUE, new IntRestriction(0, true, 10, true), 1, 1);
-				return mr;
-			}
-
-			public Object getDefaultValue() {
-				return Integer.valueOf(1);
-			}
-		}, Locale.ENGLISH);
+		Entity e = EntityFactory.getEntity(ConfigSample.getConfigurationDescription()[0], Locale.getDefault());
 
 		EntityManager em = init(new File("target/addTest.ttl"));
 		assertTrue(em.addEntity(e));
@@ -108,27 +83,7 @@ public class EntityMngrTest {
 
 	@Test
 	public void addTests2() {
-		Entity e = EntityFactory.getEntity(new ConfigurationParameter() {
-
-			public Scope getScope() {
-				return new AALSpaceScope("aalspace.config");
-			}
-
-			public String getDescription(Locale loc) {
-				return "some config";
-			}
-
-			public MergedRestriction getType() {
-				MergedRestriction mr = MergedRestriction.getAllValuesRestrictionWithCardinality(
-						ConfigurationParameter.PROP_CONFIG_LITERAL_VALUE, TypeMapper.getDatatypeURI(Integer.class), 1, 1);
-				mr.addType(new IntRestriction(0, true, 10, true));
-				return mr;
-			}
-
-			public Object getDefaultValue() {
-				return Integer.valueOf(1);
-			}
-		}, Locale.ENGLISH);
+		Entity e = EntityFactory.getEntity(ConfigSample.getConfigurationDescription()[0], Locale.getDefault());
 
 		EntityManager em = init(new File("target/addTest2.ttl"));
 		assertTrue(em.addEntity(e));
@@ -154,7 +109,7 @@ public class EntityMngrTest {
 	@Test
 	public void findTests2() {
 		EntityManager em = init(new File("target/findTest2.ttl"));
-		Entity e = EntityFactory.getEntity(ConfigSample.getConfigurationDescription()[1], Locale.ENGLISH);
+		Entity e = EntityFactory.getEntity(ConfigSample.getConfigurationDescription()[1], Locale.getDefault());
 		em.addEntity(e);
 		assertNull(em.find("urn:configscope:aalspace.config"));
 		assertNotNull(em.find(e.getURI()));
@@ -178,7 +133,7 @@ public class EntityMngrTest {
 		DescribedEntity[] des = ConfigSample.getConfigurationDescription();
 		List<Entity> les = new ArrayList<Entity>();
 		for (int i = 0; i < des.length; i++) {
-			les.add(EntityFactory.getEntity(des[i], Locale.ENGLISH));
+			les.add(EntityFactory.getEntity(des[i], Locale.getDefault()));
 		}
 		return les;
 	}

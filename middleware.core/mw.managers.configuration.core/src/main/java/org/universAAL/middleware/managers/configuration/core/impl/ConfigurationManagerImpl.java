@@ -72,8 +72,8 @@ import org.universAAL.middleware.xsd.Base64Binary;
 public class ConfigurationManagerImpl implements ConfigurationManager, ConfigurationManagerConnector,
 		ConfigurationEditor, DynamicDescribedEntityListener {
 
-	static final String PROP_PARAM = AALConfigurationOntology.NAMESPACE + "messageParameter";
-	static final String PROP_LOCALE = AALConfigurationOntology.NAMESPACE + "preferredLocale";
+	static final String PROP_PARAM = ConfigurableModule.uAAL_CONFIG_FRAMEWORK_NAMESPACE + "messageParameter";
+	static final String PROP_LOCALE = ConfigurableModule.uAAL_CONFIG_FRAMEWORK_NAMESPACE + "preferredLocale";
 
 	private ModuleContext context;
 
@@ -132,7 +132,7 @@ public class ConfigurationManagerImpl implements ConfigurationManager, Configura
 			if (de instanceof ConfigurationDefinedElsewhere) {
 				moduleRegistry.put(ScopeFactory.getScopeURN(de.getScope()), listener);
 			} else {
-				Entity e = EntityFactory.getEntity(de, Locale.ENGLISH);
+				Entity e = EntityFactory.getEntity(de, Locale.getDefault());
 				if (e != null) {
 					moduleRegistry.put(e.getURI(), listener);
 					entitiesSources.put(e.getURI(), de);
@@ -316,7 +316,7 @@ public class ConfigurationManagerImpl implements ConfigurationManager, Configura
 	/** {@ inheritDoc} */
 	public void updatedDescription(DescribedEntity dentity) {
 		Entity old = manager.find(ScopeFactory.getScopeURN(dentity.getScope()));
-		Entity ne = EntityFactory.updateEntity(old, dentity, Locale.ENGLISH);
+		Entity ne = EntityFactory.updateEntity(old, dentity, Locale.getDefault());
 		if (ne.isNewerThan(old)) {
 			manager.addEntity(ne);
 			List<Entity> l = new ArrayList<Entity>();
@@ -328,7 +328,7 @@ public class ConfigurationManagerImpl implements ConfigurationManager, Configura
 	/** {@ inheritDoc} */
 	public void updatedValue(DescribedEntity dentity, Object value) {
 		Entity old = manager.find(ScopeFactory.getScopeURN(dentity.getScope()));
-		Entity ne = EntityFactory.updateEntity(old, dentity, Locale.ENGLISH);
+		Entity ne = EntityFactory.updateEntity(old, dentity, Locale.getDefault());
 		if (old instanceof ConfigurationParameter) {
 			if (((ConfigurationParameter) ne).setValue(value)
 					&& !((ConfigurationParameter) old).getValue().equals(value)) {
@@ -488,6 +488,7 @@ public class ConfigurationManagerImpl implements ConfigurationManager, Configura
 	}
 
 	/** {@ inheritDoc} */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void processPropagation(ConfigurationMessage message) {
 		// ignore my own propagations
 		if (message.isSentFrom(shared.getAalSpaceManager().getMyPeerCard())) {
@@ -505,6 +506,7 @@ public class ConfigurationManagerImpl implements ConfigurationManager, Configura
 	}
 
 	/** {@ inheritDoc} */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void processRequest(ConfigurationMessage message) {
 		Object r = shared.getMessageContentSerializer().deserialize(message.getPayload());
 		if (r instanceof Resource && ((Resource) r).hasProperty(PROP_PARAM)) {
@@ -536,6 +538,7 @@ public class ConfigurationManagerImpl implements ConfigurationManager, Configura
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void processResponse(ConfigurationMessage message) {
 		Object r = shared.getMessageContentSerializer().deserialize(message.getPayload());
 		if (r instanceof Resource && ((Resource) r).hasProperty(PROP_PARAM)) {

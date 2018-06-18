@@ -15,6 +15,7 @@
  ******************************************************************************/
 package org.universAAL.middleware.managers.configuration.core.owl;
 
+import org.universAAL.middleware.interfaces.configuration.ConfigurableModule;
 import org.universAAL.middleware.owl.DataRepOntology;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
@@ -50,10 +51,9 @@ public final class AALConfigurationOntology extends Ontology {
 	}
 
 	private static Factory factory = new Factory();
-	public static final String NAMESPACE = "http://ontology.universAAL.org/AALConfigurationOntology#";
 
 	public AALConfigurationOntology() {
-		super(NAMESPACE);
+		super(ConfigurableModule.uAAL_CONFIG_FRAMEWORK_NAMESPACE);
 	}
 
 	public void create() {

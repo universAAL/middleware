@@ -81,7 +81,7 @@ public class EntFactoryTest {
 			public Object getDefaultValue() {
 				return Integer.valueOf(1);
 			}
-		}, Locale.ENGLISH);
+		}, Locale.getDefault());
 
 		System.out.println(e.toStringRecursive());
 	}
@@ -105,7 +105,7 @@ public class EntFactoryTest {
 			public Object getDefaultValue() {
 				return null;
 			}
-		}, Locale.ENGLISH);
+		}, Locale.getDefault());
 
 		System.out.println(e.toStringRecursive());
 	}
@@ -134,7 +134,7 @@ public class EntFactoryTest {
 					return null;
 				}
 			}
-		}, Locale.ENGLISH);
+		}, Locale.getDefault());
 
 		System.out.println(e.toStringRecursive());
 	}
