@@ -106,11 +106,4 @@ public class LocalConfigurationParameterEditor extends LocalConfigurationEntity
 		return null;
 	}
 
-	public boolean hasLiteralValue() {
-		Entity e = getEntity();
-		if (e instanceof ConfigurationParameter)
-			return ((ConfigurationParameter) e).hasLiteralValue();
-		return false;
-	}
-
 }

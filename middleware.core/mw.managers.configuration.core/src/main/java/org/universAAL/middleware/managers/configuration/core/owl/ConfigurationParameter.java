@@ -60,7 +60,7 @@ public class ConfigurationParameter extends Entity {
 		if (PROP_VALUE_RESTRICTION.equals(propURI))
 			return PROP_SERIALIZATION_FULL;
 		
-		if (hasLiteralValue()) {
+		if (isLiteral) {
 			if (PROP_DEFAULT_LITERAL_VALUE.equals(propURI)
 					||  PROP_LITERAL_VALUE.equals(propURI))
 				return PROP_SERIALIZATION_FULL;
@@ -83,13 +83,11 @@ public class ConfigurationParameter extends Entity {
 		return super.isWellFormed()
 				&&  isLiteral != null; // this is equivalent to props.containsKey(PROP_VALUE_RESTRICTION) --> check how isLiteral is set
 	}
-	
-	public boolean hasLiteralValue() {
-		return isLiteral.booleanValue();
-	}
 
 	public Object getValue() {
-		return hasLiteralValue()?  props.get(PROP_LITERAL_VALUE) : props.get(PROP_OBJECT_VALUE);
+		if (isLiteral == null)
+			return null;
+		return isLiteral?  props.get(PROP_LITERAL_VALUE) : props.get(PROP_OBJECT_VALUE);
 	}
 
 	private boolean checkValue(MergedRestriction mr, Object newPropValue) {
@@ -128,7 +126,9 @@ public class ConfigurationParameter extends Entity {
 	}
 
 	public Object getDefaultValue() {
-		return hasLiteralValue()? props.get(PROP_DEFAULT_LITERAL_VALUE)
+		if (isLiteral == null)
+			return null;
+		return isLiteral? props.get(PROP_DEFAULT_LITERAL_VALUE)
 				: props.get(PROP_DEFAULT_OBJECT_VALUE);
 	}
 
