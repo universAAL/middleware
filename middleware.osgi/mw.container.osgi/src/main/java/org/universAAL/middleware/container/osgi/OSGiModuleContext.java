@@ -58,25 +58,34 @@ public class OSGiModuleContext implements ModuleContext {
 	/**
 	 * The root directory of the runtime configuration.
 	 */
-	public static final String CONF_ROOT_DIR = "bundles.configuration.location";
+	public static final String CONF_ROOT_PROP = "bundles.configuration.location";
+	public static final String CONF_KARAF_PROP = "karaf.etc";
+	public static final String WORK_KARAF_PROP = "bundles.configuration.location";
+	public static final String WORK_ROOT_DEFAULT = "./data/";
 
-	private static File servicesConfHome = new File(System.getProperty(CONF_ROOT_DIR, System.getProperty("user.dir")),
-			"services");
+	private static File servicesConfHome = new File(
+			System.getProperty(
+					CONF_ROOT_PROP,
+					System.getProperty(CONF_KARAF_PROP,
+							System.getProperty("user.dir"))), "services");
 	private ArrayList confFiles = new ArrayList(2);
 	private Hashtable<String, ServiceRegistration> sharedObjects = new Hashtable<String, ServiceRegistration>();
 
 	OSGiModuleContext(BundleContext bc) {
 		bundle = bc;
-		logger = LoggerFactory.getLogger("org.universAAL." + bc.getBundle().getSymbolicName());
+		logger = LoggerFactory.getLogger("org.universAAL."
+				+ bc.getBundle().getSymbolicName());
 		loadUniversAALAttribute();
 	}
 
 	private void loadUniversAALAttribute() {
 		Properties props = new Properties();
 		try {
-			props.load(this.getClass().getResourceAsStream("attributes.properties"));
-			setAttribute(Attributes.MIDDLEWARE_VERSION, props.getProperty(Attributes.MIDDLEWARE_VERSION,
-					System.getProperty(Attributes.MIDDLEWARE_VERSION, "2.0.1-SNAPSHOT")));
+			props.load(this.getClass().getResourceAsStream(
+					"attributes.properties"));
+			setAttribute(Attributes.MIDDLEWARE_VERSION, props.getProperty(
+					Attributes.MIDDLEWARE_VERSION, System.getProperty(
+							Attributes.MIDDLEWARE_VERSION, "2.0.1-SNAPSHOT")));
 		} catch (IOException e) {
 			logger.error("Unable to load default attributes set");
 			setAttribute(Attributes.MIDDLEWARE_VERSION, "2.0.0");
@@ -88,9 +97,11 @@ public class OSGiModuleContext implements ModuleContext {
 			setAttribute(Attributes.CONTAINER_NAME, "osgi");
 		}
 		if (isKaraf) {
-			setAttribute(Attributes.CONTAINER_VERSION, System.getProperty("karaf.version"));
+			setAttribute(Attributes.CONTAINER_VERSION,
+					System.getProperty("karaf.version"));
 		} else {
-			setAttribute(Attributes.CONTAINER_VERSION, bundle.getProperty(Constants.FRAMEWORK_VERSION));
+			setAttribute(Attributes.CONTAINER_VERSION,
+					bundle.getProperty(Constants.FRAMEWORK_VERSION));
 		}
 
 		loadOSGiAttributes();
@@ -103,24 +114,34 @@ public class OSGiModuleContext implements ModuleContext {
 
 	private void loadPlatformAttributes() {
 		setAttribute(Attributes.CONTAINER_PLATFORM_NAME, "java");
-		setAttribute(Attributes.CONTAINER_PLATFORM_VERSION, System.getProperty("java.specification.version"));
+		setAttribute(Attributes.CONTAINER_PLATFORM_VERSION,
+				System.getProperty("java.specification.version"));
 	}
 
 	private void loadOSAttributes() {
-		setAttribute(Attributes.CONTAINER_OS_NAME, bundle.getProperty(Constants.FRAMEWORK_OS_NAME));
-		setAttribute(Attributes.CONTAINER_OS_VERSION, bundle.getProperty(Constants.FRAMEWORK_OS_VERSION));
-		setAttribute(Attributes.CONTAINER_OS_ARCHITECTURE, bundle.getProperty(Constants.FRAMEWORK_PROCESSOR));
+		setAttribute(Attributes.CONTAINER_OS_NAME,
+				bundle.getProperty(Constants.FRAMEWORK_OS_NAME));
+		setAttribute(Attributes.CONTAINER_OS_VERSION,
+				bundle.getProperty(Constants.FRAMEWORK_OS_VERSION));
+		setAttribute(Attributes.CONTAINER_OS_ARCHITECTURE,
+				bundle.getProperty(Constants.FRAMEWORK_PROCESSOR));
 	}
 
 	private void loadOSGiAttributes() {
-		setAttribute(Attributes.CONTAINER_EE_NAME, bundle.getProperty(Constants.FRAMEWORK_VENDOR));
-		setAttribute(OSGiAttributes.OSGI_NAME, bundle.getProperty(Constants.FRAMEWORK_VENDOR));
+		setAttribute(Attributes.CONTAINER_EE_NAME,
+				bundle.getProperty(Constants.FRAMEWORK_VENDOR));
+		setAttribute(OSGiAttributes.OSGI_NAME,
+				bundle.getProperty(Constants.FRAMEWORK_VENDOR));
 
-		setAttribute(Attributes.CONTAINER_EE_VERSION, bundle.getProperty(Constants.FRAMEWORK_VERSION));
-		setAttribute(OSGiAttributes.OSGI_VERSION, bundle.getProperty(Constants.FRAMEWORK_VERSION));
+		setAttribute(Attributes.CONTAINER_EE_VERSION,
+				bundle.getProperty(Constants.FRAMEWORK_VERSION));
+		setAttribute(OSGiAttributes.OSGI_VERSION,
+				bundle.getProperty(Constants.FRAMEWORK_VERSION));
 
-		setAttribute(Attributes.CONTAINER_EE_ARCHITECTURE, bundle.getProperty(Constants.FRAMEWORK_PROCESSOR));
-		setAttribute(OSGiAttributes.OSGI_ARCHITECTURE, bundle.getProperty(Constants.FRAMEWORK_PROCESSOR));
+		setAttribute(Attributes.CONTAINER_EE_ARCHITECTURE,
+				bundle.getProperty(Constants.FRAMEWORK_PROCESSOR));
+		setAttribute(OSGiAttributes.OSGI_ARCHITECTURE,
+				bundle.getProperty(Constants.FRAMEWORK_PROCESSOR));
 	}
 
 	/**
@@ -192,8 +213,8 @@ public class OSGiModuleContext implements ModuleContext {
 			Bundle b = bundle.installBundle(location);
 			return new OSGiModuleContext(b.getBundleContext());
 		} catch (Exception e) {
-			logError(this.getClass().getName() + "installBundle", "Exception while installing bundle at " + location,
-					e);
+			logError(this.getClass().getName() + "installBundle",
+					"Exception while installing bundle at " + location, e);
 			return null;
 		}
 	}
@@ -203,8 +224,8 @@ public class OSGiModuleContext implements ModuleContext {
 			Bundle b = bundle.installBundle(location, is);
 			return new OSGiModuleContext(b.getBundleContext());
 		} catch (Exception e) {
-			logError(this.getClass().getName() + "installBundle", "Exception while installing bundle at " + location,
-					e);
+			logError(this.getClass().getName() + "installBundle",
+					"Exception while installing bundle at " + location, e);
 			return null;
 		}
 	}
@@ -275,7 +296,8 @@ public class OSGiModuleContext implements ModuleContext {
 		// 3rd param @ index 2: a hash-table with allowed properties as keys and
 		// a help string about each property as value
 		if (configFileParams != null && configFileParams.length > 0) {
-			configFileParams[0] = new File(servicesConfHome, configFileParams[0].toString() + ".properties");
+			configFileParams[0] = new File(servicesConfHome,
+					configFileParams[0].toString() + ".properties");
 			confFiles.add(configFileParams);
 		}
 	}
@@ -362,7 +384,8 @@ public class OSGiModuleContext implements ModuleContext {
 		Bundle[] bundles = bundle.getBundles();
 		String[] values = new String[bundles.length];
 		for (int i = 0; i < bundles.length; i++) {
-			values[i] = bundles[i].getSymbolicName() + "-" + bundles[i].getHeaders(Constants.BUNDLE_VERSION);
+			values[i] = bundles[i].getSymbolicName() + "-"
+					+ bundles[i].getHeaders(Constants.BUNDLE_VERSION);
 		}
 		return values;
 	}
@@ -412,13 +435,17 @@ public class OSGiModuleContext implements ModuleContext {
 	}
 
 	public File getConfigHome() {
-		return new File(System.getProperty(CONF_ROOT_DIR, System.getProperty("user.dir")), getID());
+		return new File(System.getProperty(
+				CONF_ROOT_PROP,
+				System.getProperty(CONF_KARAF_PROP,
+						System.getProperty("user.dir"))), getID());
 	}
 
 	public File getDataFolder() {
 		// XXX maybe set another system property to point to the main data
 		// folder
-		return new File("./data", getID());
+		return new File(System.getProperty(WORK_KARAF_PROP, WORK_ROOT_DEFAULT),
+				getID());
 	}
 
 	/** {@inheritDoc} */
