@@ -80,8 +80,8 @@ public class ConfigurationParameter extends Entity {
 	}
 
 	public boolean isWellFormed() {
-		return super.isWellFormed()
-				&&  isLiteral != null; // this is equivalent to props.containsKey(PROP_VALUE_RESTRICTION) --> check how isLiteral is set
+		return isLiteral != null // this is equivalent to props.containsKey(PROP_VALUE_RESTRICTION) --> check how isLiteral is set
+				&&  super.isWellFormed();
 	}
 
 	public Object getValue() {

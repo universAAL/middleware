@@ -61,7 +61,7 @@ public class Entity extends ManagedIndividual {
 	}
 
 	public boolean isWellFormed() {
-		return super.isWellFormed() && hasProperty(PROP_VERSION);
+		return hasProperty(PROP_VERSION)  &&  super.isWellFormed();
 	}
 
 	public long getVersion() {
