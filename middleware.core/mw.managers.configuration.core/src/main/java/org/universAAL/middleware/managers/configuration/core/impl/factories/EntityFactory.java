@@ -112,6 +112,8 @@ public class EntityFactory {
 		Entity newEntity = getEntity(dentity, loc);
 		if (oldEntity != null  &&  newEntity != null)
 			if (oldEntity.getClass() == newEntity.getClass()) {
+				newEntity.setVersion(oldEntity.getVersion());
+				
 				String newDescription = dentity.getDescription(loc);
 				if (newDescription != null && !newDescription.isEmpty() && !newDescription.equals(oldEntity.getDescription(loc)))
 					newEntity.incrementVersion();
@@ -140,10 +142,9 @@ public class EntityFactory {
 					if (!newCF.getExtensionFilter().equals(oldCF.getExtensionFilter()))
 						newEntity.incrementVersion();
 				}
-			} else 
-				for (int i=newEntity.numberOfProperties();  i>0;  i--)
-					newEntity.incrementVersion();
-				
+			} else
+				newEntity.setVersion(oldEntity.getVersion()+3);
+
 		return newEntity;
 	}
 
