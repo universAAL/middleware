@@ -61,7 +61,7 @@ public class URICompactor {
 				}
 				String[] lexem = this.fullPrefix.split("[^\\pL\\p{Pc}]+");
 				for (int i = lexem.length - 1; i >= 0; i--) {
-					for (int j = Math.min(2, lexem[i].length()); j < lexem.length; j++) {
+					for (int j = Math.min(3, lexem[i].length()); j < lexem.length; j++) {
 						String candidate = lexem[i].substring(0, j)
 								.toLowerCase();
 						if (!existingPrefixes.contains(candidate)
