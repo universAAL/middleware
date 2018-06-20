@@ -61,7 +61,7 @@ public class Entity extends ManagedIndividual {
 	}
 
 	public boolean isWellFormed() {
-		return super.isWellFormed() && hasProperty(PROP_VERSION);
+		return hasProperty(PROP_VERSION)  &&  super.isWellFormed();
 	}
 
 	public long getVersion() {
@@ -86,8 +86,9 @@ public class Entity extends ManagedIndividual {
 		setVersion(getVersion() + 1);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void setVersion(long newPropValue) {
-		changeProperty(PROP_VERSION, new Long(newPropValue));
+		props.put(PROP_VERSION, new Long(newPropValue));
 	}
 
 	/**
@@ -140,5 +141,16 @@ public class Entity extends ManagedIndividual {
 			}
 		}
 		return false;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public boolean setProperty(String propURI, Object value) {
+		if (PROP_VERSION.equals(propURI))
+			if (value instanceof Long) {
+				props.put(propURI, value);
+				return true;
+			} else
+				return false;
+		return super.setProperty(propURI, value);
 	}
 }
