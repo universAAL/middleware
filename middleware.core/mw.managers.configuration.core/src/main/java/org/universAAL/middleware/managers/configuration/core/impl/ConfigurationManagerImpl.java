@@ -127,7 +127,7 @@ public class ConfigurationManagerImpl implements ConfigurationManager, Configura
 
 	/** {@ inheritDoc} */
 	public void register(List<DescribedEntity> confPattern, ConfigurableModule listener) {
-		List<Entity> registered = new ArrayList<Entity>();
+		List<Entity> newlyRegistered = new ArrayList<Entity>();
 		for (DescribedEntity de : confPattern) {
 			if (de instanceof ConfigurationDefinedElsewhere) {
 				moduleRegistry.put(ScopeFactory.getScopeURN(de.getScope()), listener);
@@ -136,25 +136,33 @@ public class ConfigurationManagerImpl implements ConfigurationManager, Configura
 				if (e != null) {
 					moduleRegistry.put(e.getURI(), listener);
 					entitiesSources.put(e.getURI(), de);
-					registered.add(e);
+					newlyRegistered.add(e);
 				}
 			}
 			if (de instanceof DynamicDescribedEntity) {
 				((DynamicDescribedEntity) de).registerListener(this);
 			}
 		}
-		List<Entity> alreadyStored = manager.mergeAdd(registered);
-		for (Entity e : alreadyStored) {
-			// update the modules with the stored entities
+		
+		// store the newly registered entities persistently
+		List<Entity> alreadyStored = manager.mergeAdd(newlyRegistered);
+		// keep in "newlyRegistered" only the really new entities not already stored
+		newlyRegistered.removeAll(alreadyStored);
+		
+		// notify all listeners (including the new listener received as parameter of this method)
+		// about the newly registered entities in two steps:
+		// 1. for the ones that were already stored: with their stored values
+		for (Entity e : alreadyStored)
+			// ?? question: aren't all listeners registered in previous calls of this method already aware about the stored values ??
+			// !! if yes, then we should only notify the new listener
 			updateLocalValue(e);
-		}
-		List<Entity> news = new ArrayList<Entity>(registered);
-		news.removeAll(alreadyStored);
-		for (Entity e : news) {
-			// update the modules with the default entities
+		// 2. for the really new ones: with their default values
+		for (Entity e : newlyRegistered)
+			// as e is really new, de facto only the new listener will be notified
 			updateLocalValue(e);
-		}
-		propagate(news);
+		
+		// propagate the registration of the really new entities to the other instances of universAAL in the same uSpace
+		propagate(newlyRegistered);
 	}
 
 	/** {@ inheritDoc} */
