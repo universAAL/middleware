@@ -15,8 +15,12 @@
  ******************************************************************************/
 package org.universAAL.middleware.serialization.json;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+
+import org.universAAL.middleware.serialization.json.URICompactor.URIPrefix;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 /**
  * @author amedrano
@@ -57,49 +61,45 @@ public class Context {
 		}
 	}
 
-	public static abstract class ContextTermValue {
-		protected String key;
-
-		public ContextTermValue(String key) {
-			if (Keyword.isKeyword(key)) {
-				throw new IllegalArgumentException(
-						"context keys cannot be JSON LD Keywords.");
-			}
-			this.key = key;
-		}
-	};
-
-	public static class SimpleTerm extends ContextTermValue {
-		private String value;
-
-		public SimpleTerm(String key, String value) {
-			super(key);
-			this.value = value;
-		}
-	}
-
-	public static class ExtendedTerm extends ContextTermValue {
-		private Map<Keyword, String> extendended = new HashMap<Keyword, String>();
-
-		public ExtendedTerm(String key) {
-			super(key);
-		}
-
-		// Constructor from JSON
-
-		public void add(Keyword key, String value) {
-			this.extendended.put(key, value);
-		}
-	}
+	private JsonObject representation;
 
 	/**
 	 * 
 	 */
 	public Context() {
-		// TODO Auto-generated constructor stub
+		representation = new JsonObject();
 	}
 
-	public void addTerm(ContextTermValue value) {
+	public Context(URICompactor prefixes) {
+		this();
+		List<URIPrefix> pxs = prefixes.getPrefixes();
+		for (URIPrefix uriPrefix : pxs) {
+			addTerm(uriPrefix.getCompactedPrefix(), uriPrefix.fullPrefix);
+		}
+	}
 
+	public String expand(String compactedURI) {
+		// XXX check if there can be more than one colon in a compacted URI
+		int delim = compactedURI.lastIndexOf(':');
+		if (delim < 0) {
+			// no pregix, compactedURI is already expanded
+			return compactedURI;
+		} else {
+			String prefix = compactedURI.substring(0, delim);
+			JsonElement term = representation.get(prefix);
+			if (term.isJsonObject()) {
+				return ((JsonObject) term).get(Keyword.ID.toString())
+						.getAsString() + compactedURI.substring(delim + 1);
+			} else if (term.isJsonPrimitive()) {
+				return term.getAsString() + compactedURI.substring(delim + 1);
+			}
+			// TODO log warn the possible error, the term is not a JSONObjer nor
+			// a string
+		}
+		return compactedURI;
+	}
+
+	public void addTerm(String term, String value) {
+		representation.addProperty(term, value);
 	}
 }
