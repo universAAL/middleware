@@ -28,39 +28,6 @@ import com.google.gson.JsonObject;
  */
 public class Context {
 
-	public enum Keyword {
-		ID("@id"), VALUE("@value"), LANG("@language"), TYPE("@type"), CONTAINER(
-				"@container"), LIST("@list"), SET("@set"), REVERSE("@reverse"), INDEX(
-				"@index"), BASE("@base"), VOCAB("@vocab"), GRAPH("@graph"), ;
-		private final String text;
-
-		/**
-		 * @param text
-		 */
-		Keyword(final String text) {
-			this.text = text;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Enum#toString()
-		 */
-		@Override
-		public String toString() {
-			return text;
-		}
-
-		static public boolean isKeyword(String challenge) {
-			try {
-				Keyword.valueOf(challenge);
-				return true;
-			} catch (IllegalArgumentException e) {
-				return false;
-			}
-		}
-	}
-
 	private JsonObject representation;
 
 	/**
@@ -82,24 +49,28 @@ public class Context {
 		// XXX check if there can be more than one colon in a compacted URI
 		int delim = compactedURI.lastIndexOf(':');
 		if (delim < 0) {
-			// no pregix, compactedURI is already expanded
+			// no prefix, compactedURI is already expanded
 			return compactedURI;
 		} else {
 			String prefix = compactedURI.substring(0, delim);
 			JsonElement term = representation.get(prefix);
 			if (term.isJsonObject()) {
-				return ((JsonObject) term).get(Keyword.ID.toString())
+				return ((JsonObject) term).get(JsonLdKeyword.ID.toString())
 						.getAsString() + compactedURI.substring(delim + 1);
 			} else if (term.isJsonPrimitive()) {
 				return term.getAsString() + compactedURI.substring(delim + 1);
 			}
-			// TODO log warn the possible error, the term is not a JSONObjer nor
-			// a string
+			// TODO log warn the possible error, the term is not a JSONObject
+			// nor a string
 		}
 		return compactedURI;
 	}
 
 	public void addTerm(String term, String value) {
 		representation.addProperty(term, value);
+	}
+
+	public JsonObject getContext() {
+		return representation;
 	}
 }

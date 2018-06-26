@@ -13,16 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.universAAL.middleware.serialization.json;
+package org.universAAL.middleware.serialization.json.analyzers;
 
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.serialization.json.URICompactor;
 
 /**
  * @author amedrano
  * 
  */
-public class PrefixAnalyzer extends TripleAnalyzer {
+public class PrefixAnalyzer implements TripleAnalyzer {
 
 	private SerializationTypeAnalysis sta;
 	private URICompactor cmpr;
@@ -36,8 +37,7 @@ public class PrefixAnalyzer extends TripleAnalyzer {
 	}
 
 	/** {@inheritDoc} */
-	@Override
-	protected void analyseTriple(Resource r, String p, Object obj) {
+	public void analyseTriple(Resource r, String p, Object obj) {
 		if (sta.isSerialized(r, p, obj)) {
 			if (obj instanceof Resource) {
 				Resource o = (Resource) obj;
@@ -55,20 +55,14 @@ public class PrefixAnalyzer extends TripleAnalyzer {
 
 	}
 
-	/**
-	 * First Serialziation pass to generate context
-	 * 
-	 * @param root
-	 */
-	public void analyse(Resource root) {
+	/** {@inheritDoc} */
+	public void analyseRoot(Resource root) {
 		// process Root's information
 		cmpr.addURI(root.getURI());
 		String[] ts = root.getTypes();
 		for (int i = 0; i < ts.length; i++) {
 			cmpr.addURI(ts[i]);
 		}
-
-		super.analyze(root);
 
 	}
 }

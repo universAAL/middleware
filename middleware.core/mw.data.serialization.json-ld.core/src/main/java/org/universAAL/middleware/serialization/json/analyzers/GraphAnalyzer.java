@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.universAAL.middleware.serialization.json;
+package org.universAAL.middleware.serialization.json.analyzers;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.util.GraphIterator;
@@ -25,16 +27,25 @@ import org.universAAL.middleware.util.GraphIteratorElement;
  * @author amedrano
  * 
  */
-public abstract class TripleAnalyzer {
+public class GraphAnalyzer {
 
-	abstract protected void analyseTriple(Resource r, String predicate,
-			Object object);
+	private List<TripleAnalyzer> analyzers = new ArrayList<TripleAnalyzer>();
+
+	public boolean addAnalyzer(TripleAnalyzer analyzer) {
+		return analyzers.add(analyzer);
+	}
 
 	public void analyze(Resource root) {
+		for (TripleAnalyzer a : analyzers) {
+			a.analyseRoot(root);
+		}
 		Iterator<GraphIteratorElement> it = GraphIterator.getIterator(root);
 		while (it.hasNext()) {
 			GraphIteratorElement e = it.next();
-			analyseTriple(e.getSubject(), e.getPredicate(), e.getObject());
+			for (TripleAnalyzer a : analyzers) {
+				a.analyseTriple(e.getSubject(), e.getPredicate(), e.getObject());
+			}
+
 		}
 	}
 
