@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.serialization.json.analyzers.BlankNodeAnalyzer;
 import org.universAAL.middleware.serialization.json.analyzers.GraphAnalyzer;
 import org.universAAL.middleware.serialization.json.analyzers.PrefixAnalyzer;
 import org.universAAL.middleware.serialization.json.analyzers.SerializationTypeAnalysis;
@@ -38,11 +39,14 @@ public class JSONLDWriter {
 	private Context context;
 	private SerializationTypeAnalysis serTypeAn;
 	private URICompactor compactor;
+	private BlankNodeAnalyzer bnAn;
 
 	String serialize(Resource o) {
 		GraphAnalyzer firstPass = new GraphAnalyzer();
 		serTypeAn = new SerializationTypeAnalysis();
+		bnAn = new BlankNodeAnalyzer();
 		firstPass.addAnalyzer(serTypeAn);
+		firstPass.addAnalyzer(bnAn);
 		firstPass.analyze(o);
 
 		GraphAnalyzer secondPass = new GraphAnalyzer();
@@ -73,9 +77,10 @@ public class JSONLDWriter {
 			jo = new JsonObject();
 		}
 		// add URI
-		// TODO: check if it is anonymous!
+		// check if it is anonymous
+		String id = r.isAnon()? bnAn.getSerializedURI(r): compactor.compact(r.getURI()).getCompacted();
 		jo.addProperty(JsonLdKeyword.ID.toString(),
-				compactor.compact(r.getURI()).getCompacted());
+				id);
 
 		// add type(s)
 		String[] types = r.getTypes();
@@ -95,6 +100,9 @@ public class JSONLDWriter {
 		Enumeration props = r.getPropertyURIs();
 		while (props.hasMoreElements()) {
 			String p = (String) props.nextElement();
+			if (!serTypeAn.isSerialized(r, p)){
+				continue;
+			}
 			String cp = compactor.compact(p).getCompacted();
 			Object O = r.getProperty(p);
 			JsonElement je = getElement(O, r.isClosedCollection(p));
@@ -117,9 +125,10 @@ public class JSONLDWriter {
 			return getObject((Resource) o, null);
 		} else if (o instanceof Resource) {
 			JsonObject ejo = new JsonObject();
-			// TODO: check anonymous
-			ejo.addProperty(JsonLdKeyword.ID.toString(),
-					compactor.compact(((Resource) o).getURI()).getCompacted());
+			// check anonymous
+			Resource r = (Resource)o;
+			String id = r.isAnon()? bnAn.getSerializedURI(r): compactor.compact(r.getURI()).getCompacted();
+			ejo.addProperty(JsonLdKeyword.ID.toString(),id);
 			return ejo;
 		}
 		if (o instanceof List) {

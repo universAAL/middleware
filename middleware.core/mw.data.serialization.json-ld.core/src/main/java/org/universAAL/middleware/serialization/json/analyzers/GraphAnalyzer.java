@@ -36,6 +36,7 @@ public class GraphAnalyzer {
 	}
 
 	public void analyze(Resource root) {
+		// TODO: don't process Resources marked as literals
 		for (TripleAnalyzer a : analyzers) {
 			a.analyseRoot(root);
 		}
