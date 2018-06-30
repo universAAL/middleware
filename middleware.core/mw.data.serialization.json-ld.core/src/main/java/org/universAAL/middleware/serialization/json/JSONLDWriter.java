@@ -45,11 +45,11 @@ public class JSONLDWriter {
 	private Set<Resource> serializedResources = new HashSet<Resource>();
 	private boolean forceFlat = false;
 
-	void setForceFlat(boolean v) {
+	public void setForceFlat(boolean v) {
 		forceFlat = v;
 	}
 
-	String serialize(Resource o) {
+	public String serialize(Resource o) {
 		GraphAnalyzer firstPass = new GraphAnalyzer();
 		serTypeAn = new SerializationTypeAnalysis();
 		bnAn = new BlankNodeAnalyzer();
@@ -81,7 +81,7 @@ public class JSONLDWriter {
 		return root.getAsString();
 	}
 
-	JsonObject getObject(Resource r, JsonElement usethis) {
+	private JsonObject getObject(Resource r, JsonElement usethis) {
 		// TODO: process Resources marked as literals
 
 		JsonObject jo;
