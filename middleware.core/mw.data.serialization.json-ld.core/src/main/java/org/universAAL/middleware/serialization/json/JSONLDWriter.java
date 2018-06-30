@@ -16,7 +16,9 @@
 package org.universAAL.middleware.serialization.json;
 
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
@@ -40,6 +42,12 @@ public class JSONLDWriter {
 	private SerializationTypeAnalysis serTypeAn;
 	private URICompactor compactor;
 	private BlankNodeAnalyzer bnAn;
+	private Set<Resource> serializedResources = new HashSet<Resource>();
+	private boolean forceFlat = false;
+
+	void setForceFlat(boolean v) {
+		forceFlat = v;
+	}
 
 	String serialize(Resource o) {
 		GraphAnalyzer firstPass = new GraphAnalyzer();
@@ -61,26 +69,37 @@ public class JSONLDWriter {
 		// Check if needs to be flat or not
 		if (serTypeAn.isTree()) {
 			// can be written in full tree, with the root as object
+			getObject(o, root);
 		} else {
 			// must be flattened as a graph
+			// XXX: force flat?
+			JsonArray graph = new JsonArray();
+			getObject(o, graph);
+			root.add(JsonLdKeyword.GRAPH.toString(), graph);
+
 		}
 		return root.getAsString();
 	}
 
-	JsonObject getObject(Resource r, JsonObject usethis) {
+	JsonObject getObject(Resource r, JsonElement usethis) {
 		// TODO: process Resources marked as literals
 
 		JsonObject jo;
-		if (usethis != null) {
-			jo = usethis;
+		if (usethis != null && usethis instanceof JsonObject) {
+			jo = (JsonObject) usethis;
 		} else {
 			jo = new JsonObject();
 		}
+		if (usethis instanceof JsonArray) {
+			((JsonArray) usethis).add(jo);
+		}
+		// mark as serialized
+		serializedResources.add(r);
 		// add URI
 		// check if it is anonymous
-		String id = r.isAnon()? bnAn.getSerializedURI(r): compactor.compact(r.getURI()).getCompacted();
-		jo.addProperty(JsonLdKeyword.ID.toString(),
-				id);
+		String id = r.isAnon() ? bnAn.getSerializedURI(r) : compactor.compact(
+				r.getURI()).getCompacted();
+		jo.addProperty(JsonLdKeyword.ID.toString(), id);
 
 		// add type(s)
 		String[] types = r.getTypes();
@@ -100,7 +119,7 @@ public class JSONLDWriter {
 		Enumeration props = r.getPropertyURIs();
 		while (props.hasMoreElements()) {
 			String p = (String) props.nextElement();
-			if (!serTypeAn.isSerialized(r, p)){
+			if (!serTypeAn.isSerialized(r, p)) {
 				continue;
 			}
 			String cp = compactor.compact(p).getCompacted();
@@ -110,9 +129,18 @@ public class JSONLDWriter {
 				jo.add(cp, je);
 			}
 			// XXX: else warn!
-			if (O instanceof Resource && !isEmbedded(r)) {
+			if (O instanceof Resource && !isEmbedded(r)
+					&& !serializedResources.contains(r)) {
 				// it has been serialized as not embedded, need to serialize in
-				// flatmode.
+				// flat mode.
+				if (usethis instanceof JsonArray) {
+					// it will automatically add itself to the array.
+					getObject((Resource) O, usethis);
+				} else {
+					// Should not reach here: there is a non-embeddable object
+					// in a tree?
+					// TODO Log
+				}
 			}
 		}
 
@@ -126,9 +154,10 @@ public class JSONLDWriter {
 		} else if (o instanceof Resource) {
 			JsonObject ejo = new JsonObject();
 			// check anonymous
-			Resource r = (Resource)o;
-			String id = r.isAnon()? bnAn.getSerializedURI(r): compactor.compact(r.getURI()).getCompacted();
-			ejo.addProperty(JsonLdKeyword.ID.toString(),id);
+			Resource r = (Resource) o;
+			String id = r.isAnon() ? bnAn.getSerializedURI(r) : compactor
+					.compact(r.getURI()).getCompacted();
+			ejo.addProperty(JsonLdKeyword.ID.toString(), id);
 			return ejo;
 		}
 		if (o instanceof List) {
@@ -150,23 +179,26 @@ public class JSONLDWriter {
 			// is data type
 			String[] lit = TypeMapper.getXMLInstance(o);
 			return new JsonPrimitive(lit[0]);
-			// TODO add xsd type to context?
+			// TODO add xsd type to context? or as @value + @type object?
 		}
 		return null;
 	}
 
 	/**
 	 * Check if a {@link Resource} should be embedded. Conditions: <li>it is not
-	 * a resource with only URI <li>it is a resource with just 1 reference.
+	 * a resource with only URI <li>it is a resource with just 1 reference. <li>
+	 * it is not an already serialized resource <li>forced flat mode is disabled
 	 * 
 	 * @param o
 	 * @return
 	 */
 	private boolean isEmbedded(Resource r) {
 		serTypeAn.countRefs(r, SerializationTypeAnalysis.REF_TYPE_ALL);
-		return !r.representsQualifiedURI()
-				|| serTypeAn.countRefs(r,
-						SerializationTypeAnalysis.REF_TYPE_ALL) == 1;
+		return !forceFlat
+				&& (!r.representsQualifiedURI()
+						|| serTypeAn.countRefs(r,
+								SerializationTypeAnalysis.REF_TYPE_ALL) == 1 || !serializedResources
+							.contains(r));
 	}
 
 }

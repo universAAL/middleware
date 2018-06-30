@@ -47,7 +47,8 @@ public class SerializationTypeAnalysis implements TripleAnalyzer {
 	}
 
 	public void analyseTriple(Resource r, String p, Object obj) {
-
+		// TODO: possible bug: using the same Primitive object in resources,
+		// they should not be considered as the same node
 		int serializationType = r.getPropSerializationType(p);
 		if (!serTypes.containsKey(obj)) {
 			serTypes.put(obj, new SerialziationTypeRefs());
@@ -112,7 +113,7 @@ public class SerializationTypeAnalysis implements TripleAnalyzer {
 
 	/**
 	 * Check if the graph is a tree. For a tree graph, all Resource nodes need
-	 * to have 1 or less references.
+	 * to have 1 reference.
 	 * 
 	 * @return
 	 */
