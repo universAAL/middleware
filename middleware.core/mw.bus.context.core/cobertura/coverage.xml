@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0931174089068826" branch-rate="0.08893709327548807" lines-covered="69" lines-valid="741" branches-covered="41" branches-valid="461" complexity="2.568421052631579" version="2.1.1" timestamp="1529012150848">
+<coverage line-rate="0.09286675639300135" branch-rate="0.08893709327548807" lines-covered="69" lines-valid="743" branches-covered="41" branches-valid="461" complexity="2.56020942408377" version="2.1.1" timestamp="1533725255921">
 	<sources>
 		<source>--source</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.core/mw.bus.context.core/src/main/java</source>
 	</sources>
 	<packages>
-		<package name="org.universAAL.middleware.context" line-rate="0.2536764705882353" branch-rate="0.17083333333333334" complexity="3.4444444444444446">
+		<package name="org.universAAL.middleware.context" line-rate="0.2518248175182482" branch-rate="0.17083333333333334" complexity="3.40625">
 			<classes>
 				<class name="org.universAAL.middleware.context.ContextBus" filename="org/universAAL/middleware/context/ContextBus.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
 					<methods>
@@ -25,12 +25,20 @@
 						<method name="fetchBus" signature="(Lorg/universAAL/middleware/container/ModuleContext;)Lorg/universAAL/middleware/context/ContextBus;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="24" hits="0" branch="false"/>
+								<line number="25" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getContextBusFetchParams" signature="()[Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="32" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
 						<line number="22" hits="0" branch="false"/>
 						<line number="24" hits="0" branch="false"/>
+						<line number="25" hits="0" branch="false"/>
+						<line number="32" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.context.ContextEvent" filename="org/universAAL/middleware/context/ContextEvent.java" line-rate="0.25217391304347825" branch-rate="0.15254237288135594" complexity="4.153846153846154">

@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.12977369165487979" branch-rate="0.08597285067873303" lines-covered="367" lines-valid="2828" branches-covered="152" branches-valid="1768" complexity="3.015625" version="2.1.1" timestamp="1529012164229">
+<coverage line-rate="0.12968197879858656" branch-rate="0.08597285067873303" lines-covered="367" lines-valid="2830" branches-covered="152" branches-valid="1768" complexity="3.0121317157712304" version="2.1.1" timestamp="1533725272088">
 	<sources>
 		<source>/home/travis/build/universAAL/middleware/middleware.core/mw.bus.ui.core/src/main/java</source>
 		<source>--source</source>
 	</sources>
 	<packages>
-		<package name="org.universAAL.middleware.ui" line-rate="0.0" branch-rate="0.0" complexity="2.5168539325842696">
+		<package name="org.universAAL.middleware.ui" line-rate="0.0" branch-rate="0.0" complexity="2.5">
 			<classes>
 				<class name="org.universAAL.middleware.ui.IDialogManager" filename="org/universAAL/middleware/ui/IDialogManager.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
 					<methods>
@@ -31,12 +31,20 @@
 						<method name="fetchBus" signature="(Lorg/universAAL/middleware/container/ModuleContext;)Lorg/universAAL/middleware/ui/IUIBus;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="24" hits="0" branch="false"/>
+								<line number="25" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getUIBusFetchParams" signature="()[Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="32" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
 						<line number="22" hits="0" branch="false"/>
 						<line number="24" hits="0" branch="false"/>
+						<line number="25" hits="0" branch="false"/>
+						<line number="32" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.ui.UICaller" filename="org/universAAL/middleware/ui/UICaller.java" line-rate="0.0" branch-rate="0.0" complexity="1.6666666666666667">
