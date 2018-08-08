@@ -17,6 +17,7 @@
 
 package org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern;
 
+import org.universAAL.middleware.interfaces.configuration.ConfigurableModule;
 import org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationFile;
 import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.TypeURI;
@@ -32,7 +33,7 @@ public class ConfigurationFileTypePattern implements EntityPattern {
 	/**
 	 * The URI of the ConfigurationFile Ontology type
 	 */
-	private static final String URI = "http://ontology.universAAL.org/ConfigurationOntology#ConfigurationFile";
+	private static final String URI = ConfigurableModule.uAAL_CONFIG_FRAMEWORK_NAMESPACE + "ConfigurationFile";
 
 	/** {@ inheritDoc} */
 	public TypeExpression getRestriction() {

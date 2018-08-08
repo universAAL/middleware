@@ -78,6 +78,7 @@ public class EntityManager {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
+	@SuppressWarnings({ "unchecked", "resource" })
 	private List<Entity> load() throws FileNotFoundException {
 		String serialized = "";
 
@@ -207,29 +208,36 @@ public class EntityManager {
 	}
 
 	/**
-	 * same as {@link EntityManager#mergeAdd(List)} but does not actually add to
-	 * the master file, instead it updates the emap.
+	 * Help method for both {@link #mergeProbe(List)} and {@link #mergeAdd(List)} that performs the merge, if needed.
+	 * Note that the merge is needed only if for an entity from "news" there is no existing counterpart in "emap" or the existing
+	 * counterpart has a smaller version number than the new entity.
 	 *
-	 * @param news
-	 * @param emap
-	 * @return
+	 * @param news The new entities to be added to the list of existing ones.
+	 * @param emap The existing entities in a map.
+	 * @return "Existing winners" as the set of existing entities from "emap" that had a counterpart in "news" but have not been overwritten by the new one
+	 *         because their version number was not smaller than the version number of their counterparts from "news".
 	 */
 	private List<Entity> mergeProbe(List<Entity> news, Map<String, Entity> emap) {
-		List<Entity> rejected = new ArrayList<Entity>();
+		List<Entity> existingWinners = new ArrayList<Entity>();
 		for (Entity ent : news) {
 			if (ent == null) {
 				continue;
 			}
+			
+			// make sure that "ent" as a "Resource" does not have the flag "Resource#isXMLLiteral" equal to true
 			ent.unliteral();
-			Entity existing = emap.get(ent.getURI());
 
-			if (!checkAdd(ent, emap)) {
-				rejected.add(existing);
-			} else {
+			if (checkAdd(ent, emap)) {
+				// either ent does not have any existing counterpart or it is newer than the existing one
+				// --> add it and in this way override any existing one
 				emap.put(ent.getURI(), ent);
+			} else {
+				// ent has indeed an existing counterpart but its own version number is not higher than the version number of the existing one
+				// --> ent does not overwrite the existing one
+				existingWinners.add(emap.get(ent.getURI()));
 			}
 		}
-		return rejected;
+		return existingWinners;
 	}
 
 	/**

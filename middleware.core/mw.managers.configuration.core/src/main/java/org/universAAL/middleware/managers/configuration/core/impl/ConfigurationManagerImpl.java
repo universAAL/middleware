@@ -72,8 +72,8 @@ import org.universAAL.middleware.xsd.Base64Binary;
 public class ConfigurationManagerImpl implements ConfigurationManager, ConfigurationManagerConnector,
 		ConfigurationEditor, DynamicDescribedEntityListener {
 
-	static final String PROP_PARAM = ConfigurationOntology.NAMESPACE + "messageParameter";
-	static final String PROP_LOCALE = ConfigurationOntology.NAMESPACE + "preferredLocale";
+	static final String PROP_PARAM = ConfigurableModule.uAAL_CONFIG_FRAMEWORK_NAMESPACE + "messageParameter";
+	static final String PROP_LOCALE = ConfigurableModule.uAAL_CONFIG_FRAMEWORK_NAMESPACE + "preferredLocale";
 
 	private ModuleContext context;
 
@@ -127,34 +127,42 @@ public class ConfigurationManagerImpl implements ConfigurationManager, Configura
 
 	/** {@ inheritDoc} */
 	public void register(List<DescribedEntity> confPattern, ConfigurableModule listener) {
-		List<Entity> registered = new ArrayList<Entity>();
+		List<Entity> newlyRegistered = new ArrayList<Entity>();
 		for (DescribedEntity de : confPattern) {
 			if (de instanceof ConfigurationDefinedElsewhere) {
 				moduleRegistry.put(ScopeFactory.getScopeURN(de.getScope()), listener);
 			} else {
-				Entity e = EntityFactory.getEntity(de, Locale.ENGLISH);
+				Entity e = EntityFactory.getEntity(de, Locale.getDefault());
 				if (e != null) {
 					moduleRegistry.put(e.getURI(), listener);
 					entitiesSources.put(e.getURI(), de);
-					registered.add(e);
+					newlyRegistered.add(e);
 				}
 			}
 			if (de instanceof DynamicDescribedEntity) {
 				((DynamicDescribedEntity) de).registerListener(this);
 			}
 		}
-		List<Entity> alreadyStored = manager.mergeAdd(registered);
-		for (Entity e : alreadyStored) {
-			// update the modules with the stored entities
+		
+		// store the newly registered entities persistently
+		List<Entity> alreadyStored = manager.mergeAdd(newlyRegistered);
+		// keep in "newlyRegistered" only the really new entities not already stored
+		newlyRegistered.removeAll(alreadyStored);
+		
+		// notify all listeners (including the new listener received as parameter of this method)
+		// about the newly registered entities in two steps:
+		// 1. for the ones that were already stored: with their stored values
+		for (Entity e : alreadyStored)
+			// ?? question: aren't all listeners registered in previous calls of this method already aware about the stored values ??
+			// !! if yes, then we should only notify the new listener
 			updateLocalValue(e);
-		}
-		List<Entity> news = new ArrayList<Entity>(registered);
-		news.removeAll(alreadyStored);
-		for (Entity e : news) {
-			// update the modules with the default entities
+		// 2. for the really new ones: with their default values
+		for (Entity e : newlyRegistered)
+			// as e is really new, de facto only the new listener will be notified
 			updateLocalValue(e);
-		}
-		propagate(news);
+		
+		// propagate the registration of the really new entities to the other instances of universAAL in the same uSpace
+		propagate(newlyRegistered);
 	}
 
 	/** {@ inheritDoc} */
@@ -316,7 +324,7 @@ public class ConfigurationManagerImpl implements ConfigurationManager, Configura
 	/** {@ inheritDoc} */
 	public void updatedDescription(DescribedEntity dentity) {
 		Entity old = manager.find(ScopeFactory.getScopeURN(dentity.getScope()));
-		Entity ne = EntityFactory.updateEntity(old, dentity, Locale.ENGLISH);
+		Entity ne = EntityFactory.updateEntity(old, dentity, Locale.getDefault());
 		if (ne.isNewerThan(old)) {
 			manager.addEntity(ne);
 			List<Entity> l = new ArrayList<Entity>();
@@ -328,7 +336,7 @@ public class ConfigurationManagerImpl implements ConfigurationManager, Configura
 	/** {@ inheritDoc} */
 	public void updatedValue(DescribedEntity dentity, Object value) {
 		Entity old = manager.find(ScopeFactory.getScopeURN(dentity.getScope()));
-		Entity ne = EntityFactory.updateEntity(old, dentity, Locale.ENGLISH);
+		Entity ne = EntityFactory.updateEntity(old, dentity, Locale.getDefault());
 		if (old instanceof ConfigurationParameter) {
 			if (((ConfigurationParameter) ne).setValue(value)
 					&& !((ConfigurationParameter) old).getValue().equals(value)) {
@@ -488,6 +496,7 @@ public class ConfigurationManagerImpl implements ConfigurationManager, Configura
 	}
 
 	/** {@ inheritDoc} */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void processPropagation(ConfigurationMessage message) {
 		// ignore my own propagations
 		if (message.isSentFrom(shared.getSpaceManager().getMyPeerCard())) {
@@ -505,6 +514,7 @@ public class ConfigurationManagerImpl implements ConfigurationManager, Configura
 	}
 
 	/** {@ inheritDoc} */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void processRequest(ConfigurationMessage message) {
 		Object r = shared.getMessageContentSerializer().deserialize(message.getPayload());
 		if (r instanceof Resource && ((Resource) r).hasProperty(PROP_PARAM)) {
@@ -536,6 +546,7 @@ public class ConfigurationManagerImpl implements ConfigurationManager, Configura
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void processResponse(ConfigurationMessage message) {
 		Object r = shared.getMessageContentSerializer().deserialize(message.getPayload());
 		if (r instanceof Resource && ((Resource) r).hasProperty(PROP_PARAM)) {

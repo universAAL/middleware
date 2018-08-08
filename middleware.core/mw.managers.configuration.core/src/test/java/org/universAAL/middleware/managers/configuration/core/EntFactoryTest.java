@@ -64,7 +64,7 @@ public class EntFactoryTest {
 		Entity e = EntityFactory.getEntity(new ConfigurationParameter() {
 
 			public Scope getScope() {
-				return new SpaceScope("space.config");
+				return new SpaceScope("aalspace.config");
 			}
 
 			public String getDescription(Locale loc) {
@@ -81,7 +81,7 @@ public class EntFactoryTest {
 			public Object getDefaultValue() {
 				return Integer.valueOf(1);
 			}
-		}, Locale.ENGLISH);
+		}, Locale.getDefault());
 
 		System.out.println(e.toStringRecursive());
 	}
@@ -91,7 +91,7 @@ public class EntFactoryTest {
 		Entity e = EntityFactory.getEntity(new ConfigurationParameter() {
 
 			public Scope getScope() {
-				return new SpaceScope("space.config");
+				return new SpaceScope("aalspace.config");
 			}
 
 			public String getDescription(Locale loc) {
@@ -105,7 +105,7 @@ public class EntFactoryTest {
 			public Object getDefaultValue() {
 				return null;
 			}
-		}, Locale.ENGLISH);
+		}, Locale.getDefault());
 
 		System.out.println(e.toStringRecursive());
 	}
@@ -115,7 +115,7 @@ public class EntFactoryTest {
 		Entity e = EntityFactory.getEntity(new ConfigurationFile() {
 
 			public Scope getScope() {
-				return new SpaceScope("Space.somefile");
+				return new SpaceScope("AALSpace.somefile");
 			}
 
 			public String getDescription(Locale loc) {
@@ -134,7 +134,7 @@ public class EntFactoryTest {
 					return null;
 				}
 			}
-		}, Locale.ENGLISH);
+		}, Locale.getDefault());
 
 		System.out.println(e.toStringRecursive());
 	}

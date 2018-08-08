@@ -55,10 +55,12 @@ public class EntityFactory {
 			org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter cp = new org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter(
 					uri);
 			ConfigurationParameter de = (ConfigurationParameter) dentity;
+			
+			// description is mandatory --> we set it without double-checking "!= null"
 			cp.setDescription(dentity.getDescription(loc), loc);
 			
-			// set restriction to type
-			// it is important that this restriction is set before setting any value so that the conformance of the value can be checked in ConfigurationParameter
+			// set the value restriction, which is also mandatory --> we do not check "!= null"
+			// it is important that this restriction is set before setting any value so that the conformance of the value can be checked in cp
 			cp.setValueRestriction(de.getType());
 			
 			Object o = de.getDefaultValue();
@@ -112,19 +114,24 @@ public class EntityFactory {
 		Entity newEntity = getEntity(dentity, loc);
 		if (oldEntity != null  &&  newEntity != null)
 			if (oldEntity.getClass() == newEntity.getClass()) {
+				newEntity.setVersion(oldEntity.getVersion());
 				String newDescription = dentity.getDescription(loc);
 				if (newDescription != null && !newDescription.isEmpty() && !newDescription.equals(oldEntity.getDescription(loc)))
 					newEntity.incrementVersion();
 
 				if (dentity instanceof ConfigurationParameter) {
-					// newEntity and dentity are assumed to be compatible; so is oldEntity
+					// the type of dentity determines the type of newEntity
 					org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter newCP = (org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter) newEntity;
+					// oldEntity and newEntity are both instances of the same class as checked above
 					org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter oldCP = (org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter) oldEntity;
 			
+					// value restriction is mandatory --> we do not need to double check "!= null!
 					if (!newCP.getValueRestriction().equals(oldCP.getValueRestriction()))
 						newEntity.incrementVersion();
 
-					if (!newCP.getDefaultValue().equals(oldCP.getDefaultValue()))
+					Object newVal = newCP.getDefaultValue(), oldVal = oldCP.getDefaultValue();
+					if ((newVal != null  ||  oldVal != null)
+							&&  (newVal == null  ||  !newVal.equals(oldVal)))
 						newEntity.incrementVersion();
 				}
 		
@@ -141,8 +148,7 @@ public class EntityFactory {
 						newEntity.incrementVersion();
 				}
 			} else 
-				for (int i=newEntity.numberOfProperties();  i>0;  i--)
-					newEntity.incrementVersion();
+				newEntity.setVersion(oldEntity.getVersion()+3);
 				
 		return newEntity;
 	}
