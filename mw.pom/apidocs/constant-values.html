@@ -1073,11 +1073,32 @@
 </tr>
 <tbody>
 <tr class="altColor">
-<td class="colFirst"><a name="org.universAAL.middleware.container.osgi.OSGiModuleContext.CONF_ROOT_DIR">
+<td class="colFirst"><a name="org.universAAL.middleware.container.osgi.OSGiModuleContext.CONF_KARAF_PROP">
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
-<td><code><a href="org/universAAL/middleware/container/osgi/OSGiModuleContext.html#CONF_ROOT_DIR">CONF_ROOT_DIR</a></code></td>
+<td><code><a href="org/universAAL/middleware/container/osgi/OSGiModuleContext.html#CONF_KARAF_PROP">CONF_KARAF_PROP</a></code></td>
+<td class="colLast"><code>"karaf.etc"</code></td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a name="org.universAAL.middleware.container.osgi.OSGiModuleContext.CONF_ROOT_PROP">
+<!--   -->
+</a><code>public&nbsp;static&nbsp;final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td><code><a href="org/universAAL/middleware/container/osgi/OSGiModuleContext.html#CONF_ROOT_PROP">CONF_ROOT_PROP</a></code></td>
 <td class="colLast"><code>"bundles.configuration.location"</code></td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a name="org.universAAL.middleware.container.osgi.OSGiModuleContext.WORK_KARAF_PROP">
+<!--   -->
+</a><code>public&nbsp;static&nbsp;final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td><code><a href="org/universAAL/middleware/container/osgi/OSGiModuleContext.html#WORK_KARAF_PROP">WORK_KARAF_PROP</a></code></td>
+<td class="colLast"><code>"bundles.configuration.location"</code></td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a name="org.universAAL.middleware.container.osgi.OSGiModuleContext.WORK_ROOT_DEFAULT">
+<!--   -->
+</a><code>public&nbsp;static&nbsp;final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td><code><a href="org/universAAL/middleware/container/osgi/OSGiModuleContext.html#WORK_ROOT_DEFAULT">WORK_ROOT_DEFAULT</a></code></td>
+<td class="colLast"><code>"./data/"</code></td>
 </tr>
 </tbody>
 </table>
@@ -1376,6 +1397,27 @@
 <ul class="blockList">
 <li class="blockList">
 <table class="constantsSummary" border="0" cellpadding="3" cellspacing="0" summary="Constant Field Values table, listing constant fields, and values">
+<caption><span>org.universAAL.middleware.interfaces.configuration.<a href="org/universAAL/middleware/interfaces/configuration/ConfigurableModule.html" title="interface in org.universAAL.middleware.interfaces.configuration">ConfigurableModule</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th scope="col">Constant Field</th>
+<th class="colLast" scope="col">Value</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><a name="org.universAAL.middleware.interfaces.configuration.ConfigurableModule.uAAL_CONFIG_FRAMEWORK_NAMESPACE">
+<!--   -->
+</a><code>public&nbsp;static&nbsp;final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td><code><a href="org/universAAL/middleware/interfaces/configuration/ConfigurableModule.html#uAAL_CONFIG_FRAMEWORK_NAMESPACE">uAAL_CONFIG_FRAMEWORK_NAMESPACE</a></code></td>
+<td class="colLast"><code>"http://ontology.universAAL.org/ConfigurationOntology#"</code></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<ul class="blockList">
+<li class="blockList">
+<table class="constantsSummary" border="0" cellpadding="3" cellspacing="0" summary="Constant Field Values table, listing constant fields, and values">
 <caption><span>org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.<a href="org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationParameter.html" title="interface in org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes">ConfigurationParameter</a></span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
@@ -1384,11 +1426,18 @@
 </tr>
 <tbody>
 <tr class="altColor">
-<td class="colFirst"><a name="org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationParameter.PROP_CONFIG_VALUE">
+<td class="colFirst"><a name="org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationParameter.PROP_CONFIG_LITERAL_VALUE">
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
-<td><code><a href="org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationParameter.html#PROP_CONFIG_VALUE">PROP_CONFIG_VALUE</a></code></td>
-<td class="colLast"><code>"http://ontology.universAAL.org/ConfigurationOntology#hasValue"</code></td>
+<td><code><a href="org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationParameter.html#PROP_CONFIG_LITERAL_VALUE">PROP_CONFIG_LITERAL_VALUE</a></code></td>
+<td class="colLast"><code>"http://ontology.universAAL.org/ConfigurationOntology#hasLiteralValue"</code></td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a name="org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationParameter.PROP_CONFIG_OBJECT_VALUE">
+<!--   -->
+</a><code>public&nbsp;static&nbsp;final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td><code><a href="org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationParameter.html#PROP_CONFIG_OBJECT_VALUE">PROP_CONFIG_OBJECT_VALUE</a></code></td>
+<td class="colLast"><code>"http://ontology.universAAL.org/ConfigurationOntology#hasObjectValue"</code></td>
 </tr>
 </tbody>
 </table>
@@ -1570,25 +1619,6 @@
 </li>
 <li class="blockList">
 <table class="constantsSummary" border="0" cellpadding="3" cellspacing="0" summary="Constant Field Values table, listing constant fields, and values">
-<caption><span>org.universAAL.middleware.managers.configuration.core.owl.<a href="org/universAAL/middleware/managers/configuration/core/owl/ConfigurationOntology.html" title="class in org.universAAL.middleware.managers.configuration.core.owl">ConfigurationOntology</a></span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th scope="col">Constant Field</th>
-<th class="colLast" scope="col">Value</th>
-</tr>
-<tbody>
-<tr class="altColor">
-<td class="colFirst"><a name="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology.NAMESPACE">
-<!--   -->
-</a><code>public&nbsp;static&nbsp;final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
-<td><code><a href="org/universAAL/middleware/managers/configuration/core/owl/ConfigurationOntology.html#NAMESPACE">NAMESPACE</a></code></td>
-<td class="colLast"><code>"http://ontology.universAAL.org/ConfigurationOntology#"</code></td>
-</tr>
-</tbody>
-</table>
-</li>
-<li class="blockList">
-<table class="constantsSummary" border="0" cellpadding="3" cellspacing="0" summary="Constant Field Values table, listing constant fields, and values">
 <caption><span>org.universAAL.middleware.managers.configuration.core.owl.<a href="org/universAAL/middleware/managers/configuration/core/owl/ConfigurationParameter.html" title="class in org.universAAL.middleware.managers.configuration.core.owl">ConfigurationParameter</a></span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
@@ -1604,25 +1634,39 @@
 <td class="colLast"><code>"http://ontology.universAAL.org/ConfigurationOntology#ConfigurationParameter"</code></td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><a name="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter.PROP_DEFAULT_VALUE">
+<td class="colFirst"><a name="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter.PROP_DEFAULT_LITERAL_VALUE">
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
-<td><code><a href="org/universAAL/middleware/managers/configuration/core/owl/ConfigurationParameter.html#PROP_DEFAULT_VALUE">PROP_DEFAULT_VALUE</a></code></td>
-<td class="colLast"><code>"http://ontology.universAAL.org/ConfigurationOntology#defaultValue"</code></td>
+<td><code><a href="org/universAAL/middleware/managers/configuration/core/owl/ConfigurationParameter.html#PROP_DEFAULT_LITERAL_VALUE">PROP_DEFAULT_LITERAL_VALUE</a></code></td>
+<td class="colLast"><code>"http://ontology.universAAL.org/ConfigurationOntology#defaultLiteralValue"</code></td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><a name="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter.PROP_RDF_TYPE2">
+<td class="colFirst"><a name="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter.PROP_DEFAULT_OBJECT_VALUE">
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
-<td><code><a href="org/universAAL/middleware/managers/configuration/core/owl/ConfigurationParameter.html#PROP_RDF_TYPE2">PROP_RDF_TYPE2</a></code></td>
-<td class="colLast"><code>"http://www.w3.org/1999/02/22-rdf-syntax-ns#type2"</code></td>
+<td><code><a href="org/universAAL/middleware/managers/configuration/core/owl/ConfigurationParameter.html#PROP_DEFAULT_OBJECT_VALUE">PROP_DEFAULT_OBJECT_VALUE</a></code></td>
+<td class="colLast"><code>"http://ontology.universAAL.org/ConfigurationOntology#defaultObjectValue"</code></td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><a name="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter.PROP_VALUE">
+<td class="colFirst"><a name="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter.PROP_LITERAL_VALUE">
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
-<td><code><a href="org/universAAL/middleware/managers/configuration/core/owl/ConfigurationParameter.html#PROP_VALUE">PROP_VALUE</a></code></td>
-<td class="colLast"><code>"http://ontology.universAAL.org/ConfigurationOntology#hasValue"</code></td>
+<td><code><a href="org/universAAL/middleware/managers/configuration/core/owl/ConfigurationParameter.html#PROP_LITERAL_VALUE">PROP_LITERAL_VALUE</a></code></td>
+<td class="colLast"><code>"http://ontology.universAAL.org/ConfigurationOntology#hasLiteralValue"</code></td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a name="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter.PROP_OBJECT_VALUE">
+<!--   -->
+</a><code>public&nbsp;static&nbsp;final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td><code><a href="org/universAAL/middleware/managers/configuration/core/owl/ConfigurationParameter.html#PROP_OBJECT_VALUE">PROP_OBJECT_VALUE</a></code></td>
+<td class="colLast"><code>"http://ontology.universAAL.org/ConfigurationOntology#hasObjectValue"</code></td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a name="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter.PROP_VALUE_RESTRICTION">
+<!--   -->
+</a><code>public&nbsp;static&nbsp;final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td><code><a href="org/universAAL/middleware/managers/configuration/core/owl/ConfigurationParameter.html#PROP_VALUE_RESTRICTION">PROP_VALUE_RESTRICTION</a></code></td>
+<td class="colLast"><code>"http://ontology.universAAL.org/ConfigurationOntology#valueRestriction"</code></td>
 </tr>
 </tbody>
 </table>

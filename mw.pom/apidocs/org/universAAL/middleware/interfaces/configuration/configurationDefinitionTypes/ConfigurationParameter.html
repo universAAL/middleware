@@ -125,7 +125,8 @@ var activeTableTab = "activeTableTab";
 <br>
 <pre>public interface <span class="typeNameLabel">ConfigurationParameter</span>
 extends <a href="../../../../../../org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/DescribedEntity.html" title="interface in org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes">DescribedEntity</a></pre>
-<div class="block">An Configuration entity that refers to a configuration parameter.</div>
+<div class="block">An Configuration entity that consists of a key and a direct value (as opposed to <a href="../../../../../../org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationFile.html" title="interface in org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes"><code>ConfigurationFile</code></a>
+ whose value is a reference to a file when that file as a whole serves as the value). The key is the</div>
 <dl>
 <dt><span class="simpleTagLabel">Author:</span></dt>
 <dd>amedrano</dd>
@@ -150,7 +151,19 @@ extends <a href="../../../../../../org/universAAL/middleware/interfaces/configur
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationParameter.html#PROP_CONFIG_VALUE">PROP_CONFIG_VALUE</a></span></code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationParameter.html#PROP_CONFIG_LITERAL_VALUE">PROP_CONFIG_LITERAL_VALUE</a></span></code>
+<div class="block">The property-URI to be used in the role of <code>"owl:onProperty"</code> when constructing the
+ <a href="../../../../../../org/universAAL/middleware/owl/MergedRestriction.html" title="class in org.universAAL.middleware.owl"><code>MergedRestriction</code></a> to be used as the type of the values of a conf param if the conf
+ param is supposed to have literal values.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationParameter.html#PROP_CONFIG_OBJECT_VALUE">PROP_CONFIG_OBJECT_VALUE</a></span></code>
+<div class="block">The property-URI to be used in the role of <code>"owl:onProperty"</code> when constructing the
+ <a href="../../../../../../org/universAAL/middleware/owl/MergedRestriction.html" title="class in org.universAAL.middleware.owl"><code>MergedRestriction</code></a> to be used as the type of the values of a conf param if the conf
+ param is supposed to have object values.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -170,13 +183,13 @@ extends <a href="../../../../../../org/universAAL/middleware/interfaces/configur
 <tr id="i0" class="altColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationParameter.html#getDefaultValue--">getDefaultValue</a></span>()</code>
-<div class="block">The default value, for when a value is not set.</div>
+<div class="block">The default value for a mandatory conf param whose value may not be set.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="../../../../../../org/universAAL/middleware/owl/MergedRestriction.html" title="class in org.universAAL.middleware.owl">MergedRestriction</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationParameter.html#getType--">getType</a></span>()</code>
-<div class="block">The type that the configuration parameter is allowed to take.</div>
+<div class="block">The type of the value(s) that the configuration parameter is allowed to have.</div>
 </td>
 </tr>
 </table>
@@ -201,16 +214,39 @@ extends <a href="../../../../../../org/universAAL/middleware/interfaces/configur
 <!--   -->
 </a>
 <h3>Field Detail</h3>
-<a name="PROP_CONFIG_VALUE">
+<a name="PROP_CONFIG_LITERAL_VALUE">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>PROP_CONFIG_LITERAL_VALUE</h4>
+<pre>static final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> PROP_CONFIG_LITERAL_VALUE</pre>
+<div class="block">The property-URI to be used in the role of <code>"owl:onProperty"</code> when constructing the
+ <a href="../../../../../../org/universAAL/middleware/owl/MergedRestriction.html" title="class in org.universAAL.middleware.owl"><code>MergedRestriction</code></a> to be used as the type of the values of a conf param if the conf
+ param is supposed to have literal values. In other words, when <a href="../../../../../../org/universAAL/middleware/owl/MergedRestriction.html#getOnProperty--"><code>MergedRestriction.getOnProperty()</code></a>
+ called on <a href="../../../../../../org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationParameter.html#getType--"><code>getType()</code></a> of a conf param returns this property-URI, it means that the conf param
+ accepts only literal values.</div>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../../constant-values.html#org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationParameter.PROP_CONFIG_LITERAL_VALUE">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a name="PROP_CONFIG_OBJECT_VALUE">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>PROP_CONFIG_VALUE</h4>
-<pre>static final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> PROP_CONFIG_VALUE</pre>
+<h4>PROP_CONFIG_OBJECT_VALUE</h4>
+<pre>static final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> PROP_CONFIG_OBJECT_VALUE</pre>
+<div class="block">The property-URI to be used in the role of <code>"owl:onProperty"</code> when constructing the
+ <a href="../../../../../../org/universAAL/middleware/owl/MergedRestriction.html" title="class in org.universAAL.middleware.owl"><code>MergedRestriction</code></a> to be used as the type of the values of a conf param if the conf
+ param is supposed to have object values. In other words, when <a href="../../../../../../org/universAAL/middleware/owl/MergedRestriction.html#getOnProperty--"><code>MergedRestriction.getOnProperty()</code></a>
+ called on <a href="../../../../../../org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationParameter.html#getType--"><code>getType()</code></a> of a conf param returns this property-URI, it means that the conf param
+ accepts only instances of <code>ManagedIndividual</code>.</div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../../../constant-values.html#org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationParameter.PROP_CONFIG_VALUE">Constant Field Values</a></dd>
+<dd><a href="../../../../../../constant-values.html#org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationParameter.PROP_CONFIG_OBJECT_VALUE">Constant Field Values</a></dd>
 </dl>
 </li>
 </ul>
@@ -229,7 +265,8 @@ extends <a href="../../../../../../org/universAAL/middleware/interfaces/configur
 <li class="blockList">
 <h4>getDefaultValue</h4>
 <pre><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;getDefaultValue()</pre>
-<div class="block">The default value, for when a value is not set.</div>
+<div class="block">The default value for a mandatory conf param whose value may not be set. Optional conf params do not need any default value.
+ By defining a default value for a mandatory conf param, de facto it is made optional!</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>default vaule to use.</dd>
@@ -243,16 +280,14 @@ extends <a href="../../../../../../org/universAAL/middleware/interfaces/configur
 <li class="blockList">
 <h4>getType</h4>
 <pre><a href="../../../../../../org/universAAL/middleware/owl/MergedRestriction.html" title="class in org.universAAL.middleware.owl">MergedRestriction</a>&nbsp;getType()</pre>
-<div class="block">The type that the configuration parameter is allowed to take. The
- <a href="../../../../../../org/universAAL/middleware/owl/MergedRestriction.html" title="class in org.universAAL.middleware.owl"><code>MergedRestriction</code></a> has to be bounded to the property
- <a href="../../../../../../org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationParameter.html#PROP_CONFIG_VALUE"><code>PROP_CONFIG_VALUE</code></a>, otherwise the
+<div class="block">The type of the value(s) that the configuration parameter is allowed to have. The
+ <a href="../../../../../../org/universAAL/middleware/owl/MergedRestriction.html" title="class in org.universAAL.middleware.owl"><code>MergedRestriction</code></a> has to be bounded to one of the two properties
+ <a href="../../../../../../org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationParameter.html#PROP_CONFIG_LITERAL_VALUE"><code>PROP_CONFIG_LITERAL_VALUE</code></a> or <a href="../../../../../../org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationParameter.html#PROP_CONFIG_OBJECT_VALUE"><code>PROP_CONFIG_OBJECT_VALUE</code></a>
+ depending on whether the conf param accepts literal values or object values (instances of <code>ManagedIndividual</code>, otherwise the
  <a href="../../../../../../org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationParameter.html" title="interface in org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes"><code>ConfigurationParameter</code></a> will not register properly.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>a <a href="../../../../../../org/universAAL/middleware/owl/MergedRestriction.html" title="class in org.universAAL.middleware.owl"><code>MergedRestriction</code></a> over the property that defines the
-         restrictions on the object received in
-         <code>ConfigurableModule#configurationChanged(org.universAAL.middleware.mw.manager.configuration.core.interfaces.scope.Scope, Object)</code>
-         for the scope of this Configuration Parameter Entity.</dd>
+<dd>a <a href="../../../../../../org/universAAL/middleware/owl/MergedRestriction.html" title="class in org.universAAL.middleware.owl"><code>MergedRestriction</code></a> containing all conditions on the value of the this <a href="../../../../../../org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationParameter.html" title="interface in org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes"><code>ConfigurationParameter</code></a>.</dd>
 </dl>
 </li>
 </ul>

@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2018 universAAL Consortium</copyright>
     <item>
       <title>File: 39,
-             Errors: 303,
-             Warnings: 19,
-             Infos: 32
+             Errors: 302,
+             Warnings: 20,
+             Infos: 42
       </title>
             <link>http://middleware/middleware.core/mw.interfaces.core//checkstyle.html</link>
       <description>
@@ -63,13 +63,13 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationParameter.java">org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationParameter.java</a>
                 </td>
                 <td>
-                  2
+                  9
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
               </tr>
                           <tr>
@@ -147,10 +147,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.configuration.ConfigurableModule.java">org/universAAL/middleware/interfaces/configuration/ConfigurableModule.java</a>
                 </td>
                 <td>
-                  2
+                  5
                 </td>
                 <td>
-                  1
+                  2
                 </td>
                 <td>
                   0

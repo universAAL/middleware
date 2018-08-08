@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2018 universAAL Consortium</copyright>
     <item>
       <title>File: 21,
-             Errors: 398,
-             Warnings: 9,
-             Infos: 20
+             Errors: 403,
+             Warnings: 8,
+             Infos: 74
       </title>
             <link>http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.ConfigurationManagerImpl.java">org/universAAL/middleware/managers/configuration/core/impl/ConfigurationManagerImpl.java</a>
                 </td>
                 <td>
-                  0
+                  4
                 </td>
                 <td>
                   1
@@ -69,7 +69,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  7
+                  6
                 </td>
               </tr>
                           <tr>
@@ -77,7 +77,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.owl.ConfigurationFile.java">org/universAAL/middleware/managers/configuration/core/owl/ConfigurationFile.java</a>
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   1
@@ -119,13 +119,13 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.factories.EntityFactory.java">org/universAAL/middleware/managers/configuration/core/impl/factories/EntityFactory.java</a>
                 </td>
                 <td>
-                  4
-                </td>
-                <td>
-                  2
+                  19
                 </td>
                 <td>
                   1
+                </td>
+                <td>
+                  3
                 </td>
               </tr>
                           <tr>
@@ -181,7 +181,7 @@ under the License.
                   4
                 </td>
                 <td>
-                  7
+                  6
                 </td>
               </tr>
                           <tr>
@@ -231,13 +231,13 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.owl.Entity.java">org/universAAL/middleware/managers/configuration/core/owl/Entity.java</a>
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  29
+                  31
                 </td>
               </tr>
                           <tr>
@@ -259,13 +259,13 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter.java">org/universAAL/middleware/managers/configuration/core/owl/ConfigurationParameter.java</a>
                 </td>
                 <td>
-                  1
+                  30
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  25
+                  31
                 </td>
               </tr>
                           <tr>
@@ -273,13 +273,13 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.EntityManager.java">org/universAAL/middleware/managers/configuration/core/impl/secondaryManagers/EntityManager.java</a>
                 </td>
                 <td>
-                  1
+                  5
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  26
+                  23
                 </td>
               </tr>
                           <tr>

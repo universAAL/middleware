@@ -196,49 +196,55 @@ extends <a href="../../../../org/universAAL/middleware/rdf/FinalizedResource.htm
 </td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><code>protected <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/util/HashSet.html?is-external=true" title="class or interface in java.util">HashSet</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/rdf/RDFClassInfo.html#exemptedClasses4addInstance">exemptedClasses4addInstance</a></span></code>
+<div class="block">Certain classes will be allowed to add named instances even after the setup has been finished and locked.</div>
+</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code>protected <a href="../../../../org/universAAL/middleware/rdf/ResourceFactory.html" title="interface in org.universAAL.middleware.rdf">ResourceFactory</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/rdf/RDFClassInfo.html#factory">factory</a></span></code>
 <div class="block">The factory to create new instances of this class.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>protected int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/rdf/RDFClassInfo.html#factoryIndex">factoryIndex</a></span></code>
 <div class="block">Factory index to be given to the <a href="../../../../org/universAAL/middleware/rdf/ResourceFactory.html" title="interface in org.universAAL.middleware.rdf"><code>ResourceFactory</code></a> to create new
  instances of this class.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>protected <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/util/HashMap.html?is-external=true" title="class or interface in java.util">HashMap</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/rdf/RDFClassInfo.html#instances">instances</a></span></code>
 <div class="block">Repository of all known (non-anonymous) instances.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>protected boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/rdf/RDFClassInfo.html#locked">locked</a></span></code>
 <div class="block">Determines whether this class is locked.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>protected <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/util/HashSet.html?is-external=true" title="class or interface in java.util">HashSet</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/rdf/RDFClassInfo.html#namedSuperClasses">namedSuperClasses</a></span></code>
 <div class="block">The set of URIs of all super classes.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>protected <a href="../../../../org/universAAL/middleware/owl/Ontology.html" title="class in org.universAAL.middleware.owl">Ontology</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/rdf/RDFClassInfo.html#ont">ont</a></span></code>
 <div class="block">The <a href="../../../../org/universAAL/middleware/owl/Ontology.html" title="class in org.universAAL.middleware.owl"><code>Ontology</code></a> which defines or extends this class.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>protected <a href="../../../../org/universAAL/middleware/rdf/RDFClassInfo.PrivateRDFSetup.html" title="class in org.universAAL.middleware.rdf">RDFClassInfo.PrivateRDFSetup</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/rdf/RDFClassInfo.html#rdfsetup">rdfsetup</a></span></code>
 <div class="block">The setup interface.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>protected <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/util/ArrayList.html?is-external=true" title="class or interface in java.util">ArrayList</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/rdf/RDFClassInfo.html#superClasses">superClasses</a></span></code>
 <div class="block">The set of super classes.</div>
@@ -481,6 +487,16 @@ extends <a href="../../../../org/universAAL/middleware/rdf/FinalizedResource.htm
 <pre>protected&nbsp;boolean locked</pre>
 <div class="block">Determines whether this class is locked. If it is locked, no new
  information can be stored here.</div>
+</li>
+</ul>
+<a name="exemptedClasses4addInstance">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>exemptedClasses4addInstance</h4>
+<pre>protected&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/util/HashSet.html?is-external=true" title="class or interface in java.util">HashSet</a> exemptedClasses4addInstance</pre>
+<div class="block">Certain classes will be allowed to add named instances even after the setup has been finished and locked.</div>
 </li>
 </ul>
 <a name="rdfsetup">

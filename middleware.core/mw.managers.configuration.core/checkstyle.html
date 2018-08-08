@@ -88,9 +88,9 @@
 <th><img src="images/icon_error_sml.gif" alt="" />&#160;Errors</th></tr>
 <tr class="b">
 <td>21</td>
-<td>20</td>
-<td>9</td>
-<td>398</td></tr></table></div>
+<td>74</td>
+<td>8</td>
+<td>403</td></tr></table></div>
 <div class="section">
 <h2><a name="Files"></a>Files</h2>
 <table border="0" class="bodyTable">
@@ -101,7 +101,7 @@
 <th><img src="images/icon_error_sml.gif" alt="" />&#160;E</th></tr>
 <tr class="b">
 <td><a href="#org.universAAL.middleware.managers.configuration.core.impl.ConfigurationManagerImpl.java">org/universAAL/middleware/managers/configuration/core/impl/ConfigurationManagerImpl.java</a></td>
-<td>0</td>
+<td>4</td>
 <td>1</td>
 <td>73</td></tr>
 <tr class="a">
@@ -141,9 +141,9 @@
 <td>25</td></tr>
 <tr class="b">
 <td><a href="#org.universAAL.middleware.managers.configuration.core.impl.factories.EntityFactory.java">org/universAAL/middleware/managers/configuration/core/impl/factories/EntityFactory.java</a></td>
-<td>4</td>
-<td>2</td>
-<td>1</td></tr>
+<td>19</td>
+<td>1</td>
+<td>3</td></tr>
 <tr class="a">
 <td><a href="#org.universAAL.middleware.managers.configuration.core.impl.factories.ScopeFactory.java">org/universAAL/middleware/managers/configuration/core/impl/factories/ScopeFactory.java</a></td>
 <td>1</td>
@@ -153,12 +153,12 @@
 <td><a href="#org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.ConfigurationEditorPool.java">org/universAAL/middleware/managers/configuration/core/impl/secondaryManagers/ConfigurationEditorPool.java</a></td>
 <td>1</td>
 <td>1</td>
-<td>7</td></tr>
+<td>6</td></tr>
 <tr class="a">
 <td><a href="#org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.EntityManager.java">org/universAAL/middleware/managers/configuration/core/impl/secondaryManagers/EntityManager.java</a></td>
-<td>1</td>
+<td>5</td>
 <td>0</td>
-<td>26</td></tr>
+<td>23</td></tr>
 <tr class="b">
 <td><a href="#org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.FileManagement.java">org/universAAL/middleware/managers/configuration/core/impl/secondaryManagers/FileManagement.java</a></td>
 <td>1</td>
@@ -186,24 +186,24 @@
 <td>7</td></tr>
 <tr class="a">
 <td><a href="#org.universAAL.middleware.managers.configuration.core.owl.ConfigurationFile.java">org/universAAL/middleware/managers/configuration/core/owl/ConfigurationFile.java</a></td>
-<td>0</td>
+<td>1</td>
 <td>1</td>
 <td>38</td></tr>
 <tr class="b">
 <td><a href="#org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology.java">org/universAAL/middleware/managers/configuration/core/owl/ConfigurationOntology.java</a></td>
 <td>0</td>
 <td>4</td>
-<td>7</td></tr>
+<td>6</td></tr>
 <tr class="a">
 <td><a href="#org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter.java">org/universAAL/middleware/managers/configuration/core/owl/ConfigurationParameter.java</a></td>
-<td>1</td>
+<td>30</td>
 <td>0</td>
-<td>25</td></tr>
+<td>31</td></tr>
 <tr class="b">
 <td><a href="#org.universAAL.middleware.managers.configuration.core.owl.Entity.java">org/universAAL/middleware/managers/configuration/core/owl/Entity.java</a></td>
+<td>1</td>
 <td>0</td>
-<td>0</td>
-<td>29</td></tr></table></div>
+<td>31</td></tr></table></div>
 <div class="section">
 <h2><a name="Rules"></a>Rules</h2>
 <table border="0" class="bodyTable">
@@ -220,7 +220,7 @@
 <tr class="a">
 <td>design</td>
 <td><a class="externalLink" href="http://checkstyle.sourceforge.net/config_design.html#DesignForExtension">DesignForExtension</a></td>
-<td>111</td>
+<td>113</td>
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td></tr>
 <tr class="b">
 <td></td>
@@ -242,7 +242,7 @@
 <tr class="a">
 <td>javadoc</td>
 <td><a class="externalLink" href="http://checkstyle.sourceforge.net/config_javadoc.html#JavadocMethod">JavadocMethod</a></td>
-<td>188</td>
+<td>189</td>
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td></tr>
 <tr class="b">
 <td></td>
@@ -264,7 +264,7 @@
 <tr class="a">
 <td></td>
 <td><a class="externalLink" href="http://checkstyle.sourceforge.net/config_javadoc.html#JavadocVariable">JavadocVariable</a></td>
-<td>46</td>
+<td>48</td>
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td></tr>
 <tr class="b">
 <td>misc</td>
@@ -282,17 +282,30 @@
 <td>3</td>
 <td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td></tr>
 <tr class="a">
-<td></td>
-<td><a class="externalLink" href="http://checkstyle.sourceforge.net/config_naming.html#ParameterName">ParameterName</a></td>
-<td>1</td>
-<td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td></tr>
+<td>regexp</td>
+<td><a class="externalLink" href="http://checkstyle.sourceforge.net/config_regexp.html#RegexpSingleline">RegexpSingleline</a>
+<ul>
+<li>format: <tt>&quot;\s+$&quot;</tt></li>
+<li>message: <tt>&quot;Line has trailing spaces.&quot;</tt></li></ul></td>
+<td>28</td>
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td></tr>
 <tr class="b">
 <td>sizes</td>
 <td><a class="externalLink" href="http://checkstyle.sourceforge.net/config_sizes.html#LineLength">LineLength</a>
 <ul>
 <li>max: <tt>&quot;120&quot;</tt></li>
 <li>tabWidth: <tt>&quot;4&quot;</tt></li></ul></td>
-<td>5</td>
+<td>20</td>
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td></tr>
+<tr class="a">
+<td>whitespace</td>
+<td><a class="externalLink" href="http://checkstyle.sourceforge.net/config_whitespace.html#OperatorWrap">OperatorWrap</a></td>
+<td>1</td>
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td></tr>
+<tr class="b">
+<td></td>
+<td><a class="externalLink" href="http://checkstyle.sourceforge.net/config_whitespace.html#WhitespaceAround">WhitespaceAround</a></td>
+<td>10</td>
 <td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td></tr></table></div>
 <div class="section">
 <h2><a name="Details"></a>Details</h2>
@@ -462,293 +475,317 @@
 <td>Expected @param tag for 'listener'.</td>
 <td>129</td></tr>
 <tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>146</td></tr>
+<tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>151</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 120 characters (found 133).</td>
+<td>156</td></tr>
+<tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>163</td></tr>
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocStyle</td>
 <td>First sentence should end with a period.</td>
-<td>160</td></tr>
+<td>168</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'register' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>161</td></tr>
+<td>169</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'confPattern'.</td>
-<td>161</td></tr>
+<td>169</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'listener'.</td>
-<td>161</td></tr>
+<td>169</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocStyle</td>
 <td>First sentence should end with a period.</td>
-<td>165</td></tr>
+<td>173</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'unregister' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>166</td></tr>
+<td>174</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'listener'.</td>
-<td>166</td></tr>
+<td>174</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'list'.</td>
-<td>173</td></tr>
+<td>181</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected an @return tag.</td>
-<td>215</td></tr>
+<td>223</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'updateLocalValue' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>215</td></tr>
+<td>223</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'e'.</td>
-<td>215</td></tr>
+<td>223</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'updateLocalAndPropagate' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>307</td></tr>
+<td>315</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
-<td>307</td></tr>
+<td>315</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocStyle</td>
 <td>First sentence should end with a period.</td>
-<td>316</td></tr>
+<td>324</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'updatedDescription' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>317</td></tr>
+<td>325</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'dentity'.</td>
-<td>317</td></tr>
+<td>325</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocStyle</td>
 <td>First sentence should end with a period.</td>
-<td>328</td></tr>
+<td>336</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'updatedValue' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>329</td></tr>
+<td>337</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'dentity'.</td>
-<td>329</td></tr>
+<td>337</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'value'.</td>
-<td>329</td></tr>
+<td>337</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocStyle</td>
 <td>First sentence should end with a period.</td>
-<td>388</td></tr>
+<td>396</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected an @return tag.</td>
-<td>389</td></tr>
+<td>397</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'getMatchingConfigurationEditors' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>389</td></tr>
+<td>397</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'configPattern'.</td>
-<td>389</td></tr>
+<td>397</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'locale'.</td>
-<td>390</td></tr>
+<td>398</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocStyle</td>
 <td>First sentence should end with a period.</td>
-<td>398</td></tr>
+<td>406</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'registerConfigurableEntityManager' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>399</td></tr>
+<td>407</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'cmanager'.</td>
-<td>399</td></tr>
+<td>407</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'configPattern'.</td>
-<td>399</td></tr>
+<td>407</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'locale'.</td>
-<td>400</td></tr>
+<td>408</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocStyle</td>
 <td>First sentence should end with a period.</td>
-<td>433</td></tr>
+<td>441</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'unRegisterConfigurableEntityManager' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>434</td></tr>
+<td>442</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'manager'.</td>
-<td>434</td></tr>
+<td>442</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'propagate' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>438</td></tr>
+<td>446</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
-<td>438</td></tr>
+<td>446</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected an @return tag.</td>
-<td>449</td></tr>
+<td>457</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'localOnlyExpression' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>449</td></tr>
+<td>457</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
-<td>456</td></tr>
+<td>464</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
-<td>466</td></tr>
+<td>474</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
-<td>476</td></tr>
+<td>484</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocStyle</td>
 <td>First sentence should end with a period.</td>
-<td>490</td></tr>
+<td>498</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'processPropagation' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>491</td></tr>
+<td>499</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'message'.</td>
-<td>491</td></tr>
+<td>500</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocStyle</td>
 <td>First sentence should end with a period.</td>
-<td>507</td></tr>
+<td>516</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'processRequest' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>508</td></tr>
+<td>517</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'message'.</td>
-<td>508</td></tr>
+<td>518</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'processResponse' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>539</td></tr>
+<td>549</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
-<td>539</td></tr></table></div>
+<td>549</td></tr></table></div>
 <div class="section">
 <h3 id="org.universAAL.middleware.managers.configuration.core.impl.GenericConfigurationEntity.java">org/universAAL/middleware/managers/configuration/core/impl/GenericConfigurationEntity.java</h3>
 <table border="0" class="bodyTable">
@@ -1672,37 +1709,133 @@
 <td>design</td>
 <td>HideUtilityClassConstructor</td>
 <td>Utility classes should not have a public or default constructor.</td>
-<td>36</td></tr>
+<td>35</td></tr>
 <tr class="b">
 <td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
 <td>sizes</td>
 <td>LineLength</td>
 <td>Line is longer than 120 characters (found 183).</td>
-<td>56</td></tr>
+<td>55</td></tr>
 <tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>58</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>61</td></tr>
+<tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 120 characters (found 142).</td>
+<td>63</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>65</td></tr>
+<tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>75</td></tr>
+<tr class="b">
 <td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
 <td>sizes</td>
 <td>LineLength</td>
 <td>Line is longer than 120 characters (found 173).</td>
-<td>69</td></tr>
+<td>77</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Unused @param tag for 'OldEntity'.</td>
+<td>97</td></tr>
 <tr class="b">
-<td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td>
-<td>naming</td>
-<td>ParameterName</td>
-<td>Name 'OldEntity' must match pattern '^[a-z][a-zA-Z0-9]*$'.</td>
-<td>99</td></tr>
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Expected @param tag for 'oldEntity'.</td>
+<td>107</td></tr>
 <tr class="a">
 <td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
 <td>sizes</td>
 <td>LineLength</td>
-<td>Line is longer than 120 characters (found 188).</td>
-<td>122</td></tr>
+<td>Line is longer than 120 characters (found 129).</td>
+<td>119</td></tr>
 <tr class="b">
 <td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
 <td>sizes</td>
 <td>LineLength</td>
-<td>Line is longer than 120 characters (found 178).</td>
-<td>140</td></tr></table></div>
+<td>Line is longer than 120 characters (found 202).</td>
+<td>124</td></tr>
+<tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 120 characters (found 202).</td>
+<td>126</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>127</td></tr>
+<tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>137</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 120 characters (found 192).</td>
+<td>140</td></tr>
+<tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 120 characters (found 192).</td>
+<td>141</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>142</td></tr>
+<tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>150</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>whitespace</td>
+<td>WhitespaceAround</td>
+<td>'+' is not preceded with whitespace.</td>
+<td>151</td></tr>
+<tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>whitespace</td>
+<td>WhitespaceAround</td>
+<td>'+' is not followed by whitespace.</td>
+<td>151</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>152</td></tr></table></div>
 <div class="section">
 <h3 id="org.universAAL.middleware.managers.configuration.core.impl.factories.ScopeFactory.java">org/universAAL/middleware/managers/configuration/core/impl/factories/ScopeFactory.java</h3>
 <table border="0" class="bodyTable">
@@ -1801,17 +1934,11 @@
 <td>81</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>87</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'entityUpdated' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>99</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
@@ -1820,174 +1947,180 @@
 <div class="section">
 <h3 id="org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.EntityManager.java">org/universAAL/middleware/managers/configuration/core/impl/secondaryManagers/EntityManager.java</h3>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>Severity</th>
 <th>Category</th>
 <th>Rule</th>
 <th>Message</th>
 <th>Line</th></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
 <td>imports</td>
 <td>UnusedImports</td>
 <td>Unused import - org.universAAL.middleware.interfaces.configuration.scope.Scope.</td>
 <td>36</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>50</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>51</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>52</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>54</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>55</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>56</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'connector'.</td>
 <td>61</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'file'.</td>
 <td>61</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected an @return tag.</td>
 <td>81</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @throws tag for 'FileNotFoundException'.</td>
-<td>81</td></tr>
-<tr class="a">
+<td>82</td></tr>
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected an @return tag.</td>
-<td>113</td></tr>
-<tr class="b">
+<td>114</td></tr>
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'entities'.</td>
-<td>132</td></tr>
-<tr class="a">
+<td>133</td></tr>
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'addEntity' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>158</td></tr>
-<tr class="b">
+<td>159</td></tr>
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected an @return tag.</td>
-<td>185</td></tr>
-<tr class="a">
+<td>186</td></tr>
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'newEnt'.</td>
-<td>185</td></tr>
-<tr class="b">
+<td>186</td></tr>
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'emap'.</td>
-<td>185</td></tr>
-<tr class="a">
+<td>186</td></tr>
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'mergeProbe' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>204</td></tr>
+<td>205</td></tr>
+<tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 120 characters (found 129).</td>
+<td>212</td></tr>
 <tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Expected an @return tag.</td>
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 120 characters (found 155).</td>
 <td>217</td></tr>
 <tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Expected @param tag for 'news'.</td>
-<td>217</td></tr>
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>226</td></tr>
 <tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Expected @param tag for 'emap'.</td>
-<td>217</td></tr>
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 120 characters (found 142).</td>
+<td>235</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'mergeAdd' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>244</td></tr>
+<td>252</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'find' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>260</td></tr>
+<td>268</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'find' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>276</td></tr>
+<td>284</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected an @return tag.</td>
-<td>294</td></tr>
+<td>302</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'list'.</td>
-<td>294</td></tr>
+<td>302</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'filters'.</td>
-<td>294</td></tr></table></div>
+<td>302</td></tr></table></div>
 <div class="section">
 <h3 id="org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.FileManagement.java">org/universAAL/middleware/managers/configuration/core/impl/secondaryManagers/FileManagement.java</h3>
 <table border="0" class="bodyTable">
@@ -2401,268 +2534,268 @@
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
-<td>38</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
 <td>39</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>40</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>41</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>42</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>44</td></tr>
 <tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>48</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getClassURI' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>52</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>52</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getPropSerializationType' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>56</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>56</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'isWellFormed' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>66</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>66</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getContent' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>71</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>71</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setContent' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>75</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>75</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getDefaultURL' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>79</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>79</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setDefaultURL' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>83</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>83</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getLocalURL' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>88</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>88</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setLocalURL' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>92</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>92</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getExtensionFilter' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>96</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>96</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setExtensionFilter' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>100</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>100</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'loadContentFromLocalURL' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>105</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>105</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'loadContentFromDefaultURL' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>109</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>109</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'loadContentFormURL' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>113</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>113</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Expected an @return tag.</td>
-<td>129</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Expected @param tag for 'content'.</td>
-<td>129</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Expected @param tag for 'f'.</td>
-<td>129</td></tr></table></div>
-<div class="section">
-<h3 id="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology.java">org/universAAL/middleware/managers/configuration/core/owl/ConfigurationOntology.java</h3>
-<table border="0" class="bodyTable">
-<tr class="b">
-<th>Severity</th>
-<th>Category</th>
-<th>Rule</th>
-<th>Message</th>
-<th>Line</th></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocType</td>
-<td>Missing a Javadoc comment.</td>
-<td>36</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'createInstance' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>38</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>38</td></tr>
-<tr class="b">
-<td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td>
-<td>coding</td>
-<td>MissingSwitchDefault</td>
-<td>switch without &quot;default&quot; clause.</td>
-<td>40</td></tr>
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 120 characters (found 126).</td>
+<td>43</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
-<td>52</td></tr>
+<td>43</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>45</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>49</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'getClassURI' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>53</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>53</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'getPropSerializationType' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>57</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>57</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'isWellFormed' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>67</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>67</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'getContent' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>72</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>72</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'setContent' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>76</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>76</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'getDefaultURL' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>80</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>80</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'setDefaultURL' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>84</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>84</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'getLocalURL' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>89</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>89</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'setLocalURL' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>93</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>93</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'getExtensionFilter' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>97</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>97</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'setExtensionFilter' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>101</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>101</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'loadContentFromLocalURL' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>106</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>106</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'loadContentFromDefaultURL' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>110</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>110</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'loadContentFormURL' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>114</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>114</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Expected an @return tag.</td>
+<td>130</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Expected @param tag for 'content'.</td>
+<td>130</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Expected @param tag for 'f'.</td>
+<td>130</td></tr></table></div>
+<div class="section">
+<h3 id="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology.java">org/universAAL/middleware/managers/configuration/core/owl/ConfigurationOntology.java</h3>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>Severity</th>
+<th>Category</th>
+<th>Rule</th>
+<th>Message</th>
+<th>Line</th></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocType</td>
+<td>Missing a Javadoc comment.</td>
+<td>37</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'createInstance' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>39</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>39</td></tr>
+<tr class="a">
+<td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td>
+<td>coding</td>
+<td>MissingSwitchDefault</td>
+<td>switch without &quot;default&quot; clause.</td>
+<td>41</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
@@ -2713,13 +2846,49 @@
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
+<td>32</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>33</td></tr>
+<tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 120 characters (found 128).</td>
 <td>34</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
+<td>34</td></tr>
+<tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
 <td>35</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 120 characters (found 135).</td>
+<td>36</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocVariable</td>
+<td>Missing a Javadoc comment.</td>
+<td>36</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 120 characters (found 133).</td>
+<td>37</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
@@ -2730,8 +2899,335 @@
 <td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
 <td>sizes</td>
 <td>LineLength</td>
-<td>Line is longer than 120 characters (found 165).</td>
+<td>Line is longer than 120 characters (found 181).</td>
 <td>39</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocVariable</td>
+<td>Missing a Javadoc comment.</td>
+<td>39</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 120 characters (found 179).</td>
+<td>40</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocVariable</td>
+<td>Missing a Javadoc comment.</td>
+<td>40</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>41</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocVariable</td>
+<td>Missing a Javadoc comment.</td>
+<td>42</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>44</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>48</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'getClassURI' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>52</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>52</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'getPropSerializationType' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>56</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>56</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>59</td></tr>
+<tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>62</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>78</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'isWellFormed' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>82</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>82</td></tr>
+<tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 120 characters (found 130).</td>
+<td>83</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'getValue' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>87</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>87</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>whitespace</td>
+<td>WhitespaceAround</td>
+<td>'?' is not preceded with whitespace.</td>
+<td>90</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>93</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>96</td></tr>
+<tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>99</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>107</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>110</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'setValue' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>114</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>114</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>whitespace</td>
+<td>WhitespaceAround</td>
+<td>'?' is not preceded with whitespace.</td>
+<td>120</td></tr>
+<tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>whitespace</td>
+<td>WhitespaceAround</td>
+<td>'?' is not preceded with whitespace.</td>
+<td>121</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>124</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'getDefaultValue' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>128</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>128</td></tr>
+<tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>whitespace</td>
+<td>WhitespaceAround</td>
+<td>'?' is not preceded with whitespace.</td>
+<td>131</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'setDefaultValue' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>135</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>135</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>whitespace</td>
+<td>WhitespaceAround</td>
+<td>'?' is not preceded with whitespace.</td>
+<td>141</td></tr>
+<tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>whitespace</td>
+<td>WhitespaceAround</td>
+<td>'?' is not preceded with whitespace.</td>
+<td>142</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>145</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'setValueRestriction' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>149</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>149</td></tr>
+<tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>169</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'getValueRestriction' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>174</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>174</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>whitespace</td>
+<td>WhitespaceAround</td>
+<td>'?' is not preceded with whitespace.</td>
+<td>176</td></tr>
+<tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>178</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'setProperty' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>179</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>179</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>whitespace</td>
+<td>WhitespaceAround</td>
+<td>'?' is not preceded with whitespace.</td>
+<td>181</td></tr>
+<tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>whitespace</td>
+<td>OperatorWrap</td>
+<td>'?' should be on a new line.</td>
+<td>181</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>191</td></tr>
+<tr class="a">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 120 characters (found 132).</td>
+<td>192</td></tr></table></div>
+<div class="section">
+<h3 id="org.universAAL.middleware.managers.configuration.core.owl.Entity.java">org/universAAL/middleware/managers/configuration/core/owl/Entity.java</h3>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>Severity</th>
+<th>Category</th>
+<th>Rule</th>
+<th>Message</th>
+<th>Line</th></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocVariable</td>
+<td>Missing a Javadoc comment.</td>
+<td>36</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocVariable</td>
+<td>Missing a Javadoc comment.</td>
+<td>37</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
@@ -2749,304 +3245,169 @@
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
-<td>45</td></tr>
+<td>46</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'getClassURI' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>49</td></tr>
+<td>51</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
-<td>49</td></tr>
+<td>51</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'getPropSerializationType' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>53</td></tr>
+<td>55</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
-<td>53</td></tr>
+<td>55</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'isWellFormed' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>61</td></tr>
+<td>63</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
-<td>61</td></tr>
+<td>63</td></tr>
 <tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getValue' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>65</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>65</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>69</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setValue' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>80</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>80</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getDefaultValue' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>87</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>87</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setDefaultValue' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>91</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>91</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'changeParameterRestriction' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>96</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>96</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getParameterRestriction' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>112</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>112</td></tr></table></div>
-<div class="section">
-<h3 id="org.universAAL.middleware.managers.configuration.core.owl.Entity.java">org/universAAL/middleware/managers/configuration/core/owl/Entity.java</h3>
-<table border="0" class="bodyTable">
-<tr class="a">
-<th>Severity</th>
-<th>Category</th>
-<th>Rule</th>
-<th>Message</th>
-<th>Line</th></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td>35</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td>36</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td>38</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>40</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>45</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getClassURI' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>49</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>49</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getPropSerializationType' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>53</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>53</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'isWellFormed' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>61</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>61</td></tr>
-<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'getVersion' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>65</td></tr>
-<tr class="b">
+<td>67</td></tr>
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
-<td>65</td></tr>
-<tr class="a">
+<td>67</td></tr>
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'isNewerThan' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>70</td></tr>
-<tr class="b">
+<td>72</td></tr>
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
-<td>70</td></tr>
-<tr class="a">
+<td>72</td></tr>
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'incrementVersion' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>83</td></tr>
-<tr class="b">
+<td>85</td></tr>
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
-<td>83</td></tr>
-<tr class="a">
+<td>85</td></tr>
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'setVersion' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>87</td></tr>
-<tr class="b">
+<td>89</td></tr>
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
-<td>87</td></tr>
-<tr class="a">
+<td>89</td></tr>
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'setDescription' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>95</td></tr>
-<tr class="b">
+<td>98</td></tr>
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'description'.</td>
-<td>95</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Expected @param tag for 'loc'.</td>
-<td>95</td></tr>
+<td>98</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
-<td>Expected an @return tag.</td>
-<td>105</td></tr>
+<td>Expected @param tag for 'loc'.</td>
+<td>98</td></tr>
 <tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Expected an @return tag.</td>
+<td>108</td></tr>
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'getDescription' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>105</td></tr>
-<tr class="b">
+<td>108</td></tr>
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'loc'.</td>
-<td>105</td></tr>
-<tr class="a">
+<td>108</td></tr>
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
-<td>109</td></tr>
-<tr class="b">
+<td>112</td></tr>
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected an @return tag.</td>
-<td>117</td></tr>
-<tr class="a">
+<td>120</td></tr>
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'containsDescriptionIn' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>117</td></tr>
-<tr class="b">
+<td>120</td></tr>
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'loc'.</td>
-<td>117</td></tr></table></div></div>
+<td>121</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>145</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'setProperty' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>146</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>146</td></tr></table></div></div>
       </div>
     </div>
     <div class="clear">

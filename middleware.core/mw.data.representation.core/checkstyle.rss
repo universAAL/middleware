@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2018 universAAL Consortium</copyright>
     <item>
       <title>File: 80,
-             Errors: 699,
+             Errors: 701,
              Warnings: 71,
-             Infos: 115
+             Infos: 117
       </title>
             <link>http://middleware/middleware.core/mw.data.representation.core//checkstyle.html</link>
       <description>
@@ -819,13 +819,13 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.rdf.RDFClassInfoSetup.java">org/universAAL/middleware/rdf/RDFClassInfoSetup.java</a>
                 </td>
                 <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
                   1
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
                 </td>
               </tr>
                           <tr>
@@ -861,13 +861,13 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.rdf.RDFClassInfo.java">org/universAAL/middleware/rdf/RDFClassInfo.java</a>
                 </td>
                 <td>
-                  4
+                  5
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  3
+                  4
                 </td>
               </tr>
                           <tr>

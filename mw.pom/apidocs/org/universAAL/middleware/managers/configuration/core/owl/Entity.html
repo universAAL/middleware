@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -142,7 +142,7 @@ var activeTableTab = "activeTableTab";
 <br>
 <pre>public class <span class="typeNameLabel">Entity</span>
 extends <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html" title="class in org.universAAL.middleware.owl">ManagedIndividual</a></pre>
-<div class="block">Ontological representation of Entity in the configurationontologu
+<div class="block">Ontological representation of Entity in the configuration
  ontology. Methods included in this class are the mandatory ones for
  representing an ontological concept in Java classes for the universAAL
  platform. In addition getters and setters for properties are included.</div>
@@ -271,6 +271,15 @@ extends <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndiv
               <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/util/Locale.html?is-external=true" title="class or interface in java.util">Locale</a>&nbsp;loc)</code>&nbsp;</td>
 </tr>
 <tr id="i9" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../org/universAAL/middleware/managers/configuration/core/owl/Entity.html#setProperty-java.lang.String-java.lang.Object-">setProperty</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;propURI,
+           <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;value)</code>
+<div class="block">The default implementation that will set a property if it was not set
+ before and the given value complies with the restrictions defined by this
+ class of managed individuals for the given propURI.</div>
+</td>
+</tr>
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../org/universAAL/middleware/managers/configuration/core/owl/Entity.html#setVersion-long-">setVersion</a></span>(long&nbsp;newPropValue)</code>&nbsp;</td>
 </tr>
@@ -280,7 +289,7 @@ extends <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndiv
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;org.universAAL.middleware.owl.<a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html" title="class in org.universAAL.middleware.owl">ManagedIndividual</a></h3>
-<code><a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#checkCompatibility-java.lang.String-java.lang.String-">checkCompatibility</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#checkMembership-java.lang.String-java.lang.Object-">checkMembership</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#copy-boolean-">copy</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#deepCopy--">deepCopy</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#getClassRestrictionsOnProperty-java.lang.String-java.lang.String-">getClassRestrictionsOnProperty</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#getInstance-java.lang.String-java.lang.String-">getInstance</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#getNonAbstractSuperClasses-org.universAAL.middleware.owl.ManagedIndividual-">getNonAbstractSuperClasses</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#getNonabstractSuperClasses-java.lang.String-">getNonabstractSuperClasses</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#getOntClassInfo--">getOntClassInfo</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#getTypeURI-java.lang.Object-">getTypeURI</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#isRegisteredClassURI-java.lang.String-">isRegisteredClassURI</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#setProperty-java.lang.String-java.lang.Object-">setProperty</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#setPropertyPathFromOffset-java.lang.String:A-int-java.lang.Object-boolean-">setPropertyPathFromOffset</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#toManagedIndividual-java.lang.String-org.universAAL.middleware.rdf.Resource-">toManagedIndividual</a></code></li>
+<code><a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#checkCompatibility-java.lang.String-java.lang.String-">checkCompatibility</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#checkMembership-java.lang.String-java.lang.Object-">checkMembership</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#copy-boolean-">copy</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#deepCopy--">deepCopy</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#getClassRestrictionsOnProperty-java.lang.String-java.lang.String-">getClassRestrictionsOnProperty</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#getInstance-java.lang.String-java.lang.String-">getInstance</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#getNonAbstractSuperClasses-org.universAAL.middleware.owl.ManagedIndividual-">getNonAbstractSuperClasses</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#getNonabstractSuperClasses-java.lang.String-">getNonabstractSuperClasses</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#getOntClassInfo--">getOntClassInfo</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#getTypeURI-java.lang.Object-">getTypeURI</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#isRegisteredClassURI-java.lang.String-">isRegisteredClassURI</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#setPropertyPathFromOffset-java.lang.String:A-int-java.lang.Object-boolean-">setPropertyPathFromOffset</a>, <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#toManagedIndividual-java.lang.String-org.universAAL.middleware.rdf.Resource-">toManagedIndividual</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.org.universAAL.middleware.rdf.FinalizedResource">
@@ -512,7 +521,7 @@ extends <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndiv
 <a name="containsDescriptionIn-java.util.Locale-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>containsDescriptionIn</h4>
 <pre>public&nbsp;boolean&nbsp;containsDescriptionIn(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/util/Locale.html?is-external=true" title="class or interface in java.util">Locale</a>&nbsp;loc)</pre>
@@ -520,6 +529,26 @@ extends <a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndiv
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>loc</code> - </dd>
 <dt><span class="returnLabel">Returns:</span></dt>
+</dl>
+</li>
+</ul>
+<a name="setProperty-java.lang.String-java.lang.Object-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>setProperty</h4>
+<pre>public&nbsp;boolean&nbsp;setProperty(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;propURI,
+                           <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;value)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#setProperty-java.lang.String-java.lang.Object-">ManagedIndividual</a></code></span></div>
+<div class="block">The default implementation that will set a property if it was not set
+ before and the given value complies with the restrictions defined by this
+ class of managed individuals for the given propURI.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html#setProperty-java.lang.String-java.lang.Object-">setProperty</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../../org/universAAL/middleware/owl/ManagedIndividual.html" title="class in org.universAAL.middleware.owl">ManagedIndividual</a></code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><tt>true</tt> if the property changed as a result of the call</dd>
 </dl>
 </li>
 </ul>
