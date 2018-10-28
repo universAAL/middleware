@@ -102,30 +102,50 @@ public class StringUtils {
 
 		StringBuffer sb = new StringBuffer(arg.length() + 10);
 		int i = 0;
-		int wordStatus = 0; // 0->start word, 1->within word, 2->undefined
+		int wordlen = 0, wordStatus = 0; // 0->start word, 1->within word, 2->undefined
+		boolean abbrev = false;
 		while (i < arg.length()) {
 			char c = arg.charAt(i++);
 			if (Character.isLetter(c)) {
 				switch (wordStatus) {
 				case 0:
 					sb.append(Character.toUpperCase(c));
+					wordlen = 1;
 					wordStatus = 1;
 					break;
 				case 1:
-					if (Character.isUpperCase(c))
-						sb.append(' ');
+					if (Character.isUpperCase(c)) {
+						if (wordlen == 1)
+							abbrev = true;
+						else if (!abbrev) {
+							sb.append(' ');
+							abbrev = false;
+							wordlen = 0;
+						}
+					} else if (abbrev) {
+						abbrev = false;
+						char c_ = sb.charAt(sb.length()-1);
+						sb.insert(sb.length()-1, " ");
+						sb.append(c_);
+						wordlen = 1;
+					}
 					sb.append(c);
+					wordlen++;
 					break;
 				case 2:
 					sb.append(' ').append(Character.toUpperCase(c));
 					wordStatus = 1;
+					wordlen = 1;
+					abbrev = false;
 					break;
 				}
 			} else if (isQuote(c)) {
 				sb.append(c);
-			} else if (c == ' ' || c == '_') {
+			} else if (c == ' ' || c == '_' || c == '-' || c == '.' || c == ':' || c == '/' || c == '#') {
 				sb.append(' ');
 				wordStatus = 0;
+				wordlen = 0;
+				abbrev = false;
 			} else {
 				if (wordStatus == 1)
 					sb.append(' ');

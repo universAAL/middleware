@@ -22,6 +22,7 @@ package org.universAAL.middleware.container.utils;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Locale;
@@ -196,7 +197,24 @@ public class Messages {
 		if (l == null && defaultMessages != null)
 			l = defaultMessages.getProperty(key);
 
-		return (l == null) ? key : l;
+		return (l == null)?  logKey(key) : l;
+	}
+	
+	private String logKey(String key) {
+		if (defaultMessages != null) {
+			defaultMessages.setProperty(key, key);
+			if ("file".equalsIgnoreCase(defaultResource.getProtocol())
+					&& !StringUtils.isNonEmpty(defaultResource.getHost())) {
+				// local file
+				File f = new File(defaultResource.getPath());
+				try {
+					PrintWriter pw = new PrintWriter(f);
+					defaultMessages.store(pw, null);
+					pw.close();
+				} catch (Exception e) {}
+			}
+		}
+		return key;
 	}
 
 	/**
@@ -210,7 +228,24 @@ public class Messages {
 	 */
 	private Properties load(URL propertiesURL) throws IOException {
 		Properties props = new Properties();
-		InputStream fis = propertiesURL.openStream();
+		InputStream fis;
+		try {
+			fis = propertiesURL.openStream();
+		} catch (IOException e) {
+			if ("file".equalsIgnoreCase(propertiesURL.getProtocol())
+					&& !StringUtils.isNonEmpty(propertiesURL.getHost())) {
+				// local file
+				File f = new File(propertiesURL.getPath());
+				if (!f.exists()) {
+					if (!f.getParentFile().exists())
+						f.getParentFile().mkdirs();
+					f.createNewFile();
+					fis = propertiesURL.openStream();
+				} else
+					throw e;
+			} else
+				throw e;
+		}
 		props.load(fis);
 		fis.close();
 		return props;
