@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="161" branches-covered="0" branches-valid="78" complexity="7.111111111111111" version="2.1.1" timestamp="1533725345640">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="161" branches-covered="0" branches-valid="78" complexity="7.111111111111111" version="2.1.1" timestamp="1540769504459">
 	<sources>
 		<source>--source</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.karaf.shell.universAAL.config.osgi/src/main/java</source>
