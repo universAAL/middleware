@@ -91,7 +91,7 @@
 <th>Missing Classes</th></tr>
 <tr class="b">
 <td>9</td>
-<td>2</td>
+<td>5</td>
 <td>0</td>
 <td>0</td></tr></table></div>
 <div class="section">
@@ -101,24 +101,54 @@
 <th>Class</th>
 <th>Bugs</th></tr>
 <tr class="b">
-<td><a href="#org.universAAL.middleware.container.utils.StringUtils">org.universAAL.middleware.container.utils.StringUtils</a></td>
-<td>2</td></tr></table></div><a name="org.universAAL.middleware.container.utils.StringUtils"></a>
-<div class="section">
-<h3><a name="org.universAAL.middleware.container.utils.StringUtils"></a>org.universAAL.middleware.container.utils.StringUtils</h3>
-<table border="0" class="bodyTable">
+<td><a href="#org.universAAL.middleware.container.utils.Messages">org.universAAL.middleware.container.utils.Messages</a></td>
+<td>3</td></tr>
 <tr class="a">
+<td><a href="#org.universAAL.middleware.container.utils.StringUtils">org.universAAL.middleware.container.utils.StringUtils</a></td>
+<td>2</td></tr></table></div><a name="org.universAAL.middleware.container.utils.Messages"></a>
+<div class="section">
+<h3><a name="org.universAAL.middleware.container.utils.Messages"></a>org.universAAL.middleware.container.utils.Messages</h3>
+<table border="0" class="bodyTable">
+<tr class="b">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
+<tr class="a">
+<td>Found reliance on default encoding in org.universAAL.middleware.container.utils.Messages.logKey(String): new java.io.PrintWriter(File)</td>
+<td>I18N</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_DEFAULT_ENCODING">DM_DEFAULT_ENCODING</a></td>
+<td>211</td>
+<td>High</td></tr>
 <tr class="b">
+<td>Exceptional return value of java.io.File.createNewFile() ignored in org.universAAL.middleware.container.utils.Messages.load(URL)</td>
+<td>BAD_PRACTICE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RV_RETURN_VALUE_IGNORED_BAD_PRACTICE">RV_RETURN_VALUE_IGNORED_BAD_PRACTICE</a></td>
+<td>242</td>
+<td>Medium</td></tr>
+<tr class="a">
+<td>Exceptional return value of java.io.File.mkdirs() ignored in org.universAAL.middleware.container.utils.Messages.load(URL)</td>
+<td>BAD_PRACTICE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RV_RETURN_VALUE_IGNORED_BAD_PRACTICE">RV_RETURN_VALUE_IGNORED_BAD_PRACTICE</a></td>
+<td>241</td>
+<td>Medium</td></tr></table></div><a name="org.universAAL.middleware.container.utils.StringUtils"></a>
+<div class="section">
+<h3><a name="org.universAAL.middleware.container.utils.StringUtils"></a>org.universAAL.middleware.container.utils.StringUtils</h3>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>Bug</th>
+<th>Category</th>
+<th>Details</th>
+<th>Line</th>
+<th>Priority</th></tr>
+<tr class="a">
 <td>Random object created and used only once in org.universAAL.middleware.container.utils.StringUtils.&lt;static initializer for StringUtils&gt;()</td>
 <td>BAD_PRACTICE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DMI_RANDOM_USED_ONLY_ONCE">DMI_RANDOM_USED_ONLY_ONCE</a></td>
 <td>44</td>
 <td>High</td></tr>
-<tr class="a">
+<tr class="b">
 <td>org.universAAL.middleware.container.utils.StringUtils.&lt;static initializer for StringUtils&gt;() concatenates strings using + in a loop</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SBSC_USE_STRINGBUFFER_CONCATENATION">SBSC_USE_STRINGBUFFER_CONCATENATION</a></td>

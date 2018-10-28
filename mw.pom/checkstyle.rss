@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2018 universAAL Consortium</copyright>
     <item>
       <title>File: 555,
-             Errors: 8021,
-             Warnings: 478,
-             Infos: 574
+             Errors: 8022,
+             Warnings: 479,
+             Infos: 582
       </title>
             <link>http://middleware/mw.pom//checkstyle.html</link>
       <description>
@@ -3283,13 +3283,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.container.utils.Messages.java">org/universAAL/middleware/container/utils/Messages.java</a>
                 </td>
                 <td>
-                  1
+                  5
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  6
+                  7
                 </td>
               </tr>
                           <tr>
@@ -4949,10 +4949,10 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.container.utils.StringUtils.java">org/universAAL/middleware/container/utils/StringUtils.java</a>
                 </td>
                 <td>
-                  4
+                  8
                 </td>
                 <td>
-                  2
+                  3
                 </td>
                 <td>
                   21
