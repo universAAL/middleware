@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="262" branches-covered="0" branches-valid="92" complexity="3.3793103448275863" version="2.1.1" timestamp="1540769400253">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="262" branches-covered="0" branches-valid="92" complexity="3.3793103448275863" version="2.1.1" timestamp="1541365338222">
 	<sources>
 		<source>/home/travis/build/universAAL/middleware/middleware.core/mw.connectors.discovery.slp.core/src/main/java</source>
 		<source>--source</source>
