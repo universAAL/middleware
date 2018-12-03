@@ -206,9 +206,9 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry,
 		if (contextListener == null) {
 			addContextBusListener();
 		}
-		if (uiListener == null) {
-			addUIBusListener();
-		}
+//		if (uiListener == null) {
+//			addUIBusListener();
+//		}
 	}
 
 	public void removeRegistryListeners() {
@@ -242,19 +242,19 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry,
 			}
 		}
 
-		if (uiListener != null) {
-			try {
-				IUIBus uiBus = UIBusFacade.fetchBus(mc);
-				((AbstractBus) uiBus).removeRegistryListener(uiListener);
-			} catch (Exception e) {
-				LogUtils.logError(
-						mc,
-						getClass(),
-						"removeRegistryListeners",
-						new String[] { "UI Bus might have been stoped before tracker." },
-						e);
-			}
-		}
+//		if (uiListener != null) {
+//			try {
+//				IUIBus uiBus = UIBusFacade.fetchBus(mc);
+//				((AbstractBus) uiBus).removeRegistryListener(uiListener);
+//			} catch (Exception e) {
+//				LogUtils.logError(
+//						mc,
+//						getClass(),
+//						"removeRegistryListeners",
+//						new String[] { "UI Bus might have been stoped before tracker." },
+//						e);
+//			}
+//		}
 	}
 
 	private IRegistryListener createBusListener(AbstractBus bus, BusType type) {
@@ -289,18 +289,18 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry,
 		}
 	}
 
-	private void addUIBusListener() {
-		try {
-			Object[] ubuses = mc.getContainer().fetchSharedObject(mc,
-					UIBusFacade.getUIBusFetchParams(), this);
-			if (ubuses.length > 0 && ubuses[0] instanceof IUIBus) {
-				sharedObjectAdded(ubuses[0], null);
-			}
-		} catch (Throwable e) {
-			LogUtils.logError(mc, getClass(), "addUIBusListener",
-					new String[] { "UI Bus not available." }, e);
-		}
-	}
+//	private void addUIBusListener() {
+//		try {
+//			Object[] ubuses = mc.getContainer().fetchSharedObject(mc,
+//					UIBusFacade.getUIBusFetchParams(), this);
+//			if (ubuses.length > 0 && ubuses[0] instanceof IUIBus) {
+//				sharedObjectAdded(ubuses[0], null);
+//			}
+//		} catch (Throwable e) {
+//			LogUtils.logError(mc, getClass(), "addUIBusListener",
+//					new String[] { "UI Bus not available." }, e);
+//		}
+//	}
 
 	private void removeBusMemberFromRegistry(String id, BusMember member,
 			BusType type) {

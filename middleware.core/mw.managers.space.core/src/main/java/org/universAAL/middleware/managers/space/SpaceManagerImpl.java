@@ -42,8 +42,8 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
+//import javax.xml.bind.JAXBContext;
+//import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
@@ -59,8 +59,12 @@ import org.universAAL.middleware.interfaces.space.SpaceCard;
 import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
 import org.universAAL.middleware.interfaces.space.SpaceStatus;
 import org.universAAL.middleware.interfaces.space.model.IChannelDescriptor;
+import org.universAAL.middleware.interfaces.space.model.ICommunicationChannels;
+import org.universAAL.middleware.interfaces.space.model.IPeeringChannel;
 import org.universAAL.middleware.interfaces.space.model.ISpace;
+import org.universAAL.middleware.interfaces.space.model.ISpaceDescriptor;
 import org.universAAL.middleware.interfaces.space.xml.model.ObjectFactory;
+import org.universAAL.middleware.interfaces.space.xml.model.Space;
 import org.universAAL.middleware.managers.api.MatchingResult;
 import org.universAAL.middleware.managers.api.SpaceEventHandler;
 import org.universAAL.middleware.managers.api.SpaceListener;
@@ -126,8 +130,8 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager,
 	private ScheduledFuture refreshFuture;
 
 	private String spaceConfigurationPath;
-	private JAXBContext jc;
-	private Unmarshaller unmarshaller;
+//	private JAXBContext jc;
+//	private Unmarshaller unmarshaller;
 	private boolean spaceValidation;
 	private String spaceSchemaURL;
 	private String spaceSchemaName;
@@ -144,9 +148,9 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager,
 	private final ScheduledExecutorService scheduler = Executors
 			.newScheduledThreadPool(10);
 
-	public SpaceManagerImpl(ModuleContext context) {
+	public SpaceManagerImpl(ModuleContext context, String altDir) {
 		this.context = context;
-		this.altConfigDir = context.getConfigHome().getAbsolutePath();
+		this.altConfigDir = altDir;
 		managedSpaces = new Hashtable<String, SpaceDescriptor>();
 		foundSpaces = Collections.synchronizedSet(new HashSet<SpaceCard>());
 		peers = new HashMap<String, PeerCard>();
@@ -212,56 +216,62 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager,
 	private void loadPeerCard() {
 		final String METHOD = "loadPeerCard";
 		// try to load peer ID
-		String peerId = System
-				.getProperty(org.universAAL.middleware.managers.space.util.Consts.PEER_ID);
+		String peerId = System.getProperty(
+			org.universAAL.middleware.managers.space.util.Consts.PEER_ID);
 		if (peerId == null) {
-			LogUtils.logDebug(
-					context,
-					SpaceManagerImpl.class,
-					METHOD,
-					new Object[] { "No PeerID specified as System Properties " },
-					null);
-			try {
-				Properties props = new Properties();
-				props.load(new FileInputStream(new File(
-						context.getConfigHome(), PEER_ID_FILE)));
-				peerId = props.getProperty("default");
-			} catch (Exception e) {
-				LogUtils.logInfo(context, SpaceManagerImpl.class, METHOD,
-						new Object[] { "Failed to loead peerId from file: ",
-								PEER_ID_FILE, " in folder ",
-								context.getConfigHome().getAbsoluteFile() }, e);
-			}
+		    LogUtils.logDebug(context, SpaceManagerImpl.class, METHOD,
+			    new Object[] {
+				    "No PeerID specified as System Properties " },
+			    null);
+		}
+		if (peerId == null) {
+		    LogUtils.logDebug(context, SpaceManagerImpl.class, METHOD,
+			    new Object[] {
+				    "No PeerID specified as System Properties " },
+			    null);
+		}
+		try {
+		    Properties props = new Properties();
+		    File f = new File(altConfigDir, PEER_ID_FILE);
+		    if (!f.exists())
+			f.createNewFile();
+		    props.load(new FileInputStream(f));
+		    peerId = props.getProperty("default");
+		} catch (Exception e) {
+		    LogUtils.logInfo(context, SpaceManagerImpl.class, METHOD,
+			    new Object[] { "Failed to loead peerId from file: ",
+				    PEER_ID_FILE, " in folder ", altConfigDir },
+			    e);
 		}
 		// create PeerCard
 		synchronized (this) {
-			if (peerId == null) {
-				LogUtils.logDebug(context, SpaceManagerImpl.class, METHOD,
-						new Object[] { "Creating the PeerCard..." }, null);
-				myPeerCard = new PeerCard(peerRole, "", "");
-				LogUtils.logInfo(
-						context,
-						SpaceManagerImpl.class,
-						"init",
-						new Object[] { "--->PeerCard created: "
-								+ myPeerCard.toString() }, null);
+		    if (peerId == null) {
+			LogUtils.logDebug(context, SpaceManagerImpl.class, METHOD,
+				new Object[] { "Creating the PeerCard..." }, null);
+			myPeerCard = new PeerCard(peerRole, "", "");
+			LogUtils.logInfo(context, SpaceManagerImpl.class, "init",
+				new Object[] { "--->PeerCard created: "
+					+ myPeerCard.toString() },
+				null);
 
-			} else {
-				myPeerCard = new PeerCard(peerId, peerRole);
-			}
+		    } else {
+			myPeerCard = new PeerCard(peerId, peerRole);
+		    }
 		}
 		// save peer ID
 		try {
-			Properties props = new Properties();
-			props.setProperty("default", myPeerCard.getPeerID());
-			props.store(new FileOutputStream(new File(context.getConfigHome(),
-					PEER_ID_FILE)),
-					"Properties files that contains the peerId used by this peer");
+		    Properties props = new Properties();
+		    props.setProperty("default", myPeerCard.getPeerID());
+		    File f = new File(altConfigDir, PEER_ID_FILE);
+		    if (!f.exists())
+			f.createNewFile();
+		    props.store(new FileOutputStream(f),
+			    "Properties files that contains the peerId used by this peer");
 		} catch (Exception e) {
-			LogUtils.logError(context, SpaceManagerImpl.class, METHOD,
-					new Object[] { "Failed to save peerId from file: ",
-							PEER_ID_FILE, " in folder ",
-							context.getConfigHome().getAbsoluteFile() }, e);
+		    LogUtils.logError(context, SpaceManagerImpl.class, METHOD,
+			    new Object[] { "Failed to save peerId from file: ",
+				    PEER_ID_FILE, " in folder ", altConfigDir },
+			    e);
 		}
 	}
 
@@ -778,49 +788,101 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager,
 		}
 
 		ISpace space = null;
-		space = loadConfigurationFromXML(spaces);
-		if (space == null) {
-			space = loadConfigurationFromJSON(spaces);
+		String value = "<![CDATA[<config xmlns=\"urn:org:jgroups\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"urn:org:jgroups http://www.jgroups.org/schema/JGroups-3.0.xsd\"> <UDP mcast_port=\"${jgroups.udp.mcast_port:45588}\" tos=\"8\" ucast_recv_buf_size=\"20M\" ucast_send_buf_size=\"640K\" mcast_recv_buf_size=\"25M\" mcast_send_buf_size=\"640K\" loopback=\"true\" discard_incompatible_packets=\"true\" max_bundle_size=\"64K\" max_bundle_timeout=\"30\" ip_ttl=\"${jgroups.udp.ip_ttl:8}\" enable_bundling=\"true\" enable_diagnostics=\"false\" thread_naming_pattern=\"cl\" timer_type=\"new\" timer.min_threads=\"4\" timer.max_threads=\"10\" timer.keep_alive_time=\"3000\" timer.queue_max_size=\"500\" thread_pool.enabled=\"true\" thread_pool.min_threads=\"2\" thread_pool.max_threads=\"8\" thread_pool.keep_alive_time=\"5000\" thread_pool.queue_enabled=\"true\" thread_pool.queue_max_size=\"10000\" thread_pool.rejection_policy=\"discard\" oob_thread_pool.enabled=\"true\" oob_thread_pool.min_threads=\"1\" oob_thread_pool.max_threads=\"8\" oob_thread_pool.keep_alive_time=\"5000\" oob_thread_pool.queue_enabled=\"false\" oob_thread_pool.queue_max_size=\"100\" oob_thread_pool.rejection_policy=\"Run\"/> <PING timeout=\"2000\" num_initial_members=\"3\"/> <MERGE2 max_interval=\"30000\" min_interval=\"10000\"/> <FD_SOCK/> <FD_ALL/> <VERIFY_SUSPECT timeout=\"1500\" /> <BARRIER /> <pbcast.NAKACK exponential_backoff=\"300\" xmit_stagger_timeout=\"200\" use_mcast_xmit=\"false\" discard_delivered_msgs=\"true\"/> <UNICAST /> <pbcast.STABLE stability_delay=\"1000\" desired_avg_gossip=\"50000\" max_bytes=\"4M\"/> <pbcast.GMS print_local_addr=\"true\" join_timeout=\"3000\" view_bundling=\"true\"/> <UFC max_credits=\"2M\" min_threshold=\"0.4\"/> <MFC max_credits=\"2M\" min_threshold=\"0.4\"/> <FRAG2 frag_size=\"60K\" /> <pbcast.STATE_TRANSFER /> <pbcast.FLUSH /> </config>]]>";
+		String url = "file:/mnt/sdcard/data/felix-conf-1.3.3/conf/etc/udp.xml";
+
+		space = new Space();
+		// space.setAdmin("admin");
+		// space.setOwner("owner");
+		space.setSecurity("security");
+		ISpaceDescriptor sd = new Space.SpaceDescriptor();
+		sd.setSpaceName("myHome3");
+		sd.setProfile("HomeSpace");
+		sd.setSpaceId("8888");
+		sd.setSpaceDescription("Super Domestic Home");
+		space.setSpaceDescriptor(sd);
+		IPeeringChannel pc = new Space.PeeringChannel();
+		IChannelDescriptor cd = new org.universAAL.middleware.interfaces.space.xml.model.ChannelDescriptor();
+		cd.setChannelName("mw.modules.aalspace.osgi");
+		cd.setChannelURL(url);
+		cd.setChannelValue(value);
+		pc.setChannelDescriptor(cd);
+		space.setPeeringChannel(pc);
+		ICommunicationChannels ccs = new Space.CommunicationChannels();
+		IChannelDescriptor cd1 = new org.universAAL.middleware.interfaces.space.xml.model.ChannelDescriptor();
+		cd1.setChannelName("mw.brokers.control.osgi"); // ONLY NAMES
+		// ARE NEEDED
+		cd1.setChannelURL(url);
+		cd1.setChannelValue(value);
+		IChannelDescriptor cd2 = new org.universAAL.middleware.interfaces.space.xml.model.ChannelDescriptor();
+		cd2.setChannelName("mw.bus.context.osgi");
+		cd2.setChannelURL(url);
+		cd2.setChannelValue(value);
+		IChannelDescriptor cd3 = new org.universAAL.middleware.interfaces.space.xml.model.ChannelDescriptor();
+		cd3.setChannelName("mw.bus.service.osgi");
+		cd3.setChannelURL(url);
+		cd3.setChannelValue(value);
+		IChannelDescriptor cd4 = new org.universAAL.middleware.interfaces.space.xml.model.ChannelDescriptor();
+		cd4.setChannelName("mw.bus.ui.osgi");
+		cd4.setChannelURL(url);
+		cd.setChannelValue(value);
+		// ccs.getChannelDescriptor().add(cd1);
+		// ccs.getChannelDescriptor().add(cd2);
+		// ccs.getChannelDescriptor().add(cd3);
+		// ccs.getChannelDescriptor().add(cd4);
+		ccs.addChannelDescriptor(cd1);
+		ccs.addChannelDescriptor(cd2);
+		ccs.addChannelDescriptor(cd3);
+		ccs.addChannelDescriptor(cd4);
+		space.setCommunicationChannels(ccs);
+		if (space != null) {
+		    return parametrizeChannelNames(space);
+		} else {
+		    LogUtils.logWarn(context, SpaceManagerImpl.class,
+			    "readAALSpaceDefaultConfigurations",
+			    new Object[] {
+				    "Unable to parse default AALSpace configuration" },
+			    null);
+		    return null;
 		}
-		return space;
 	}
 
-	private ISpace loadConfigurationFromJSON(File[] spaces) {
-		return null;
-	}
+//	private ISpace loadConfigurationFromJSON(File[] spaces) {
+//		return null;
+//	}
 
-	private ISpace loadConfigurationFromXML(File[] spaces) {
-		final String METHOD = "loadConfigurationFromXML";
-		File xml = spaces[0];
-
-		if (spaces.length > 1) {
-			LogUtils.logWarn(
-					context,
-					SpaceManagerImpl.class,
-					METHOD,
-					new Object[] {
-							"Multiple Space configuration found but only using the file ",
-							xml.getAbsolutePath() }, null);
-		}
-		LogUtils.logDebug(context, SpaceManagerImpl.class, METHOD,
-				new Object[] { "Loading Space configuration from the file ",
-						xml.getAbsolutePath() }, null);
-
-		ISpace space = null;
-		try {
-			loadXMLParser();
-			space = (ISpace) unmarshaller.unmarshal(xml);
-			// parametrize the channels
-			space = parametrizeChannelNames(space);
-		} catch (Exception ex) {
-			LogUtils.logError(context, SpaceManagerImpl.class, METHOD,
-					new Object[] { "Failed to parse Space configuration from ",
-							xml.getAbsolutePath() }, ex);
-			return null;
-		}
-
-		return space;
-	}
+//	private ISpace loadConfigurationFromXML(File[] spaces) {
+//		final String METHOD = "loadConfigurationFromXML";
+//		File xml = spaces[0];
+//
+//		if (spaces.length > 1) {
+//			LogUtils.logWarn(
+//					context,
+//					SpaceManagerImpl.class,
+//					METHOD,
+//					new Object[] {
+//							"Multiple Space configuration found but only using the file ",
+//							xml.getAbsolutePath() }, null);
+//		}
+//		LogUtils.logDebug(context, SpaceManagerImpl.class, METHOD,
+//				new Object[] { "Loading Space configuration from the file ",
+//						xml.getAbsolutePath() }, null);
+//
+//		ISpace space = null;
+//		try {
+//			loadXMLParser();
+//			space = (ISpace) unmarshaller.unmarshal(xml);
+//			// parametrize the channels
+//			space = parametrizeChannelNames(space);
+//		} catch (Exception ex) {
+//			LogUtils.logError(context, SpaceManagerImpl.class, METHOD,
+//					new Object[] { "Failed to parse Space configuration from ",
+//							xml.getAbsolutePath() }, ex);
+//			return null;
+//		}
+//
+//		return space;
+//	}
 
 	/**
 	 * This methods modifies the name of the peering channel and of the
@@ -846,49 +908,49 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager,
 		return space;
 	}
 
-	private void loadXMLParser() throws Exception {
-		if (jc != null)
-			return;
+//	private void loadXMLParser() throws Exception {
+//		if (jc != null)
+//			return;
+//
+//		jc = JAXBContext.newInstance(ObjectFactory.class);
+//		unmarshaller = jc.createUnmarshaller();
+//		// XML Schema validation
+//		if (spaceValidation && spaceConfigurationPath != null
+//				&& spaceSchemaName != null) {
+//			loadXMLValidation();
+//		}
+//
+//	}
 
-		jc = JAXBContext.newInstance(ObjectFactory.class);
-		unmarshaller = jc.createUnmarshaller();
-		// XML Schema validation
-		if (spaceValidation && spaceConfigurationPath != null
-				&& spaceSchemaName != null) {
-			loadXMLValidation();
-		}
-
-	}
-
-	private void loadXMLValidation() {
-		final String METHOD = "loadXMLValidation";
-		LogUtils.logDebug(context, SpaceManagerImpl.class, METHOD,
-				new Object[] { "Initialize Space schema validation" }, null);
-		SchemaFactory sf = SchemaFactory
-				.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-		File spaceSchemaFile = new File(spaceSchemaURL + File.separatorChar
-				+ spaceSchemaName);
-		Schema spaceSchema = null;
-		if (spaceSchemaFile.canRead() == false) {
-			LogUtils.logWarn(context, SpaceManagerImpl.class, METHOD,
-					new Object[] { "Unable to read Space Scham from path: "
-							+ spaceSchemaFile.getAbsolutePath() }, null);
-			return;
-		}
-		try {
-			spaceSchema = sf.newSchema(spaceSchemaFile);
-			unmarshaller.setSchema(spaceSchema);
-			unmarshaller.setEventHandler(new SpaceSchemaEventHandler(context));
-
-		} catch (Exception ex) {
-			LogUtils.logError(
-					context,
-					SpaceManagerImpl.class,
-					METHOD,
-					new Object[] { "Error during Space schema initialization for validatin XML, it will not be used" },
-					ex);
-		}
-	}
+//	private void loadXMLValidation() {
+//		final String METHOD = "loadXMLValidation";
+//		LogUtils.logDebug(context, SpaceManagerImpl.class, METHOD,
+//				new Object[] { "Initialize Space schema validation" }, null);
+//		SchemaFactory sf = SchemaFactory
+//				.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+//		File spaceSchemaFile = new File(spaceSchemaURL + File.separatorChar
+//				+ spaceSchemaName);
+//		Schema spaceSchema = null;
+//		if (spaceSchemaFile.canRead() == false) {
+//			LogUtils.logWarn(context, SpaceManagerImpl.class, METHOD,
+//					new Object[] { "Unable to read Space Scham from path: "
+//							+ spaceSchemaFile.getAbsolutePath() }, null);
+//			return;
+//		}
+//		try {
+//			spaceSchema = sf.newSchema(spaceSchemaFile);
+//			unmarshaller.setSchema(spaceSchema);
+//			unmarshaller.setEventHandler(new SpaceSchemaEventHandler(context));
+//
+//		} catch (Exception ex) {
+//			LogUtils.logError(
+//					context,
+//					SpaceManagerImpl.class,
+//					METHOD,
+//					new Object[] { "Error during Space schema initialization for validatin XML, it will not be used" },
+//					ex);
+//		}
+//	}
 
 	public void loadConfigurations(Dictionary configurations) {
 		LogUtils.logDebug(context, SpaceManagerImpl.class,
