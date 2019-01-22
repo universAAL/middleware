@@ -15,26 +15,22 @@
  ******************************************************************************/
 package org.universAAL.middleware.serialization.json.grammar;
 
-import java.io.InputStream;
+import org.universAAL.middleware.rdf.Resource;
+
+import com.google.gson.JsonObject;
 
 /**
+ * Interpret the internal {@link JsonObject} representation as a {@link Resource} or {@link Object} for datatype properties.
  * @author amedrano
- * @see <a href=https://www.w3.org/TR/2014/REC-json-ld-20140116/#json-ld-grammar>https://www.w3.org/TR/2014/REC-json-ld-20140116/#json-ld-grammar</a>
+ *
+ * @param <T>
  */
-public class JSONLDDocument implements JSONLDValidator{
+public interface JSONLDInterpreter<T> extends JSONLDValidator {
 
 	/**
-	 *
+	 * Pre condition, {@link JSONLDValidator#validate()} == true.
+	 * @return The interpretation of the {@link JsonObject}.
 	 */
-	public JSONLDDocument(InputStream is) {
-		// TODO parse
-
-		// TODO check
-	}
-
-	public boolean validate() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	T interpret();
 
 }

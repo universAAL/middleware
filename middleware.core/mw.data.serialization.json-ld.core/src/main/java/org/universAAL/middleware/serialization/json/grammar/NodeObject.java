@@ -15,6 +15,10 @@
  ******************************************************************************/
 package org.universAAL.middleware.serialization.json.grammar;
 
+import java.security.InvalidParameterException;
+
+import org.universAAL.middleware.rdf.Resource;
+
 import com.google.gson.JsonObject;
 
 /**
@@ -22,7 +26,9 @@ import com.google.gson.JsonObject;
  * @see <a
  *      href=https://www.w3.org/TR/2014/REC-json-ld-20140116/#node-objects>https://www.w3.org/TR/2014/REC-json-ld-20140116/#node-objects</a>
  */
-public class NodeObject {
+public class NodeObject implements JSONLDInterpreter<Resource> {
+
+	private JsonObject obj;
 
 	/**
 	 * It does not contain the @value, @list, or @set keywords.
@@ -33,7 +39,25 @@ public class NodeObject {
 	 * @context, @id, @graph, @type, @reverse, or @index
 	 */
 	public NodeObject(JsonObject obj) {
-
+		this.obj = obj;
+		if (!validate()) {
+			//TODO use appropriate Exception
+			//TODO log
+			throw new InvalidParameterException();
+		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.universAAL.middleware.serialization.json.grammar.JSONLDInterpreter#interpret()
+	 */
+	public Resource interpret() {
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.universAAL.middleware.serialization.json.grammar.JSONLDValidator#validate()
+	 */
+	public boolean validate() {
+		return false;
+	}
 }
