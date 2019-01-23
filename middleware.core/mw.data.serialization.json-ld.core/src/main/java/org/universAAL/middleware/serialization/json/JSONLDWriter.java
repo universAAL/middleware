@@ -34,7 +34,7 @@ import com.google.gson.JsonPrimitive;
 
 /**
  * @author amedrano
- * 
+ *
  */
 public class JSONLDWriter {
 
@@ -188,7 +188,7 @@ public class JSONLDWriter {
 	 * Check if a {@link Resource} should be embedded. Conditions: <li>it is not
 	 * a resource with only URI <li>it is a resource with just 1 reference. <li>
 	 * it is not an already serialized resource <li>forced flat mode is disabled
-	 * 
+	 *
 	 * @param o
 	 * @return
 	 */
