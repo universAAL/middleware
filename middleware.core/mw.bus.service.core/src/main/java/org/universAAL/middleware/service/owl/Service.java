@@ -232,10 +232,21 @@ public abstract class Service extends ManagedIndividual {
 	}
 
 	/**
-	 * Adds a restriction to a given input
+	 * Adds an input parameter used to limit the scope of the operation to only those objects reachable with the 'propPath'
+	 * whose type is equal to the single mandatory value provided in runtime for this input parameter. This is equivalent
+	 * to <code>addFilteringType(inParamURI, propPath, 1, 1)</code>.
 	 */
 	public final void addFilteringType(String inParamURI, String[] propPath) {
-		ProcessInput in = createInput(inParamURI, TypeMapper.getDatatypeURI(Resource.class), 1, 1);
+		addFilteringType(inParamURI, propPath, 1, 1);
+	}
+
+	/**
+	 * Adds an input parameter used to limit the scope of the operation to only those objects reachable with the 'propPath'
+	 * whose type is equal to the value provided in runtime for this input parameter. The cardinality parameters specify
+	 * how many type URIs can be provided in runtime as value for this input parameter.
+	 */
+	public final void addFilteringType(String inParamURI, String[] propPath, int minCardinality, int maxCardinality) {
+		ProcessInput in = createInput(inParamURI, TypeMapper.getDatatypeURI(Resource.class), minCardinality, maxCardinality);
 		String[] pp = new String[propPath.length + 1];
 		for (int i = 0; i < propPath.length; i++)
 			pp[i] = propPath[i];
