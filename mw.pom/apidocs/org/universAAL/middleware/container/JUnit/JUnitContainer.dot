@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.container.Container
-	c233963 [label=<<table title="org.universAAL.middleware.container.Container" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../Container.html">
+	c233964 [label=<<table title="org.universAAL.middleware.container.Container" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../Container.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Container </td></tr>
@@ -23,6 +23,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./JUnitContainer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.container.JUnit.JUnitContainer implements org.universAAL.middleware.container.Container
-	c233963:p -> c233970:p [dir=back,arrowtail=empty,style=dashed];
+	c233964:p -> c233970:p [dir=back,arrowtail=empty,style=dashed];
 }
 

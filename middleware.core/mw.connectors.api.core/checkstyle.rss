@@ -23,7 +23,7 @@ under the License.
     <link>http://middleware/middleware.core/mw.connectors.api.core/</link>
     <description>universAAL Middleware Connector API (Core) - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2018 universAAL Consortium</copyright>
+    <copyright>&#169;2019 universAAL Consortium</copyright>
     <item>
       <title>File: 13,
              Errors: 120,
@@ -94,7 +94,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   22
@@ -122,24 +122,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   19
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/middleware.core/mw.connectors.api.core//checkstyle.html#org.universAAL.middleware.connectors.Connector.java">org/universAAL/middleware/connectors/Connector.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  8
                 </td>
               </tr>
                           <tr>
@@ -164,7 +150,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   4
@@ -172,16 +158,16 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.connectors.api.core//checkstyle.html#org.universAAL.middleware.connectors.exception.CommunicationConnectorErrorCode.java">org/universAAL/middleware/connectors/exception/CommunicationConnectorErrorCode.java</a>
+                  <a href="http://middleware/middleware.core/mw.connectors.api.core//checkstyle.html#org.universAAL.middleware.connectors.Connector.java">org/universAAL/middleware/connectors/Connector.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
-                  5
+                  8
                 </td>
               </tr>
                           <tr>
@@ -192,10 +178,24 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.connectors.api.core//checkstyle.html#org.universAAL.middleware.connectors.exception.CommunicationConnectorErrorCode.java">org/universAAL/middleware/connectors/exception/CommunicationConnectorErrorCode.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
                 </td>
               </tr>
                           <tr>
@@ -220,7 +220,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   5

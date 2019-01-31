@@ -1,10 +1,10 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./DistributedBusMemberListener.html" title="org.universAAL.middleware.managers.distributedmw.api.DistributedBusMemberListener" alt="" coords="16,11,216,55"/>
-<area shape="rect" id="node1" href="./DistributedBusMemberListener.html" title="&lt;TABLE&gt;" alt="" coords="5,6,227,61"/>
-<area shape="rect" id="node2_1" href="./DistributedLogListener.html" title="org.universAAL.middleware.managers.distributedmw.api.DistributedLogListener" alt="" coords="262,11,413,55"/>
-<area shape="rect" id="node2" href="./DistributedLogListener.html" title="&lt;TABLE&gt;" alt="" coords="251,6,423,61"/>
-<area shape="rect" id="node3_2" href="./DistributedLogManager.html" title="org.universAAL.middleware.managers.distributedmw.api.DistributedLogManager" alt="" coords="459,11,613,55"/>
-<area shape="rect" id="node3" href="./DistributedLogManager.html" title="&lt;TABLE&gt;" alt="" coords="448,6,624,61"/>
-<area shape="rect" id="node4_3" href="./DistributedBusMemberManager.html" title="org.universAAL.middleware.managers.distributedmw.api.DistributedBusMemberManager" alt="" coords="659,11,863,55"/>
-<area shape="rect" id="node4" href="./DistributedBusMemberManager.html" title="&lt;TABLE&gt;" alt="" coords="649,6,874,61"/>
+<area shape="rect" id="node1_0" href="./DistributedBusMemberManager.html" title="org.universAAL.middleware.managers.distributedmw.api.DistributedBusMemberManager" alt="" coords="15,11,219,55"/>
+<area shape="rect" id="node1" href="./DistributedBusMemberManager.html" title="&lt;TABLE&gt;" alt="" coords="5,6,230,61"/>
+<area shape="rect" id="node2_1" href="./DistributedLogManager.html" title="org.universAAL.middleware.managers.distributedmw.api.DistributedLogManager" alt="" coords="265,11,420,55"/>
+<area shape="rect" id="node2" href="./DistributedLogManager.html" title="&lt;TABLE&gt;" alt="" coords="255,6,431,61"/>
+<area shape="rect" id="node3_2" href="./DistributedLogListener.html" title="org.universAAL.middleware.managers.distributedmw.api.DistributedLogListener" alt="" coords="466,11,617,55"/>
+<area shape="rect" id="node3" href="./DistributedLogListener.html" title="&lt;TABLE&gt;" alt="" coords="455,6,627,61"/>
+<area shape="rect" id="node4_3" href="./DistributedBusMemberListener.html" title="org.universAAL.middleware.managers.distributedmw.api.DistributedBusMemberListener" alt="" coords="663,11,863,55"/>
+<area shape="rect" id="node4" href="./DistributedBusMemberListener.html" title="&lt;TABLE&gt;" alt="" coords="652,6,873,61"/>
 </map>

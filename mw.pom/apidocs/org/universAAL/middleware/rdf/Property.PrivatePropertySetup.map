@@ -1,6 +1,6 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./PropertySetup.html" title="org.universAAL.middleware.rdf.PropertySetup" alt="" coords="36,11,140,55"/>
-<area shape="rect" id="node1" href="./PropertySetup.html" title="&lt;TABLE&gt;" alt="" coords="25,6,151,61"/>
-<area shape="rect" id="node2_1" href="./Property.PrivatePropertySetup.html" title="org.universAAL.middleware.rdf.Property.PrivatePropertySetup" alt="" coords="15,120,161,147"/>
-<area shape="rect" id="node2" href="./Property.PrivatePropertySetup.html" title="&lt;TABLE&gt;" alt="" coords="5,109,171,157"/>
+<area shape="rect" id="node1_0" href="./Property.PrivatePropertySetup.html" title="org.universAAL.middleware.rdf.Property.PrivatePropertySetup" alt="" coords="15,120,161,147"/>
+<area shape="rect" id="node1" href="./Property.PrivatePropertySetup.html" title="&lt;TABLE&gt;" alt="" coords="5,109,171,157"/>
+<area shape="rect" id="node2_1" href="./PropertySetup.html" title="org.universAAL.middleware.rdf.PropertySetup" alt="" coords="36,11,140,55"/>
+<area shape="rect" id="node2" href="./PropertySetup.html" title="&lt;TABLE&gt;" alt="" coords="25,6,151,61"/>
 </map>

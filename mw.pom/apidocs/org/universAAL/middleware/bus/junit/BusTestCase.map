@@ -1,8 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./ManifestTestCase.html" title="org.universAAL.middleware.bus.junit.ManifestTestCase" alt="" coords="16,208,144,235"/>
-<area shape="rect" id="node1" href="./ManifestTestCase.html" title="&lt;TABLE&gt;" alt="" coords="5,197,155,245"/>
-<area shape="rect" id="node2_1" href="./BusTestCase.html" title="org.universAAL.middleware.bus.junit.BusTestCase" alt="" coords="188,112,289,139"/>
-<area shape="rect" id="node2" href="./BusTestCase.html" title="&lt;TABLE&gt;" alt="" coords="177,101,300,149"/>
+<area shape="rect" id="node1_0" href="./BusTestCase.html" title="org.universAAL.middleware.bus.junit.BusTestCase" alt="" coords="188,112,289,139"/>
+<area shape="rect" id="node1" href="./BusTestCase.html" title="&lt;TABLE&gt;" alt="" coords="177,101,300,149"/>
+<area shape="rect" id="node2_1" href="./ManifestTestCase.html" title="org.universAAL.middleware.bus.junit.ManifestTestCase" alt="" coords="16,208,144,235"/>
+<area shape="rect" id="node2" href="./ManifestTestCase.html" title="&lt;TABLE&gt;" alt="" coords="5,197,155,245"/>
 <area shape="rect" id="node3_2" href="./OntTestCase.html" title="org.universAAL.middleware.bus.junit.OntTestCase" alt="" coords="189,208,288,235"/>
 <area shape="rect" id="node3" href="./OntTestCase.html" title="&lt;TABLE&gt;" alt="" coords="179,197,299,245"/>
 <area shape="rect" id="node4_3" href="../../junit/MWTestCase.html" title="org.universAAL.middleware.junit.MWTestCase" alt="" coords="333,208,435,235"/>

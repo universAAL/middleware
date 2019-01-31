@@ -1,8 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./OSGiContainer.html" title="org.universAAL.middleware.container.osgi.OSGiContainer" alt="" coords="15,20,124,47"/>
-<area shape="rect" id="node1" href="./OSGiContainer.html" title="&lt;TABLE&gt;" alt="" coords="4,9,135,57"/>
-<area shape="rect" id="node2_1" href="./OSGiModuleContext.html" title="org.universAAL.middleware.container.osgi.OSGiModuleContext" alt="" coords="169,20,311,47"/>
-<area shape="rect" id="node2" href="./OSGiModuleContext.html" title="&lt;TABLE&gt;" alt="" coords="159,9,321,57"/>
-<area shape="rect" id="node3_2" href="./OSGiAttributes.html" title="org.universAAL.middleware.container.osgi.OSGiAttributes" alt="" coords="356,11,465,55"/>
-<area shape="rect" id="node3" href="./OSGiAttributes.html" title="&lt;TABLE&gt;" alt="" coords="345,6,476,61"/>
+<area shape="rect" id="node1_0" href="./OSGiModuleContext.html" title="org.universAAL.middleware.container.osgi.OSGiModuleContext" alt="" coords="16,20,157,47"/>
+<area shape="rect" id="node1" href="./OSGiModuleContext.html" title="&lt;TABLE&gt;" alt="" coords="5,9,168,57"/>
+<area shape="rect" id="node2_1" href="./OSGiContainer.html" title="org.universAAL.middleware.container.osgi.OSGiContainer" alt="" coords="203,20,312,47"/>
+<area shape="rect" id="node2" href="./OSGiContainer.html" title="&lt;TABLE&gt;" alt="" coords="192,9,323,57"/>
+<area shape="rect" id="node3_2" href="./OSGiAttributes.html" title="org.universAAL.middleware.container.osgi.OSGiAttributes" alt="" coords="357,11,467,55"/>
+<area shape="rect" id="node3" href="./OSGiAttributes.html" title="&lt;TABLE&gt;" alt="" coords="347,6,477,61"/>
 </map>

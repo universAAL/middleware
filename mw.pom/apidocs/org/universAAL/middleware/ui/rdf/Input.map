@@ -1,16 +1,16 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./Range.html" title="org.universAAL.middleware.ui.rdf.Range" alt="" coords="16,325,75,352"/>
-<area shape="rect" id="node1" href="./Range.html" title="&lt;TABLE&gt;" alt="" coords="5,315,85,363"/>
-<area shape="rect" id="node2_1" href="./TextArea.html" title="org.universAAL.middleware.ui.rdf.TextArea" alt="" coords="121,325,194,352"/>
-<area shape="rect" id="node2" href="./TextArea.html" title="&lt;TABLE&gt;" alt="" coords="110,315,205,363"/>
-<area shape="rect" id="node3_2" href="./InputField.html" title="org.universAAL.middleware.ui.rdf.InputField" alt="" coords="240,325,317,352"/>
-<area shape="rect" id="node3" href="./InputField.html" title="&lt;TABLE&gt;" alt="" coords="229,315,328,363"/>
-<area shape="rect" id="node4_3" href="./Submit.html" title="org.universAAL.middleware.ui.rdf.Submit" alt="" coords="148,115,209,141"/>
-<area shape="rect" id="node4" href="./Submit.html" title="&lt;TABLE&gt;" alt="" coords="137,104,220,152"/>
-<area shape="rect" id="node6_4" href="./Input.html" title="org.universAAL.middleware.ui.rdf.Input" alt="" coords="193,227,242,253"/>
-<area shape="rect" id="node6" href="./Input.html" title="&lt;TABLE&gt;" alt="" coords="181,216,253,264"/>
-<area shape="rect" id="node5_5" href="./FormControl.html" title="org.universAAL.middleware.ui.rdf.FormControl" alt="" coords="195,16,288,43"/>
-<area shape="rect" id="node5" href="./FormControl.html" title="&lt;TABLE&gt;" alt="" coords="184,5,299,53"/>
-<area shape="rect" id="node7_6" href="./Select.html" title="org.universAAL.middleware.ui.rdf.Select" alt="" coords="363,325,421,352"/>
-<area shape="rect" id="node7" href="./Select.html" title="&lt;TABLE&gt;" alt="" coords="353,315,431,363"/>
+<area shape="rect" id="node1_0" href="./TextArea.html" title="org.universAAL.middleware.ui.rdf.TextArea" alt="" coords="15,325,89,352"/>
+<area shape="rect" id="node1" href="./TextArea.html" title="&lt;TABLE&gt;" alt="" coords="5,315,99,363"/>
+<area shape="rect" id="node2_1" href="./InputField.html" title="org.universAAL.middleware.ui.rdf.InputField" alt="" coords="135,325,212,352"/>
+<area shape="rect" id="node2" href="./InputField.html" title="&lt;TABLE&gt;" alt="" coords="124,315,223,363"/>
+<area shape="rect" id="node3_2" href="./Input.html" title="org.universAAL.middleware.ui.rdf.Input" alt="" coords="205,227,254,253"/>
+<area shape="rect" id="node3" href="./Input.html" title="&lt;TABLE&gt;" alt="" coords="193,216,265,264"/>
+<area shape="rect" id="node4_3" href="./Select.html" title="org.universAAL.middleware.ui.rdf.Select" alt="" coords="258,325,315,352"/>
+<area shape="rect" id="node4" href="./Select.html" title="&lt;TABLE&gt;" alt="" coords="247,315,326,363"/>
+<area shape="rect" id="node5_4" href="./Range.html" title="org.universAAL.middleware.ui.rdf.Range" alt="" coords="361,325,420,352"/>
+<area shape="rect" id="node5" href="./Range.html" title="&lt;TABLE&gt;" alt="" coords="351,315,431,363"/>
+<area shape="rect" id="node6_5" href="./FormControl.html" title="org.universAAL.middleware.ui.rdf.FormControl" alt="" coords="189,16,283,43"/>
+<area shape="rect" id="node6" href="./FormControl.html" title="&lt;TABLE&gt;" alt="" coords="179,5,293,53"/>
+<area shape="rect" id="node7_6" href="./Submit.html" title="org.universAAL.middleware.ui.rdf.Submit" alt="" coords="256,115,317,141"/>
+<area shape="rect" id="node7" href="./Submit.html" title="&lt;TABLE&gt;" alt="" coords="245,104,328,152"/>
 </map>

@@ -9,32 +9,32 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// org.universAAL.middleware.owl.ManagedIndividual
-	c128075 [label=<<table title="org.universAAL.middleware.owl.ManagedIndividual" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ManagedIndividual.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> ManagedIndividual </font></td></tr>
-		</table></td></tr>
-		</table>>, URL="./ManagedIndividual.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.ComparableIndividual
 	c128076 [label=<<table title="org.universAAL.middleware.owl.ComparableIndividual" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ComparableIndividual.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> ComparableIndividual </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./ComparableIndividual.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.owl.supply.Rating
-	c128080 [label=<<table title="org.universAAL.middleware.owl.supply.Rating" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./supply/Rating.html">
+	// org.universAAL.middleware.owl.ManagedIndividual
+	c128094 [label=<<table title="org.universAAL.middleware.owl.ManagedIndividual" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ManagedIndividual.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Rating </td></tr>
+<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> ManagedIndividual </font></td></tr>
 		</table></td></tr>
-		</table>>, URL="./supply/Rating.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./ManagedIndividual.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.supply.AbsLocation
-	c128081 [label=<<table title="org.universAAL.middleware.owl.supply.AbsLocation" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./supply/AbsLocation.html">
+	c128121 [label=<<table title="org.universAAL.middleware.owl.supply.AbsLocation" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./supply/AbsLocation.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbsLocation </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./supply/AbsLocation.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.owl.supply.Rating
+	c128122 [label=<<table title="org.universAAL.middleware.owl.supply.Rating" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./supply/Rating.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Rating </td></tr>
+		</table></td></tr>
+		</table>>, URL="./supply/Rating.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.supply.LevelRating
-	c128082 [label=<<table title="org.universAAL.middleware.owl.supply.LevelRating" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./supply/LevelRating.html">
+	c128123 [label=<<table title="org.universAAL.middleware.owl.supply.LevelRating" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./supply/LevelRating.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LevelRating </td></tr>
 		</table></td></tr>
@@ -46,15 +46,15 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../ui/owl/PrivacyLevel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.owl.ComparableIndividual extends org.universAAL.middleware.owl.ManagedIndividual
-	c128075:p -> c128076:p [dir=back,arrowtail=empty];
+	c128094:p -> c128076:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.owl.ComparableIndividual implements java.lang.Comparable<T>
 	c128538:p -> c128076:p [dir=back,arrowtail=empty,style=dashed];
-	//org.universAAL.middleware.owl.supply.Rating extends org.universAAL.middleware.owl.ComparableIndividual
-	c128076:p -> c128080:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.owl.supply.AbsLocation extends org.universAAL.middleware.owl.ComparableIndividual
-	c128076:p -> c128081:p [dir=back,arrowtail=empty];
+	c128076:p -> c128121:p [dir=back,arrowtail=empty];
+	//org.universAAL.middleware.owl.supply.Rating extends org.universAAL.middleware.owl.ComparableIndividual
+	c128076:p -> c128122:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.owl.supply.LevelRating extends org.universAAL.middleware.owl.ComparableIndividual
-	c128076:p -> c128082:p [dir=back,arrowtail=empty];
+	c128076:p -> c128123:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.ui.owl.PrivacyLevel extends org.universAAL.middleware.owl.ComparableIndividual
 	c128076:p -> c128420:p [dir=back,arrowtail=empty];
 	// java.lang.Comparable<T>

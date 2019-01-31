@@ -23,7 +23,7 @@ under the License.
     <link>http://middleware/middleware.osgi/mw.karaf.shell.universAAL.osgi/</link>
     <description>universAAL Middleware Karaf Shell - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2018 universAAL Consortium</copyright>
+    <copyright>&#169;2019 universAAL Consortium</copyright>
     <item>
       <title>File: 5,
              Errors: 14,
@@ -52,7 +52,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   3
@@ -61,20 +61,6 @@ under the License.
                           <tr>
                 <td>
                   <a href="http://middleware/middleware.osgi/mw.karaf.shell.universAAL.osgi//checkstyle.html#org.universAAL.middleware.shell.universAAL.osgi.TenantCommand.java">org/universAAL/middleware/shell/universAAL/osgi/TenantCommand.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  3
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/middleware.osgi/mw.karaf.shell.universAAL.osgi//checkstyle.html#org.universAAL.middleware.shell.universAAL.osgi.SpaceCommand.java">org/universAAL/middleware/shell/universAAL/osgi/SpaceCommand.java</a>
                 </td>
                 <td>
                   0
@@ -102,13 +88,27 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://middleware/middleware.osgi/mw.karaf.shell.universAAL.osgi//checkstyle.html#org.universAAL.middleware.shell.universAAL.osgi.SpaceCommand.java">org/universAAL/middleware/shell/universAAL/osgi/SpaceCommand.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://middleware/middleware.osgi/mw.karaf.shell.universAAL.osgi//checkstyle.html#org.universAAL.middleware.shell.universAAL.osgi.UAPPCommand.java">org/universAAL/middleware/shell/universAAL/osgi/UAPPCommand.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   2

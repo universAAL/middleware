@@ -9,46 +9,46 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// org.universAAL.middleware.shell.universAAL.osgi.ConfigChangeCommand
-	c139182 [label=<<table title="org.universAAL.middleware.shell.universAAL.osgi.ConfigChangeCommand" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigChangeCommand.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ConfigChangeCommand </td></tr>
-		</table></td></tr>
-		</table>>, URL="./ConfigChangeCommand.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.shell.universAAL.osgi.ConfigPullCommand
-	c139183 [label=<<table title="org.universAAL.middleware.shell.universAAL.osgi.ConfigPullCommand" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigPullCommand.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ConfigPullCommand </td></tr>
-		</table></td></tr>
-		</table>>, URL="./ConfigPullCommand.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.shell.universAAL.osgi.ConfigPushCommand
-	c139184 [label=<<table title="org.universAAL.middleware.shell.universAAL.osgi.ConfigPushCommand" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigPushCommand.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ConfigPushCommand </td></tr>
-		</table></td></tr>
-		</table>>, URL="./ConfigPushCommand.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.shell.universAAL.osgi.ConfigurationEditorAbstractCommand
-	c139185 [label=<<table title="org.universAAL.middleware.shell.universAAL.osgi.ConfigurationEditorAbstractCommand" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ConfigurationEditorAbstractCommand.html">
+	c139182 [label=<<table title="org.universAAL.middleware.shell.universAAL.osgi.ConfigurationEditorAbstractCommand" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ConfigurationEditorAbstractCommand.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> ConfigurationEditorAbstractCommand </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./ConfigurationEditorAbstractCommand.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.shell.universAAL.osgi.ConfigListCommand
-	c139186 [label=<<table title="org.universAAL.middleware.shell.universAAL.osgi.ConfigListCommand" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigListCommand.html">
+	c139183 [label=<<table title="org.universAAL.middleware.shell.universAAL.osgi.ConfigListCommand" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigListCommand.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConfigListCommand </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ConfigListCommand.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//org.universAAL.middleware.shell.universAAL.osgi.ConfigChangeCommand extends org.universAAL.middleware.shell.universAAL.osgi.ConfigurationEditorAbstractCommand
-	c139185:p -> c139182:p [dir=back,arrowtail=empty];
-	//org.universAAL.middleware.shell.universAAL.osgi.ConfigPullCommand extends org.universAAL.middleware.shell.universAAL.osgi.ConfigurationEditorAbstractCommand
-	c139185:p -> c139183:p [dir=back,arrowtail=empty];
-	//org.universAAL.middleware.shell.universAAL.osgi.ConfigPushCommand extends org.universAAL.middleware.shell.universAAL.osgi.ConfigurationEditorAbstractCommand
-	c139185:p -> c139184:p [dir=back,arrowtail=empty];
+	// org.universAAL.middleware.shell.universAAL.osgi.ConfigChangeCommand
+	c139184 [label=<<table title="org.universAAL.middleware.shell.universAAL.osgi.ConfigChangeCommand" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigChangeCommand.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ConfigChangeCommand </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ConfigChangeCommand.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.shell.universAAL.osgi.ConfigPullCommand
+	c139185 [label=<<table title="org.universAAL.middleware.shell.universAAL.osgi.ConfigPullCommand" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigPullCommand.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ConfigPullCommand </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ConfigPullCommand.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.shell.universAAL.osgi.ConfigPushCommand
+	c139186 [label=<<table title="org.universAAL.middleware.shell.universAAL.osgi.ConfigPushCommand" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigPushCommand.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ConfigPushCommand </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ConfigPushCommand.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.shell.universAAL.osgi.ConfigurationEditorAbstractCommand extends org.apache.karaf.shell.console.OsgiCommandSupport
-	c139202:p -> c139185:p [dir=back,arrowtail=empty];
+	c139202:p -> c139182:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.shell.universAAL.osgi.ConfigListCommand extends org.universAAL.middleware.shell.universAAL.osgi.ConfigurationEditorAbstractCommand
-	c139185:p -> c139186:p [dir=back,arrowtail=empty];
+	c139182:p -> c139183:p [dir=back,arrowtail=empty];
+	//org.universAAL.middleware.shell.universAAL.osgi.ConfigChangeCommand extends org.universAAL.middleware.shell.universAAL.osgi.ConfigurationEditorAbstractCommand
+	c139182:p -> c139184:p [dir=back,arrowtail=empty];
+	//org.universAAL.middleware.shell.universAAL.osgi.ConfigPullCommand extends org.universAAL.middleware.shell.universAAL.osgi.ConfigurationEditorAbstractCommand
+	c139182:p -> c139185:p [dir=back,arrowtail=empty];
+	//org.universAAL.middleware.shell.universAAL.osgi.ConfigPushCommand extends org.universAAL.middleware.shell.universAAL.osgi.ConfigurationEditorAbstractCommand
+	c139182:p -> c139186:p [dir=back,arrowtail=empty];
 	// org.apache.karaf.shell.console.OsgiCommandSupport
 	c139202 [label=<<table title="org.apache.karaf.shell.console.OsgiCommandSupport" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/org/apache/karaf/shell/console/OsgiCommandSupport.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">

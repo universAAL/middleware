@@ -9,51 +9,51 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// org.universAAL.middleware.interfaces.configuration.scope.AppPartScope
-	c14409 [label=<<table title="org.universAAL.middleware.interfaces.configuration.scope.AppPartScope" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AppPartScope.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> AppPartScope </td></tr>
-		</table></td></tr>
-		</table>>, URL="./AppPartScope.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.interfaces.configuration.scope.InstanceScope
-	c14410 [label=<<table title="org.universAAL.middleware.interfaces.configuration.scope.InstanceScope" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./InstanceScope.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> InstanceScope </td></tr>
-		</table></td></tr>
-		</table>>, URL="./InstanceScope.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.configuration.scope.ModuleScope
-	c14411 [label=<<table title="org.universAAL.middleware.interfaces.configuration.scope.ModuleScope" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ModuleScope.html">
+	c12618 [label=<<table title="org.universAAL.middleware.interfaces.configuration.scope.ModuleScope" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ModuleScope.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ModuleScope </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ModuleScope.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.configuration.scope.SpaceScope
-	c14412 [label=<<table title="org.universAAL.middleware.interfaces.configuration.scope.SpaceScope" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SpaceScope.html">
+	c12619 [label=<<table title="org.universAAL.middleware.interfaces.configuration.scope.SpaceScope" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SpaceScope.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SpaceScope </td></tr>
 		</table></td></tr>
 		</table>>, URL="./SpaceScope.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.interfaces.configuration.scope.ApplicationScope
-	c14413 [label=<<table title="org.universAAL.middleware.interfaces.configuration.scope.ApplicationScope" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ApplicationScope.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ApplicationScope </td></tr>
-		</table></td></tr>
-		</table>>, URL="./ApplicationScope.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.configuration.scope.Scope
-	c14414 [label=<<table title="org.universAAL.middleware.interfaces.configuration.scope.Scope" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Scope.html">
+	c12620 [label=<<table title="org.universAAL.middleware.interfaces.configuration.scope.Scope" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Scope.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> Scope </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./Scope.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//org.universAAL.middleware.interfaces.configuration.scope.AppPartScope extends org.universAAL.middleware.interfaces.configuration.scope.ApplicationScope
-	c14413:p -> c14409:p [dir=back,arrowtail=empty];
-	//org.universAAL.middleware.interfaces.configuration.scope.InstanceScope extends org.universAAL.middleware.interfaces.configuration.scope.SpaceScope
-	c14412:p -> c14410:p [dir=back,arrowtail=empty];
+	// org.universAAL.middleware.interfaces.configuration.scope.ApplicationScope
+	c12621 [label=<<table title="org.universAAL.middleware.interfaces.configuration.scope.ApplicationScope" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ApplicationScope.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ApplicationScope </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ApplicationScope.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.interfaces.configuration.scope.InstanceScope
+	c12622 [label=<<table title="org.universAAL.middleware.interfaces.configuration.scope.InstanceScope" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./InstanceScope.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> InstanceScope </td></tr>
+		</table></td></tr>
+		</table>>, URL="./InstanceScope.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.interfaces.configuration.scope.AppPartScope
+	c12623 [label=<<table title="org.universAAL.middleware.interfaces.configuration.scope.AppPartScope" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AppPartScope.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> AppPartScope </td></tr>
+		</table></td></tr>
+		</table>>, URL="./AppPartScope.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.interfaces.configuration.scope.ModuleScope extends org.universAAL.middleware.interfaces.configuration.scope.InstanceScope
-	c14410:p -> c14411:p [dir=back,arrowtail=empty];
+	c12622:p -> c12618:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.interfaces.configuration.scope.SpaceScope extends org.universAAL.middleware.interfaces.configuration.scope.Scope
-	c14414:p -> c14412:p [dir=back,arrowtail=empty];
+	c12620:p -> c12619:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.interfaces.configuration.scope.ApplicationScope extends org.universAAL.middleware.interfaces.configuration.scope.SpaceScope
-	c14412:p -> c14413:p [dir=back,arrowtail=empty];
+	c12619:p -> c12621:p [dir=back,arrowtail=empty];
+	//org.universAAL.middleware.interfaces.configuration.scope.InstanceScope extends org.universAAL.middleware.interfaces.configuration.scope.SpaceScope
+	c12619:p -> c12622:p [dir=back,arrowtail=empty];
+	//org.universAAL.middleware.interfaces.configuration.scope.AppPartScope extends org.universAAL.middleware.interfaces.configuration.scope.ApplicationScope
+	c12621:p -> c12623:p [dir=back,arrowtail=empty];
 }
 

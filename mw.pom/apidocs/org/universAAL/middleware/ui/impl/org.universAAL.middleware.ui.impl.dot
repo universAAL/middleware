@@ -9,60 +9,60 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// org.universAAL.middleware.ui.impl.UIBusImpl
-	c48406 [label=<<table title="org.universAAL.middleware.ui.impl.UIBusImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UIBusImpl.html">
+	// org.universAAL.middleware.ui.impl.UIBusFactory
+	c49616 [label=<<table title="org.universAAL.middleware.ui.impl.UIBusFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UIBusFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> UIBusImpl </td></tr>
+<tr><td align="center" balign="center"> UIBusFactory </td></tr>
 		</table></td></tr>
-		</table>>, URL="./UIBusImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.ui.impl.UIStrategyCaller
-	c48407 [label=<<table title="org.universAAL.middleware.ui.impl.UIStrategyCaller" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UIStrategyCaller.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> UIStrategyCaller </td></tr>
-		</table></td></tr>
-		</table>>, URL="./UIStrategyCaller.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.ui.impl.UIStrategyCaller.UIRequestCall
-	c48408 [label=<<table title="org.universAAL.middleware.ui.impl.UIStrategyCaller.UIRequestCall" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UIStrategyCaller.UIRequestCall.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> UIRequestCall </td></tr>
-		</table></td></tr>
-		</table>>, URL="./UIStrategyCaller.UIRequestCall.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.ui.impl.RunningDialogsManager
-	c48409 [label=<<table title="org.universAAL.middleware.ui.impl.RunningDialogsManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RunningDialogsManager.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> RunningDialogsManager </td></tr>
-		</table></td></tr>
-		</table>>, URL="./RunningDialogsManager.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./UIBusFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.ui.impl.UIStrategyCoordinatorMng
-	c48410 [label=<<table title="org.universAAL.middleware.ui.impl.UIStrategyCoordinatorMng" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UIStrategyCoordinatorMng.html">
+	c49617 [label=<<table title="org.universAAL.middleware.ui.impl.UIStrategyCoordinatorMng" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UIStrategyCoordinatorMng.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> UIStrategyCoordinatorMng </td></tr>
 		</table></td></tr>
 		</table>>, URL="./UIStrategyCoordinatorMng.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.ui.impl.RunningDialogsManager
+	c49618 [label=<<table title="org.universAAL.middleware.ui.impl.RunningDialogsManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RunningDialogsManager.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> RunningDialogsManager </td></tr>
+		</table></td></tr>
+		</table>>, URL="./RunningDialogsManager.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.ui.impl.UIStrategyHandler
-	c48411 [label=<<table title="org.universAAL.middleware.ui.impl.UIStrategyHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UIStrategyHandler.html">
+	c49619 [label=<<table title="org.universAAL.middleware.ui.impl.UIStrategyHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UIStrategyHandler.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> UIStrategyHandler </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./UIStrategyHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.ui.impl.IUIStrategyMessageSharedProps
-	c48412 [label=<<table title="org.universAAL.middleware.ui.impl.IUIStrategyMessageSharedProps" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./IUIStrategyMessageSharedProps.html">
+	c49620 [label=<<table title="org.universAAL.middleware.ui.impl.IUIStrategyMessageSharedProps" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./IUIStrategyMessageSharedProps.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> IUIStrategyMessageSharedProps </td></tr>
 		</table></td></tr>
 		</table>>, URL="./IUIStrategyMessageSharedProps.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.ui.impl.UIBusFactory
-	c48413 [label=<<table title="org.universAAL.middleware.ui.impl.UIBusFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UIBusFactory.html">
+	// org.universAAL.middleware.ui.impl.UIStrategyCaller
+	c49621 [label=<<table title="org.universAAL.middleware.ui.impl.UIStrategyCaller" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UIStrategyCaller.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> UIBusFactory </td></tr>
+<tr><td align="center" balign="center"> UIStrategyCaller </td></tr>
 		</table></td></tr>
-		</table>>, URL="./UIBusFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//org.universAAL.middleware.ui.impl.UIStrategyCaller extends org.universAAL.middleware.ui.impl.UIStrategyHandler
-	c48411:p -> c48407:p [dir=back,arrowtail=empty];
-	//org.universAAL.middleware.ui.impl.UIStrategyCaller.UIRequestCall implements org.universAAL.middleware.ui.impl.IUIStrategyMessageSharedProps
-	c48412:p -> c48408:p [dir=back,arrowtail=empty,style=dashed];
+		</table>>, URL="./UIStrategyCaller.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.ui.impl.UIStrategyCaller.UIRequestCall
+	c49622 [label=<<table title="org.universAAL.middleware.ui.impl.UIStrategyCaller.UIRequestCall" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UIStrategyCaller.UIRequestCall.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> UIRequestCall </td></tr>
+		</table></td></tr>
+		</table>>, URL="./UIStrategyCaller.UIRequestCall.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.ui.impl.UIBusImpl
+	c49623 [label=<<table title="org.universAAL.middleware.ui.impl.UIBusImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UIBusImpl.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> UIBusImpl </td></tr>
+		</table></td></tr>
+		</table>>, URL="./UIBusImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.ui.impl.UIStrategyHandler extends org.universAAL.middleware.ui.impl.UIStrategyCoordinatorMng
-	c48410:p -> c48411:p [dir=back,arrowtail=empty];
+	c49617:p -> c49619:p [dir=back,arrowtail=empty];
+	//org.universAAL.middleware.ui.impl.UIStrategyCaller extends org.universAAL.middleware.ui.impl.UIStrategyHandler
+	c49619:p -> c49621:p [dir=back,arrowtail=empty];
+	//org.universAAL.middleware.ui.impl.UIStrategyCaller.UIRequestCall implements org.universAAL.middleware.ui.impl.IUIStrategyMessageSharedProps
+	c49620:p -> c49622:p [dir=back,arrowtail=empty,style=dashed];
 }
 

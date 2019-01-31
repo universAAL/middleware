@@ -23,7 +23,7 @@ under the License.
     <link>http://middleware/middleware.core/mw.bus.ui.core/</link>
     <description>universAAL Middleware User Interaction Bus (Core) - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2018 universAAL Consortium</copyright>
+    <copyright>&#169;2019 universAAL Consortium</copyright>
     <item>
       <title>File: 47,
              Errors: 1044,
@@ -136,7 +136,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   3
@@ -164,7 +164,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   34
@@ -186,20 +186,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.generic.CallMessage.java">org/universAAL/middleware/ui/impl/generic/CallMessage.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  12
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.ChoiceList.java">org/universAAL/middleware/ui/rdf/ChoiceList.java</a>
                 </td>
                 <td>
@@ -214,7 +200,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.generic.EventBasedStrategy.java">org/universAAL/middleware/ui/impl/generic/EventBasedStrategy.java</a>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.generic.CallMessage.java">org/universAAL/middleware/ui/impl/generic/CallMessage.java</a>
                 </td>
                 <td>
                   0
@@ -223,7 +209,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  20
+                  12
                 </td>
               </tr>
                           <tr>
@@ -242,7 +228,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.UIBusImpl.java">org/universAAL/middleware/ui/impl/UIBusImpl.java</a>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.generic.EventBasedStrategy.java">org/universAAL/middleware/ui/impl/generic/EventBasedStrategy.java</a>
                 </td>
                 <td>
                   0
@@ -251,7 +237,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  26
+                  20
                 </td>
               </tr>
                           <tr>
@@ -270,7 +256,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.UIBusFacade.java">org/universAAL/middleware/ui/UIBusFacade.java</a>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.UIBusImpl.java">org/universAAL/middleware/ui/impl/UIBusImpl.java</a>
                 </td>
                 <td>
                   0
@@ -279,7 +265,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  4
+                  26
                 </td>
               </tr>
                           <tr>
@@ -290,10 +276,24 @@ under the License.
                   7
                 </td>
                 <td>
-                  1
+                  2
                 </td>
                 <td>
                   24
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.UIBusFacade.java">org/universAAL/middleware/ui/UIBusFacade.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
                 </td>
               </tr>
                           <tr>
@@ -396,6 +396,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.SimpleOutput.java">org/universAAL/middleware/ui/rdf/SimpleOutput.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  9
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.UIResponse.java">org/universAAL/middleware/ui/UIResponse.java</a>
                 </td>
                 <td>
@@ -406,20 +420,6 @@ under the License.
                 </td>
                 <td>
                   13
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.SimpleOutput.java">org/universAAL/middleware/ui/rdf/SimpleOutput.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  9
                 </td>
               </tr>
                           <tr>
@@ -438,20 +438,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.IUIStrategyMessageSharedProps.java">org/universAAL/middleware/ui/impl/IUIStrategyMessageSharedProps.java</a>
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  2
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.FormControl.java">org/universAAL/middleware/ui/rdf/FormControl.java</a>
                 </td>
                 <td>
@@ -466,7 +452,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.UIStrategyCoordinatorMng.java">org/universAAL/middleware/ui/impl/UIStrategyCoordinatorMng.java</a>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.IUIStrategyMessageSharedProps.java">org/universAAL/middleware/ui/impl/IUIStrategyMessageSharedProps.java</a>
                 </td>
                 <td>
                   1
@@ -475,7 +461,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  6
+                  2
                 </td>
               </tr>
                           <tr>
@@ -494,13 +480,27 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.UIStrategyCoordinatorMng.java">org/universAAL/middleware/ui/impl/UIStrategyCoordinatorMng.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.IDialogManager.java">org/universAAL/middleware/ui/IDialogManager.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0
@@ -528,7 +528,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   67
@@ -556,7 +556,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  2
+                  3
                 </td>
                 <td>
                   79
@@ -620,20 +620,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.UIStrategyCaller.java">org/universAAL/middleware/ui/impl/UIStrategyCaller.java</a>
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  2
-                </td>
-                <td>
-                  74
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.FormElement.java">org/universAAL/middleware/ui/rdf/FormElement.java</a>
                 </td>
                 <td>
@@ -644,6 +630,20 @@ under the License.
                 </td>
                 <td>
                   8
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.UIStrategyCaller.java">org/universAAL/middleware/ui/impl/UIStrategyCaller.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  74
                 </td>
               </tr>
                           <tr>

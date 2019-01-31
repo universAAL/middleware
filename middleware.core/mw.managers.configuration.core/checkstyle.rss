@@ -23,7 +23,7 @@ under the License.
     <link>http://middleware/middleware.core/mw.managers.configuration.core/</link>
     <description>universAAL Middleware Manager Configuration (Core) - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2018 universAAL Consortium</copyright>
+    <copyright>&#169;2019 universAAL Consortium</copyright>
     <item>
       <title>File: 21,
              Errors: 403,
@@ -46,30 +46,30 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.ConfigurationManagerImpl.java">org/universAAL/middleware/managers/configuration/core/impl/ConfigurationManagerImpl.java</a>
-                </td>
-                <td>
-                  4
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  73
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.ConfigurationEditorPool.java">org/universAAL/middleware/managers/configuration/core/impl/secondaryManagers/ConfigurationEditorPool.java</a>
                 </td>
                 <td>
                   1
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.ConfigurationManagerImpl.java">org/universAAL/middleware/managers/configuration/core/impl/ConfigurationManagerImpl.java</a>
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  73
                 </td>
               </tr>
                           <tr>
@@ -158,20 +158,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.LocalConfigurationParameterEditor.java">org/universAAL/middleware/managers/configuration/core/impl/LocalConfigurationParameterEditor.java</a>
-                </td>
-                <td>
-                  2
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  24
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology.java">org/universAAL/middleware/managers/configuration/core/owl/ConfigurationOntology.java</a>
                 </td>
                 <td>
@@ -182,6 +168,20 @@ under the License.
                 </td>
                 <td>
                   6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.LocalConfigurationParameterEditor.java">org/universAAL/middleware/managers/configuration/core/impl/LocalConfigurationParameterEditor.java</a>
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  24
                 </td>
               </tr>
                           <tr>
@@ -200,6 +200,34 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.owl.Entity.java">org/universAAL/middleware/managers/configuration/core/owl/Entity.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  31
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationParamaterEditor.java">org/universAAL/middleware/managers/configuration/core/impl/RemoteConfigurationParamaterEditor.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  25
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationFileEditor.java">org/universAAL/middleware/managers/configuration/core/impl/RemoteConfigurationFileEditor.java</a>
                 </td>
                 <td>
@@ -214,24 +242,10 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationParamaterEditor.java">org/universAAL/middleware/managers/configuration/core/impl/RemoteConfigurationParamaterEditor.java</a>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter.java">org/universAAL/middleware/managers/configuration/core/owl/ConfigurationParameter.java</a>
                 </td>
                 <td>
-                  1
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  25
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.owl.Entity.java">org/universAAL/middleware/managers/configuration/core/owl/Entity.java</a>
-                </td>
-                <td>
-                  1
+                  30
                 </td>
                 <td>
                   0
@@ -248,24 +262,10 @@ under the License.
                   3
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   16
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter.java">org/universAAL/middleware/managers/configuration/core/owl/ConfigurationParameter.java</a>
-                </td>
-                <td>
-                  30
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  31
                 </td>
               </tr>
                           <tr>

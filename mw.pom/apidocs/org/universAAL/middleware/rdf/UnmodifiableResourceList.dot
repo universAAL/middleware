@@ -10,13 +10,13 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.rdf.UnmodifiableResourceList
-	c397538 [label=<<table title="org.universAAL.middleware.rdf.UnmodifiableResourceList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./UnmodifiableResourceList.html">
+	c397485 [label=<<table title="org.universAAL.middleware.rdf.UnmodifiableResourceList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./UnmodifiableResourceList.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> UnmodifiableResourceList </td></tr>
 		</table></td></tr>
 		</table>>, URL="./UnmodifiableResourceList.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.rdf.UnmodifiableResourceList implements java.util.List<E>
-	c397983:p -> c397538:p [dir=back,arrowtail=empty,style=dashed];
+	c397983:p -> c397485:p [dir=back,arrowtail=empty,style=dashed];
 	// java.util.List<E>
 	c397983 [label=<<table title="java.util.List" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/List.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">

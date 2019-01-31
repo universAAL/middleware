@@ -1,18 +1,18 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./ContextBusFacade.html" title="org.universAAL.middleware.context.ContextBusFacade" alt="" coords="15,20,148,47"/>
-<area shape="rect" id="node1" href="./ContextBusFacade.html" title="&lt;TABLE&gt;" alt="" coords="4,9,159,57"/>
-<area shape="rect" id="node2_1" href="./DefaultContextPublisher.html" title="org.universAAL.middleware.context.DefaultContextPublisher" alt="" coords="173,120,336,147"/>
-<area shape="rect" id="node2" href="./DefaultContextPublisher.html" title="&lt;TABLE&gt;" alt="" coords="163,109,347,157"/>
-<area shape="rect" id="node3_2" href="./ContextBus.html" title="org.universAAL.middleware.context.ContextBus" alt="" coords="361,11,450,55"/>
-<area shape="rect" id="node3" href="./ContextBus.html" title="&lt;TABLE&gt;" alt="" coords="350,6,461,61"/>
-<area shape="rect" id="node4_3" href="./ContextPublisher.html" title="org.universAAL.middleware.context.ContextPublisher" alt="" coords="194,20,315,47"/>
-<area shape="rect" id="node4" href="./ContextPublisher.html" title="&lt;TABLE&gt;" alt="" coords="183,9,326,57"/>
-<area shape="rect" id="node5_4" href="./ContextSubscriber.html" title="org.universAAL.middleware.context.ContextSubscriber" alt="" coords="495,20,625,47"/>
-<area shape="rect" id="node5" href="./ContextSubscriber.html" title="&lt;TABLE&gt;" alt="" coords="485,9,635,57"/>
-<area shape="rect" id="node6_5" href="./ContextEventPattern.html" title="org.universAAL.middleware.context.ContextEventPattern" alt="" coords="670,20,813,47"/>
-<area shape="rect" id="node6" href="./ContextEventPattern.html" title="&lt;TABLE&gt;" alt="" coords="659,9,823,57"/>
-<area shape="rect" id="node7_6" href="./ContextEventPattern.Indices.html" title="org.universAAL.middleware.context.ContextEventPattern.Indices" alt="" coords="858,20,921,47"/>
-<area shape="rect" id="node7" href="./ContextEventPattern.Indices.html" title="&lt;TABLE&gt;" alt="" coords="847,9,931,57"/>
-<area shape="rect" id="node8_7" href="./ContextEvent.html" title="org.universAAL.middleware.context.ContextEvent" alt="" coords="967,20,1068,47"/>
-<area shape="rect" id="node8" href="./ContextEvent.html" title="&lt;TABLE&gt;" alt="" coords="956,9,1079,57"/>
+<area shape="rect" id="node1_0" href="./ContextSubscriber.html" title="org.universAAL.middleware.context.ContextSubscriber" alt="" coords="15,20,145,47"/>
+<area shape="rect" id="node1" href="./ContextSubscriber.html" title="&lt;TABLE&gt;" alt="" coords="5,9,155,57"/>
+<area shape="rect" id="node2_1" href="./ContextEventPattern.html" title="org.universAAL.middleware.context.ContextEventPattern" alt="" coords="190,20,333,47"/>
+<area shape="rect" id="node2" href="./ContextEventPattern.html" title="&lt;TABLE&gt;" alt="" coords="179,9,343,57"/>
+<area shape="rect" id="node3_2" href="./ContextEventPattern.Indices.html" title="org.universAAL.middleware.context.ContextEventPattern.Indices" alt="" coords="378,20,441,47"/>
+<area shape="rect" id="node3" href="./ContextEventPattern.Indices.html" title="&lt;TABLE&gt;" alt="" coords="367,9,451,57"/>
+<area shape="rect" id="node4_3" href="./ContextPublisher.html" title="org.universAAL.middleware.context.ContextPublisher" alt="" coords="486,20,607,47"/>
+<area shape="rect" id="node4" href="./ContextPublisher.html" title="&lt;TABLE&gt;" alt="" coords="475,9,618,57"/>
+<area shape="rect" id="node6_4" href="./DefaultContextPublisher.html" title="org.universAAL.middleware.context.DefaultContextPublisher" alt="" coords="465,120,628,147"/>
+<area shape="rect" id="node6" href="./DefaultContextPublisher.html" title="&lt;TABLE&gt;" alt="" coords="455,109,639,157"/>
+<area shape="rect" id="node5_5" href="./ContextEvent.html" title="org.universAAL.middleware.context.ContextEvent" alt="" coords="653,20,755,47"/>
+<area shape="rect" id="node5" href="./ContextEvent.html" title="&lt;TABLE&gt;" alt="" coords="643,9,765,57"/>
+<area shape="rect" id="node7_6" href="./ContextBus.html" title="org.universAAL.middleware.context.ContextBus" alt="" coords="801,11,890,55"/>
+<area shape="rect" id="node7" href="./ContextBus.html" title="&lt;TABLE&gt;" alt="" coords="790,6,901,61"/>
+<area shape="rect" id="node8_7" href="./ContextBusFacade.html" title="org.universAAL.middleware.context.ContextBusFacade" alt="" coords="936,20,1069,47"/>
+<area shape="rect" id="node8" href="./ContextBusFacade.html" title="&lt;TABLE&gt;" alt="" coords="925,9,1080,57"/>
 </map>

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.container.Container
-	c150472 [label=<<table title="org.universAAL.middleware.container.Container" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Container.html">
+	c150473 [label=<<table title="org.universAAL.middleware.container.Container" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Container.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Container </td></tr>
@@ -23,22 +23,22 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./JUnit/JUnitContainer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.container.pojo.POJOContainer
-	c150995 [label=<<table title="org.universAAL.middleware.container.pojo.POJOContainer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./pojo/POJOContainer.html">
+	c150996 [label=<<table title="org.universAAL.middleware.container.pojo.POJOContainer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./pojo/POJOContainer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> POJOContainer </td></tr>
 		</table></td></tr>
 		</table>>, URL="./pojo/POJOContainer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.container.osgi.OSGiContainer
-	c151004 [label=<<table title="org.universAAL.middleware.container.osgi.OSGiContainer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./osgi/OSGiContainer.html">
+	c151005 [label=<<table title="org.universAAL.middleware.container.osgi.OSGiContainer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./osgi/OSGiContainer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OSGiContainer </td></tr>
 		</table></td></tr>
 		</table>>, URL="./osgi/OSGiContainer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.container.JUnit.JUnitContainer implements org.universAAL.middleware.container.Container
-	c150472:p -> c150479:p [dir=back,arrowtail=empty,style=dashed];
+	c150473:p -> c150479:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.container.pojo.POJOContainer implements org.universAAL.middleware.container.Container
-	c150472:p -> c150995:p [dir=back,arrowtail=empty,style=dashed];
+	c150473:p -> c150996:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.container.osgi.OSGiContainer implements org.universAAL.middleware.container.Container
-	c150472:p -> c151004:p [dir=back,arrowtail=empty,style=dashed];
+	c150473:p -> c151005:p [dir=back,arrowtail=empty,style=dashed];
 }
 

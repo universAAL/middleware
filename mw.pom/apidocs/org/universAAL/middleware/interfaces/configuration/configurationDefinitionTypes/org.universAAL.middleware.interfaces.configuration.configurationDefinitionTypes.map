@@ -1,14 +1,14 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./ConfigurationDefinedElsewhere.html" title="org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationDefinedElsewhere" alt="" coords="15,124,219,151"/>
-<area shape="rect" id="node1" href="./ConfigurationDefinedElsewhere.html" title="&lt;TABLE&gt;" alt="" coords="5,113,230,161"/>
-<area shape="rect" id="node2_1" href="./DynamicDescribedEntityListener.html" title="org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.DynamicDescribedEntityListener" alt="" coords="426,11,638,55"/>
-<area shape="rect" id="node2" href="./DynamicDescribedEntityListener.html" title="&lt;TABLE&gt;" alt="" coords="415,6,649,61"/>
-<area shape="rect" id="node3_2" href="./DynamicDescribedEntity.html" title="org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.DynamicDescribedEntity" alt="" coords="684,11,849,55"/>
-<area shape="rect" id="node3" href="./DynamicDescribedEntity.html" title="&lt;TABLE&gt;" alt="" coords="673,6,860,61"/>
-<area shape="rect" id="node4_3" href="./ConfigurationFile.html" title="org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationFile" alt="" coords="265,115,383,159"/>
-<area shape="rect" id="node4" href="./ConfigurationFile.html" title="&lt;TABLE&gt;" alt="" coords="254,110,394,165"/>
-<area shape="rect" id="node5_4" href="./DescribedEntity.html" title="org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.DescribedEntity" alt="" coords="267,11,381,55"/>
-<area shape="rect" id="node5" href="./DescribedEntity.html" title="&lt;TABLE&gt;" alt="" coords="257,6,391,61"/>
-<area shape="rect" id="node6_5" href="./ConfigurationParameter.html" title="org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationParameter" alt="" coords="429,115,587,159"/>
-<area shape="rect" id="node6" href="./ConfigurationParameter.html" title="&lt;TABLE&gt;" alt="" coords="419,110,597,165"/>
+<area shape="rect" id="node1_0" href="./ConfigurationParameter.html" title="org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationParameter" alt="" coords="16,115,173,159"/>
+<area shape="rect" id="node1" href="./ConfigurationParameter.html" title="&lt;TABLE&gt;" alt="" coords="5,110,184,165"/>
+<area shape="rect" id="node2_1" href="./DynamicDescribedEntityListener.html" title="org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.DynamicDescribedEntityListener" alt="" coords="381,11,593,55"/>
+<area shape="rect" id="node2" href="./DynamicDescribedEntityListener.html" title="&lt;TABLE&gt;" alt="" coords="370,6,603,61"/>
+<area shape="rect" id="node3_2" href="./DynamicDescribedEntity.html" title="org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.DynamicDescribedEntity" alt="" coords="639,11,804,55"/>
+<area shape="rect" id="node3" href="./DynamicDescribedEntity.html" title="&lt;TABLE&gt;" alt="" coords="628,6,815,61"/>
+<area shape="rect" id="node4_3" href="./ConfigurationFile.html" title="org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationFile" alt="" coords="219,115,338,159"/>
+<area shape="rect" id="node4" href="./ConfigurationFile.html" title="&lt;TABLE&gt;" alt="" coords="209,110,349,165"/>
+<area shape="rect" id="node5_4" href="./DescribedEntity.html" title="org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.DescribedEntity" alt="" coords="222,11,335,55"/>
+<area shape="rect" id="node5" href="./DescribedEntity.html" title="&lt;TABLE&gt;" alt="" coords="211,6,346,61"/>
+<area shape="rect" id="node6_5" href="./ConfigurationDefinedElsewhere.html" title="org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationDefinedElsewhere" alt="" coords="383,124,587,151"/>
+<area shape="rect" id="node6" href="./ConfigurationDefinedElsewhere.html" title="&lt;TABLE&gt;" alt="" coords="373,113,598,161"/>
 </map>

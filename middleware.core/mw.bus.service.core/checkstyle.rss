@@ -23,12 +23,12 @@ under the License.
     <link>http://middleware/middleware.core/mw.bus.service.core/</link>
     <description>universAAL Middleware Service Bus (Core) - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2018 universAAL Consortium</copyright>
+    <copyright>&#169;2019 universAAL Consortium</copyright>
     <item>
       <title>File: 53,
-             Errors: 934,
+             Errors: 937,
              Warnings: 43,
-             Infos: 25
+             Infos: 29
       </title>
             <link>http://middleware/middleware.core/mw.bus.service.core//checkstyle.html</link>
       <description>
@@ -130,34 +130,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.ProfileExistsException.java">org/universAAL/middleware/service/ProfileExistsException.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  6
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owl.Service.java">org/universAAL/middleware/service/owl/Service.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  70
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owls.process.OutputBinding.java">org/universAAL/middleware/service/owls/process/OutputBinding.java</a>
                 </td>
                 <td>
@@ -168,6 +140,34 @@ under the License.
                 </td>
                 <td>
                   42
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owl.Service.java">org/universAAL/middleware/service/owl/Service.java</a>
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  73
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.ProfileExistsException.java">org/universAAL/middleware/service/ProfileExistsException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
                 </td>
               </tr>
                           <tr>
@@ -186,20 +186,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.impl.ServiceWrapper.java">org/universAAL/middleware/service/impl/ServiceWrapper.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  10
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owl.UserInterfaceService.java">org/universAAL/middleware/service/owl/UserInterfaceService.java</a>
                 </td>
                 <td>
@@ -214,13 +200,27 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.impl.ServiceWrapper.java">org/universAAL/middleware/service/impl/ServiceWrapper.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  10
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.data.ILocalServiceSearchResultsData.java">org/universAAL/middleware/service/data/ILocalServiceSearchResultsData.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   3
@@ -248,7 +248,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   12
@@ -266,20 +266,6 @@ under the License.
                 </td>
                 <td>
                   6
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.MultiServiceResponse.java">org/universAAL/middleware/service/MultiServiceResponse.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
                 </td>
               </tr>
                           <tr>
@@ -304,10 +290,24 @@ under the License.
                   1
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   21
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.MultiServiceResponse.java">org/universAAL/middleware/service/MultiServiceResponse.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
                 </td>
               </tr>
                           <tr>
@@ -332,7 +332,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   6
@@ -360,7 +360,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   11
@@ -388,7 +388,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   5
@@ -402,7 +402,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   8
@@ -430,7 +430,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   6
@@ -486,7 +486,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   14
@@ -528,7 +528,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  2
+                  1
                 </td>
                 <td>
                   2
@@ -556,7 +556,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   6
@@ -634,20 +634,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.data.factory.AbstractServiceStrategyDataFactory.java">org/universAAL/middleware/service/data/factory/AbstractServiceStrategyDataFactory.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owls.process.ProcessOutput.java">org/universAAL/middleware/service/owls/process/ProcessOutput.java</a>
                 </td>
                 <td>
@@ -662,13 +648,27 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.data.factory.AbstractServiceStrategyDataFactory.java">org/universAAL/middleware/service/data/factory/AbstractServiceStrategyDataFactory.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owls.profile.NumberOfSamples.java">org/universAAL/middleware/service/owls/profile/NumberOfSamples.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   8
@@ -724,7 +724,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   19
@@ -738,7 +738,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   4

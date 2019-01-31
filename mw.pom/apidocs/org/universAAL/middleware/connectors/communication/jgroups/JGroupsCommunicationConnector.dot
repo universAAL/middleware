@@ -10,26 +10,26 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.connectors.CommunicationConnector
-	c233567 [label=<<table title="org.universAAL.middleware.connectors.CommunicationConnector" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../CommunicationConnector.html">
+	c233573 [label=<<table title="org.universAAL.middleware.connectors.CommunicationConnector" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../CommunicationConnector.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> CommunicationConnector </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../CommunicationConnector.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.connectors.communication.jgroups.JGroupsCommunicationConnector
-	c233615 [label=<<table title="org.universAAL.middleware.connectors.communication.jgroups.JGroupsCommunicationConnector" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./JGroupsCommunicationConnector.html">
+	c233618 [label=<<table title="org.universAAL.middleware.connectors.communication.jgroups.JGroupsCommunicationConnector" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./JGroupsCommunicationConnector.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> JGroupsCommunicationConnector </td></tr>
 		</table></td></tr>
 		</table>>, URL="./JGroupsCommunicationConnector.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.connectors.communication.jgroups.JGroupsCommunicationConnector implements org.universAAL.middleware.connectors.CommunicationConnector
-	c233567:p -> c233615:p [dir=back,arrowtail=empty,style=dashed];
+	c233573:p -> c233618:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.connectors.communication.jgroups.JGroupsCommunicationConnector implements org.jgroups.Receiver
-	c233941:p -> c233615:p [dir=back,arrowtail=empty,style=dashed];
+	c233941:p -> c233618:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.connectors.communication.jgroups.JGroupsCommunicationConnector implements org.jgroups.blocks.RequestHandler
-	c233942:p -> c233615:p [dir=back,arrowtail=empty,style=dashed];
+	c233942:p -> c233618:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.connectors.communication.jgroups.JGroupsCommunicationConnector implements org.jgroups.MembershipListener
-	c233943:p -> c233615:p [dir=back,arrowtail=empty,style=dashed];
+	c233943:p -> c233618:p [dir=back,arrowtail=empty,style=dashed];
 	// org.jgroups.MembershipListener
 	c233943 [label=<<table title="org.jgroups.MembershipListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/org/jgroups/MembershipListener.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">

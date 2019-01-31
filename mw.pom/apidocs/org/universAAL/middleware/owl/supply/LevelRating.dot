@@ -16,12 +16,12 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../ComparableIndividual.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.supply.LevelRating
-	c238817 [label=<<table title="org.universAAL.middleware.owl.supply.LevelRating" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./LevelRating.html">
+	c238858 [label=<<table title="org.universAAL.middleware.owl.supply.LevelRating" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./LevelRating.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LevelRating </td></tr>
 		</table></td></tr>
 		</table>>, URL="./LevelRating.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.owl.supply.LevelRating extends org.universAAL.middleware.owl.ComparableIndividual
-	c238811:p -> c238817:p [dir=back,arrowtail=empty];
+	c238811:p -> c238858:p [dir=back,arrowtail=empty];
 }
 

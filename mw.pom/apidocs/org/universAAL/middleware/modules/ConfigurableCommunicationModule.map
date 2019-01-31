@@ -1,8 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./ConfigurableCommunicationModule.html" title="org.universAAL.middleware.modules.ConfigurableCommunicationModule" alt="" coords="16,115,243,159"/>
-<area shape="rect" id="node1" href="./ConfigurableCommunicationModule.html" title="&lt;TABLE&gt;" alt="" coords="5,110,253,165"/>
-<area shape="rect" id="node3_1" href="./communication/CommunicationModuleImpl.html" title="org.universAAL.middleware.modules.communication.CommunicationModuleImpl" alt="" coords="120,224,299,251"/>
+<area shape="rect" id="node1_0" href="./CommunicationModule.html" title="org.universAAL.middleware.modules.CommunicationModule" alt="" coords="133,11,286,55"/>
+<area shape="rect" id="node1" href="./CommunicationModule.html" title="&lt;TABLE&gt;" alt="" coords="122,6,297,61"/>
+<area shape="rect" id="node2_1" href="./ConfigurableCommunicationModule.html" title="org.universAAL.middleware.modules.ConfigurableCommunicationModule" alt="" coords="16,115,243,159"/>
+<area shape="rect" id="node2" href="./ConfigurableCommunicationModule.html" title="&lt;TABLE&gt;" alt="" coords="5,110,253,165"/>
+<area shape="rect" id="node3_2" href="./communication/CommunicationModuleImpl.html" title="org.universAAL.middleware.modules.communication.CommunicationModuleImpl" alt="" coords="120,224,299,251"/>
 <area shape="rect" id="node3" href="./communication/CommunicationModuleImpl.html" title="&lt;TABLE&gt;" alt="" coords="109,213,309,261"/>
-<area shape="rect" id="node2_2" href="./CommunicationModule.html" title="org.universAAL.middleware.modules.CommunicationModule" alt="" coords="133,11,286,55"/>
-<area shape="rect" id="node2" href="./CommunicationModule.html" title="&lt;TABLE&gt;" alt="" coords="122,6,297,61"/>
 </map>

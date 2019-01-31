@@ -1,6 +1,6 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./FiltererContainerData.html" title="org.universAAL.middleware.context.data.FiltererContainerData" alt="" coords="26,112,171,139"/>
-<area shape="rect" id="node1" href="./FiltererContainerData.html" title="&lt;TABLE&gt;" alt="" coords="15,101,182,149"/>
-<area shape="rect" id="node2_1" href="./AbstractFiltererContainer.html" title="org.universAAL.middleware.context.data.AbstractFiltererContainer" alt="" coords="16,16,181,43"/>
-<area shape="rect" id="node2" href="./AbstractFiltererContainer.html" title="&lt;TABLE&gt;" alt="" coords="5,5,192,53"/>
+<area shape="rect" id="node1_0" href="./AbstractFiltererContainer.html" title="org.universAAL.middleware.context.data.AbstractFiltererContainer" alt="" coords="16,16,181,43"/>
+<area shape="rect" id="node1" href="./AbstractFiltererContainer.html" title="&lt;TABLE&gt;" alt="" coords="5,5,192,53"/>
+<area shape="rect" id="node2_1" href="./FiltererContainerData.html" title="org.universAAL.middleware.context.data.FiltererContainerData" alt="" coords="26,112,171,139"/>
+<area shape="rect" id="node2" href="./FiltererContainerData.html" title="&lt;TABLE&gt;" alt="" coords="15,101,182,149"/>
 </map>

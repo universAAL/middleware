@@ -10,37 +10,37 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.interfaces.space.xml.model.ObjectFactory
-	c4178 [label=<<table title="org.universAAL.middleware.interfaces.space.xml.model.ObjectFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ObjectFactory.html">
+	c4818 [label=<<table title="org.universAAL.middleware.interfaces.space.xml.model.ObjectFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ObjectFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ObjectFactory </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ObjectFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.space.xml.model.ChannelDescriptor
-	c4179 [label=<<table title="org.universAAL.middleware.interfaces.space.xml.model.ChannelDescriptor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ChannelDescriptor.html">
+	c4819 [label=<<table title="org.universAAL.middleware.interfaces.space.xml.model.ChannelDescriptor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ChannelDescriptor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ChannelDescriptor </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ChannelDescriptor.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.space.xml.model.Space
-	c4180 [label=<<table title="org.universAAL.middleware.interfaces.space.xml.model.Space" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Space.html">
+	c4820 [label=<<table title="org.universAAL.middleware.interfaces.space.xml.model.Space" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Space.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Space </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Space.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.space.xml.model.Space.CommunicationChannels
-	c4181 [label=<<table title="org.universAAL.middleware.interfaces.space.xml.model.Space.CommunicationChannels" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Space.CommunicationChannels.html">
+	c4821 [label=<<table title="org.universAAL.middleware.interfaces.space.xml.model.Space.CommunicationChannels" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Space.CommunicationChannels.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CommunicationChannels </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Space.CommunicationChannels.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.space.xml.model.Space.PeeringChannel
-	c4182 [label=<<table title="org.universAAL.middleware.interfaces.space.xml.model.Space.PeeringChannel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Space.PeeringChannel.html">
+	c4822 [label=<<table title="org.universAAL.middleware.interfaces.space.xml.model.Space.PeeringChannel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Space.PeeringChannel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PeeringChannel </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Space.PeeringChannel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.space.xml.model.Space.SpaceDescriptor
-	c4183 [label=<<table title="org.universAAL.middleware.interfaces.space.xml.model.Space.SpaceDescriptor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Space.SpaceDescriptor.html">
+	c4823 [label=<<table title="org.universAAL.middleware.interfaces.space.xml.model.Space.SpaceDescriptor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Space.SpaceDescriptor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SpaceDescriptor </td></tr>
 		</table></td></tr>

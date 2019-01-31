@@ -1,12 +1,12 @@
 <map id="G" name="G">
 <area shape="rect" id="node1_0" href="../../../../interfaces/configuration/configurationDefinitionTypes/DynamicDescribedEntityListener.html" title="org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.DynamicDescribedEntityListener" alt="" coords="15,11,227,55"/>
 <area shape="rect" id="node1" href="../../../../interfaces/configuration/configurationDefinitionTypes/DynamicDescribedEntityListener.html" title="&lt;TABLE&gt;" alt="" coords="5,6,238,61"/>
-<area shape="rect" id="node5_1" href="./ConfigurationManagerImpl.html" title="org.universAAL.middleware.managers.configuration.core.impl.ConfigurationManagerImpl" alt="" coords="344,120,517,147"/>
-<area shape="rect" id="node5" href="./ConfigurationManagerImpl.html" title="&lt;TABLE&gt;" alt="" coords="333,109,528,157"/>
-<area shape="rect" id="node2_2" href="../../../api/ConfigurationEditor.html" title="org.universAAL.middleware.managers.api.ConfigurationEditor" alt="" coords="273,11,405,55"/>
-<area shape="rect" id="node2" href="../../../api/ConfigurationEditor.html" title="&lt;TABLE&gt;" alt="" coords="262,6,415,61"/>
-<area shape="rect" id="node3_3" href="../../../api/ConfigurationManager.html" title="org.universAAL.middleware.managers.api.ConfigurationManager" alt="" coords="450,11,598,55"/>
-<area shape="rect" id="node3" href="../../../api/ConfigurationManager.html" title="&lt;TABLE&gt;" alt="" coords="439,6,609,61"/>
-<area shape="rect" id="node4_4" href="../../../api/ConfigurationManagerConnector.html" title="org.universAAL.middleware.managers.api.ConfigurationManagerConnector" alt="" coords="644,11,852,55"/>
-<area shape="rect" id="node4" href="../../../api/ConfigurationManagerConnector.html" title="&lt;TABLE&gt;" alt="" coords="633,6,863,61"/>
+<area shape="rect" id="node5_1" href="./ConfigurationManagerImpl.html" title="org.universAAL.middleware.managers.configuration.core.impl.ConfigurationManagerImpl" alt="" coords="403,120,576,147"/>
+<area shape="rect" id="node5" href="./ConfigurationManagerImpl.html" title="&lt;TABLE&gt;" alt="" coords="392,109,587,157"/>
+<area shape="rect" id="node2_2" href="../../../api/ConfigurationManagerConnector.html" title="org.universAAL.middleware.managers.api.ConfigurationManagerConnector" alt="" coords="273,11,481,55"/>
+<area shape="rect" id="node2" href="../../../api/ConfigurationManagerConnector.html" title="&lt;TABLE&gt;" alt="" coords="263,6,492,61"/>
+<area shape="rect" id="node3_3" href="../../../api/ConfigurationManager.html" title="org.universAAL.middleware.managers.api.ConfigurationManager" alt="" coords="527,11,675,55"/>
+<area shape="rect" id="node3" href="../../../api/ConfigurationManager.html" title="&lt;TABLE&gt;" alt="" coords="517,6,686,61"/>
+<area shape="rect" id="node4_4" href="../../../api/ConfigurationEditor.html" title="org.universAAL.middleware.managers.api.ConfigurationEditor" alt="" coords="721,11,853,55"/>
+<area shape="rect" id="node4" href="../../../api/ConfigurationEditor.html" title="&lt;TABLE&gt;" alt="" coords="710,6,863,61"/>
 </map>

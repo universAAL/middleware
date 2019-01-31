@@ -1,12 +1,12 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./Consts.html" title="org.universAAL.middleware.interfaces.space.Consts" alt="" coords="15,20,78,47"/>
-<area shape="rect" id="node1" href="./Consts.html" title="&lt;TABLE&gt;" alt="" coords="5,9,89,57"/>
-<area shape="rect" id="node2_1" href="./SpaceCard.html" title="org.universAAL.middleware.interfaces.space.SpaceCard" alt="" coords="124,20,209,47"/>
-<area shape="rect" id="node2" href="./SpaceCard.html" title="&lt;TABLE&gt;" alt="" coords="113,9,220,57"/>
-<area shape="rect" id="node3_2" href="./SpaceDescriptor.html" title="org.universAAL.middleware.interfaces.space.SpaceDescriptor" alt="" coords="255,20,372,47"/>
-<area shape="rect" id="node3" href="./SpaceDescriptor.html" title="&lt;TABLE&gt;" alt="" coords="244,9,383,57"/>
-<area shape="rect" id="node4_3" href="./SpaceType.html" title="org.universAAL.middleware.interfaces.space.SpaceType" alt="" coords="418,11,523,55"/>
-<area shape="rect" id="node4" href="./SpaceType.html" title="&lt;TABLE&gt;" alt="" coords="407,6,534,61"/>
-<area shape="rect" id="node5_4" href="./SpaceStatus.html" title="org.universAAL.middleware.interfaces.space.SpaceStatus" alt="" coords="569,11,674,55"/>
-<area shape="rect" id="node5" href="./SpaceStatus.html" title="&lt;TABLE&gt;" alt="" coords="558,6,685,61"/>
+<area shape="rect" id="node1_0" href="./SpaceStatus.html" title="org.universAAL.middleware.interfaces.space.SpaceStatus" alt="" coords="15,11,121,55"/>
+<area shape="rect" id="node1" href="./SpaceStatus.html" title="&lt;TABLE&gt;" alt="" coords="5,6,131,61"/>
+<area shape="rect" id="node2_1" href="./SpaceType.html" title="org.universAAL.middleware.interfaces.space.SpaceType" alt="" coords="166,11,271,55"/>
+<area shape="rect" id="node2" href="./SpaceType.html" title="&lt;TABLE&gt;" alt="" coords="155,6,282,61"/>
+<area shape="rect" id="node3_2" href="./SpaceDescriptor.html" title="org.universAAL.middleware.interfaces.space.SpaceDescriptor" alt="" coords="317,20,435,47"/>
+<area shape="rect" id="node3" href="./SpaceDescriptor.html" title="&lt;TABLE&gt;" alt="" coords="307,9,445,57"/>
+<area shape="rect" id="node4_3" href="./Consts.html" title="org.universAAL.middleware.interfaces.space.Consts" alt="" coords="481,20,543,47"/>
+<area shape="rect" id="node4" href="./Consts.html" title="&lt;TABLE&gt;" alt="" coords="470,9,554,57"/>
+<area shape="rect" id="node5_4" href="./SpaceCard.html" title="org.universAAL.middleware.interfaces.space.SpaceCard" alt="" coords="589,20,675,47"/>
+<area shape="rect" id="node5" href="./SpaceCard.html" title="&lt;TABLE&gt;" alt="" coords="579,9,685,57"/>
 </map>

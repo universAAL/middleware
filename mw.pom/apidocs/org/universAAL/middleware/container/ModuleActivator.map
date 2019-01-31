@@ -1,16 +1,16 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./ModuleActivator.html" title="org.universAAL.middleware.container.ModuleActivator" alt="" coords="387,11,501,55"/>
-<area shape="rect" id="node1" href="./ModuleActivator.html" title="&lt;TABLE&gt;" alt="" coords="376,6,512,61"/>
+<area shape="rect" id="node1_0" href="./ModuleActivator.html" title="org.universAAL.middleware.container.ModuleActivator" alt="" coords="380,11,495,55"/>
+<area shape="rect" id="node1" href="./ModuleActivator.html" title="&lt;TABLE&gt;" alt="" coords="369,6,505,61"/>
 <area shape="rect" id="node2_1" href="../tracker/impl/Activator.html" title="org.universAAL.middleware.tracker.impl.Activator" alt="" coords="15,120,89,147"/>
 <area shape="rect" id="node2" href="../tracker/impl/Activator.html" title="&lt;TABLE&gt;" alt="" coords="5,109,99,157"/>
-<area shape="rect" id="node3_2" href="./pojo/layers/AbstractBusLayer.html" title="org.universAAL.middleware.container.pojo.layers.AbstractBusLayer" alt="" coords="135,120,260,147"/>
-<area shape="rect" id="node3" href="./pojo/layers/AbstractBusLayer.html" title="&lt;TABLE&gt;" alt="" coords="124,109,271,157"/>
-<area shape="rect" id="node4_3" href="./pojo/layers/TurtleSerialization.html" title="org.universAAL.middleware.container.pojo.layers.TurtleSerialization" alt="" coords="305,120,431,147"/>
-<area shape="rect" id="node4" href="./pojo/layers/TurtleSerialization.html" title="&lt;TABLE&gt;" alt="" coords="295,109,441,157"/>
-<area shape="rect" id="node5_4" href="./pojo/layers/BusesLayer.html" title="org.universAAL.middleware.container.pojo.layers.BusesLayer" alt="" coords="477,120,566,147"/>
-<area shape="rect" id="node5" href="./pojo/layers/BusesLayer.html" title="&lt;TABLE&gt;" alt="" coords="466,109,577,157"/>
-<area shape="rect" id="node6_5" href="./pojo/layers/OntAutoLoader.html" title="org.universAAL.middleware.container.pojo.layers.OntAutoLoader" alt="" coords="611,120,719,147"/>
-<area shape="rect" id="node6" href="./pojo/layers/OntAutoLoader.html" title="&lt;TABLE&gt;" alt="" coords="601,109,730,157"/>
-<area shape="rect" id="node7_6" href="./pojo/layers/DataRepresentation.html" title="org.universAAL.middleware.container.pojo.layers.DataRepresentation" alt="" coords="765,120,902,147"/>
-<area shape="rect" id="node7" href="./pojo/layers/DataRepresentation.html" title="&lt;TABLE&gt;" alt="" coords="754,109,913,157"/>
+<area shape="rect" id="node3_2" href="./pojo/layers/DataRepresentation.html" title="org.universAAL.middleware.container.pojo.layers.DataRepresentation" alt="" coords="134,120,271,147"/>
+<area shape="rect" id="node3" href="./pojo/layers/DataRepresentation.html" title="&lt;TABLE&gt;" alt="" coords="123,109,282,157"/>
+<area shape="rect" id="node4_3" href="./pojo/layers/BusesLayer.html" title="org.universAAL.middleware.container.pojo.layers.BusesLayer" alt="" coords="317,120,406,147"/>
+<area shape="rect" id="node4" href="./pojo/layers/BusesLayer.html" title="&lt;TABLE&gt;" alt="" coords="306,109,417,157"/>
+<area shape="rect" id="node5_4" href="./pojo/layers/TurtleSerialization.html" title="org.universAAL.middleware.container.pojo.layers.TurtleSerialization" alt="" coords="452,120,577,147"/>
+<area shape="rect" id="node5" href="./pojo/layers/TurtleSerialization.html" title="&lt;TABLE&gt;" alt="" coords="441,109,588,157"/>
+<area shape="rect" id="node6_5" href="./pojo/layers/OntAutoLoader.html" title="org.universAAL.middleware.container.pojo.layers.OntAutoLoader" alt="" coords="623,120,731,147"/>
+<area shape="rect" id="node6" href="./pojo/layers/OntAutoLoader.html" title="&lt;TABLE&gt;" alt="" coords="613,109,742,157"/>
+<area shape="rect" id="node7_6" href="./pojo/layers/AbstractBusLayer.html" title="org.universAAL.middleware.container.pojo.layers.AbstractBusLayer" alt="" coords="777,120,903,147"/>
+<area shape="rect" id="node7" href="./pojo/layers/AbstractBusLayer.html" title="&lt;TABLE&gt;" alt="" coords="767,109,913,157"/>
 </map>

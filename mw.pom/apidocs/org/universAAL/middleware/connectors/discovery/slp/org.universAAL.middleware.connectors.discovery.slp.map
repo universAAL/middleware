@@ -1,6 +1,6 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./SLPDiscoveryConnector.html" title="org.universAAL.middleware.connectors.discovery.slp.SLPDiscoveryConnector" alt="" coords="16,16,181,43"/>
-<area shape="rect" id="node1" href="./SLPDiscoveryConnector.html" title="&lt;TABLE&gt;" alt="" coords="5,5,192,53"/>
-<area shape="rect" id="node2_1" href="./SLPBrowser.html" title="org.universAAL.middleware.connectors.discovery.slp.SLPBrowser" alt="" coords="227,16,320,43"/>
-<area shape="rect" id="node2" href="./SLPBrowser.html" title="&lt;TABLE&gt;" alt="" coords="216,5,331,53"/>
+<area shape="rect" id="node1_0" href="./SLPBrowser.html" title="org.universAAL.middleware.connectors.discovery.slp.SLPBrowser" alt="" coords="16,16,109,43"/>
+<area shape="rect" id="node1" href="./SLPBrowser.html" title="&lt;TABLE&gt;" alt="" coords="5,5,120,53"/>
+<area shape="rect" id="node2_1" href="./SLPDiscoveryConnector.html" title="org.universAAL.middleware.connectors.discovery.slp.SLPDiscoveryConnector" alt="" coords="155,16,320,43"/>
+<area shape="rect" id="node2" href="./SLPDiscoveryConnector.html" title="&lt;TABLE&gt;" alt="" coords="144,5,331,53"/>
 </map>

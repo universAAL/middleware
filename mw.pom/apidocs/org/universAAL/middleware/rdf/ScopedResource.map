@@ -1,18 +1,18 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./ScopedResource.html" title="org.universAAL.middleware.rdf.ScopedResource" alt="" coords="374,112,495,139"/>
-<area shape="rect" id="node1" href="./ScopedResource.html" title="&lt;TABLE&gt;" alt="" coords="363,101,506,149"/>
+<area shape="rect" id="node1_0" href="./ScopedResource.html" title="org.universAAL.middleware.rdf.ScopedResource" alt="" coords="390,112,511,139"/>
+<area shape="rect" id="node1" href="./ScopedResource.html" title="&lt;TABLE&gt;" alt="" coords="379,101,522,149"/>
 <area shape="rect" id="node3_1" href="../context/ContextEvent.html" title="org.universAAL.middleware.context.ContextEvent" alt="" coords="16,208,117,235"/>
 <area shape="rect" id="node3" href="../context/ContextEvent.html" title="&lt;TABLE&gt;" alt="" coords="5,197,128,245"/>
-<area shape="rect" id="node4_2" href="../service/ServiceCall.html" title="org.universAAL.middleware.service.ServiceCall" alt="" coords="163,208,251,235"/>
-<area shape="rect" id="node4" href="../service/ServiceCall.html" title="&lt;TABLE&gt;" alt="" coords="152,197,261,245"/>
-<area shape="rect" id="node5_3" href="../service/ServiceRequest.html" title="org.universAAL.middleware.service.ServiceRequest" alt="" coords="297,208,410,235"/>
-<area shape="rect" id="node5" href="../service/ServiceRequest.html" title="&lt;TABLE&gt;" alt="" coords="286,197,421,245"/>
-<area shape="rect" id="node6_4" href="../service/ServiceResponse.html" title="org.universAAL.middleware.service.ServiceResponse" alt="" coords="455,208,579,235"/>
-<area shape="rect" id="node6" href="../service/ServiceResponse.html" title="&lt;TABLE&gt;" alt="" coords="445,197,590,245"/>
-<area shape="rect" id="node7_5" href="../ui/UIRequest.html" title="org.universAAL.middleware.ui.UIRequest" alt="" coords="625,208,709,235"/>
-<area shape="rect" id="node7" href="../ui/UIRequest.html" title="&lt;TABLE&gt;" alt="" coords="614,197,719,245"/>
-<area shape="rect" id="node8_6" href="../ui/UIResponse.html" title="org.universAAL.middleware.ui.UIResponse" alt="" coords="755,208,848,235"/>
-<area shape="rect" id="node8" href="../ui/UIResponse.html" title="&lt;TABLE&gt;" alt="" coords="744,197,859,245"/>
-<area shape="rect" id="node2_7" href="./FinalizedResource.html" title="org.universAAL.middleware.rdf.FinalizedResource" alt="" coords="370,16,499,43"/>
-<area shape="rect" id="node2" href="./FinalizedResource.html" title="&lt;TABLE&gt;" alt="" coords="359,5,510,53"/>
+<area shape="rect" id="node4_2" href="../service/ServiceResponse.html" title="org.universAAL.middleware.service.ServiceResponse" alt="" coords="163,208,287,235"/>
+<area shape="rect" id="node4" href="../service/ServiceResponse.html" title="&lt;TABLE&gt;" alt="" coords="153,197,298,245"/>
+<area shape="rect" id="node5_3" href="../service/ServiceCall.html" title="org.universAAL.middleware.service.ServiceCall" alt="" coords="333,208,421,235"/>
+<area shape="rect" id="node5" href="../service/ServiceCall.html" title="&lt;TABLE&gt;" alt="" coords="323,197,432,245"/>
+<area shape="rect" id="node6_4" href="../service/ServiceRequest.html" title="org.universAAL.middleware.service.ServiceRequest" alt="" coords="467,208,581,235"/>
+<area shape="rect" id="node6" href="../service/ServiceRequest.html" title="&lt;TABLE&gt;" alt="" coords="457,197,591,245"/>
+<area shape="rect" id="node7_5" href="../ui/UIRequest.html" title="org.universAAL.middleware.ui.UIRequest" alt="" coords="626,208,710,235"/>
+<area shape="rect" id="node7" href="../ui/UIRequest.html" title="&lt;TABLE&gt;" alt="" coords="615,197,721,245"/>
+<area shape="rect" id="node8_6" href="../ui/UIResponse.html" title="org.universAAL.middleware.ui.UIResponse" alt="" coords="756,208,849,235"/>
+<area shape="rect" id="node8" href="../ui/UIResponse.html" title="&lt;TABLE&gt;" alt="" coords="745,197,860,245"/>
+<area shape="rect" id="node2_7" href="./FinalizedResource.html" title="org.universAAL.middleware.rdf.FinalizedResource" alt="" coords="386,16,515,43"/>
+<area shape="rect" id="node2" href="./FinalizedResource.html" title="&lt;TABLE&gt;" alt="" coords="375,5,526,53"/>
 </map>

@@ -9,35 +9,35 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// org.universAAL.middleware.bus.member.BusMember
-	c116428 [label=<<table title="org.universAAL.middleware.bus.member.BusMember" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BusMember.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> BusMember </font></td></tr>
-		</table></td></tr>
-		</table>>, URL="./BusMember.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.bus.member.Caller
-	c116429 [label=<<table title="org.universAAL.middleware.bus.member.Caller" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Caller.html">
+	c116447 [label=<<table title="org.universAAL.middleware.bus.member.Caller" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Caller.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> Caller </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./Caller.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.bus.member.BusMember
+	c116451 [label=<<table title="org.universAAL.middleware.bus.member.BusMember" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BusMember.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> BusMember </font></td></tr>
+		</table></td></tr>
+		</table>>, URL="./BusMember.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.service.ServiceCaller
-	c116497 [label=<<table title="org.universAAL.middleware.service.ServiceCaller" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../service/ServiceCaller.html">
+	c116496 [label=<<table title="org.universAAL.middleware.service.ServiceCaller" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../service/ServiceCaller.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> ServiceCaller </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../../service/ServiceCaller.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.ui.UICaller
-	c116542 [label=<<table title="org.universAAL.middleware.ui.UICaller" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../ui/UICaller.html">
+	c116543 [label=<<table title="org.universAAL.middleware.ui.UICaller" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../ui/UICaller.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> UICaller </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../../ui/UICaller.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.bus.member.Caller extends org.universAAL.middleware.bus.member.BusMember
-	c116428:p -> c116429:p [dir=back,arrowtail=empty];
+	c116451:p -> c116447:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.service.ServiceCaller extends org.universAAL.middleware.bus.member.Caller
-	c116429:p -> c116497:p [dir=back,arrowtail=empty];
+	c116447:p -> c116496:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.ui.UICaller extends org.universAAL.middleware.bus.member.Caller
-	c116429:p -> c116542:p [dir=back,arrowtail=empty];
+	c116447:p -> c116543:p [dir=back,arrowtail=empty];
 }
 

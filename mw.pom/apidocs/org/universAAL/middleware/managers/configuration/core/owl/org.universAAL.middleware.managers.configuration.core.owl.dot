@@ -9,39 +9,39 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// org.universAAL.middleware.managers.configuration.core.owl.ConfigurationFile
-	c35846 [label=<<table title="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationFile" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationFile.html">
+	// org.universAAL.middleware.managers.configuration.core.owl.Entity
+	c34053 [label=<<table title="org.universAAL.middleware.managers.configuration.core.owl.Entity" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Entity.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ConfigurationFile </td></tr>
+<tr><td align="center" balign="center"> Entity </td></tr>
 		</table></td></tr>
-		</table>>, URL="./ConfigurationFile.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./Entity.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter
-	c35847 [label=<<table title="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationParameter.html">
+	c34054 [label=<<table title="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationParameter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConfigurationParameter </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ConfigurationParameter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.managers.configuration.core.owl.ConfigurationFile
+	c34055 [label=<<table title="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationFile" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationFile.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ConfigurationFile </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ConfigurationFile.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology
-	c35848 [label=<<table title="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationOntology.html">
+	c34056 [label=<<table title="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationOntology.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConfigurationOntology </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ConfigurationOntology.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology.Factory
-	c35849 [label=<<table title="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology.Factory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationOntology.Factory.html">
+	c34057 [label=<<table title="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology.Factory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationOntology.Factory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Factory </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ConfigurationOntology.Factory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.managers.configuration.core.owl.Entity
-	c35850 [label=<<table title="org.universAAL.middleware.managers.configuration.core.owl.Entity" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Entity.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Entity </td></tr>
-		</table></td></tr>
-		</table>>, URL="./Entity.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//org.universAAL.middleware.managers.configuration.core.owl.ConfigurationFile extends org.universAAL.middleware.managers.configuration.core.owl.Entity
-	c35850:p -> c35846:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter extends org.universAAL.middleware.managers.configuration.core.owl.Entity
-	c35850:p -> c35847:p [dir=back,arrowtail=empty];
+	c34053:p -> c34054:p [dir=back,arrowtail=empty];
+	//org.universAAL.middleware.managers.configuration.core.owl.ConfigurationFile extends org.universAAL.middleware.managers.configuration.core.owl.Entity
+	c34053:p -> c34055:p [dir=back,arrowtail=empty];
 }
 

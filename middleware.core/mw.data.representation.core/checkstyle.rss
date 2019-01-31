@@ -23,7 +23,7 @@ under the License.
     <link>http://middleware/middleware.core/mw.data.representation.core/</link>
     <description>universAAL Middleware Data Representation (Core) - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2018 universAAL Consortium</copyright>
+    <copyright>&#169;2019 universAAL Consortium</copyright>
     <item>
       <title>File: 80,
              Errors: 701,
@@ -80,7 +80,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   3
@@ -144,6 +144,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.xsd.Base64Binary.java">org/universAAL/middleware/xsd/Base64Binary.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  8
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.LengthRestriction.java">org/universAAL/middleware/owl/LengthRestriction.java</a>
                 </td>
                 <td>
@@ -154,34 +168,6 @@ under the License.
                 </td>
                 <td>
                   34
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.xsd.Base64Binary.java">org/universAAL/middleware/xsd/Base64Binary.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
-                </td>
-                <td>
-                  8
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.Enumeration.java">org/universAAL/middleware/owl/Enumeration.java</a>
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  6
                 </td>
               </tr>
                           <tr>
@@ -200,16 +186,16 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.HasValueRestriction.java">org/universAAL/middleware/owl/HasValueRestriction.java</a>
+                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.Enumeration.java">org/universAAL/middleware/owl/Enumeration.java</a>
+                </td>
+                <td>
+                  1
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  3
-                </td>
-                <td>
-                  10
+                  6
                 </td>
               </tr>
                           <tr>
@@ -228,7 +214,35 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.HasValueRestriction.java">org/universAAL/middleware/owl/HasValueRestriction.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  10
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.serialization.MessageContentSerializerEx.java">org/universAAL/middleware/serialization/MessageContentSerializerEx.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.util.ResourceUtil.java">org/universAAL/middleware/util/ResourceUtil.java</a>
                 </td>
                 <td>
                   0
@@ -243,20 +257,6 @@ under the License.
                           <tr>
                 <td>
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.TypeExpressionFactory.java">org/universAAL/middleware/owl/TypeExpressionFactory.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.util.ResourceUtil.java">org/universAAL/middleware/util/ResourceUtil.java</a>
                 </td>
                 <td>
                   0
@@ -346,7 +346,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   2
@@ -382,6 +382,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.DoubleRestriction.java">org/universAAL/middleware/owl/DoubleRestriction.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.ComparableIndividual.java">org/universAAL/middleware/owl/ComparableIndividual.java</a>
                 </td>
                 <td>
@@ -396,7 +410,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.DoubleRestriction.java">org/universAAL/middleware/owl/DoubleRestriction.java</a>
+                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.serialization.MessageContentSerializer.java">org/universAAL/middleware/serialization/MessageContentSerializer.java</a>
                 </td>
                 <td>
                   0
@@ -417,20 +431,6 @@ under the License.
                 </td>
                 <td>
                   0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.serialization.MessageContentSerializer.java">org/universAAL/middleware/serialization/MessageContentSerializer.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  1
                 </td>
                 <td>
                   0
@@ -528,7 +528,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  2
                 </td>
                 <td>
                   9
@@ -648,7 +648,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.IntRestriction.java">org/universAAL/middleware/owl/IntRestriction.java</a>
+                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.URIRestriction.java">org/universAAL/middleware/owl/URIRestriction.java</a>
                 </td>
                 <td>
                   0
@@ -662,7 +662,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.URIRestriction.java">org/universAAL/middleware/owl/URIRestriction.java</a>
+                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.IntRestriction.java">org/universAAL/middleware/owl/IntRestriction.java</a>
                 </td>
                 <td>
                   0
@@ -710,7 +710,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0
@@ -752,7 +752,7 @@ under the License.
                   2
                 </td>
                 <td>
-                  4
+                  5
                 </td>
                 <td>
                   15
@@ -780,7 +780,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  2
+                  1
                 </td>
                 <td>
                   1
@@ -802,20 +802,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.generic.GenericOntology.java">org/universAAL/middleware/owl/generic/GenericOntology.java</a>
-                </td>
-                <td>
-                  2
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  5
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.rdf.RDFClassInfoSetup.java">org/universAAL/middleware/rdf/RDFClassInfoSetup.java</a>
                 </td>
                 <td>
@@ -826,6 +812,20 @@ under the License.
                 </td>
                 <td>
                   1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.generic.GenericOntology.java">org/universAAL/middleware/owl/generic/GenericOntology.java</a>
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
                 </td>
               </tr>
                           <tr>
@@ -850,24 +850,10 @@ under the License.
                   1
                 </td>
                 <td>
-                  1
+                  2
                 </td>
                 <td>
                   28
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.rdf.RDFClassInfo.java">org/universAAL/middleware/rdf/RDFClassInfo.java</a>
-                </td>
-                <td>
-                  5
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  4
                 </td>
               </tr>
                           <tr>
@@ -882,6 +868,20 @@ under the License.
                 </td>
                 <td>
                   89
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.rdf.RDFClassInfo.java">org/universAAL/middleware/rdf/RDFClassInfo.java</a>
+                </td>
+                <td>
+                  5
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
                 </td>
               </tr>
                           <tr>
@@ -928,20 +928,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.ManagedIndividual.java">org/universAAL/middleware/owl/ManagedIndividual.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  22
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.SomeValuesFromRestriction.java">org/universAAL/middleware/owl/SomeValuesFromRestriction.java</a>
                 </td>
                 <td>
@@ -952,6 +938,20 @@ under the License.
                 </td>
                 <td>
                   0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.ManagedIndividual.java">org/universAAL/middleware/owl/ManagedIndividual.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  22
                 </td>
               </tr>
                           <tr>
@@ -970,20 +970,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.IndividualRestriction.java">org/universAAL/middleware/owl/IndividualRestriction.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.rdf.Variable.java">org/universAAL/middleware/rdf/Variable.java</a>
                 </td>
                 <td>
@@ -994,6 +980,20 @@ under the License.
                 </td>
                 <td>
                   16
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.IndividualRestriction.java">org/universAAL/middleware/owl/IndividualRestriction.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
               </tr>
                           <tr>
@@ -1026,20 +1026,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.Complement.java">org/universAAL/middleware/owl/Complement.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  1
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.PropertyRestriction.java">org/universAAL/middleware/owl/PropertyRestriction.java</a>
                 </td>
                 <td>
@@ -1050,6 +1036,20 @@ under the License.
                 </td>
                 <td>
                   18
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.Complement.java">org/universAAL/middleware/owl/Complement.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
                 </td>
               </tr>
                           <tr>
@@ -1088,6 +1088,20 @@ under the License.
                   0
                 </td>
                 <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.rdf.OpenCollection.java">org/universAAL/middleware/rdf/OpenCollection.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
                   0
                 </td>
                 <td>
@@ -1110,27 +1124,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.rdf.OpenCollection.java">org/universAAL/middleware/rdf/OpenCollection.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.AllValuesFromRestriction.java">org/universAAL/middleware/owl/AllValuesFromRestriction.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0

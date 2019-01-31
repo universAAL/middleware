@@ -10,22 +10,22 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.interfaces.space.model.IChannelDescriptor
-	c119090 [label=<<table title="org.universAAL.middleware.interfaces.space.model.IChannelDescriptor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../model/IChannelDescriptor.html">
+	c119135 [label=<<table title="org.universAAL.middleware.interfaces.space.model.IChannelDescriptor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../model/IChannelDescriptor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> IChannelDescriptor </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../model/IChannelDescriptor.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.space.xml.model.ChannelDescriptor
-	c119092 [label=<<table title="org.universAAL.middleware.interfaces.space.xml.model.ChannelDescriptor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ChannelDescriptor.html">
+	c119140 [label=<<table title="org.universAAL.middleware.interfaces.space.xml.model.ChannelDescriptor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ChannelDescriptor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ChannelDescriptor </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ChannelDescriptor.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.interfaces.space.xml.model.ChannelDescriptor implements java.io.Serializable
-	c119649:p -> c119092:p [dir=back,arrowtail=empty,style=dashed];
+	c119649:p -> c119140:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.interfaces.space.xml.model.ChannelDescriptor implements org.universAAL.middleware.interfaces.space.model.IChannelDescriptor
-	c119090:p -> c119092:p [dir=back,arrowtail=empty,style=dashed];
+	c119135:p -> c119140:p [dir=back,arrowtail=empty,style=dashed];
 	// java.io.Serializable
 	c119649 [label=<<table title="java.io.Serializable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/java/io/Serializable.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">

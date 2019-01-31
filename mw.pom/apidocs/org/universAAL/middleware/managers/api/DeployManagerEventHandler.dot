@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.managers.api.DeployManagerEventHandler
-	c171452 [label=<<table title="org.universAAL.middleware.managers.api.DeployManagerEventHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DeployManagerEventHandler.html">
+	c171455 [label=<<table title="org.universAAL.middleware.managers.api.DeployManagerEventHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DeployManagerEventHandler.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> DeployManagerEventHandler </td></tr>
@@ -23,6 +23,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../deploy/DeployManagerImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.managers.deploy.DeployManagerImpl implements org.universAAL.middleware.managers.api.DeployManagerEventHandler
-	c171452:p -> c171480:p [dir=back,arrowtail=empty,style=dashed];
+	c171455:p -> c171480:p [dir=back,arrowtail=empty,style=dashed];
 }
 

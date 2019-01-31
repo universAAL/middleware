@@ -1,10 +1,10 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./UAPPPartStatus.html" title="org.universAAL.middleware.interfaces.mpa.UAPPPartStatus" alt="" coords="15,11,135,55"/>
-<area shape="rect" id="node1" href="./UAPPPartStatus.html" title="&lt;TABLE&gt;" alt="" coords="4,6,145,61"/>
-<area shape="rect" id="node2_1" href="./Pair.html" title="org.universAAL.middleware.interfaces.mpa.Pair" alt="" coords="183,20,227,47"/>
-<area shape="rect" id="node2" href="./Pair.html" title="&lt;TABLE&gt;" alt="" coords="169,9,241,57"/>
-<area shape="rect" id="node3_2" href="./UAPPStatus.html" title="org.universAAL.middleware.interfaces.mpa.UAPPStatus" alt="" coords="276,20,372,47"/>
-<area shape="rect" id="node3" href="./UAPPStatus.html" title="&lt;TABLE&gt;" alt="" coords="265,9,383,57"/>
-<area shape="rect" id="node4_3" href="./UAPPCard.html" title="org.universAAL.middleware.interfaces.mpa.UAPPCard" alt="" coords="417,20,503,47"/>
-<area shape="rect" id="node4" href="./UAPPCard.html" title="&lt;TABLE&gt;" alt="" coords="407,9,513,57"/>
+<area shape="rect" id="node1_0" href="./UAPPCard.html" title="org.universAAL.middleware.interfaces.mpa.UAPPCard" alt="" coords="16,20,101,47"/>
+<area shape="rect" id="node1" href="./UAPPCard.html" title="&lt;TABLE&gt;" alt="" coords="5,9,112,57"/>
+<area shape="rect" id="node2_1" href="./Pair.html" title="org.universAAL.middleware.interfaces.mpa.Pair" alt="" coords="150,20,194,47"/>
+<area shape="rect" id="node2" href="./Pair.html" title="&lt;TABLE&gt;" alt="" coords="136,9,208,57"/>
+<area shape="rect" id="node3_2" href="./UAPPStatus.html" title="org.universAAL.middleware.interfaces.mpa.UAPPStatus" alt="" coords="243,20,339,47"/>
+<area shape="rect" id="node3" href="./UAPPStatus.html" title="&lt;TABLE&gt;" alt="" coords="232,9,349,57"/>
+<area shape="rect" id="node4_3" href="./UAPPPartStatus.html" title="org.universAAL.middleware.interfaces.mpa.UAPPPartStatus" alt="" coords="384,11,504,55"/>
+<area shape="rect" id="node4" href="./UAPPPartStatus.html" title="&lt;TABLE&gt;" alt="" coords="373,6,515,61"/>
 </map>

@@ -1,10 +1,10 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./Select1.html" title="org.universAAL.middleware.ui.rdf.Select1" alt="" coords="15,208,81,235"/>
-<area shape="rect" id="node1" href="./Select1.html" title="&lt;TABLE&gt;" alt="" coords="5,197,91,245"/>
-<area shape="rect" id="node2_1" href="./Label.html" title="org.universAAL.middleware.ui.rdf.Label" alt="" coords="126,208,178,235"/>
-<area shape="rect" id="node2" href="./Label.html" title="&lt;TABLE&gt;" alt="" coords="115,197,189,245"/>
-<area shape="rect" id="node3_2" href="./Input.html" title="org.universAAL.middleware.ui.rdf.Input" alt="" coords="75,16,125,43"/>
-<area shape="rect" id="node3" href="./Input.html" title="&lt;TABLE&gt;" alt="" coords="64,5,136,53"/>
-<area shape="rect" id="node4_3" href="./Select.html" title="org.universAAL.middleware.ui.rdf.Select" alt="" coords="71,112,129,139"/>
-<area shape="rect" id="node4" href="./Select.html" title="&lt;TABLE&gt;" alt="" coords="61,101,139,149"/>
+<area shape="rect" id="node1_0" href="./Input.html" title="org.universAAL.middleware.ui.rdf.Input" alt="" coords="69,16,118,43"/>
+<area shape="rect" id="node1" href="./Input.html" title="&lt;TABLE&gt;" alt="" coords="57,5,129,53"/>
+<area shape="rect" id="node2_1" href="./Select.html" title="org.universAAL.middleware.ui.rdf.Select" alt="" coords="65,112,122,139"/>
+<area shape="rect" id="node2" href="./Select.html" title="&lt;TABLE&gt;" alt="" coords="54,101,133,149"/>
+<area shape="rect" id="node3_2" href="./Label.html" title="org.universAAL.middleware.ui.rdf.Label" alt="" coords="15,208,67,235"/>
+<area shape="rect" id="node3" href="./Label.html" title="&lt;TABLE&gt;" alt="" coords="5,197,78,245"/>
+<area shape="rect" id="node4_3" href="./Select1.html" title="org.universAAL.middleware.ui.rdf.Select1" alt="" coords="113,208,178,235"/>
+<area shape="rect" id="node4" href="./Select1.html" title="&lt;TABLE&gt;" alt="" coords="102,197,189,245"/>
 </map>

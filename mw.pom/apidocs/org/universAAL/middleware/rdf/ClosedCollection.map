@@ -1,6 +1,6 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./ObjectCollection.html" title="org.universAAL.middleware.rdf.ObjectCollection" alt="" coords="16,16,133,43"/>
-<area shape="rect" id="node1" href="./ObjectCollection.html" title="&lt;TABLE&gt;" alt="" coords="5,5,144,53"/>
-<area shape="rect" id="node2_1" href="./ClosedCollection.html" title="org.universAAL.middleware.rdf.ClosedCollection" alt="" coords="15,112,135,139"/>
-<area shape="rect" id="node2" href="./ClosedCollection.html" title="&lt;TABLE&gt;" alt="" coords="4,101,145,149"/>
+<area shape="rect" id="node1_0" href="./ClosedCollection.html" title="org.universAAL.middleware.rdf.ClosedCollection" alt="" coords="15,112,135,139"/>
+<area shape="rect" id="node1" href="./ClosedCollection.html" title="&lt;TABLE&gt;" alt="" coords="4,101,145,149"/>
+<area shape="rect" id="node2_1" href="./ObjectCollection.html" title="org.universAAL.middleware.rdf.ObjectCollection" alt="" coords="16,16,133,43"/>
+<area shape="rect" id="node2" href="./ObjectCollection.html" title="&lt;TABLE&gt;" alt="" coords="5,5,144,53"/>
 </map>

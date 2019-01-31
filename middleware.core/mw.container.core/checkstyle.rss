@@ -23,7 +23,7 @@ under the License.
     <link></link>
     <description>universAAL Middleware Container (Core) - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2018 universAAL Consortium</copyright>
+    <copyright>&#169;2019 universAAL Consortium</copyright>
     <item>
       <title>File: 9,
              Errors: 66,
@@ -108,10 +108,24 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="/checkstyle.html#org.universAAL.middleware.container.ModuleContext.java">org/universAAL/middleware/container/ModuleContext.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  28
                 </td>
               </tr>
                           <tr>
@@ -126,20 +140,6 @@ under the License.
                 </td>
                 <td>
                   0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="/checkstyle.html#org.universAAL.middleware.container.ModuleContext.java">org/universAAL/middleware/container/ModuleContext.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  28
                 </td>
               </tr>
                           <tr>

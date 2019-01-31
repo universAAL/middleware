@@ -1,8 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./GenericOntology.html" title="org.universAAL.middleware.owl.generic.GenericOntology" alt="" coords="16,16,133,43"/>
-<area shape="rect" id="node1" href="./GenericOntology.html" title="&lt;TABLE&gt;" alt="" coords="5,5,144,53"/>
-<area shape="rect" id="node2_1" href="./GenericResourceFactory.html" title="org.universAAL.middleware.owl.generic.GenericResourceFactory" alt="" coords="179,16,344,43"/>
-<area shape="rect" id="node2" href="./GenericResourceFactory.html" title="&lt;TABLE&gt;" alt="" coords="168,5,355,53"/>
+<area shape="rect" id="node1_0" href="./GenericResourceFactory.html" title="org.universAAL.middleware.owl.generic.GenericResourceFactory" alt="" coords="16,16,181,43"/>
+<area shape="rect" id="node1" href="./GenericResourceFactory.html" title="&lt;TABLE&gt;" alt="" coords="5,5,192,53"/>
+<area shape="rect" id="node2_1" href="./GenericOntology.html" title="org.universAAL.middleware.owl.generic.GenericOntology" alt="" coords="227,16,344,43"/>
+<area shape="rect" id="node2" href="./GenericOntology.html" title="&lt;TABLE&gt;" alt="" coords="216,5,355,53"/>
 <area shape="rect" id="node3_2" href="./GenericManagedIndividual.html" title="org.universAAL.middleware.owl.generic.GenericManagedIndividual" alt="" coords="389,16,563,43"/>
 <area shape="rect" id="node3" href="./GenericManagedIndividual.html" title="&lt;TABLE&gt;" alt="" coords="379,5,573,53"/>
 </map>

@@ -1,8 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./TenantManager.html" title="org.universAAL.middleware.managers.api.TenantManager" alt="" coords="29,115,139,159"/>
-<area shape="rect" id="node1" href="./TenantManager.html" title="&lt;TABLE&gt;" alt="" coords="18,110,150,165"/>
-<area shape="rect" id="node3_1" href="../tenant/TenantManagerImpl.html" title="org.universAAL.middleware.managers.tenant.TenantManagerImpl" alt="" coords="16,224,152,251"/>
+<area shape="rect" id="node1_0" href="./Manager.html" title="org.universAAL.middleware.managers.api.Manager" alt="" coords="41,11,127,55"/>
+<area shape="rect" id="node1" href="./Manager.html" title="&lt;TABLE&gt;" alt="" coords="31,6,137,61"/>
+<area shape="rect" id="node2_1" href="./TenantManager.html" title="org.universAAL.middleware.managers.api.TenantManager" alt="" coords="29,115,139,159"/>
+<area shape="rect" id="node2" href="./TenantManager.html" title="&lt;TABLE&gt;" alt="" coords="18,110,150,165"/>
+<area shape="rect" id="node3_2" href="../tenant/TenantManagerImpl.html" title="org.universAAL.middleware.managers.tenant.TenantManagerImpl" alt="" coords="16,224,152,251"/>
 <area shape="rect" id="node3" href="../tenant/TenantManagerImpl.html" title="&lt;TABLE&gt;" alt="" coords="5,213,163,261"/>
-<area shape="rect" id="node2_2" href="./Manager.html" title="org.universAAL.middleware.managers.api.Manager" alt="" coords="41,11,127,55"/>
-<area shape="rect" id="node2" href="./Manager.html" title="&lt;TABLE&gt;" alt="" coords="31,6,137,61"/>
 </map>

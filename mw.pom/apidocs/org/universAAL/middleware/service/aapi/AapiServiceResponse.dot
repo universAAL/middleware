@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.service.ServiceResponse
-	c80365 [label=<<table title="org.universAAL.middleware.service.ServiceResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ServiceResponse.html">
+	c80359 [label=<<table title="org.universAAL.middleware.service.ServiceResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ServiceResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ServiceResponse </td></tr>
 		</table></td></tr>
@@ -22,6 +22,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AapiServiceResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.service.aapi.AapiServiceResponse extends org.universAAL.middleware.service.ServiceResponse
-	c80365:p -> c80370:p [dir=back,arrowtail=empty];
+	c80359:p -> c80370:p [dir=back,arrowtail=empty];
 }
 

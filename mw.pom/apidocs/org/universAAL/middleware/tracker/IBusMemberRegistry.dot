@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.tracker.IBusMemberRegistry
-	c213129 [label=<<table title="org.universAAL.middleware.tracker.IBusMemberRegistry" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./IBusMemberRegistry.html">
+	c213128 [label=<<table title="org.universAAL.middleware.tracker.IBusMemberRegistry" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./IBusMemberRegistry.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> IBusMemberRegistry </td></tr>
@@ -23,6 +23,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./impl/BusMemberRegistryImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.tracker.impl.BusMemberRegistryImpl implements org.universAAL.middleware.tracker.IBusMemberRegistry
-	c213129:p -> c213132:p [dir=back,arrowtail=empty,style=dashed];
+	c213128:p -> c213132:p [dir=back,arrowtail=empty,style=dashed];
 }
 

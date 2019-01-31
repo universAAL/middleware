@@ -23,7 +23,7 @@ under the License.
     <link>http://middleware/middleware.core/mw.managers.api.core/</link>
     <description>universAAL Middleware Manager API (Core) - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2018 universAAL Consortium</copyright>
+    <copyright>&#169;2019 universAAL Consortium</copyright>
     <item>
       <title>File: 16,
              Errors: 104,
@@ -80,7 +80,7 @@ under the License.
                   2
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   1
@@ -102,20 +102,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.managers.api.core//checkstyle.html#org.universAAL.middleware.managers.api.DeployManagerEventHandler.java">org/universAAL/middleware/managers/api/DeployManagerEventHandler.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://middleware/middleware.core/mw.managers.api.core//checkstyle.html#org.universAAL.middleware.managers.api.MatchingResult.java">org/universAAL/middleware/managers/api/MatchingResult.java</a>
                 </td>
                 <td>
@@ -126,6 +112,20 @@ under the License.
                 </td>
                 <td>
                   1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.api.core//checkstyle.html#org.universAAL.middleware.managers.api.DeployManagerEventHandler.java">org/universAAL/middleware/managers/api/DeployManagerEventHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
                 </td>
               </tr>
                           <tr>
@@ -150,7 +150,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   7
@@ -172,20 +172,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.managers.api.core//checkstyle.html#org.universAAL.middleware.managers.api.InstallationResults.java">org/universAAL/middleware/managers/api/InstallationResults.java</a>
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  14
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://middleware/middleware.core/mw.managers.api.core//checkstyle.html#org.universAAL.middleware.managers.api.UAPPPackage.java">org/universAAL/middleware/managers/api/UAPPPackage.java</a>
                 </td>
                 <td>
@@ -196,6 +182,20 @@ under the License.
                 </td>
                 <td>
                   9
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.api.core//checkstyle.html#org.universAAL.middleware.managers.api.InstallationResults.java">org/universAAL/middleware/managers/api/InstallationResults.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  14
                 </td>
               </tr>
                           <tr>

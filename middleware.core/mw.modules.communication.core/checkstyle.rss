@@ -23,7 +23,7 @@ under the License.
     <link>http://middleware/middleware.core/mw.modules.communication.core/</link>
     <description>universAAL Middleware Module Communication (Core) - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2018 universAAL Consortium</copyright>
+    <copyright>&#169;2019 universAAL Consortium</copyright>
     <item>
       <title>File: 3,
              Errors: 89,
@@ -52,7 +52,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   8
@@ -80,7 +80,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   72

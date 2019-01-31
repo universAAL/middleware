@@ -10,33 +10,33 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.rdf.ScopedResource
-	c345417 [label=<<table title="org.universAAL.middleware.rdf.ScopedResource" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../rdf/ScopedResource.html">
+	c345371 [label=<<table title="org.universAAL.middleware.rdf.ScopedResource" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../rdf/ScopedResource.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ScopedResource </td></tr>
 		</table></td></tr>
 		</table>>, URL="../rdf/ScopedResource.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.bus.model.matchable.Response
-	c345616 [label=<<table title="org.universAAL.middleware.bus.model.matchable.Response" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../bus/model/matchable/Response.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> Response </td></tr>
-		</table></td></tr>
-		</table>>, URL="../bus/model/matchable/Response.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.bus.model.matchable.UtilityReply
-	c345622 [label=<<table title="org.universAAL.middleware.bus.model.matchable.UtilityReply" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../bus/model/matchable/UtilityReply.html">
+	c345606 [label=<<table title="org.universAAL.middleware.bus.model.matchable.UtilityReply" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../bus/model/matchable/UtilityReply.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> UtilityReply </td></tr>
 		</table></td></tr>
 		</table>>, URL="../bus/model/matchable/UtilityReply.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.bus.model.matchable.Response
+	c345614 [label=<<table title="org.universAAL.middleware.bus.model.matchable.Response" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../bus/model/matchable/Response.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
+<tr><td align="center" balign="center"> Response </td></tr>
+		</table></td></tr>
+		</table>>, URL="../bus/model/matchable/Response.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.service.MultiServiceResponse
-	c345669 [label=<<table title="org.universAAL.middleware.service.MultiServiceResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MultiServiceResponse.html">
+	c345670 [label=<<table title="org.universAAL.middleware.service.MultiServiceResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MultiServiceResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MultiServiceResponse </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MultiServiceResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.service.ServiceResponse
-	c345677 [label=<<table title="org.universAAL.middleware.service.ServiceResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ServiceResponse.html">
+	c345671 [label=<<table title="org.universAAL.middleware.service.ServiceResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ServiceResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ServiceResponse </td></tr>
 		</table></td></tr>
@@ -48,14 +48,14 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./aapi/AapiServiceResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.service.MultiServiceResponse extends org.universAAL.middleware.service.ServiceResponse
-	c345677:p -> c345669:p [dir=back,arrowtail=empty];
+	c345671:p -> c345670:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.service.ServiceResponse extends org.universAAL.middleware.rdf.ScopedResource
-	c345417:p -> c345677:p [dir=back,arrowtail=empty];
+	c345371:p -> c345671:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.service.ServiceResponse implements org.universAAL.middleware.bus.model.matchable.Response
-	c345616:p -> c345677:p [dir=back,arrowtail=empty,style=dashed];
+	c345614:p -> c345671:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.service.ServiceResponse implements org.universAAL.middleware.bus.model.matchable.UtilityReply
-	c345622:p -> c345677:p [dir=back,arrowtail=empty,style=dashed];
+	c345606:p -> c345671:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.service.aapi.AapiServiceResponse extends org.universAAL.middleware.service.ServiceResponse
-	c345677:p -> c345682:p [dir=back,arrowtail=empty];
+	c345671:p -> c345682:p [dir=back,arrowtail=empty];
 }
 

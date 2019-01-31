@@ -9,12 +9,6 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// org.universAAL.middleware.context.data.NumCalledPeersDataMap
-	c220103 [label=<<table title="org.universAAL.middleware.context.data.NumCalledPeersDataMap" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NumCalledPeersDataMap.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> NumCalledPeersDataMap </td></tr>
-		</table></td></tr>
-		</table>>, URL="./NumCalledPeersDataMap.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.context.data.INumCalledPeersData
 	c220108 [label=<<table title="org.universAAL.middleware.context.data.INumCalledPeersData" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./INumCalledPeersData.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
@@ -22,7 +16,13 @@ digraph G {
 <tr><td align="center" balign="center"> INumCalledPeersData </td></tr>
 		</table></td></tr>
 		</table>>, URL="./INumCalledPeersData.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.context.data.NumCalledPeersDataMap
+	c220116 [label=<<table title="org.universAAL.middleware.context.data.NumCalledPeersDataMap" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NumCalledPeersDataMap.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> NumCalledPeersDataMap </td></tr>
+		</table></td></tr>
+		</table>>, URL="./NumCalledPeersDataMap.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.context.data.NumCalledPeersDataMap implements org.universAAL.middleware.context.data.INumCalledPeersData
-	c220108:p -> c220103:p [dir=back,arrowtail=empty,style=dashed];
+	c220108:p -> c220116:p [dir=back,arrowtail=empty,style=dashed];
 }
 

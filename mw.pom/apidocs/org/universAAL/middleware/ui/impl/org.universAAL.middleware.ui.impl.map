@@ -1,18 +1,18 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./UIBusImpl.html" title="org.universAAL.middleware.ui.impl.UIBusImpl" alt="" coords="16,20,99,47"/>
-<area shape="rect" id="node1" href="./UIBusImpl.html" title="&lt;TABLE&gt;" alt="" coords="5,9,109,57"/>
-<area shape="rect" id="node2_1" href="./UIStrategyCaller.html" title="org.universAAL.middleware.ui.impl.UIStrategyCaller" alt="" coords="173,216,291,243"/>
-<area shape="rect" id="node2" href="./UIStrategyCaller.html" title="&lt;TABLE&gt;" alt="" coords="163,205,301,253"/>
-<area shape="rect" id="node3_2" href="./UIStrategyCaller.UIRequestCall.html" title="org.universAAL.middleware.ui.impl.UIStrategyCaller.UIRequestCall" alt="" coords="420,120,527,147"/>
-<area shape="rect" id="node3" href="./UIStrategyCaller.UIRequestCall.html" title="&lt;TABLE&gt;" alt="" coords="409,109,537,157"/>
-<area shape="rect" id="node4_3" href="./RunningDialogsManager.html" title="org.universAAL.middleware.ui.impl.RunningDialogsManager" alt="" coords="627,20,789,47"/>
-<area shape="rect" id="node4" href="./RunningDialogsManager.html" title="&lt;TABLE&gt;" alt="" coords="616,9,800,57"/>
-<area shape="rect" id="node5_4" href="./UIStrategyCoordinatorMng.html" title="org.universAAL.middleware.ui.impl.UIStrategyCoordinatorMng" alt="" coords="144,20,320,47"/>
-<area shape="rect" id="node5" href="./UIStrategyCoordinatorMng.html" title="&lt;TABLE&gt;" alt="" coords="133,9,331,57"/>
-<area shape="rect" id="node6_5" href="./UIStrategyHandler.html" title="org.universAAL.middleware.ui.impl.UIStrategyHandler" alt="" coords="167,120,297,147"/>
-<area shape="rect" id="node6" href="./UIStrategyHandler.html" title="&lt;TABLE&gt;" alt="" coords="157,109,307,157"/>
-<area shape="rect" id="node7_6" href="./IUIStrategyMessageSharedProps.html" title="org.universAAL.middleware.ui.impl.IUIStrategyMessageSharedProps" alt="" coords="365,11,581,55"/>
-<area shape="rect" id="node7" href="./IUIStrategyMessageSharedProps.html" title="&lt;TABLE&gt;" alt="" coords="355,6,592,61"/>
-<area shape="rect" id="node8_7" href="./UIBusFactory.html" title="org.universAAL.middleware.ui.impl.UIBusFactory" alt="" coords="835,20,936,47"/>
-<area shape="rect" id="node8" href="./UIBusFactory.html" title="&lt;TABLE&gt;" alt="" coords="824,9,947,57"/>
+<area shape="rect" id="node1_0" href="./UIBusFactory.html" title="org.universAAL.middleware.ui.impl.UIBusFactory" alt="" coords="16,20,117,47"/>
+<area shape="rect" id="node1" href="./UIBusFactory.html" title="&lt;TABLE&gt;" alt="" coords="5,9,128,57"/>
+<area shape="rect" id="node2_1" href="./UIStrategyCoordinatorMng.html" title="org.universAAL.middleware.ui.impl.UIStrategyCoordinatorMng" alt="" coords="163,20,339,47"/>
+<area shape="rect" id="node2" href="./UIStrategyCoordinatorMng.html" title="&lt;TABLE&gt;" alt="" coords="152,9,349,57"/>
+<area shape="rect" id="node4_2" href="./UIStrategyHandler.html" title="org.universAAL.middleware.ui.impl.UIStrategyHandler" alt="" coords="186,120,315,147"/>
+<area shape="rect" id="node4" href="./UIStrategyHandler.html" title="&lt;TABLE&gt;" alt="" coords="175,109,326,157"/>
+<area shape="rect" id="node3_3" href="./RunningDialogsManager.html" title="org.universAAL.middleware.ui.impl.RunningDialogsManager" alt="" coords="384,20,547,47"/>
+<area shape="rect" id="node3" href="./RunningDialogsManager.html" title="&lt;TABLE&gt;" alt="" coords="373,9,557,57"/>
+<area shape="rect" id="node6_4" href="./UIStrategyCaller.html" title="org.universAAL.middleware.ui.impl.UIStrategyCaller" alt="" coords="192,216,309,243"/>
+<area shape="rect" id="node6" href="./UIStrategyCaller.html" title="&lt;TABLE&gt;" alt="" coords="181,205,320,253"/>
+<area shape="rect" id="node5_5" href="./IUIStrategyMessageSharedProps.html" title="org.universAAL.middleware.ui.impl.IUIStrategyMessageSharedProps" alt="" coords="592,11,808,55"/>
+<area shape="rect" id="node5" href="./IUIStrategyMessageSharedProps.html" title="&lt;TABLE&gt;" alt="" coords="581,6,819,61"/>
+<area shape="rect" id="node7_6" href="./UIStrategyCaller.UIRequestCall.html" title="org.universAAL.middleware.ui.impl.UIStrategyCaller.UIRequestCall" alt="" coords="647,120,753,147"/>
+<area shape="rect" id="node7" href="./UIStrategyCaller.UIRequestCall.html" title="&lt;TABLE&gt;" alt="" coords="636,109,764,157"/>
+<area shape="rect" id="node8_7" href="./UIBusImpl.html" title="org.universAAL.middleware.ui.impl.UIBusImpl" alt="" coords="853,20,936,47"/>
+<area shape="rect" id="node8" href="./UIBusImpl.html" title="&lt;TABLE&gt;" alt="" coords="843,9,947,57"/>
 </map>

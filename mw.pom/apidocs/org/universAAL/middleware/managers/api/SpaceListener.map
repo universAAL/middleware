@@ -1,12 +1,12 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./SpaceListener.html" title="org.universAAL.middleware.managers.api.SpaceListener" alt="" coords="304,11,408,55"/>
-<area shape="rect" id="node1" href="./SpaceListener.html" title="&lt;TABLE&gt;" alt="" coords="293,6,419,61"/>
+<area shape="rect" id="node1_0" href="./SpaceListener.html" title="org.universAAL.middleware.managers.api.SpaceListener" alt="" coords="308,11,412,55"/>
+<area shape="rect" id="node1" href="./SpaceListener.html" title="&lt;TABLE&gt;" alt="" coords="297,6,423,61"/>
 <area shape="rect" id="node2_1" href="../deploy/DeployManagerImpl.html" title="org.universAAL.middleware.managers.deploy.DeployManagerImpl" alt="" coords="15,120,153,147"/>
 <area shape="rect" id="node2" href="../deploy/DeployManagerImpl.html" title="&lt;TABLE&gt;" alt="" coords="5,109,163,157"/>
 <area shape="rect" id="node3_2" href="../../ui/impl/generic/CoordinatedStrategy.html" title="org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy" alt="" coords="198,120,338,147"/>
 <area shape="rect" id="node3" href="../../ui/impl/generic/CoordinatedStrategy.html" title="&lt;TABLE&gt;" alt="" coords="187,109,349,157"/>
-<area shape="rect" id="node4_3" href="../distributedmw/impl/MySpaceListener.html" title="org.universAAL.middleware.managers.distributedmw.impl.MySpaceListener" alt="" coords="383,120,505,147"/>
-<area shape="rect" id="node4" href="../distributedmw/impl/MySpaceListener.html" title="&lt;TABLE&gt;" alt="" coords="373,109,515,157"/>
-<area shape="rect" id="node5_4" href="../distributedmw/impl/ListenerHandler.html" title="org.universAAL.middleware.managers.distributedmw.impl.ListenerHandler" alt="" coords="551,120,687,147"/>
-<area shape="rect" id="node5" href="../distributedmw/impl/ListenerHandler.html" title="&lt;TABLE&gt;" alt="" coords="540,109,697,157"/>
+<area shape="rect" id="node4_3" href="../distributedmw/impl/ListenerHandler.html" title="org.universAAL.middleware.managers.distributedmw.impl.ListenerHandler" alt="" coords="384,120,520,147"/>
+<area shape="rect" id="node4" href="../distributedmw/impl/ListenerHandler.html" title="&lt;TABLE&gt;" alt="" coords="373,109,531,157"/>
+<area shape="rect" id="node5_4" href="../distributedmw/impl/MySpaceListener.html" title="org.universAAL.middleware.managers.distributedmw.impl.MySpaceListener" alt="" coords="566,120,687,147"/>
+<area shape="rect" id="node5" href="../distributedmw/impl/MySpaceListener.html" title="&lt;TABLE&gt;" alt="" coords="555,109,698,157"/>
 </map>

@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":9,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":9,"i16":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":9,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":9,"i17":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -300,10 +300,21 @@ extends <a href="../../../../../org/universAAL/middleware/owl/ManagedIndividual.
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/service/owl/Service.html#addFilteringType-java.lang.String-java.lang.String:A-">addFilteringType</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;inParamURI,
                 <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;propPath)</code>
-<div class="block">Adds a restriction to a given input</div>
+<div class="block">Adds an input parameter used to limit the scope of the operation to only those objects reachable with the 'propPath'
+ whose type is equal to the single mandatory value provided in runtime for this input parameter.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/service/owl/Service.html#addFilteringType-java.lang.String-java.lang.String:A-int-int-">addFilteringType</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;inParamURI,
+                <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;propPath,
+                int&nbsp;minCardinality,
+                int&nbsp;maxCardinality)</code>
+<div class="block">Adds an input parameter used to limit the scope of the operation to only those objects reachable with the 'propPath'
+ whose type is equal to the value provided in runtime for this input parameter.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/service/owl/Service.html#addInputWithAddEffect-java.lang.String-java.lang.String-int-int-java.lang.String:A-">addInputWithAddEffect</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;inParamURI,
                      <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;typeURI,
@@ -313,7 +324,7 @@ extends <a href="../../../../../org/universAAL/middleware/owl/ManagedIndividual.
 <div class="block">Adds an add effect to default profile</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/service/owl/Service.html#addInputWithChangeEffect-java.lang.String-java.lang.String-int-int-java.lang.String:A-">addInputWithChangeEffect</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;inParamURI,
                         <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;typeURI,
@@ -323,7 +334,7 @@ extends <a href="../../../../../org/universAAL/middleware/owl/ManagedIndividual.
 <div class="block">Adds a change effect to default profile</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/service/owl/Service.html#addInputWithRemoveEffect-java.lang.String-java.lang.String-int-int-java.lang.String:A-">addInputWithRemoveEffect</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;inParamURI,
                         <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;typeURI,
@@ -333,14 +344,14 @@ extends <a href="../../../../../org/universAAL/middleware/owl/ManagedIndividual.
 <div class="block">Adds a remove effect to default profile</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/service/owl/Service.html#addInstanceLevelRestriction-org.universAAL.middleware.owl.MergedRestriction-java.lang.String:A-">addInstanceLevelRestriction</a></span>(<a href="../../../../../org/universAAL/middleware/owl/MergedRestriction.html" title="class in org.universAAL.middleware.owl">MergedRestriction</a>&nbsp;r,
                            <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;toPath)</code>
 <div class="block">A method for adding instance-level restrictions.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/service/owl/Service.html#addOutput-java.lang.String-java.lang.String-int-int-java.lang.String:A-">addOutput</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;outParamURI,
          <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;typeURI,
@@ -350,7 +361,7 @@ extends <a href="../../../../../org/universAAL/middleware/owl/ManagedIndividual.
 <div class="block">Adds configured output to default profile</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>protected static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/service/owl/Service.html#addRestriction-org.universAAL.middleware.owl.MergedRestriction-java.lang.String:A-java.util.Hashtable-">addRestriction</a></span>(<a href="../../../../../org/universAAL/middleware/owl/MergedRestriction.html" title="class in org.universAAL.middleware.owl">MergedRestriction</a>&nbsp;r,
               <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;toPath,
@@ -360,7 +371,7 @@ extends <a href="../../../../../org/universAAL/middleware/owl/ManagedIndividual.
  that they have a static Hashtable for gathering them.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code><a href="../../../../../org/universAAL/middleware/service/owls/process/ProcessInput.html" title="class in org.universAAL.middleware.service.owls.process">ProcessInput</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/service/owl/Service.html#createInput-java.lang.String-java.lang.String-int-int-">createInput</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;inParamURI,
            <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;typeURI,
@@ -369,11 +380,11 @@ extends <a href="../../../../../org/universAAL/middleware/owl/ManagedIndividual.
 <div class="block">Creates an input from the given URI and cardinality</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/service/owl/Service.html#getInstanceLevelFixedValueOnProp-java.lang.String-">getInstanceLevelFixedValueOnProp</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;propURI)</code>&nbsp;</td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code><a href="../../../../../org/universAAL/middleware/owl/MergedRestriction.html" title="class in org.universAAL.middleware.owl">MergedRestriction</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/service/owl/Service.html#getInstanceLevelRestrictionOnProp-java.lang.String-">getInstanceLevelRestrictionOnProp</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;propURI)</code>
 <div class="block">Returns the restriction on the given <code>propPath</code>, if it was
@@ -381,15 +392,15 @@ extends <a href="../../../../../org/universAAL/middleware/owl/ManagedIndividual.
  <a href="../../../../../org/universAAL/middleware/service/owl/Service.html#addRestriction-org.universAAL.middleware.owl.MergedRestriction-java.lang.String:A-java.util.Hashtable-"><code>addRestriction(MergedRestriction, String[], Hashtable)</code></a>.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/service/owl/Service.html#getNumberOfValueRestrictions--">getNumberOfValueRestrictions</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code><a href="../../../../../org/universAAL/middleware/service/owls/profile/ServiceProfile.html" title="class in org.universAAL.middleware.service.owls.profile">ServiceProfile</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/service/owl/Service.html#getProfile--">getProfile</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/service/owl/Service.html#getPropSerializationType-java.lang.String-">getPropSerializationType</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;propURI)</code>
 <div class="block">Answers if the given property has to be considered when serializing this
@@ -397,13 +408,13 @@ extends <a href="../../../../../org/universAAL/middleware/owl/ManagedIndividual.
  should be presented in its full form or can be reduced.</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/service/owl/Service.html#getRestrictedPropsOnInstanceLevel--">getRestrictedPropsOnInstanceLevel</a></span>()</code>
 <div class="block">Returns the set of properties restricted at instance level.</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>protected static <a href="../../../../../org/universAAL/middleware/owl/MergedRestriction.html" title="class in org.universAAL.middleware.owl">MergedRestriction</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/service/owl/Service.html#getRestrictionOnPropPath-java.util.Hashtable-java.lang.String:A-">getRestrictionOnPropPath</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/util/Hashtable.html?is-external=true" title="class or interface in java.util">Hashtable</a>&nbsp;restrictions,
                         <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;propPath)</code>
@@ -413,7 +424,7 @@ extends <a href="../../../../../org/universAAL/middleware/owl/ManagedIndividual.
  <code>restrictions</code> will be returned by this method.</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/service/owl/Service.html#setProperty-java.lang.String-java.lang.Object-">setProperty</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;propURI,
            <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;value)</code>
@@ -744,7 +755,24 @@ extends <a href="../../../../../org/universAAL/middleware/owl/ManagedIndividual.
 <h4>addFilteringType</h4>
 <pre>public final&nbsp;void&nbsp;addFilteringType(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;inParamURI,
                                    <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;propPath)</pre>
-<div class="block">Adds a restriction to a given input</div>
+<div class="block">Adds an input parameter used to limit the scope of the operation to only those objects reachable with the 'propPath'
+ whose type is equal to the single mandatory value provided in runtime for this input parameter. This is equivalent
+ to <code>addFilteringType(inParamURI, propPath, 1, 1)</code>.</div>
+</li>
+</ul>
+<a name="addFilteringType-java.lang.String-java.lang.String:A-int-int-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>addFilteringType</h4>
+<pre>public final&nbsp;void&nbsp;addFilteringType(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;inParamURI,
+                                   <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;propPath,
+                                   int&nbsp;minCardinality,
+                                   int&nbsp;maxCardinality)</pre>
+<div class="block">Adds an input parameter used to limit the scope of the operation to only those objects reachable with the 'propPath'
+ whose type is equal to the value provided in runtime for this input parameter. The cardinality parameters specify
+ how many type URIs can be provided in runtime as value for this input parameter.</div>
 </li>
 </ul>
 <a name="addInputWithAddEffect-java.lang.String-java.lang.String-int-int-java.lang.String:A-">
@@ -935,6 +963,6 @@ extends <a href="../../../../../org/universAAL/middleware/owl/ManagedIndividual.
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2018 <a href="http://www.universAAL.org/">universAAL Consortium</a>. All rights reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2019 <a href="http://www.universAAL.org/">universAAL Consortium</a>. All rights reserved.</small></p>
 </body>
 </html>

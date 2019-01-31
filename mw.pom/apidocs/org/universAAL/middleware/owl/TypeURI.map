@@ -1,6 +1,6 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./TypeURI.html" title="org.universAAL.middleware.owl.TypeURI" alt="" coords="35,112,109,139"/>
-<area shape="rect" id="node1" href="./TypeURI.html" title="&lt;TABLE&gt;" alt="" coords="25,101,119,149"/>
-<area shape="rect" id="node2_1" href="./TypeExpression.html" title="org.universAAL.middleware.owl.TypeExpression" alt="" coords="15,16,129,43"/>
-<area shape="rect" id="node2" href="./TypeExpression.html" title="&lt;TABLE&gt;" alt="" coords="4,5,140,53"/>
+<area shape="rect" id="node1_0" href="./TypeExpression.html" title="org.universAAL.middleware.owl.TypeExpression" alt="" coords="15,16,129,43"/>
+<area shape="rect" id="node1" href="./TypeExpression.html" title="&lt;TABLE&gt;" alt="" coords="4,5,140,53"/>
+<area shape="rect" id="node2_1" href="./TypeURI.html" title="org.universAAL.middleware.owl.TypeURI" alt="" coords="35,112,109,139"/>
+<area shape="rect" id="node2" href="./TypeURI.html" title="&lt;TABLE&gt;" alt="" coords="25,101,119,149"/>
 </map>

@@ -9,30 +9,30 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// org.universAAL.middleware.interfaces.mpa.UAPPPartStatus
-	c15007 [label=<<table title="org.universAAL.middleware.interfaces.mpa.UAPPPartStatus" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UAPPPartStatus.html">
+	// org.universAAL.middleware.interfaces.mpa.UAPPCard
+	c16197 [label=<<table title="org.universAAL.middleware.interfaces.mpa.UAPPCard" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UAPPCard.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> UAPPPartStatus </td></tr>
+<tr><td align="center" balign="center"> UAPPCard </td></tr>
 		</table></td></tr>
-		</table>>, URL="./UAPPPartStatus.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./UAPPCard.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.mpa.Pair
-	c15008 [label=<<table title="org.universAAL.middleware.interfaces.mpa.Pair" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Pair.html">
+	c16198 [label=<<table title="org.universAAL.middleware.interfaces.mpa.Pair" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Pair.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Pair </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Pair.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.mpa.UAPPStatus
-	c15009 [label=<<table title="org.universAAL.middleware.interfaces.mpa.UAPPStatus" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UAPPStatus.html">
+	c16199 [label=<<table title="org.universAAL.middleware.interfaces.mpa.UAPPStatus" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UAPPStatus.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> UAPPStatus </td></tr>
 		</table></td></tr>
 		</table>>, URL="./UAPPStatus.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.interfaces.mpa.UAPPCard
-	c15010 [label=<<table title="org.universAAL.middleware.interfaces.mpa.UAPPCard" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UAPPCard.html">
+	// org.universAAL.middleware.interfaces.mpa.UAPPPartStatus
+	c16200 [label=<<table title="org.universAAL.middleware.interfaces.mpa.UAPPPartStatus" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UAPPPartStatus.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> UAPPCard </td></tr>
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> UAPPPartStatus </td></tr>
 		</table></td></tr>
-		</table>>, URL="./UAPPCard.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./UAPPPartStatus.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

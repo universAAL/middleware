@@ -23,7 +23,7 @@ under the License.
     <link>http://middleware/thirdparty/jslp.core/</link>
     <description>universAAL Thirdparty jslp library (Core) - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2018 universAAL Consortium</copyright>
+    <copyright>&#169;2019 universAAL Consortium</copyright>
     <item>
       <title>File: 32,
              Errors: 222,
@@ -340,20 +340,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.SLPCore.java">ch/ethz/iks/slp/impl/SLPCore.java</a>
-                </td>
-                <td>
-                  4
-                </td>
-                <td>
-                  7
-                </td>
-                <td>
-                  16
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.SLPUtils.java">ch/ethz/iks/slp/impl/SLPUtils.java</a>
                 </td>
                 <td>
@@ -364,6 +350,20 @@ under the License.
                 </td>
                 <td>
                   1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.SLPCore.java">ch/ethz/iks/slp/impl/SLPCore.java</a>
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  7
+                </td>
+                <td>
+                  16
                 </td>
               </tr>
                           <tr>

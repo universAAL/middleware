@@ -10,27 +10,27 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.rdf.ScopedResource
-	c336533 [label=<<table title="org.universAAL.middleware.rdf.ScopedResource" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../rdf/ScopedResource.html">
+	c336487 [label=<<table title="org.universAAL.middleware.rdf.ScopedResource" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../rdf/ScopedResource.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ScopedResource </td></tr>
 		</table></td></tr>
 		</table>>, URL="../rdf/ScopedResource.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.bus.model.matchable.UtilityCall
-	c336730 [label=<<table title="org.universAAL.middleware.bus.model.matchable.UtilityCall" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../bus/model/matchable/UtilityCall.html">
+	c336731 [label=<<table title="org.universAAL.middleware.bus.model.matchable.UtilityCall" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../bus/model/matchable/UtilityCall.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> UtilityCall </td></tr>
 		</table></td></tr>
 		</table>>, URL="../bus/model/matchable/UtilityCall.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.service.ServiceCall
-	c336791 [label=<<table title="org.universAAL.middleware.service.ServiceCall" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ServiceCall.html">
+	c336789 [label=<<table title="org.universAAL.middleware.service.ServiceCall" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ServiceCall.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ServiceCall </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ServiceCall.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.service.ServiceCall extends org.universAAL.middleware.rdf.ScopedResource
-	c336533:p -> c336791:p [dir=back,arrowtail=empty];
+	c336487:p -> c336789:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.service.ServiceCall implements org.universAAL.middleware.bus.model.matchable.UtilityCall
-	c336730:p -> c336791:p [dir=back,arrowtail=empty,style=dashed];
+	c336731:p -> c336789:p [dir=back,arrowtail=empty,style=dashed];
 }
 
