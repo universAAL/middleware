@@ -63,6 +63,14 @@ public class ServiceMatcher {
 		if (!matchOutputs(superset, subset, cloned, logID))
 			return false;
 
+		// synchronize the context for the effect and output bindings check
+		if (cloned.size() > context.size())
+			for (Iterator i = cloned.keySet().iterator(); i.hasNext();) {
+				Object key = i.next();
+				if (!context.containsKey(key))
+					context.put(key, cloned.get(key));
+			}
+
 		if (context.size() < expectedSizeOfContext) {
 			LogUtils.logTrace(ServiceBusImpl.getModuleContext(), ServiceRealization.class, "matches",
 					new Object[] { ServiceBus.LOG_MATCHING_MISMATCH, "required input in offer not provided by request",
@@ -75,14 +83,6 @@ public class ServiceMatcher {
 					null);
 			return false;
 		}
-
-		// synchronize the context for the effect and output bindings check
-		if (cloned.size() > context.size())
-			for (Iterator i = cloned.keySet().iterator(); i.hasNext();) {
-				Object key = i.next();
-				if (!context.containsKey(key))
-					context.put(key, cloned.get(key));
-			}
 
 		processNonSemanticInput(superset, context);
 		processServiceUri(superset, subset, context);
