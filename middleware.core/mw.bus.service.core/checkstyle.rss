@@ -28,7 +28,7 @@ under the License.
       <title>File: 53,
              Errors: 937,
              Warnings: 43,
-             Infos: 29
+             Infos: 30
       </title>
             <link>http://middleware/middleware.core/mw.bus.service.core//checkstyle.html</link>
       <description>
@@ -623,7 +623,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owls.process.ProcessParameter.java">org/universAAL/middleware/service/owls/process/ProcessParameter.java</a>
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   0
