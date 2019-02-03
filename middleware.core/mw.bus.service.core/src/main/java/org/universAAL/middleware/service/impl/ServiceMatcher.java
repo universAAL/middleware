@@ -51,7 +51,8 @@ public class ServiceMatcher {
 		if (!matchService(superset, subset))
 			return false;
 
-		if (!matchRestrictions(superset, subset, context, logID))
+		int expectedSizeOfContext = matchRestrictions(superset, subset, context, logID);
+		if (expectedSizeOfContext == Integer.MIN_VALUE)
 			return false;
 
 		HashMap cloned = (HashMap) context.clone();
@@ -61,6 +62,19 @@ public class ServiceMatcher {
 
 		if (!matchOutputs(superset, subset, cloned, logID))
 			return false;
+
+		if (context.size() < expectedSizeOfContext) {
+			LogUtils.logTrace(ServiceBusImpl.getModuleContext(), ServiceRealization.class, "matches",
+					new Object[] { ServiceBus.LOG_MATCHING_MISMATCH, "required input in offer not provided by request",
+							ServiceBus.LOG_MATCHING_MISMATCH_CODE, Integer.valueOf(1023),
+							ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
+							" An input parameter is required in the offer, e.g. a filtering value, but the service request"
+									+ " does not provide any info that can be used as its value. The exact parameter is not determined, only"
+									+ " the number of parameters has been found to be problematic.",
+							logID },
+					null);
+			return false;
+		}
 
 		// synchronize the context for the effect and output bindings check
 		if (cloned.size() > context.size())
@@ -141,7 +155,7 @@ public class ServiceMatcher {
 		return true;
 	}
 
-	private boolean matchRestrictions(ServiceWrapper superset, ServiceWrapper subset, HashMap context, Long logID) {
+	private int matchRestrictions(ServiceWrapper superset, ServiceWrapper subset, HashMap context, Long logID) {
 		Service subsetService = subset.getService();
 		Service supersetService = superset.getService();
 
@@ -196,7 +210,7 @@ public class ServiceMatcher {
 							// provider
 							o = superset.getProperty(restrProp);
 						if (o == null || !supersetInsRestr.hasMember(o, context, -1, null))
-							return false;
+							return Integer.MIN_VALUE;
 					} else if (supersetInsRestr instanceof Intersection)
 						for (Iterator j = ((Intersection) supersetInsRestr).types(); j.hasNext();) {
 							// the same as above, only this time in a loop
@@ -211,7 +225,7 @@ public class ServiceMatcher {
 								if (o == null)
 									o = superset.getProperty(restrProp);
 								if (o == null || !supersetInsRestr.hasMember(o, context, -1, null))
-									return false;
+									return Integer.MIN_VALUE;
 							}
 						}
 					else
@@ -257,26 +271,13 @@ public class ServiceMatcher {
 													+ " match the restrictions of the offer.",
 											logID },
 									null);
-						return false;
+						return Integer.MIN_VALUE;
 					}
 				}
 			}
 		}
 
-		if (context.size() < expectedSize) {
-			LogUtils.logTrace(ServiceBusImpl.getModuleContext(), ServiceRealization.class, "matches",
-					new Object[] { ServiceBus.LOG_MATCHING_MISMATCH, "input in offer not defined in request",
-							ServiceBus.LOG_MATCHING_MISMATCH_CODE, Integer.valueOf(1023),
-							ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
-							" An input parameter is given in the offer, e.g. a filtering value, but the service request"
-									+ " does not provide this input parameter. The exact parameter is not determined, only"
-									+ " the number of parameters has been found to be problematic.",
-							logID },
-					null);
-			return false;
-		}
-
-		return true;
+		return expectedSize;
 	}
 
 	private boolean matchEffects(ServiceWrapper superset, ServiceWrapper subset, HashMap context, Long logID) {
