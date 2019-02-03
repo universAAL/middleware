@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2019 universAAL Consortium</copyright>
     <item>
       <title>File: 555,
-             Errors: 8025,
+             Errors: 8027,
              Warnings: 479,
-             Infos: 588
+             Infos: 591
       </title>
             <link>http://middleware/mw.pom//checkstyle.html</link>
       <description>
@@ -1813,7 +1813,7 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.service.impl.ServiceMatcher.java">org/universAAL/middleware/service/impl/ServiceMatcher.java</a>
                 </td>
                 <td>
-                  2
+                  4
                 </td>
                 <td>
                   0
@@ -6685,13 +6685,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.service.owls.profile.ServiceProfile.java">org/universAAL/middleware/service/owls/profile/ServiceProfile.java</a>
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  73
+                  75
                 </td>
               </tr>
                           <tr>
