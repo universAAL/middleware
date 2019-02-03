@@ -28,7 +28,7 @@ under the License.
       <title>File: 555,
              Errors: 8025,
              Warnings: 479,
-             Infos: 587
+             Infos: 588
       </title>
             <link>http://middleware/mw.pom//checkstyle.html</link>
       <description>
@@ -1813,7 +1813,7 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.service.impl.ServiceMatcher.java">org/universAAL/middleware/service/impl/ServiceMatcher.java</a>
                 </td>
                 <td>
-                  1
+                  2
                 </td>
                 <td>
                   0
