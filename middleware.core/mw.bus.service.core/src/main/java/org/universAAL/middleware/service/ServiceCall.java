@@ -192,6 +192,30 @@ public class ServiceCall extends ScopedResource implements UtilityCall {
 		}
 		return returnValue;
 	}
+	
+	private Hashtable<String, Object> getInputs() {
+		Hashtable<String, Object> returnValue = (nonSemanticInput == null)?
+				new Hashtable<String, Object>() : (Hashtable<String, Object>) nonSemanticInput.clone();
+				
+		List<?> inputs = (List<?>) props.get(PROP_OWLS_PERFORM_HAS_DATA_FROM);
+		if (inputs != null)
+			for (Iterator<?> i = inputs.iterator(); i.hasNext();) {
+				Resource binding = (Resource) i.next(),
+						in = (Resource) binding.getProperty(OutputBinding.PROP_OWLS_BINDING_TO_PARAM);
+				if (in != null) {
+					Object o = binding.getProperty(PROP_OWLS_BINDING_VALUE_DATA);
+					if (o instanceof Resource) {
+						List<?> aux = ((Resource) o).asList();
+						if (aux != null)
+							o = aux;
+					}
+					if (o != null)
+						returnValue.put(in.getURI(), o);
+				}
+			}
+
+		return returnValue;
+	}
 
 	/**
 	 * Retrieves the user involved in the call, if there is such.
@@ -317,5 +341,63 @@ public class ServiceCall extends ScopedResource implements UtilityCall {
 			}
 		}
 		return false;
+	}
+	
+	public String toString() {
+		StringBuffer sb = new StringBuffer(1024);
+		sb.append("\n>>>>>>>>>>>>>>>>> operation: ").append(getProcessURI());
+		sb.append("\n>>>>>>>>>>>>>>>>> inputs: ");
+		Hashtable<String, Object> inputs = getInputs();
+		if (inputs == null  ||  inputs.isEmpty())
+			sb.append("none");
+		else for (String s : inputs.keySet()) {
+			sb.append("\n    >>>>>>>>>>>>>>>>> param: ").append(s);
+			sb.append("\n    >>>>>>>>>>>>>>>>> value: ");
+			Object o = inputs.get(s);
+			if (o instanceof Resource)
+				addResource2SB((Resource) o, sb);
+			else if (o instanceof List<?>)
+				addList2SB((List<?>) o, sb);
+			else
+				sb.append(o);
+		}
+		sb.append("\n");
+		return sb.toString();
+	}
+	
+	private void addList2SB(List<?> l, StringBuffer sb) {
+		sb.append("( ");
+		for (Object o : l) {
+			if (o instanceof Resource)
+				addResource2SB((Resource) o, sb);
+			else if (o instanceof List<?>)
+				addList2SB((List<?>) o, sb);
+			else
+				sb.append(o);
+			sb.append(" ");
+		}
+		sb.append(")");
+	}
+	
+	private void addResource2SB(Resource r, StringBuffer sb) {
+		if (r == null) {
+			sb.append("null");
+			return;
+		}
+		
+		if (!r.isAnon())
+			sb.append(r.getURI()).append(" ");
+		sb.append("a ");
+		Object o = r.getProperty(Resource.PROP_RDF_TYPE);
+		if (o instanceof Resource)
+			sb.append(((Resource) o).getURI());
+		else if (o instanceof List<?>) {
+			sb.append("( ");
+			for (Object t : (List<?>) o)
+				if (t instanceof Resource)
+					sb.append(((Resource) t).getURI()).append(" ");
+			sb.append(")");
+		} else
+			sb.append("??type??");
 	}
 }

@@ -182,11 +182,14 @@ public abstract class ServiceCallee extends Callee {
 	 */
 	public void handleRequest(BusMessage m) {
 		if (m != null && m.getContent() instanceof ServiceCall) {
-			LogUtils.logDebug(owner, ServiceCallee.class, "handleRequest",
-					new Object[] { busResourceURI, " received service call:\n", m.getContentAsString() }, null);
+			ServiceCall sc = (ServiceCall) m.getContent();
+			LogUtils.logInfo(owner, ServiceCallee.class, "handleRequest",
+					new Object[] { busResourceURI, " received service call:\n", sc.toString() }, null);
 			ServiceResponse sr = null;
 			try {
-				sr = handleCall((ServiceCall) m.getContent());
+				sr = handleCall(sc);
+				LogUtils.logInfo(owner, ServiceCallee.class, "handleRequest",
+						new Object[] { sc.getProcessURI(), " of ", busResourceURI, " returned:\n", sr.toString() }, null);
 			} catch (Exception e) {
 				sr = new ServiceResponse(CallStatus.serviceSpecificFailure);
 

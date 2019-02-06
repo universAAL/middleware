@@ -517,10 +517,26 @@ public class ContextEvent extends ScopedResource implements Event {
 		Object o = getRDFObject();
 		if (o instanceof Resource)
 			addResource2SB((Resource) o, sb);
+		else if (o instanceof List<?>)
+			addList2SB((List<?>) o, sb);
 		else
 			sb.append(o);
 		sb.append("\n");
 		return sb.toString();
+	}
+	
+	private void addList2SB(List<?> l, StringBuffer sb) {
+		sb.append("( ");
+		for (Object o : l) {
+			if (o instanceof Resource)
+				addResource2SB((Resource) o, sb);
+			else if (o instanceof List<?>)
+				addList2SB((List<?>) o, sb);
+			else
+				sb.append(o);
+			sb.append(" ");
+		}
+		sb.append(")");
 	}
 	
 	private void addResource2SB(Resource r, StringBuffer sb) {

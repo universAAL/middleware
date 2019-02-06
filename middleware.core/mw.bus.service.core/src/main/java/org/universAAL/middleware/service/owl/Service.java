@@ -20,11 +20,14 @@
 package org.universAAL.middleware.service.owl;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
 import org.universAAL.middleware.owl.PropertyRestriction;
+import org.universAAL.middleware.owl.TypeExpression;
+import org.universAAL.middleware.owl.Intersection;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.Resource;
@@ -354,5 +357,27 @@ public abstract class Service extends ManagedIndividual {
 			return true;
 		} else
 			return super.setProperty(propURI, value);
+	}
+	
+	public Hashtable<String, Object> getFixedValueConditions() {
+		Hashtable<String, Object> result = new Hashtable<String, Object>();
+		for (Object mr : instanceLevelRestrictions.values())
+			if (mr instanceof MergedRestriction)
+				addFVConditions(result, (MergedRestriction) mr);
+		return result;
+	}
+	
+	private void addFVConditions(Hashtable<String, Object> map, MergedRestriction mr) {
+		Object o = mr.getConstraint(MergedRestriction.hasValueID);
+		if (o != null)
+			map.put(mr.getOnProperty(), o);
+		else {
+			o = ((MergedRestriction) mr).getConstraint(MergedRestriction.allValuesFromID);
+			if (o instanceof Intersection)
+				for (Object te : ((Intersection) o).elements())
+					if (te instanceof MergedRestriction)
+						addFVConditions(map, (MergedRestriction) te);
+				
+		}
 	}
 }
