@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2019 universAAL Consortium</copyright>
     <item>
       <title>File: 555,
-             Errors: 8030,
+             Errors: 8049,
              Warnings: 479,
-             Infos: 594
+             Infos: 625
       </title>
             <link>http://middleware/mw.pom//checkstyle.html</link>
       <description>
@@ -119,13 +119,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.service.owl.Service.java">org/universAAL/middleware/service/owl/Service.java</a>
                 </td>
                 <td>
-                  4
+                  9
                 </td>
                 <td>
                   1
                 </td>
                 <td>
-                  73
+                  76
                 </td>
               </tr>
                           <tr>
@@ -2765,13 +2765,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.service.ServiceCall.java">org/universAAL/middleware/service/ServiceCall.java</a>
                 </td>
                 <td>
-                  0
+                  8
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  21
+                  26
                 </td>
               </tr>
                           <tr>
@@ -3353,13 +3353,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.service.ServiceRequest.java">org/universAAL/middleware/service/ServiceRequest.java</a>
                 </td>
                 <td>
-                  0
+                  11
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  40
+                  46
                 </td>
               </tr>
                           <tr>
@@ -4585,13 +4585,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.context.ContextEvent.java">org/universAAL/middleware/context/ContextEvent.java</a>
                 </td>
                 <td>
-                  3
+                  4
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  78
+                  79
                 </td>
               </tr>
                           <tr>
@@ -5341,13 +5341,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.service.ServiceResponse.java">org/universAAL/middleware/service/ServiceResponse.java</a>
                 </td>
                 <td>
-                  0
+                  5
                 </td>
                 <td>
                   1
                 </td>
                 <td>
-                  21
+                  25
                 </td>
               </tr>
                           <tr>
@@ -5509,7 +5509,7 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.service.ServiceCallee.java">org/universAAL/middleware/service/ServiceCallee.java</a>
                 </td>
                 <td>
-                  1
+                  2
                 </td>
                 <td>
                   0

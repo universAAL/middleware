@@ -746,6 +746,69 @@
 <th>Project</th>
 <th>Line</th></tr>
 <tr class="b">
+<td>org/universAAL/middleware/service/ServiceCall.java</td>
+<td>universAAL Middleware Service Bus (Core)</td>
+<td>356</td></tr>
+<tr class="a">
+<td>org/universAAL/middleware/service/ServiceResponse.java</td>
+<td>universAAL Middleware Service Bus (Core)</td>
+<td>334</td></tr>
+<tr class="b"><td colspan='3'>
+<div>
+<pre>			Object o = inputs.get(s);
+			if (o instanceof Resource)
+				addResource2SB((Resource) o, sb);
+			else if (o instanceof List&lt;?&gt;)
+				addList2SB((List&lt;?&gt;) o, sb);
+			else
+				sb.append(o);
+		}
+		sb.append(&quot;\n&quot;);
+		return sb.toString();
+	}
+	
+	private void addList2SB(List&lt;?&gt; l, StringBuffer sb) {
+		sb.append(&quot;( &quot;);
+		for (Object o : l) {
+			if (o instanceof Resource)
+				addResource2SB((Resource) o, sb);
+			else if (o instanceof List&lt;?&gt;)
+				addList2SB((List&lt;?&gt;) o, sb);
+			else
+				sb.append(o);
+			sb.append(&quot; &quot;);
+		}
+		sb.append(&quot;)&quot;);
+	}
+	
+	private void addResource2SB(Resource r, StringBuffer sb) {
+		if (r == null) {
+			sb.append(&quot;null&quot;);
+			return;
+		}
+		
+		if (!r.isAnon())
+			sb.append(r.getURI()).append(&quot; &quot;);
+		sb.append(&quot;a &quot;);
+		Object o = r.getProperty(Resource.PROP_RDF_TYPE);
+		if (o instanceof Resource)
+			sb.append(((Resource) o).getURI());
+		else if (o instanceof List&lt;?&gt;) {
+			sb.append(&quot;( &quot;);
+			for (Object t : (List&lt;?&gt;) o)
+				if (t instanceof Resource)
+					sb.append(((Resource) t).getURI()).append(&quot; &quot;);
+			sb.append(&quot;)&quot;);
+		} else
+			sb.append(&quot;??type??&quot;);
+	}
+}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="b">
 <td>org/universAAL/middleware/bus/junit/OntTestCase.java</td>
 <td>universAAL Middleware Bus JUnit</td>
 <td>203</td></tr>
@@ -799,14 +862,73 @@
 <th>Project</th>
 <th>Line</th></tr>
 <tr class="b">
+<td>org/universAAL/middleware/context/ContextEvent.java</td>
+<td>universAAL Middleware Context Bus (Core)</td>
+<td>524</td></tr>
+<tr class="a">
+<td>org/universAAL/middleware/service/ServiceCall.java</td>
+<td>universAAL Middleware Service Bus (Core)</td>
+<td>364</td></tr>
+<tr class="b">
+<td>org/universAAL/middleware/service/ServiceResponse.java</td>
+<td>universAAL Middleware Service Bus (Core)</td>
+<td>342</td></tr>
+<tr class="a"><td colspan='3'>
+<div>
+<pre>		sb.append(&quot;\n&quot;);
+		return sb.toString();
+	}
+	
+	private void addList2SB(List&lt;?&gt; l, StringBuffer sb) {
+		sb.append(&quot;( &quot;);
+		for (Object o : l) {
+			if (o instanceof Resource)
+				addResource2SB((Resource) o, sb);
+			else if (o instanceof List&lt;?&gt;)
+				addList2SB((List&lt;?&gt;) o, sb);
+			else
+				sb.append(o);
+			sb.append(&quot; &quot;);
+		}
+		sb.append(&quot;)&quot;);
+	}
+	
+	private void addResource2SB(Resource r, StringBuffer sb) {
+		if (r == null) {
+			sb.append(&quot;null&quot;);
+			return;
+		}
+		
+		if (!r.isAnon())
+			sb.append(r.getURI()).append(&quot; &quot;);
+		sb.append(&quot;a &quot;);
+		Object o = r.getProperty(Resource.PROP_RDF_TYPE);
+		if (o instanceof Resource)
+			sb.append(((Resource) o).getURI());
+		else if (o instanceof List&lt;?&gt;) {
+			sb.append(&quot;( &quot;);
+			for (Object t : (List&lt;?&gt;) o)
+				if (t instanceof Resource)
+					sb.append(((Resource) t).getURI()).append(&quot; &quot;);
+			sb.append(&quot;)&quot;);
+		} else
+			sb.append(&quot;??type??&quot;);
+	}
+}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="a">
 <td>org/universAAL/middleware/bus/junit/BusTestCase.java</td>
 <td>universAAL Middleware Bus JUnit</td>
 <td>174</td></tr>
-<tr class="a">
+<tr class="b">
 <td>org/universAAL/middleware/container/pojo/dummyManagers/DummyCommunicationModule.java</td>
 <td>universAAL Middleware Container POJORunner</td>
 <td>32</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>		CommunicationModule com = new CommunicationModule() {
 			public void dispose() {
@@ -873,19 +995,19 @@
 			}
 		};</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
+<tr class="a">
 <td>org/universAAL/middleware/bus/junit/BusTestCase.java</td>
 <td>universAAL Middleware Bus JUnit</td>
 <td>113</td></tr>
-<tr class="a">
+<tr class="b">
 <td>org/universAAL/middleware/container/pojo/dummyManagers/DummySpaceManager.java</td>
 <td>universAAL Middleware Container POJORunner</td>
 <td>50</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>			public void dispose() {
 			}
@@ -948,19 +1070,19 @@
 			}
 		};</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
+<tr class="a">
 <td>org/universAAL/middleware/managers/configuration/core/impl/LocalConfigurationParameterEditor.java</td>
 <td>universAAL Middleware Manager Configuration (Core)</td>
 <td>37</td></tr>
-<tr class="a">
+<tr class="b">
 <td>org/universAAL/middleware/managers/configuration/core/impl/RemoteConfigurationParamaterEditor.java</td>
 <td>universAAL Middleware Manager Configuration (Core)</td>
 <td>41</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>		super(configurationManagerImpl, uri);
 	}
@@ -1012,19 +1134,70 @@
 		if (e.setValue(val)) {
 			e.incrementVersion();</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
+<tr class="a">
+<td>org/universAAL/middleware/context/ContextEvent.java</td>
+<td>universAAL Middleware Context Bus (Core)</td>
+<td>536</td></tr>
 <tr class="b">
-<td>org/universAAL/middleware/service/impl/ServiceStrategy.java</td>
+<td>org/universAAL/middleware/service/ServiceCall.java</td>
 <td>universAAL Middleware Service Bus (Core)</td>
-<td>751</td></tr>
+<td>376</td></tr>
+<tr class="a">
+<td>org/universAAL/middleware/service/ServiceRequest.java</td>
+<td>universAAL Middleware Service Bus (Core)</td>
+<td>584</td></tr>
+<tr class="b">
+<td>org/universAAL/middleware/service/ServiceResponse.java</td>
+<td>universAAL Middleware Service Bus (Core)</td>
+<td>354</td></tr>
+<tr class="a"><td colspan='3'>
+<div>
+<pre>				sb.append(o);
+			sb.append(&quot; &quot;);
+		}
+		sb.append(&quot;)&quot;);
+	}
+	
+	private void addResource2SB(Resource r, StringBuffer sb) {
+		if (r == null) {
+			sb.append(&quot;null&quot;);
+			return;
+		}
+		
+		if (!r.isAnon())
+			sb.append(r.getURI()).append(&quot; &quot;);
+		sb.append(&quot;a &quot;);
+		Object o = r.getProperty(Resource.PROP_RDF_TYPE);
+		if (o instanceof Resource)
+			sb.append(((Resource) o).getURI());
+		else if (o instanceof List&lt;?&gt;) {
+			sb.append(&quot;( &quot;);
+			for (Object t : (List&lt;?&gt;) o)
+				if (t instanceof Resource)
+					sb.append(((Resource) t).getURI()).append(&quot; &quot;);
+			sb.append(&quot;)&quot;);
+		} else
+			sb.append(&quot;??type??&quot;);
+	}
+}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
 <tr class="a">
 <td>org/universAAL/middleware/service/impl/ServiceStrategy.java</td>
 <td>universAAL Middleware Service Bus (Core)</td>
+<td>751</td></tr>
+<tr class="b">
+<td>org/universAAL/middleware/service/impl/ServiceStrategy.java</td>
+<td>universAAL Middleware Service Bus (Core)</td>
 <td>1448</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>										Object ok = getOutputValue(goods.get(k), af);
 										if (oj instanceof AbsLocation)
@@ -1058,19 +1231,19 @@
 							}
 						for (int j = 0; j &lt; ind; j++, size--)</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
+<tr class="a">
 <td>org/universAAL/middleware/shell/universAAL/osgi/ConfigPullCommand.java</td>
 <td>universAAL Middleware Karaf Shell Commands for configuring stuff</td>
 <td>42</td></tr>
-<tr class="a">
+<tr class="b">
 <td>org/universAAL/middleware/shell/universAAL/osgi/ConfigPushCommand.java</td>
 <td>universAAL Middleware Karaf Shell Commands for configuring stuff</td>
 <td>42</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>    @Argument(index = 1, name = &quot;path&quot;, description = &quot;Local Path to copy the file to&quot;, required = true, multiValued = false)
     String path = null;
@@ -1107,19 +1280,19 @@
 	
 	File dest = new File(path);</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
+<tr class="a">
 <td>ch/ethz/iks/slp/impl/AttributeReply.java</td>
 <td>universAAL Thirdparty jslp library (Core)</td>
 <td>187</td></tr>
-<tr class="a">
+<tr class="b">
 <td>ch/ethz/iks/slp/impl/ServiceRegistration.java</td>
 <td>universAAL Thirdparty jslp library (Core)</td>
 <td>231</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>	List spiList = stringToList(spiStr, &quot;,&quot;);
 	authBlocks = new AuthenticationBlock[spiList.size()];
@@ -1163,19 +1336,19 @@
      */
     private byte[] getAuthData(final String spiStr, final int timestamp)</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
+<tr class="a">
 <td>org/universAAL/middleware/container/pojo/POJOModuleContext.java</td>
 <td>universAAL Middleware Container POJORunner</td>
 <td>137</td></tr>
-<tr class="a">
+<tr class="b">
 <td>org/universAAL/middleware/container/osgi/OSGiModuleContext.java</td>
 <td>universAAL Middleware Container (OSGi)</td>
 <td>243</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>	}
 
@@ -1207,19 +1380,19 @@
 	/** {@inheritDoc} */
 	public boolean isLogErrorEnabled() {</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
-<td>org/universAAL/middleware/service/impl/ServiceStrategy.java</td>
-<td>universAAL Middleware Service Bus (Core)</td>
-<td>725</td></tr>
 <tr class="a">
 <td>org/universAAL/middleware/service/impl/ServiceStrategy.java</td>
 <td>universAAL Middleware Service Bus (Core)</td>
+<td>725</td></tr>
+<tr class="b">
+<td>org/universAAL/middleware/service/impl/ServiceStrategy.java</td>
+<td>universAAL Middleware Service Bus (Core)</td>
 <td>1422</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>										Object ok = getOutputValue(goods.get(k), af);
 										if (oj instanceof AbsLocation)
@@ -1247,19 +1420,19 @@
 								for (int j = 0; j &lt; size; j++) {
 									Object oj = getOutputValue(goods.get(j), af);</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
-<td>org/universAAL/middleware/service/impl/ServiceStrategy.java</td>
-<td>universAAL Middleware Service Bus (Core)</td>
-<td>1418</td></tr>
 <tr class="a">
 <td>org/universAAL/middleware/service/impl/ServiceStrategy.java</td>
 <td>universAAL Middleware Service Bus (Core)</td>
+<td>1418</td></tr>
+<tr class="b">
+<td>org/universAAL/middleware/service/impl/ServiceStrategy.java</td>
+<td>universAAL Middleware Service Bus (Core)</td>
 <td>1444</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>								case AggregationFunction.MIN_DISTANCE_TO_REF_LOC:
 									for (int j = 0; j &lt; size; j++) {
@@ -1276,19 +1449,19 @@
 															.getDistanceTo((AbsLocation) params.get(1));
 													if (dj &lt; dk)</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
+<tr class="a">
 <td>org/universAAL/middleware/bus/junit/OntTestCase.java</td>
 <td>universAAL Middleware Bus JUnit</td>
 <td>146</td></tr>
-<tr class="a">
+<tr class="b">
 <td>org/universAAL/middleware/container/pojo/layers/OntAutoLoader.java</td>
 <td>universAAL Middleware Container POJORunner</td>
 <td>143</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>		List&lt;LogEntry&gt; logEntries = new ArrayList&lt;OntTestCase.LogEntry&gt;();
 
@@ -1317,19 +1490,19 @@
 				return;
 			attempts++;</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
-<td>org/universAAL/middleware/api/impl/SimplifiedApiService.java</td>
-<td>universAAL Middleware Service Annotated API (Core)</td>
-<td>91</td></tr>
 <tr class="a">
 <td>org/universAAL/middleware/api/impl/SimplifiedApiService.java</td>
 <td>universAAL Middleware Service Annotated API (Core)</td>
+<td>91</td></tr>
+<tr class="b">
+<td>org/universAAL/middleware/api/impl/SimplifiedApiService.java</td>
+<td>universAAL Middleware Service Annotated API (Core)</td>
 <td>143</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>	public void createInputWrapper(String baseURI, Class&lt;?&gt; clazz, Cardinality card, String[] propertyPaths)
 			throws SimplifiedRegistrationException {
@@ -1357,19 +1530,19 @@
 			}
 		}</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
+<tr class="a">
 <td>org/universAAL/middleware/owl/ExactCardinalityRestriction.java</td>
 <td>universAAL Middleware Data Representation (Core)</td>
 <td>124</td></tr>
-<tr class="a">
+<tr class="b">
 <td>org/universAAL/middleware/owl/MaxCardinalityRestriction.java</td>
 <td>universAAL Middleware Data Representation (Core)</td>
 <td>120</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>			return getValue() == ((List) value).size();
 	}
@@ -1390,19 +1563,19 @@
 				return true;
 		} else if (r instanceof MaxCardinalityRestriction) {</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
-<td>org/universAAL/middleware/service/impl/ServiceStrategy.java</td>
-<td>universAAL Middleware Service Bus (Core)</td>
-<td>721</td></tr>
 <tr class="a">
 <td>org/universAAL/middleware/service/impl/ServiceStrategy.java</td>
 <td>universAAL Middleware Service Bus (Core)</td>
+<td>721</td></tr>
+<tr class="b">
+<td>org/universAAL/middleware/service/impl/ServiceStrategy.java</td>
+<td>universAAL Middleware Service Bus (Core)</td>
 <td>747</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>							case AggregationFunction.MIN_DISTANCE_TO_REF_LOC:
 								for (int j = 0; j &lt; size; j++) {
@@ -1419,19 +1592,19 @@
 														.getDistanceTo((AbsLocation) params.get(1));
 												if (dj &lt; dk)</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
+<tr class="a">
 <td>org/universAAL/middleware/service/owls/profile/NumberOfSamples.java</td>
 <td>universAAL Middleware Service Bus (Core)</td>
 <td>55</td></tr>
-<tr class="a">
+<tr class="b">
 <td>org/universAAL/middleware/service/owls/profile/ResponseTimeInMilliseconds.java</td>
 <td>universAAL Middleware Service Bus (Core)</td>
 <td>55</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>	public int getNumberOfSamples() {
 		Object o = props.get(PROP_PARAMETER_VALUE_DATA);
@@ -1451,19 +1624,19 @@
 			} else if (propURI.equals(PROP_OWLS_PROFILE_S_PARAMETER)) {
 				if (value instanceof Integer &amp;&amp; ((Integer) value).intValue() &gt; -1) {</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
+<tr class="a">
 <td>org/universAAL/middleware/container/JUnit/JUnitContainer.java</td>
 <td>universAAL Middleware Container JUnit</td>
 <td>56</td></tr>
-<tr class="a">
+<tr class="b">
 <td>org/universAAL/middleware/container/pojo/POJOContainer.java</td>
 <td>universAAL Middleware Container POJORunner</td>
 <td>81</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>	}
 
@@ -1498,19 +1671,19 @@
 	/** Register a LogListener */
 	public void registerLogListener(LogListener listener) {</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
+<tr class="a">
 <td>org/universAAL/middleware/managers/configuration/core/impl/LocalConfigurationFileEditor.java</td>
 <td>universAAL Middleware Manager Configuration (Core)</td>
 <td>46</td></tr>
-<tr class="a">
+<tr class="b">
 <td>org/universAAL/middleware/managers/configuration/core/impl/RemoteConfigurationFileEditor.java</td>
 <td>universAAL Middleware Manager Configuration (Core)</td>
 <td>42</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>		super(configurationManagerImpl, uri);
 	}
@@ -1543,19 +1716,19 @@
 		if (e instanceof ConfigurationFile) {
 			ConfigurationFile cf = (ConfigurationFile) e;</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
+<tr class="a">
 <td>org/universAAL/middleware/owl/AllValuesFromRestriction.java</td>
 <td>universAAL Middleware Data Representation (Core)</td>
 <td>144</td></tr>
-<tr class="a">
+<tr class="b">
 <td>org/universAAL/middleware/owl/SomeValuesFromRestriction.java</td>
 <td>universAAL Middleware Data Representation (Core)</td>
 <td>112</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>		return true;
 	}
@@ -1575,19 +1748,19 @@
 
 		TypeExpression myValues = (TypeExpression) getProperty(PROP_OWL_ALL_VALUES_FROM);</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
+<tr class="a">
 <td>org/universAAL/middleware/managers/deploy/uapp/model/AalUapp.java</td>
 <td>universAAL Middleware XSD Schemas</td>
 <td>1129</td></tr>
-<tr class="a">
+<tr class="b">
 <td>org/universAAL/middleware/managers/deploy/uapp/model/Part.java</td>
 <td>universAAL Middleware XSD Schemas</td>
 <td>333</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>	public static class ApplicationCapabilities implements Serializable {
 
@@ -1672,19 +1845,19 @@
 	@XmlAccessorType(XmlAccessType.FIELD)
 	@XmlType(name = &quot;&quot;, propOrder = { &quot;contactPoint&quot;, &quot;remoteManagement&quot; })</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
+<tr class="a">
 <td>org/universAAL/middleware/owl/AllValuesFromRestriction.java</td>
 <td>universAAL Middleware Data Representation (Core)</td>
 <td>117</td></tr>
-<tr class="a">
+<tr class="b">
 <td>org/universAAL/middleware/owl/SomeValuesFromRestriction.java</td>
 <td>universAAL Middleware Data Representation (Core)</td>
 <td>83</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>		return copyTo(new AllValuesFromRestriction());
 	}
@@ -1705,19 +1878,19 @@
 		}
 		int size = ((List) o).size();</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
+<tr class="a">
 <td>org/universAAL/middleware/connectors/communication/jgroups/JGroupsCommunicationConnector.java</td>
 <td>universAAL Middleware Connector Communication JGroups (Core)</td>
 <td>583</td></tr>
-<tr class="a">
+<tr class="b">
 <td>org/universAAL/middleware/connectors/deploy/karaf/KarafDeployConnector.java</td>
 <td>universAAL Middleware Deploy Connector Karaf (OSGi)</td>
 <td>127</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>					&quot;JGroups Connector properties are null&quot;);
 			return;
@@ -1731,19 +1904,19 @@
 			this.provider = (String) configurations
 					.get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_PROVIDER);</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
-<td>org/universAAL/middleware/service/impl/ServiceStrategy.java</td>
-<td>universAAL Middleware Service Bus (Core)</td>
-<td>679</td></tr>
 <tr class="a">
 <td>org/universAAL/middleware/service/impl/ServiceStrategy.java</td>
 <td>universAAL Middleware Service Bus (Core)</td>
+<td>679</td></tr>
+<tr class="b">
+<td>org/universAAL/middleware/service/impl/ServiceStrategy.java</td>
+<td>universAAL Middleware Service Bus (Core)</td>
 <td>1376</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>										Object ok = getOutputValue(goods.get(k), af);
 										if (oj instanceof Comparable)
@@ -1768,19 +1941,19 @@
 								for (int j = 0; j &lt; size; j++) {
 									Object oj = getOutputValue(goods.get(j), af);</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
-<td>org/universAAL/middleware/service/impl/ServiceStrategy.java</td>
-<td>universAAL Middleware Service Bus (Core)</td>
-<td>702</td></tr>
 <tr class="a">
 <td>org/universAAL/middleware/service/impl/ServiceStrategy.java</td>
 <td>universAAL Middleware Service Bus (Core)</td>
+<td>702</td></tr>
+<tr class="b">
+<td>org/universAAL/middleware/service/impl/ServiceStrategy.java</td>
+<td>universAAL Middleware Service Bus (Core)</td>
 <td>1399</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>										Object ok = getOutputValue(goods.get(k), af);
 										if (oj instanceof Comparable)
@@ -1805,19 +1978,19 @@
 								for (int j = 0; j &lt; size; j++) {
 									Object oj = getOutputValue(goods.get(j), af);</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
+<tr class="a">
 <td>ch/ethz/iks/slp/impl/AttributeReply.java</td>
 <td>universAAL Thirdparty jslp library (Core)</td>
 <td>197</td></tr>
-<tr class="a">
+<tr class="b">
 <td>ch/ethz/iks/slp/impl/DAAdvertisement.java</td>
 <td>universAAL Thirdparty jslp library (Core)</td>
 <td>210</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>    }
 
@@ -1857,19 +2030,19 @@
 	    dos.writeUTF(spiStr);
 	    dos.writeUTF(listToString(attributes, &quot;,&quot;));</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
+<tr class="a">
 <td>org/universAAL/middleware/owl/Intersection.java</td>
 <td>universAAL Middleware Data Representation (Core)</td>
 <td>212</td></tr>
-<tr class="a">
+<tr class="b">
 <td>org/universAAL/middleware/owl/Union.java</td>
 <td>universAAL Middleware Data Representation (Core)</td>
 <td>198</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>					Object tmp = TypeURI.asTypeURI(o);
 					if (tmp != null)

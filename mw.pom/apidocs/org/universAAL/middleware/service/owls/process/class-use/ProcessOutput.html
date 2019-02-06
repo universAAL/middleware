@@ -114,10 +114,8 @@
 <td class="colFirst"><code><a href="../../../../../../../org/universAAL/middleware/service/owls/process/ProcessOutput.html" title="class in org.universAAL.middleware.service.owls.process">ProcessOutput</a></code></td>
 <td class="colLast"><span class="typeNameLabel">ServiceRequest.</span><code><span class="memberNameLink"><a href="../../../../../../../org/universAAL/middleware/service/ServiceRequest.html#addRequiredOutput-java.lang.String-java.lang.String:A-">addRequiredOutput</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;paramURI,
                  <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;fromProp)</code>
-<div class="block">Adds the requirement that the service must deliver an output with type
- restrictions bound to the given <code>toParam</code> and that this must
- reflect the value of a property reachable by the given property path
- <code>sourceProp</code>.</div>
+<div class="block">Creates and output parameter with URI equal to <code>paramURI</code> and then
+ calls <a href="../../../../../../../org/universAAL/middleware/service/ServiceRequest.html#addSimpleOutputBinding-org.universAAL.middleware.service.owls.process.ProcessOutput-java.lang.String:A-"><code>ServiceRequest.addSimpleOutputBinding(ProcessOutput, String[])</code></a>.</div>
 </td>
 </tr>
 </tbody>

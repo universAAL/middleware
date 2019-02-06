@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -333,10 +333,8 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Re
 <td class="colFirst"><code><a href="../../../../org/universAAL/middleware/service/owls/process/ProcessOutput.html" title="class in org.universAAL.middleware.service.owls.process">ProcessOutput</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/service/ServiceRequest.html#addRequiredOutput-java.lang.String-java.lang.String:A-">addRequiredOutput</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;paramURI,
                  <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;fromProp)</code>
-<div class="block">Adds the requirement that the service must deliver an output with type
- restrictions bound to the given <code>toParam</code> and that this must
- reflect the value of a property reachable by the given property path
- <code>sourceProp</code>.</div>
+<div class="block">Creates and output parameter with URI equal to <code>paramURI</code> and then
+ calls <a href="../../../../org/universAAL/middleware/service/ServiceRequest.html#addSimpleOutputBinding-org.universAAL.middleware.service.owls.process.ProcessOutput-java.lang.String:A-"><code>addSimpleOutputBinding(ProcessOutput, String[])</code></a>.</div>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
@@ -424,6 +422,12 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Re
 <div class="block">Overrides <a href="../../../../org/universAAL/middleware/rdf/Resource.html#setProperty-java.lang.String-java.lang.Object-"><code>Resource.setProperty(String, Object)</code></a>.</div>
 </td>
 </tr>
+<tr id="i19" class="rowColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/service/ServiceRequest.html#toString--">toString</a></span>()</code>
+<div class="block">Get a String representation of this Resource; returns the URI.</div>
+</td>
+</tr>
 </table>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.org.universAAL.middleware.rdf.ScopedResource">
@@ -444,7 +448,7 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Re
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;org.universAAL.middleware.rdf.<a href="../../../../org/universAAL/middleware/rdf/Resource.html" title="class in org.universAAL.middleware.rdf">Resource</a></h3>
-<code><a href="../../../../org/universAAL/middleware/rdf/Resource.html#addMultiLangProp-java.lang.String-org.universAAL.middleware.rdf.LangString-">addMultiLangProp</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#asList--">asList</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#asList-java.util.List-">asList</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#asRDFList-java.util.List-boolean-">asRDFList</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#changeProperty-java.lang.String-java.lang.Object-">changeProperty</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#copy-boolean-">copy</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#deepCopy--">deepCopy</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#equals-java.lang.Object-">equals</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#generateAnonURI--">generateAnonURI</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#getDefaultLang--">getDefaultLang</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#getFilename--">getFilename</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#getMultiLangProp-java.lang.String-java.lang.String-boolean-">getMultiLangProp</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#getOrConstructLabel-java.lang.String-">getOrConstructLabel</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#getOrConstructLabel-java.lang.String-java.lang.String-">getOrConstructLabel</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#getResource-java.lang.String-java.lang.String-">getResource</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#getResourceComment--">getResourceComment</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#getResourceLabel--">getResourceLabel</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#getResourceLabel-java.lang.String-">getResourceLabel</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#getStaticFieldValue-java.lang.String-java.lang.Object-">getStaticFieldValue</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#hashCode--">hashCode</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#hasProperty-java.lang.String-">hasProperty</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#isAnon-java.lang.String-">isAnon</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#isBlockingAddingTypes--">isBlockingAddingTypes</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#isClosedCollection-java.lang.String-">isClosedCollection</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#isQualifiedName-java.lang.String-">isQualifiedName</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#literal--">literal</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#representsQualifiedURI--">representsQualifiedURI</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#serializesAsXMLLiteral--">serializesAsXMLLiteral</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#setPropertyPath-java.lang.String:A-java.lang.Object-">setPropertyPath</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#setPropertyPath-java.lang.String:A-java.lang.Object-boolean-">setPropertyPath</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#setPropertyPathFromOffset-java.lang.String:A-int-java.lang.Object-boolean-">setPropertyPathFromOffset</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#setResourceComment-java.lang.String-">setResourceComment</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#setResourceLabel-java.lang.String-">setResourceLabel</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#toString--">toString</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#toStringRecursive--">toStringRecursive</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#toStringRecursive-java.lang.String-boolean-java.util.Hashtable-">toStringRecursive</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#unliteral--">unliteral</a></code></li>
+<code><a href="../../../../org/universAAL/middleware/rdf/Resource.html#addMultiLangProp-java.lang.String-org.universAAL.middleware.rdf.LangString-">addMultiLangProp</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#asList--">asList</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#asList-java.util.List-">asList</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#asRDFList-java.util.List-boolean-">asRDFList</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#changeProperty-java.lang.String-java.lang.Object-">changeProperty</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#copy-boolean-">copy</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#deepCopy--">deepCopy</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#equals-java.lang.Object-">equals</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#generateAnonURI--">generateAnonURI</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#getDefaultLang--">getDefaultLang</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#getFilename--">getFilename</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#getMultiLangProp-java.lang.String-java.lang.String-boolean-">getMultiLangProp</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#getOrConstructLabel-java.lang.String-">getOrConstructLabel</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#getOrConstructLabel-java.lang.String-java.lang.String-">getOrConstructLabel</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#getResource-java.lang.String-java.lang.String-">getResource</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#getResourceComment--">getResourceComment</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#getResourceLabel--">getResourceLabel</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#getResourceLabel-java.lang.String-">getResourceLabel</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#getStaticFieldValue-java.lang.String-java.lang.Object-">getStaticFieldValue</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#hashCode--">hashCode</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#hasProperty-java.lang.String-">hasProperty</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#isAnon-java.lang.String-">isAnon</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#isBlockingAddingTypes--">isBlockingAddingTypes</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#isClosedCollection-java.lang.String-">isClosedCollection</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#isQualifiedName-java.lang.String-">isQualifiedName</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#literal--">literal</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#representsQualifiedURI--">representsQualifiedURI</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#serializesAsXMLLiteral--">serializesAsXMLLiteral</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#setPropertyPath-java.lang.String:A-java.lang.Object-">setPropertyPath</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#setPropertyPath-java.lang.String:A-java.lang.Object-boolean-">setPropertyPath</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#setPropertyPathFromOffset-java.lang.String:A-int-java.lang.Object-boolean-">setPropertyPathFromOffset</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#setResourceComment-java.lang.String-">setResourceComment</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#setResourceLabel-java.lang.String-">setResourceLabel</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#toStringRecursive--">toStringRecursive</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#toStringRecursive-java.lang.String-boolean-java.util.Hashtable-">toStringRecursive</a>, <a href="../../../../org/universAAL/middleware/rdf/Resource.html#unliteral--">unliteral</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">
@@ -759,10 +763,8 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Re
 <h4>addRequiredOutput</h4>
 <pre>public&nbsp;<a href="../../../../org/universAAL/middleware/service/owls/process/ProcessOutput.html" title="class in org.universAAL.middleware.service.owls.process">ProcessOutput</a>&nbsp;addRequiredOutput(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;paramURI,
                                        <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;fromProp)</pre>
-<div class="block">Adds the requirement that the service must deliver an output with type
- restrictions bound to the given <code>toParam</code> and that this must
- reflect the value of a property reachable by the given property path
- <code>sourceProp</code>.</div>
+<div class="block">Creates and output parameter with URI equal to <code>paramURI</code> and then
+ calls <a href="../../../../org/universAAL/middleware/service/ServiceRequest.html#addSimpleOutputBinding-org.universAAL.middleware.service.owls.process.ProcessOutput-java.lang.String:A-"><code>addSimpleOutputBinding(ProcessOutput, String[])</code></a>.</div>
 </li>
 </ul>
 <a name="addSimpleOutputBinding-org.universAAL.middleware.service.owls.process.ProcessOutput-java.lang.String:A-">
@@ -951,7 +953,7 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Re
 <a name="matches-org.universAAL.middleware.bus.model.matchable.Matchable-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>matches</h4>
 <pre>public&nbsp;boolean&nbsp;matches(<a href="../../../../org/universAAL/middleware/bus/model/matchable/Matchable.html" title="interface in org.universAAL.middleware.bus.model.matchable">Matchable</a>&nbsp;other)</pre>
@@ -963,6 +965,21 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Re
          not</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../org/universAAL/middleware/bus/model/matchable/Matchable.html#matches-org.universAAL.middleware.bus.model.matchable.Matchable-"><code>Matchable.matches(Matchable)</code></a></dd>
+</dl>
+</li>
+</ul>
+<a name="toString--">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toString</h4>
+<pre>public&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;toString()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../org/universAAL/middleware/rdf/Resource.html#toString--">Resource</a></code></span></div>
+<div class="block">Get a String representation of this Resource; returns the URI.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../../../org/universAAL/middleware/rdf/Resource.html#toString--">toString</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/universAAL/middleware/rdf/Resource.html" title="class in org.universAAL.middleware.rdf">Resource</a></code></dd>
 </dl>
 </li>
 </ul>
