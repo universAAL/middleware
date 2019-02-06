@@ -19,6 +19,8 @@
  */
 package org.universAAL.middleware.context;
 
+import java.util.List;
+
 import org.universAAL.middleware.bus.model.matchable.Event;
 import org.universAAL.middleware.bus.model.matchable.Matchable;
 import org.universAAL.middleware.context.owl.ContextProvider;
@@ -504,5 +506,42 @@ public class ContextEvent extends ScopedResource implements Event {
 	 */
 	public boolean matches(Matchable subset) {
 		return false;
+	}
+	
+	public String toString() {
+		StringBuffer sb = new StringBuffer(1024);
+		sb.append("\n>>>>>>>>>>>>>>>>> subject: ");
+		addResource2SB(getRDFSubject(), sb);
+		sb.append("\n>>>>>>>>>>>>>>>>> predicate: ").append(getRDFPredicate());
+		sb.append("\n>>>>>>>>>>>>>>>>> object: ");
+		Object o = getRDFObject();
+		if (o instanceof Resource)
+			addResource2SB((Resource) o, sb);
+		else
+			sb.append(o);
+		sb.append("\n");
+		return sb.toString();
+	}
+	
+	private void addResource2SB(Resource r, StringBuffer sb) {
+		if (r == null) {
+			sb.append("null");
+			return;
+		}
+		
+		if (!r.isAnon())
+			sb.append(r.getURI()).append(" ");
+		sb.append("a ");
+		Object o = r.getProperty(Resource.PROP_RDF_TYPE);
+		if (o instanceof Resource)
+			sb.append(((Resource) o).getURI());
+		else if (o instanceof List<?>) {
+			sb.append("( ");
+			for (Object t : (List<?>) o)
+				if (t instanceof Resource)
+					sb.append(((Resource) t).getURI()).append(" ");
+			sb.append(")");
+		} else
+			sb.append("??type??");
 	}
 }
