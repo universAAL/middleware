@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2019 universAAL Consortium</copyright>
     <item>
       <title>File: 53,
-             Errors: 957,
+             Errors: 950,
              Warnings: 43,
-             Infos: 64
+             Infos: 54
       </title>
             <link>http://middleware/middleware.core/mw.bus.service.core//checkstyle.html</link>
       <description>
@@ -231,13 +231,13 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.ServiceRequest.java">org/universAAL/middleware/service/ServiceRequest.java</a>
                 </td>
                 <td>
-                  11
+                  7
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  46
+                  43
                 </td>
               </tr>
                           <tr>
@@ -273,13 +273,13 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.ServiceResponse.java">org/universAAL/middleware/service/ServiceResponse.java</a>
                 </td>
                 <td>
-                  5
+                  2
                 </td>
                 <td>
                   1
                 </td>
                 <td>
-                  25
+                  23
                 </td>
               </tr>
                           <tr>
@@ -511,13 +511,13 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.ServiceCall.java">org/universAAL/middleware/service/ServiceCall.java</a>
                 </td>
                 <td>
-                  8
+                  5
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  26
+                  24
                 </td>
               </tr>
                           <tr>
