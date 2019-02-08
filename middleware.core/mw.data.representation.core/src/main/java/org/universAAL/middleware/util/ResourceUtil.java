@@ -20,6 +20,7 @@
 package org.universAAL.middleware.util;
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.universAAL.middleware.owl.AllValuesFromRestriction;
 import org.universAAL.middleware.owl.ExactCardinalityRestriction;
@@ -29,6 +30,7 @@ import org.universAAL.middleware.owl.MaxCardinalityRestriction;
 import org.universAAL.middleware.owl.MinCardinalityRestriction;
 import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.TypeURI;
+import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.Variable;
 
 /**
@@ -119,5 +121,64 @@ public final class ResourceUtil {
 		}
 
 		return prefix + "unknown: " + e.getClass().getName() + "\n";
+	}
+	
+	public static void addObject2SB(Object o, StringBuffer sb) {
+		if (o instanceof Resource)
+			addResource2SB((Resource) o, sb);
+		else if (o instanceof List<?>)
+			addList2SB((List<?>) o, sb);
+		else
+			sb.append(o);
+	}
+	
+	public static void addList2SB(List<?> l, StringBuffer sb) {
+		if (l == null) {
+			sb.append("()");
+			return;
+		}
+		
+		sb.append("( ");
+		for (Object o : l) {
+			addObject2SB(o, sb);
+			sb.append(" ");
+		}
+		sb.append(")");
+	}
+	
+	public static void addResourceURI2SB(Resource r, StringBuffer sb) {
+		if (r == null  ||  r.isAnon())
+			sb.append("anon");
+		else if (r.hasQualifiedName())
+			sb.append(r.getLocalName());
+		else
+			sb.append(r.getURI());
+	}
+	
+	public static void addURI2SB(String uri, StringBuffer sb) {
+		if (Resource.isAnon(uri))
+			sb.append("anon");
+		else if (Resource.isQualifiedName(uri))
+			sb.append(uri.substring(uri.lastIndexOf('#') + 1));
+		else
+			sb.append(uri);
+	}
+	
+	public static void addResource2SB(Resource r, StringBuffer sb) {
+		if (r == null) {
+			sb.append("null");
+			return;
+		}
+		
+		Object o = r.getProperty(Resource.PROP_RDF_TYPE);
+		if (o instanceof Resource)
+			addResourceURI2SB((Resource) o, sb);
+		else if (o instanceof List<?>)
+			addList2SB((List<?>) o, sb);
+		else
+			sb.append("anon");
+		sb.append("::");
+
+		addResourceURI2SB(r, sb);
 	}
 }

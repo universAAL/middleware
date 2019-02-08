@@ -28,6 +28,7 @@ import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ScopedResource;
+import org.universAAL.middleware.util.ResourceUtil;
 
 /**
  * Instances of this class can be used to exchange info about the state of
@@ -510,54 +511,13 @@ public class ContextEvent extends ScopedResource implements Event {
 	
 	public String toString() {
 		StringBuffer sb = new StringBuffer(1024);
-		sb.append("\n>>>>>>>>>>>>>>>>> subject: ");
-		addResource2SB(getRDFSubject(), sb);
-		sb.append("\n>>>>>>>>>>>>>>>>> predicate: ").append(getRDFPredicate());
-		sb.append("\n>>>>>>>>>>>>>>>>> object: ");
-		Object o = getRDFObject();
-		if (o instanceof Resource)
-			addResource2SB((Resource) o, sb);
-		else if (o instanceof List<?>)
-			addList2SB((List<?>) o, sb);
-		else
-			sb.append(o);
+		sb.append("\n>>>>>>>>>>>>>>>>> ");
+		ResourceUtil.addResource2SB(getRDFSubject(), sb);
+		sb.append("->");
+		ResourceUtil.addURI2SB(getRDFPredicate(), sb);
+		sb.append(" = ");
+		ResourceUtil.addObject2SB(getRDFObject(), sb);
 		sb.append("\n");
 		return sb.toString();
-	}
-	
-	private void addList2SB(List<?> l, StringBuffer sb) {
-		sb.append("( ");
-		for (Object o : l) {
-			if (o instanceof Resource)
-				addResource2SB((Resource) o, sb);
-			else if (o instanceof List<?>)
-				addList2SB((List<?>) o, sb);
-			else
-				sb.append(o);
-			sb.append(" ");
-		}
-		sb.append(")");
-	}
-	
-	private void addResource2SB(Resource r, StringBuffer sb) {
-		if (r == null) {
-			sb.append("null");
-			return;
-		}
-		
-		if (!r.isAnon())
-			sb.append(r.getURI()).append(" ");
-		sb.append("a ");
-		Object o = r.getProperty(Resource.PROP_RDF_TYPE);
-		if (o instanceof Resource)
-			sb.append(((Resource) o).getURI());
-		else if (o instanceof List<?>) {
-			sb.append("( ");
-			for (Object t : (List<?>) o)
-				if (t instanceof Resource)
-					sb.append(((Resource) t).getURI()).append(" ");
-			sb.append(")");
-		} else
-			sb.append("??type??");
 	}
 }

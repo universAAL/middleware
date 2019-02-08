@@ -31,6 +31,7 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ScopedResource;
 import org.universAAL.middleware.service.impl.ServiceRealization;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
+import org.universAAL.middleware.util.ResourceUtil;
 
 /**
  * A class that represents a service response resource, which is produced by the
@@ -322,60 +323,21 @@ public class ServiceResponse extends ScopedResource implements Response, Utility
 	
 	public String toString() {
 		StringBuffer sb = new StringBuffer(1024);
-		sb.append("\n>>>>>>>>>>>>>>>>> status: ").append(getCallStatus());
-		sb.append("\n>>>>>>>>>>>>>>>>> error: ").append(getProperty(PROP_SERVICE_SPECIFIC_ERROR));
+		sb.append("\n>>>>>>>>>>>>>>>>> status: ");
+		ResourceUtil.addResourceURI2SB(getCallStatus(), sb);
+		sb.append("\n>>>>>>>>>>>>>>>>> error: ");
+		ResourceUtil.addObject2SB(getProperty(PROP_SERVICE_SPECIFIC_ERROR), sb);
 		sb.append("\n>>>>>>>>>>>>>>>>> outputs: ");
 		Map<String, List<Object>> outputs = getOutputsMap();
 		if (outputs == null  ||  outputs.isEmpty())
 			sb.append("none");
 		else for (String s : outputs.keySet()) {
-			sb.append("\n    >>>>>>>>>>>>>>>>> param: ").append(s);
-			sb.append("\n    >>>>>>>>>>>>>>>>> value: ");
-			Object o = outputs.get(s);
-			if (o instanceof Resource)
-				addResource2SB((Resource) o, sb);
-			else if (o instanceof List<?>)
-				addList2SB((List<?>) o, sb);
-			else
-				sb.append(o);
+			sb.append("\n    >>>>>>>>>>>>>>>>> ");
+			ResourceUtil.addURI2SB(s, sb);
+			sb.append(" = ");
+			ResourceUtil.addObject2SB(outputs.get(s), sb);
 		}
 		sb.append("\n");
 		return sb.toString();
-	}
-	
-	private void addList2SB(List<?> l, StringBuffer sb) {
-		sb.append("( ");
-		for (Object o : l) {
-			if (o instanceof Resource)
-				addResource2SB((Resource) o, sb);
-			else if (o instanceof List<?>)
-				addList2SB((List<?>) o, sb);
-			else
-				sb.append(o);
-			sb.append(" ");
-		}
-		sb.append(")");
-	}
-	
-	private void addResource2SB(Resource r, StringBuffer sb) {
-		if (r == null) {
-			sb.append("null");
-			return;
-		}
-		
-		if (!r.isAnon())
-			sb.append(r.getURI()).append(" ");
-		sb.append("a ");
-		Object o = r.getProperty(Resource.PROP_RDF_TYPE);
-		if (o instanceof Resource)
-			sb.append(((Resource) o).getURI());
-		else if (o instanceof List<?>) {
-			sb.append("( ");
-			for (Object t : (List<?>) o)
-				if (t instanceof Resource)
-					sb.append(((Resource) t).getURI()).append(" ");
-			sb.append(")");
-		} else
-			sb.append("??type??");
 	}
 }

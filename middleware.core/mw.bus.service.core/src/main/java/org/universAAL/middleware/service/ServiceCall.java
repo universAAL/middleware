@@ -30,6 +30,7 @@ import org.universAAL.middleware.rdf.ScopedResource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.service.owls.process.OutputBinding;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
+import org.universAAL.middleware.util.ResourceUtil;
 
 /**
  * Operations of {@link ServiceCallee}s will be called by passing an instance of
@@ -345,59 +346,20 @@ public class ServiceCall extends ScopedResource implements UtilityCall {
 	
 	public String toString() {
 		StringBuffer sb = new StringBuffer(1024);
-		sb.append("\n>>>>>>>>>>>>>>>>> operation: ").append(getProcessURI());
+		sb.append("\n>>>>>>>>>>>>>>>>> operation: ");
+		ResourceUtil.addURI2SB(getProcessURI(), sb);
 		sb.append("\n>>>>>>>>>>>>>>>>> inputs: ");
 		Hashtable<String, Object> inputs = getInputs();
 		if (inputs == null  ||  inputs.isEmpty())
 			sb.append("none");
 		else for (String s : inputs.keySet()) {
-			sb.append("\n    >>>>>>>>>>>>>>>>> param: ").append(s);
-			sb.append("\n    >>>>>>>>>>>>>>>>> value: ");
-			Object o = inputs.get(s);
-			if (o instanceof Resource)
-				addResource2SB((Resource) o, sb);
-			else if (o instanceof List<?>)
-				addList2SB((List<?>) o, sb);
-			else
-				sb.append(o);
+			sb.append("\n    >>>>>>>>>>>>>>>>> ");
+			ResourceUtil.addURI2SB(s, sb);
+			sb.append(" = ");
+			ResourceUtil.addObject2SB(inputs.get(s), sb);
+			sb.append("\n");
 		}
 		sb.append("\n");
 		return sb.toString();
-	}
-	
-	private void addList2SB(List<?> l, StringBuffer sb) {
-		sb.append("( ");
-		for (Object o : l) {
-			if (o instanceof Resource)
-				addResource2SB((Resource) o, sb);
-			else if (o instanceof List<?>)
-				addList2SB((List<?>) o, sb);
-			else
-				sb.append(o);
-			sb.append(" ");
-		}
-		sb.append(")");
-	}
-	
-	private void addResource2SB(Resource r, StringBuffer sb) {
-		if (r == null) {
-			sb.append("null");
-			return;
-		}
-		
-		if (!r.isAnon())
-			sb.append(r.getURI()).append(" ");
-		sb.append("a ");
-		Object o = r.getProperty(Resource.PROP_RDF_TYPE);
-		if (o instanceof Resource)
-			sb.append(((Resource) o).getURI());
-		else if (o instanceof List<?>) {
-			sb.append("( ");
-			for (Object t : (List<?>) o)
-				if (t instanceof Resource)
-					sb.append(((Resource) t).getURI()).append(" ");
-			sb.append(")");
-		} else
-			sb.append("??type??");
 	}
 }

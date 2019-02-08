@@ -40,6 +40,7 @@ import org.universAAL.middleware.service.owls.process.ProcessEffect;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.service.owls.process.ProcessResult;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
+import org.universAAL.middleware.util.ResourceUtil;
 
 /**
  * A class that represents a service request resource, which is used by the
@@ -519,15 +520,15 @@ public class ServiceRequest extends ScopedResource implements Request {
 		StringBuffer sb = new StringBuffer(1024);
 		sb.append("\n>>>>>>>>>>>>>>>>> service: ");
 		Service s = getRequestedService();
-		addResource2SB(s, sb);
+		ResourceUtil.addResource2SB(s, sb);
 		if (s != null) {
 			Map<String, Object> conds = s.getFixedValueConditions();
 			sb.append("\n>>>>>>>>>>>>>>>>> conditions (partial): ");
 			for (String prop : conds.keySet()) {
-				sb.append("\n    >>>>>>>>>>>>>>>>> property: ").append(prop);
-				sb.append("\n    >>>>>>>>>>>>>>>>> value: ");
-				addObject2SB(conds.get(prop), sb);
-				sb.append("\n");
+				sb.append("\n    >>>>>>>>>>>>>>>>> ");
+				ResourceUtil.addURI2SB(prop, sb);
+				sb.append(" = ");
+				ResourceUtil.addObject2SB(conds.get(prop), sb);
 			}
 		}
 		
@@ -543,69 +544,34 @@ public class ServiceRequest extends ScopedResource implements Request {
 				Object val = r.getProperty(ProcessEffect.PROP_PROCESS_PROPERTY_VALUE);
 				if (ProcessEffect.TYPE_PROCESS_ADD_EFFECT.equals(type)) {
 					sb.append("\n    >>>>>>>>>>>>>>>>> add: ");
-					addObject2SB(val, sb);
-					sb.append("\n    >>>>>>>>>>>>>>>>> to: ").append(pp);
+					ResourceUtil.addObject2SB(val, sb);
+					sb.append("    >>>>>>> to: ");
+					ResourceUtil.addURI2SB(pp, sb);
 				} else if (ProcessEffect.TYPE_PROCESS_CHANGE_EFFECT.equals(type)) {
-					sb.append("\n    >>>>>>>>>>>>>>>>> set: ").append(pp);
-					sb.append("\n    >>>>>>>>>>>>>>>>> equal to: ");
-					addObject2SB(val, sb);
-				} else if (ProcessEffect.TYPE_PROCESS_REMOVE_EFFECT.equals(type))
-					sb.append("\n    >>>>>>>>>>>>>>>>> remove: ").append(pp);
-				sb.append("\n");
+					sb.append("\n    >>>>>>>>>>>>>>>>> set: ");
+					ResourceUtil.addURI2SB(pp, sb);
+					sb.append("    >>>>>>> equal to: ");
+					ResourceUtil.addObject2SB(val, sb);
+				} else if (ProcessEffect.TYPE_PROCESS_REMOVE_EFFECT.equals(type)) {
+					sb.append("\n    >>>>>>>>>>>>>>>>> remove: ");
+					ResourceUtil.addURI2SB(pp, sb);
+				}
 			}
 		}
 		
 		Resource[] outputs = getRequiredOutputs();
 		if (outputs != null  &&  outputs.length > 0) {
 			sb.append("\n>>>>>>>>>>>>>>>>> fetch: ");
-			for (Resource r : effects) {
+			for (Resource r : outputs) {
 				String pp = getLastPathElement(r.getProperty(OutputBinding.PROP_OWLS_BINDING_VALUE_FORM));
-				if (pp != null)
-					sb.append("\n    >>>>>>>>>>>>>>>>> ").append(pp);
+				if (pp != null) {
+					sb.append("\n    >>>>>>>>>>>>>>>>> ");
+					ResourceUtil.addURI2SB(pp, sb);
+				}
 			}
 		}
 		
 		sb.append("\n");
 		return sb.toString();
-	}
-	
-	private void addObject2SB(Object o, StringBuffer sb) {
-		if (o instanceof Resource)
-			addResource2SB((Resource) o, sb);
-		else if (o instanceof List<?>)
-			addList2SB((List<?>) o, sb);
-		else
-			sb.append(o);
-	}
-	
-	private void addList2SB(List<?> l, StringBuffer sb) {
-		sb.append("( ");
-		for (Object o : l) {
-			addObject2SB(o, sb);
-			sb.append(" ");
-		}
-		sb.append(")");
-	}
-	
-	private void addResource2SB(Resource r, StringBuffer sb) {
-		if (r == null) {
-			sb.append("null");
-			return;
-		}
-		
-		if (!r.isAnon())
-			sb.append(r.getURI()).append(" ");
-		sb.append("a ");
-		Object o = r.getProperty(Resource.PROP_RDF_TYPE);
-		if (o instanceof Resource)
-			sb.append(((Resource) o).getURI());
-		else if (o instanceof List<?>) {
-			sb.append("( ");
-			for (Object t : (List<?>) o)
-				if (t instanceof Resource)
-					sb.append(((Resource) t).getURI()).append(" ");
-			sb.append(")");
-		} else
-			sb.append("??type??");
 	}
 }
