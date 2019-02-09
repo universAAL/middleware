@@ -137,6 +137,16 @@ public class ContextEvent extends ScopedResource implements Event {
 	 */
 	public static final String LOCAL_NAME_TIMESTAMP = "hasTimestamp";
 	public static final String PROP_CONTEXT_TIMESTAMP = CONTEXT_NAMESPACE + LOCAL_NAME_TIMESTAMP;
+	
+	/**
+	 * If the creator of a context event knows that the event is being created due to an external change
+	 * not in control of the universAAL environment, and esp. is not the direct result of a previous
+	 * change effect caused by a service call in the universAAL environment, it can set this flag 
+	 * in order for the receivers of the context event to be able to differentiate between external
+	 * causes not in control of the universAAL environment and those caused in control of the
+	 * universAAL environment.
+	 */
+	public static final String PROP_CONTEXT_HAS_EXTERNAL_CAUSE = CONTEXT_NAMESPACE + "hasExternalCause";
 
 	/**
 	 * Constructs a CHe stub ContextEvent according to the parameters passed
@@ -205,6 +215,15 @@ public class ContextEvent extends ScopedResource implements Event {
 		setRDFPredicate(predicate);
 		setRDFObject(eventObject);
 		setTimestamp(new Long(System.currentTimeMillis()));
+	}
+	
+	/**
+	 * Similar to {@link #ContextEvent(Resource, String)} with the effect to set also
+	 * {@link #PROP_CONTEXT_HAS_EXTERNAL_CAUSE} to true.
+	 */
+	public ContextEvent(Resource subject, String predicate, boolean hasExternalCause) {
+		this(subject, predicate);
+		props.put(PROP_CONTEXT_HAS_EXTERNAL_CAUSE, Boolean.TRUE);
 	}
 
 	/**
@@ -330,6 +349,14 @@ public class ContextEvent extends ScopedResource implements Event {
 	 */
 	public Long getTimestamp() {
 		return (Long) getProperty(PROP_CONTEXT_TIMESTAMP);
+	}
+	
+	/**
+	 * Returns true iff the property {@link #PROP_CONTEXT_HAS_EXTERNAL_CAUSE} has been set to true,
+	 * otherwise false.
+	 */
+	public boolean hasExternalCause() {
+		return Boolean.TRUE == props.get(PROP_CONTEXT_HAS_EXTERNAL_CAUSE);
 	}
 
 	public boolean isWellFormed() {
@@ -496,6 +523,11 @@ public class ContextEvent extends ScopedResource implements Event {
 		} else if (value instanceof Integer) {
 			if (propURI.equals(PROP_CONTEXT_CONFIDENCE))
 				return setConfidence((Integer) value);
+		} else if (value == Boolean.TRUE
+				&&  PROP_CONTEXT_HAS_EXTERNAL_CAUSE.equals(propURI)
+				&&  !props.containsKey(propURI)) {
+			props.put(PROP_CONTEXT_HAS_EXTERNAL_CAUSE, Boolean.TRUE);
+			return true;
 		}
 		return false;
 	}
