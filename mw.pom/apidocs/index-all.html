@@ -2583,7 +2583,7 @@
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-boolean-">ContextEvent(Resource, String, boolean)</a></span> - Constructor for class org.universAAL.middleware.context.<a href="org/universAAL/middleware/context/ContextEvent.html" title="class in org.universAAL.middleware.context">ContextEvent</a></dt>
 <dd>
 <div class="block">Similar to <a href="org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-"><code>ContextEvent.ContextEvent(Resource, String)</code></a> with the effect to set also
- <a href="org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_HAS_EXTERNAL_CAUSE"><code>ContextEvent.PROP_CONTEXT_HAS_EXTERNAL_CAUSE</code></a> to true.</div>
+ <a href="org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_REFLECTS_CHANGE_REQUEST"><code>ContextEvent.PROP_CONTEXT_REFLECTS_CHANGE_REQUEST</code></a> to true.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-java.lang.Object-">ContextEvent(Resource, String, Object)</a></span> - Constructor for class org.universAAL.middleware.context.<a href="org/universAAL/middleware/context/ContextEvent.html" title="class in org.universAAL.middleware.context">ContextEvent</a></dt>
 <dd>
@@ -8005,11 +8005,6 @@
 <dd>
 <div class="block">Determines whether a channel with the specified name exists.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/ContextEvent.html#hasExternalCause--">hasExternalCause()</a></span> - Method in class org.universAAL.middleware.context.<a href="org/universAAL/middleware/context/ContextEvent.html" title="class in org.universAAL.middleware.context">ContextEvent</a></dt>
-<dd>
-<div class="block">Returns true iff the property <a href="org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_HAS_EXTERNAL_CAUSE"><code>ContextEvent.PROP_CONTEXT_HAS_EXTERNAL_CAUSE</code></a> has been set to true,
- otherwise false.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/ui/rdf/FormControl.html#hasFocus--">hasFocus()</a></span> - Method in class org.universAAL.middleware.ui.rdf.<a href="org/universAAL/middleware/ui/rdf/FormControl.html" title="class in org.universAAL.middleware.ui.rdf">FormControl</a></dt>
 <dd>
 <div class="block">Checks if <a href="org/universAAL/middleware/ui/rdf/Form.html#PROP_DIALOG_CURRENT_FOCUSED_CONTROL"><code>Form.PROP_DIALOG_CURRENT_FOCUSED_CONTROL</code></a> has this
@@ -12889,11 +12884,6 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_EXPIRATION_TIME">PROP_CONTEXT_EXPIRATION_TIME</a></span> - Static variable in class org.universAAL.middleware.context.<a href="org/universAAL/middleware/context/ContextEvent.html" title="class in org.universAAL.middleware.context">ContextEvent</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_HAS_EXTERNAL_CAUSE">PROP_CONTEXT_HAS_EXTERNAL_CAUSE</a></span> - Static variable in class org.universAAL.middleware.context.<a href="org/universAAL/middleware/context/ContextEvent.html" title="class in org.universAAL.middleware.context">ContextEvent</a></dt>
-<dd>
-<div class="block">If the creator of a context event knows that the event is being created due to an external change
- not in control of the universAAL environment, and esp.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/owl/ContextProvider.html#PROP_CONTEXT_PROVIDED_EVENTS">PROP_CONTEXT_PROVIDED_EVENTS</a></span> - Static variable in class org.universAAL.middleware.context.owl.<a href="org/universAAL/middleware/context/owl/ContextProvider.html" title="class in org.universAAL.middleware.context.owl">ContextProvider</a></dt>
 <dd>
 <div class="block">An array of <a href="org/universAAL/middleware/context/ContextEventPattern.html" title="class in org.universAAL.middleware.context"><code>ContextEventPattern</code></a>s each of which declares a class
@@ -12904,6 +12894,12 @@
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/owl/ContextProvider.html#PROP_CONTEXT_PROVIDER_TYPE">PROP_CONTEXT_PROVIDER_TYPE</a></span> - Static variable in class org.universAAL.middleware.context.owl.<a href="org/universAAL/middleware/context/owl/ContextProvider.html" title="class in org.universAAL.middleware.context.owl">ContextProvider</a></dt>
 <dd>
 <div class="block">The type of a context provider.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_REFLECTS_CHANGE_REQUEST">PROP_CONTEXT_REFLECTS_CHANGE_REQUEST</a></span> - Static variable in class org.universAAL.middleware.context.<a href="org/universAAL/middleware/context/ContextEvent.html" title="class in org.universAAL.middleware.context">ContextEvent</a></dt>
+<dd>
+<div class="block">Helpful for 'controllers' that have just made a change effect requested from them through 
+ a service call received from the universAAL environment and now want to reflect this same change
+ to the universAAL environment as a context event.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/owl/ContextProvider.html#PROP_CONTEXT_SOURCE">PROP_CONTEXT_SOURCE</a></span> - Static variable in class org.universAAL.middleware.context.owl.<a href="org/universAAL/middleware/context/owl/ContextProvider.html" title="class in org.universAAL.middleware.context.owl">ContextProvider</a></dt>
 <dd>
@@ -13777,6 +13773,11 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/data/ICalledPeers.html#reduceNumOfCalledPeers--">reduceNumOfCalledPeers()</a></span> - Method in interface org.universAAL.middleware.context.data.<a href="org/universAAL/middleware/context/data/ICalledPeers.html" title="interface in org.universAAL.middleware.context.data">ICalledPeers</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/ContextEvent.html#reflectsChangeRequest--">reflectsChangeRequest()</a></span> - Method in class org.universAAL.middleware.context.<a href="org/universAAL/middleware/context/ContextEvent.html" title="class in org.universAAL.middleware.context">ContextEvent</a></dt>
+<dd>
+<div class="block">Returns true iff the property <a href="org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_REFLECTS_CHANGE_REQUEST"><code>ContextEvent.PROP_CONTEXT_REFLECTS_CHANGE_REQUEST</code></a> has been set to true,
+ otherwise false.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="ch/ethz/iks/slp/ServiceLocationException.html#REFRESH_REJECTED">REFRESH_REJECTED</a></span> - Static variable in exception ch.ethz.iks.slp.<a href="ch/ethz/iks/slp/ServiceLocationException.html" title="class in ch.ethz.iks.slp">ServiceLocationException</a></dt>
 <dd>
 <div class="block">The DA rejected the update because it was within the minimal update
