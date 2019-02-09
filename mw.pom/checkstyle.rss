@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2019 universAAL Consortium</copyright>
     <item>
       <title>File: 555,
-             Errors: 8045,
+             Errors: 8050,
              Warnings: 479,
-             Infos: 620
+             Infos: 624
       </title>
             <link>http://middleware/mw.pom//checkstyle.html</link>
       <description>
@@ -4585,13 +4585,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.context.ContextEvent.java">org/universAAL/middleware/context/ContextEvent.java</a>
                 </td>
                 <td>
-                  2
+                  6
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  77
+                  82
                 </td>
               </tr>
                           <tr>

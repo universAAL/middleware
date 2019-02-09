@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10};
+var methods = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -239,21 +239,28 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Ev
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_PROVIDER">PROP_CONTEXT_PROVIDER</a></span></code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_HAS_EXTERNAL_CAUSE">PROP_CONTEXT_HAS_EXTERNAL_CAUSE</a></span></code>
+<div class="block">If the creator of a context event knows that the event is being created due to an external change
+ not in control of the universAAL environment, and esp.</div>
+</td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_PROVIDER">PROP_CONTEXT_PROVIDER</a></span></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_TIMESTAMP">PROP_CONTEXT_TIMESTAMP</a></span></code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_RDF_OBJECT">PROP_RDF_OBJECT</a></span></code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_RDF_PREDICATE">PROP_RDF_PREDICATE</a></span></code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_RDF_SUBJECT">PROP_RDF_SUBJECT</a></span></code>&nbsp;</td>
 </tr>
@@ -293,6 +300,14 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Ev
 </td>
 </tr>
 <tr class="rowColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-boolean-">ContextEvent</a></span>(<a href="../../../../org/universAAL/middleware/rdf/Resource.html" title="class in org.universAAL.middleware.rdf">Resource</a>&nbsp;subject,
+            <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;predicate,
+            boolean&nbsp;hasExternalCause)</code>
+<div class="block">Similar to <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-"><code>ContextEvent(Resource, String)</code></a> with the effect to set also
+ <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_HAS_EXTERNAL_CAUSE"><code>PROP_CONTEXT_HAS_EXTERNAL_CAUSE</code></a> to true.</div>
+</td>
+</tr>
+<tr class="altColor">
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-java.lang.Object-">ContextEvent</a></span>(<a href="../../../../org/universAAL/middleware/rdf/Resource.html" title="class in org.universAAL.middleware.rdf">Resource</a>&nbsp;subject,
             <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;predicate,
             <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;object)</code>
@@ -300,7 +315,7 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Ev
  which URI is present in the properties of the subject</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#ContextEvent-java.lang.String-">ContextEvent</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;uri)</code>
 <div class="block">This constructor is for the exclusive usage by deserializers.</div>
 </td>
@@ -399,33 +414,40 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Ev
 </tr>
 <tr id="i12" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#isWellFormed--">isWellFormed</a></span>()</code>
-<div class="block">Returns true, if the state of the resource is valid, otherwise false.</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#hasExternalCause--">hasExternalCause</a></span>()</code>
+<div class="block">Returns true iff the property <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_HAS_EXTERNAL_CAUSE"><code>PROP_CONTEXT_HAS_EXTERNAL_CAUSE</code></a> has been set to true,
+ otherwise false.</div>
 </td>
 </tr>
 <tr id="i13" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#matches-org.universAAL.middleware.bus.model.matchable.Matchable-">matches</a></span>(<a href="../../../../org/universAAL/middleware/bus/model/matchable/Matchable.html" title="interface in org.universAAL.middleware.bus.model.matchable">Matchable</a>&nbsp;subset)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#isWellFormed--">isWellFormed</a></span>()</code>
+<div class="block">Returns true, if the state of the resource is valid, otherwise false.</div>
+</td>
 </tr>
 <tr id="i14" class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#matches-org.universAAL.middleware.bus.model.matchable.Matchable-">matches</a></span>(<a href="../../../../org/universAAL/middleware/bus/model/matchable/Matchable.html" title="interface in org.universAAL.middleware.bus.model.matchable">Matchable</a>&nbsp;subset)</code>&nbsp;</td>
+</tr>
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#setConfidence-java.lang.Integer-">setConfidence</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&nbsp;confidence)</code>
 <div class="block">Set the confidence</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#setExpirationTime-java.lang.Long-">setExpirationTime</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a>&nbsp;expirationTime)</code>
 <div class="block">Set the expiration time</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#setInvolvedUser-org.universAAL.middleware.rdf.Resource-">setInvolvedUser</a></span>(<a href="../../../../org/universAAL/middleware/rdf/Resource.html" title="class in org.universAAL.middleware.rdf">Resource</a>&nbsp;user)</code>
 <div class="block">Set the involved user</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#setProperty-java.lang.String-java.lang.Object-">setProperty</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;propURI,
            <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;value)</code>
@@ -433,37 +455,37 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Ev
  <code>propURI</code> as the predicate and the given value as the object.</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#setProvider-org.universAAL.middleware.context.owl.ContextProvider-">setProvider</a></span>(<a href="../../../../org/universAAL/middleware/context/owl/ContextProvider.html" title="class in org.universAAL.middleware.context.owl">ContextProvider</a>&nbsp;src)</code>
 <div class="block">Set the Context Provider</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#setRDFObject-java.lang.Object-">setRDFObject</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;o)</code>
 <div class="block">Set the object</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#setRDFPredicate-java.lang.String-">setRDFPredicate</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;propURI)</code>
 <div class="block">Set the predicate</div>
 </td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#setRDFSubject-org.universAAL.middleware.rdf.Resource-">setRDFSubject</a></span>(<a href="../../../../org/universAAL/middleware/rdf/Resource.html" title="class in org.universAAL.middleware.rdf">Resource</a>&nbsp;subj)</code>
 <div class="block">Set the subject</div>
 </td>
 </tr>
-<tr id="i22" class="altColor">
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#setTimestamp-java.lang.Long-">setTimestamp</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a>&nbsp;timestamp)</code>
 <div class="block">Set the timestamp</div>
 </td>
 </tr>
-<tr id="i23" class="rowColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#toString--">toString</a></span>()</code>
 <div class="block">Get a String representation of this Resource; returns the URI.</div>
@@ -748,13 +770,32 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Ev
 <a name="PROP_CONTEXT_TIMESTAMP">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>PROP_CONTEXT_TIMESTAMP</h4>
 <pre>public static final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> PROP_CONTEXT_TIMESTAMP</pre>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../constant-values.html#org.universAAL.middleware.context.ContextEvent.PROP_CONTEXT_TIMESTAMP">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a name="PROP_CONTEXT_HAS_EXTERNAL_CAUSE">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>PROP_CONTEXT_HAS_EXTERNAL_CAUSE</h4>
+<pre>public static final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> PROP_CONTEXT_HAS_EXTERNAL_CAUSE</pre>
+<div class="block">If the creator of a context event knows that the event is being created due to an external change
+ not in control of the universAAL environment, and esp. is not the direct result of a previous
+ change effect caused by a service call in the universAAL environment, it can set this flag 
+ in order for the receivers of the context event to be able to differentiate between external
+ causes not in control of the universAAL environment and those caused in control of the
+ universAAL environment.</div>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../constant-values.html#org.universAAL.middleware.context.ContextEvent.PROP_CONTEXT_HAS_EXTERNAL_CAUSE">Constant Field Values</a></dd>
 </dl>
 </li>
 </ul>
@@ -794,6 +835,19 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Ev
 <dd><code>predicate</code> - The property of the subject that will be used as object in the
             event</dd>
 </dl>
+</li>
+</ul>
+<a name="ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-boolean-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>ContextEvent</h4>
+<pre>public&nbsp;ContextEvent(<a href="../../../../org/universAAL/middleware/rdf/Resource.html" title="class in org.universAAL.middleware.rdf">Resource</a>&nbsp;subject,
+                    <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;predicate,
+                    boolean&nbsp;hasExternalCause)</pre>
+<div class="block">Similar to <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-"><code>ContextEvent(Resource, String)</code></a> with the effect to set also
+ <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_HAS_EXTERNAL_CAUSE"><code>PROP_CONTEXT_HAS_EXTERNAL_CAUSE</code></a> to true.</div>
 </li>
 </ul>
 <a name="ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-java.lang.Object-">
@@ -1009,6 +1063,17 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Ev
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The timestamp, in UNIX format, associated to the event</dd>
 </dl>
+</li>
+</ul>
+<a name="hasExternalCause--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>hasExternalCause</h4>
+<pre>public&nbsp;boolean&nbsp;hasExternalCause()</pre>
+<div class="block">Returns true iff the property <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_HAS_EXTERNAL_CAUSE"><code>PROP_CONTEXT_HAS_EXTERNAL_CAUSE</code></a> has been set to true,
+ otherwise false.</div>
 </li>
 </ul>
 <a name="isWellFormed--">
