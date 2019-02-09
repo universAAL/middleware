@@ -133,8 +133,11 @@ public final class ResourceUtil {
 	}
 	
 	public static void addList2SB(List<?> l, StringBuffer sb) {
-		if (l == null) {
+		if (l == null  ||  l.isEmpty()) {
 			sb.append("()");
+			return;
+		} else if (l.size() == 1) {
+			addObject2SB(l.get(0), sb);
 			return;
 		}
 		
@@ -171,13 +174,13 @@ public final class ResourceUtil {
 		}
 		
 		Object o = r.getProperty(Resource.PROP_RDF_TYPE);
-		if (o instanceof Resource)
+		if (o instanceof Resource) {
 			addResourceURI2SB((Resource) o, sb);
-		else if (o instanceof List<?>)
+			sb.append("::");
+		} else if (o instanceof List<?>) {
 			addList2SB((List<?>) o, sb);
-		else
-			sb.append("anon");
-		sb.append("::");
+			sb.append("::");
+		}
 
 		addResourceURI2SB(r, sb);
 	}
