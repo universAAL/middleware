@@ -357,7 +357,6 @@ public class ServiceCall extends ScopedResource implements UtilityCall {
 			ResourceUtil.addURI2SB(s, sb);
 			sb.append(" = ");
 			ResourceUtil.addObject2SB(inputs.get(s), sb);
-			sb.append("\n");
 		}
 		sb.append("\n");
 		return sb.toString();
