@@ -20,11 +20,14 @@
 package org.universAAL.middleware.service.owl;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
 import org.universAAL.middleware.owl.PropertyRestriction;
+import org.universAAL.middleware.owl.TypeExpression;
+import org.universAAL.middleware.owl.Intersection;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.Resource;
@@ -232,10 +235,21 @@ public abstract class Service extends ManagedIndividual {
 	}
 
 	/**
-	 * Adds a restriction to a given input
+	 * Adds an input parameter used to limit the scope of the operation to only those objects reachable with the 'propPath'
+	 * whose type is equal to the single mandatory value provided in runtime for this input parameter. This is equivalent
+	 * to <code>addFilteringType(inParamURI, propPath, 1, 1)</code>.
 	 */
 	public final void addFilteringType(String inParamURI, String[] propPath) {
-		ProcessInput in = createInput(inParamURI, TypeMapper.getDatatypeURI(Resource.class), 1, 1);
+		addFilteringType(inParamURI, propPath, 1, 1);
+	}
+
+	/**
+	 * Adds an input parameter used to limit the scope of the operation to only those objects reachable with the 'propPath'
+	 * whose type is equal to the value provided in runtime for this input parameter. The cardinality parameters specify
+	 * how many type URIs can be provided in runtime as value for this input parameter.
+	 */
+	public final void addFilteringType(String inParamURI, String[] propPath, int minCardinality, int maxCardinality) {
+		ProcessInput in = createInput(inParamURI, TypeMapper.getDatatypeURI(Resource.class), minCardinality, maxCardinality);
 		String[] pp = new String[propPath.length + 1];
 		for (int i = 0; i < propPath.length; i++)
 			pp[i] = propPath[i];
@@ -343,5 +357,27 @@ public abstract class Service extends ManagedIndividual {
 			return true;
 		} else
 			return super.setProperty(propURI, value);
+	}
+	
+	public Hashtable<String, Object> getFixedValueConditions() {
+		Hashtable<String, Object> result = new Hashtable<String, Object>();
+		for (Object mr : instanceLevelRestrictions.values())
+			if (mr instanceof MergedRestriction)
+				addFVConditions(result, (MergedRestriction) mr);
+		return result;
+	}
+	
+	private void addFVConditions(Hashtable<String, Object> map, MergedRestriction mr) {
+		Object o = mr.getConstraint(MergedRestriction.hasValueID);
+		if (o != null)
+			map.put(mr.getOnProperty(), o);
+		else {
+			o = ((MergedRestriction) mr).getConstraint(MergedRestriction.allValuesFromID);
+			if (o instanceof Intersection)
+				for (Object te : ((Intersection) o).elements())
+					if (te instanceof MergedRestriction)
+						addFVConditions(map, (MergedRestriction) te);
+				
+		}
 	}
 }

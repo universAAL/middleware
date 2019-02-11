@@ -311,6 +311,9 @@ public class ProcessParameter extends Variable {
 	 *            - minimal cardinality
 	 */
 	public final boolean setCardinality(int max, int min) {
+		if (max == 0  || (max > 0  &&  max < min))
+			return false;
+		
 		if (!props.containsKey(PROP_PARAMETER_CARDINALITY) && !props.containsKey(PROP_PARAMETER_MAX_CARDINALITY)
 				&& !props.containsKey(PROP_PARAMETER_MIN_CARDINALITY)) {
 			if (max > 0)
@@ -319,14 +322,12 @@ public class ProcessParameter extends Variable {
 					return true;
 				} else {
 					props.put(PROP_PARAMETER_MAX_CARDINALITY, new Integer(max));
-					return true;
 				}
 			if (min > 0 && min != max) {
 				props.put(PROP_PARAMETER_MIN_CARDINALITY, new Integer(min));
-				return true;
 			}
 		}
-		return false;
+		return true;
 	}
 
 	/**

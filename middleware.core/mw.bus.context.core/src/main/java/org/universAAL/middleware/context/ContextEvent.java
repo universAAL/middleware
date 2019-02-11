@@ -26,6 +26,7 @@ import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ScopedResource;
+import org.universAAL.middleware.util.ResourceUtil;
 
 /**
  * Instances of this class can be used to exchange info about the state of
@@ -134,6 +135,16 @@ public class ContextEvent extends ScopedResource implements Event {
 	 */
 	public static final String LOCAL_NAME_TIMESTAMP = "hasTimestamp";
 	public static final String PROP_CONTEXT_TIMESTAMP = CONTEXT_NAMESPACE + LOCAL_NAME_TIMESTAMP;
+	
+	/**
+	 * Helpful for 'controllers' that have just made a change effect requested from them through 
+	 * a service call received from the universAAL environment and now want to reflect this same change
+	 * to the universAAL environment as a context event. In such a case, they can set this flag when
+	 * creating a context event in order for the receivers of the context event to be able to 
+	 * differentiate between external causes not in control of the universAAL environment and those
+	 * caused in control of the universAAL environment.
+	 */
+	public static final String PROP_CONTEXT_REFLECTS_CHANGE_REQUEST = CONTEXT_NAMESPACE + "reflectsChangeRequest";
 
 	/**
 	 * Constructs a CHe stub ContextEvent according to the parameters passed
@@ -202,6 +213,16 @@ public class ContextEvent extends ScopedResource implements Event {
 		setRDFPredicate(predicate);
 		setRDFObject(eventObject);
 		setTimestamp(new Long(System.currentTimeMillis()));
+	}
+	
+	/**
+	 * Similar to {@link #ContextEvent(Resource, String)} with the effect to set also
+	 * {@link #PROP_CONTEXT_REFLECTS_CHANGE_REQUEST} to true.
+	 */
+	public ContextEvent(Resource subject, String predicate, boolean reflectsChangeRequest) {
+		this(subject, predicate);
+		if (reflectsChangeRequest)
+      props.put(PROP_CONTEXT_REFLECTS_CHANGE_REQUEST, Boolean.TRUE);
 	}
 
 	/**
@@ -327,6 +348,14 @@ public class ContextEvent extends ScopedResource implements Event {
 	 */
 	public Long getTimestamp() {
 		return (Long) getProperty(PROP_CONTEXT_TIMESTAMP);
+	}
+	
+	/**
+	 * Returns true iff the property {@link #PROP_CONTEXT_REFLECTS_CHANGE_REQUEST} has been set to true,
+	 * otherwise false.
+	 */
+	public boolean reflectsChangeRequest() {
+		return Boolean.TRUE == props.get(PROP_CONTEXT_REFLECTS_CHANGE_REQUEST);
 	}
 
 	public boolean isWellFormed() {
@@ -493,6 +522,11 @@ public class ContextEvent extends ScopedResource implements Event {
 		} else if (value instanceof Integer) {
 			if (propURI.equals(PROP_CONTEXT_CONFIDENCE))
 				return setConfidence((Integer) value);
+		} else if (value == Boolean.TRUE
+				&&  PROP_CONTEXT_REFLECTS_CHANGE_REQUEST.equals(propURI)
+				&&  !props.containsKey(propURI)) {
+			props.put(PROP_CONTEXT_REFLECTS_CHANGE_REQUEST, Boolean.TRUE);
+			return true;
 		}
 		return false;
 	}
@@ -504,5 +538,17 @@ public class ContextEvent extends ScopedResource implements Event {
 	 */
 	public boolean matches(Matchable subset) {
 		return false;
+	}
+	
+	public String toString() {
+		StringBuffer sb = new StringBuffer(1024);
+		sb.append("\n>>>>>>>>>>>>>>>>> ");
+		ResourceUtil.addResource2SB(getRDFSubject(), sb);
+		sb.append("->");
+		ResourceUtil.addURI2SB(getRDFPredicate(), sb);
+		sb.append(" = ");
+		ResourceUtil.addObject2SB(getRDFObject(), sb);
+		sb.append("\n");
+		return sb.toString();
 	}
 }

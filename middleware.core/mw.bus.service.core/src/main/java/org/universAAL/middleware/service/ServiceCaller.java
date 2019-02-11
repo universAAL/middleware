@@ -21,9 +21,9 @@ package org.universAAL.middleware.service;
 
 import java.util.HashMap;
 
-import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.bus.member.Caller;
+import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.bus.msg.MessageType;
 import org.universAAL.middleware.bus.permission.AccessControl;
@@ -85,6 +85,8 @@ public abstract class ServiceCaller extends Caller {
 	 */
 	public ServiceResponse call(ServiceRequest request) {
 		if (AccessControl.INSTANCE.checkPermission(owner, getURI(), request)) {
+			LogUtils.logDebug(owner, ServiceCaller.class, "call",
+					new Object[] { busResourceURI, " sending service request:\n", request.toString() }, null);
 			ServiceResponse sr = null;
 			synchronized (waitingCalls) {
 				String callID = sendRequest(request);
@@ -171,7 +173,7 @@ public abstract class ServiceCaller extends Caller {
 	public final void handleReply(BusMessage m) {
 		if (m.getType() == MessageType.reply && (m.getContent() instanceof ServiceResponse)) {
 			LogUtils.logDebug(owner, ServiceCaller.class, "handleReply",
-					new Object[] { busResourceURI, " received service response:\n", m.getContentAsString() }, null);
+					new Object[] { busResourceURI, " received service response:\n", m.getContent().toString() }, null);
 			String reqID = m.getInReplyTo();
 			synchronized (waitingCalls) {
 				if (waitingCalls.remove(reqID) == null)
@@ -213,6 +215,8 @@ public abstract class ServiceCaller extends Caller {
 	public final String sendRequest(ServiceRequest request) {
 		request.setProperty(ServiceRequest.PROP_SERVICE_CALLER, busResourceURI);
 		if (AccessControl.INSTANCE.checkPermission(owner, getURI(), request)) {
+			LogUtils.logDebug(owner, ServiceCaller.class, "sendRequest",
+					new Object[] { busResourceURI, " sending service request:\n", request.toString() }, null);
 			BusMessage reqMsg = new BusMessage(MessageType.request, request, theBus);
 			((ServiceBus) theBus).brokerRequest(busResourceURI, reqMsg);
 			return reqMsg.getID();

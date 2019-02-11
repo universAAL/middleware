@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.universAAL.middleware.bus.model.matchable.Matchable;
 import org.universAAL.middleware.bus.model.matchable.Request;
@@ -35,9 +36,11 @@ import org.universAAL.middleware.service.impl.ServiceMatcher;
 import org.universAAL.middleware.service.impl.ServiceWrapper;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.process.OutputBinding;
+import org.universAAL.middleware.service.owls.process.ProcessEffect;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.service.owls.process.ProcessResult;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
+import org.universAAL.middleware.util.ResourceUtil;
 
 /**
  * A class that represents a service request resource, which is used by the
@@ -280,10 +283,8 @@ public class ServiceRequest extends ScopedResource implements Request {
 	}
 
 	/**
-	 * Adds the requirement that the service must deliver an output with type
-	 * restrictions bound to the given <code>toParam</code> and that this must
-	 * reflect the value of a property reachable by the given property path
-	 * <code>sourceProp</code>.
+	 * Creates and output parameter with URI equal to <code>paramURI</code> and then
+	 * calls {@link #addSimpleOutputBinding(ProcessOutput, String[])}. 
 	 */
 	public ProcessOutput addRequiredOutput(String paramURI, String[] fromProp) {
 		if (paramURI != null && fromProp != null && fromProp.length > 0) {
@@ -505,5 +506,72 @@ public class ServiceRequest extends ScopedResource implements Request {
 		ServiceWrapper superset = ServiceWrapper.create(this);
 
 		return new ServiceMatcher().matches(superset, subset, new HashMap(), null);
+	}
+	
+	private String getLastPathElement(Object pp) {
+		if (pp instanceof PropertyPath)
+			return ((PropertyPath) pp).getLastPathElement();
+		else if (pp instanceof Resource)
+			return PropertyPath.toPropertyPath((Resource) pp).getLastPathElement();
+		return null;
+	}
+	
+	public String toString() {
+		StringBuffer sb = new StringBuffer(1024);
+		sb.append("\n>>>>>>>>>>>>>>>>> service: ");
+		Service s = getRequestedService();
+		ResourceUtil.addResource2SB(s, sb);
+		if (s != null) {
+			Map<String, Object> conds = s.getFixedValueConditions();
+			sb.append("\n>>>>>>>>>>>>>>>>> conditions (partial): ");
+			for (String prop : conds.keySet()) {
+				sb.append("\n    >>>>>>>>>>>>>>>>> ");
+				ResourceUtil.addURI2SB(prop, sb);
+				sb.append(" = ");
+				ResourceUtil.addObject2SB(conds.get(prop), sb);
+			}
+		}
+		
+		Resource[] effects = getRequiredEffects();
+		if (effects != null  &&  effects.length > 0) {
+			sb.append("\n>>>>>>>>>>>>>>>>> effects: ");
+			for (Resource r : effects) {
+				String pp = getLastPathElement(r.getProperty(ProcessEffect.PROP_PROCESS_AFFECTED_PROPERTY));
+				if (pp == null)
+					continue;
+				
+				String type = r.getType();
+				Object val = r.getProperty(ProcessEffect.PROP_PROCESS_PROPERTY_VALUE);
+				if (ProcessEffect.TYPE_PROCESS_ADD_EFFECT.equals(type)) {
+					sb.append("\n    >>>>>>>>>>>>>>>>> add: ");
+					ResourceUtil.addObject2SB(val, sb);
+					sb.append("    >>>>>>> to: ");
+					ResourceUtil.addURI2SB(pp, sb);
+				} else if (ProcessEffect.TYPE_PROCESS_CHANGE_EFFECT.equals(type)) {
+					sb.append("\n    >>>>>>>>>>>>>>>>> set: ");
+					ResourceUtil.addURI2SB(pp, sb);
+					sb.append("    >>>>>>> equal to: ");
+					ResourceUtil.addObject2SB(val, sb);
+				} else if (ProcessEffect.TYPE_PROCESS_REMOVE_EFFECT.equals(type)) {
+					sb.append("\n    >>>>>>>>>>>>>>>>> remove: ");
+					ResourceUtil.addURI2SB(pp, sb);
+				}
+			}
+		}
+		
+		Resource[] outputs = getRequiredOutputs();
+		if (outputs != null  &&  outputs.length > 0) {
+			sb.append("\n>>>>>>>>>>>>>>>>> fetch: ");
+			for (Resource r : outputs) {
+				String pp = getLastPathElement(r.getProperty(OutputBinding.PROP_OWLS_BINDING_VALUE_FORM));
+				if (pp != null) {
+					sb.append("\n    >>>>>>>>>>>>>>>>> ");
+					ResourceUtil.addURI2SB(pp, sb);
+				}
+			}
+		}
+		
+		sb.append("\n");
+		return sb.toString();
 	}
 }
