@@ -18,13 +18,11 @@ package org.universAAL.middleware.serialization.json.grammar;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Scanner;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.serialization.json.JSONLDSerialization;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -38,17 +36,14 @@ import com.google.gson.JsonParser;
  */
 public class JSONLDDocument implements JSONLDValidator {
 
-	private ContextDefinition contexDefinitionValidator = null;
 	private JsonObject mainJSON = null;
 	private JsonParser jp = null;
-	private List<JsonObject> contextArray = null;
 
 	/**
 	 * Receive {@link InputStream} of a existing JsonLD
 	 */
 	public JSONLDDocument(InputStream jsonToBeProcessed) {
 
-		this.contextArray = new ArrayList<JsonObject>();
 		String jsonString = "";
 		Scanner s = new Scanner(jsonToBeProcessed);
 		s.useDelimiter("\\A");
