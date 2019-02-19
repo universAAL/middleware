@@ -15,6 +15,11 @@
  ******************************************************************************/
 package org.universAAL.middleware.serialization.json.grammar;
 
+import java.net.URL;
+
+import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.serialization.json.JSONLDSerialization;
+
 /**
  * @author amedrano
  *
@@ -29,8 +34,14 @@ public class IRI {
 	 * @return
 	 */
 	public static boolean isAbsolute(String candidateIRI) {
-		//TODO
-		return false;
+		try {
+			URL url = new URL(candidateIRI);
+		} catch (Exception e) {
+			LogUtils.logDebug(JSONLDSerialization.owner, IRI.class, "validate", e.toString());
+			return false;
+			
+		}
+		return true;
 	}
 
 	/**

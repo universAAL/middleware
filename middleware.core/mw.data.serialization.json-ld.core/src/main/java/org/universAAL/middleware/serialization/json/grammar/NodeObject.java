@@ -30,7 +30,6 @@ import com.google.gson.JsonObject;
  *      href=https://www.w3.org/TR/2014/REC-json-ld-20140116/#node-objects>https://www.w3.org/TR/2014/REC-json-ld-20140116/#node-objects</a>
  */
 public class NodeObject implements JSONLDValidator {
-	private JSONLDIri IRIvalidate = null;
 	private JsonObject obj;
 	private Object father;
 	private ContextDefinition activeContext;
