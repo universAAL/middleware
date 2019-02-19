@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2018 Universidad Politécnica de Madrid UPM
+ * Copyright 2019 Universidad Politécnica de Madrid UPM
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,38 +15,37 @@
  ******************************************************************************/
 package org.universAAL.middleware.serialization.json.grammar;
 
-import com.google.gson.JsonElement;
-
 /**
  * @author amedrano
- * @see <a href=https://www.w3.org/TR/2014/REC-json-ld-20140116/#context-definitions>https://www.w3.org/TR/2014/REC-json-ld-20140116/#context-definitions</a>
+ *
  */
-public class ContextDefinition implements JSONLDValidator	 {
+public class IRI {
 
+	public static final String BLANK_NODE_IDENTIFIER="_:";
 
-	public ContextDefinition(JsonElement jsonObjectOrReference) {
-		if (jsonObjectOrReference.isJsonObject()) {
-			//TODO
-		}
-		if (jsonObjectOrReference.isJsonPrimitive()) {
-			jsonObjectOrReference.getAsString();
-			// TODO read Context from reference.openStream()
-		}
-	}
-
-
-	public void merge(ContextDefinition cd) {
+	/**
+	 * An absolute IRI is defined in [RFC3987] as containing a scheme along with path and optional query and fragment segments.
+	 * @param candidateIRI
+	 * @return
+	 */
+	public static boolean isAbsolute(String candidateIRI) {
 		//TODO
+		return false;
 	}
 
 	/**
-	 * Method to start json validation.
-	 * @return {@link Boolean} value indicating the status of the process
+	 * A relative IRI is an IRI that is relative to some other absolute IRI. In JSON-LD all relative IRIs are resolved relative to the base IRI.
+	 * @param candidate
+	 * @return
 	 */
-	public boolean validate() {
-		//TODO
-
-		return false;
+	public static boolean isRelative(String baseIRI, String candidate) {
+		if (baseIRI == null) {
+			// TODO
+			return false;
+		}
+		else {
+			return isAbsolute(baseIRI+candidate);
+		}
 	}
 
 
