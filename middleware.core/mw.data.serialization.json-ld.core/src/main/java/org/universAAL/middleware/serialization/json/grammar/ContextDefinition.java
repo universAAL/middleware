@@ -23,7 +23,7 @@ import com.google.gson.JsonElement;
  */
 public class ContextDefinition implements JSONLDValidator	 {
 
-
+//A context definition MUST be a JSON object whose keys MUST either be terms, compact IRIs, absolute IRIs, or the keywords @language, @base, and @vocab.
 	public ContextDefinition(JsonElement jsonObjectOrReference) {
 		if (jsonObjectOrReference.isJsonObject()) {
 			//TODO
