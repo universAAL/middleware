@@ -16,18 +16,21 @@
 package org.universAAL.middleware.serialization.json.grammar;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 /**
  * @author amedrano
  * @see <a href=https://www.w3.org/TR/2014/REC-json-ld-20140116/#context-definitions>https://www.w3.org/TR/2014/REC-json-ld-20140116/#context-definitions</a>
  */
-public class ContextDefinition implements JSONLDValidator	 {
-
-//A context definition MUST be a JSON object whose keys MUST either be terms, compact IRIs, absolute IRIs, or the keywords @language, @base, and @vocab.
+public class ContextDefinition implements JSONLDValidator, KeyControl	 {
+	private JsonObject jsonToValidate = null;
+	//A context definition MUST be a JSON object whose keys MUST either be terms, compact IRIs, absolute IRIs, or the keywords @language, @base, and @vocab.
 	public ContextDefinition(JsonElement jsonObjectOrReference) {
+		
 		if (jsonObjectOrReference.isJsonObject()) {
-			//TODO
+			this.jsonToValidate = jsonObjectOrReference.getAsJsonObject();
 		}
+		
 		if (jsonObjectOrReference.isJsonPrimitive()) {
 			jsonObjectOrReference.getAsString();
 			// TODO read Context from reference.openStream()
@@ -45,7 +48,13 @@ public class ContextDefinition implements JSONLDValidator	 {
 	 */
 	public boolean validate() {
 		//TODO
+		
+		return this.keyControl();
+	}
 
+
+	public boolean keyControl() {
+		
 		return false;
 	}
 

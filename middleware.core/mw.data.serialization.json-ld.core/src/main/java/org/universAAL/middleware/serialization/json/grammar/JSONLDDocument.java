@@ -74,10 +74,9 @@ public class JSONLDDocument implements JSONLDValidator {
 					allNodeObject &= je.isJsonObject();
 					allNodeObject &= new NodeObject(this, je.getAsJsonObject()).validate();
 				}
-				return (mainJSON.isJsonObject() & allNodeObject);
+				return (mainJSON.isJsonObject() && allNodeObject);
 			} else {
-				return (this.mainJSON.isJsonObject()
-						& (new NodeObject(this, this.mainJSON.getAsJsonObject()).validate()));
+				return (this.mainJSON.isJsonObject() && (new NodeObject(this, this.mainJSON.getAsJsonObject()).validate()));
 			}
 		} else {
 
