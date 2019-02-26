@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10};
+var methods = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -220,7 +220,7 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Ev
 <td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#LOCAL_NAME_TIMESTAMP">LOCAL_NAME_TIMESTAMP</a></span></code>
 <div class="block">A timestamp, as a Long value to be interpreted as the number of
- milliseconds from 01.01.1970, will be set automatically as soon as a
+ milliseconds from 01.01.1970, that will be set automatically as soon as a
  context provider builds an instance of ContextEvent using the
  <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-"><code>ContextEvent(Resource, String)</code></a> constructor.</div>
 </td>
@@ -236,6 +236,23 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Ev
 <tr class="rowColor">
 <td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_EXPIRATION_TIME">PROP_CONTEXT_EXPIRATION_TIME</a></span></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_MEAN_OCCURRENCE_TIME">PROP_CONTEXT_MEAN_OCCURRENCE_TIME</a></span></code>
+<div class="block">When the occurrence time cannot be determined in "real time" (e.g., when the occurrence is detected
+ by periodic check to see if a value has changed), this property can be used to indicate that the exact 
+ occurrence time is not known but this is the best estimated occurrence time.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_OCCURRENCE_TIMESTAMP">PROP_CONTEXT_OCCURRENCE_TIMESTAMP</a></span></code>
+<div class="block">As opposed to <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_TIMESTAMP"><code>PROP_CONTEXT_TIMESTAMP</code></a> that is set automatically equal to the time of
+ creating a certain instance of ContextEvent, this timestamp can be set by providing an additional
+ parameter to the constructor to indicate that the change reported by this context event actually
+ happened earlier at the specified time.</div>
+</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
@@ -309,6 +326,25 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Ev
 </td>
 </tr>
 <tr class="altColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-boolean-long-long-">ContextEvent</a></span>(<a href="../../../../org/universAAL/middleware/rdf/Resource.html" title="class in org.universAAL.middleware.rdf">Resource</a>&nbsp;subject,
+            <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;predicate,
+            boolean&nbsp;reflectsChangeRequest,
+            long&nbsp;actualOccurrenceTime,
+            long&nbsp;meanOccurrenceTime)</code>
+<div class="block">Combines <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-boolean-"><code>ContextEvent(Resource, String, boolean)</code></a> and {@link #ContextEvent(Resource, String, long, long)
+ in one constructor..</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-long-long-">ContextEvent</a></span>(<a href="../../../../org/universAAL/middleware/rdf/Resource.html" title="class in org.universAAL.middleware.rdf">Resource</a>&nbsp;subject,
+            <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;predicate,
+            long&nbsp;actualOccurrenceTime,
+            long&nbsp;meanOccurrenceTime)</code>
+<div class="block">Similar to <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-"><code>ContextEvent(Resource, String)</code></a> with the effect to set also one of
+ <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_OCCURRENCE_TIMESTAMP"><code>PROP_CONTEXT_OCCURRENCE_TIMESTAMP</code></a> or <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_MEAN_OCCURRENCE_TIME"><code>PROP_CONTEXT_MEAN_OCCURRENCE_TIME</code></a>.</div>
+</td>
+</tr>
+<tr class="altColor">
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-java.lang.Object-">ContextEvent</a></span>(<a href="../../../../org/universAAL/middleware/rdf/Resource.html" title="class in org.universAAL.middleware.rdf">Resource</a>&nbsp;subject,
             <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;predicate,
             <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;object)</code>
@@ -346,24 +382,42 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Ev
 </td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#getActualOccurrenceTime--">getActualOccurrenceTime</a></span>()</code>
+<div class="block">Returns the value set at the construction time for <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_OCCURRENCE_TIMESTAMP"><code>PROP_CONTEXT_OCCURRENCE_TIMESTAMP</code></a>
+ or null if it was not set.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>long</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#getBestEstimatedOccurrenceTime--">getBestEstimatedOccurrenceTime</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#getConfidence--">getConfidence</a></span>()</code>
 <div class="block">Get the confidence of the event</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#getExpirationTime--">getExpirationTime</a></span>()</code>
 <div class="block">Get the expiration time</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/universAAL/middleware/rdf/Resource.html" title="class in org.universAAL.middleware.rdf">Resource</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#getInvolvedUser--">getInvolvedUser</a></span>()</code>
 <div class="block">Get the involved user</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i6" class="altColor">
+<td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#getMeanOccurrenceTime--">getMeanOccurrenceTime</a></span>()</code>
+<div class="block">Returns the value set at the construction time for <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_MEAN_OCCURRENCE_TIME"><code>PROP_CONTEXT_MEAN_OCCURRENCE_TIME</code></a>
+ or null if it was not set.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#getPropSerializationType-java.lang.String-">getPropSerializationType</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;propURI)</code>
 <div class="block">Answers if the given property has to be considered when serializing this
@@ -371,84 +425,96 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Ev
  should be presented in its full form or can be reduced.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code><a href="../../../../org/universAAL/middleware/context/owl/ContextProvider.html" title="class in org.universAAL.middleware.context.owl">ContextProvider</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#getProvider--">getProvider</a></span>()</code>
 <div class="block">Get the ContextProvider of the event</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#getRDFObject--">getRDFObject</a></span>()</code>
 <div class="block">Get the object of the event</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#getRDFPredicate--">getRDFPredicate</a></span>()</code>
 <div class="block">Get the predicate of the event</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/universAAL/middleware/rdf/Resource.html" title="class in org.universAAL.middleware.rdf">Resource</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#getRDFSubject--">getRDFSubject</a></span>()</code>
 <div class="block">Get the subject of the event</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#getSubjectTypeURI--">getSubjectTypeURI</a></span>()</code>
 <div class="block">Get the type of the subject of the event</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#getSubjectURI--">getSubjectURI</a></span>()</code>
 <div class="block">Get the URI of the subject of the event</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#getTimestamp--">getTimestamp</a></span>()</code>
-<div class="block">Get the timestamp of the event</div>
+<div class="block">Get the construction timestamp of the event.</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#isWellFormed--">isWellFormed</a></span>()</code>
 <div class="block">Returns true, if the state of the resource is valid, otherwise false.</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#matches-org.universAAL.middleware.bus.model.matchable.Matchable-">matches</a></span>(<a href="../../../../org/universAAL/middleware/bus/model/matchable/Matchable.html" title="interface in org.universAAL.middleware.bus.model.matchable">Matchable</a>&nbsp;subset)</code>&nbsp;</td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#reflectsChangeRequest--">reflectsChangeRequest</a></span>()</code>
 <div class="block">Returns true iff the property <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_REFLECTS_CHANGE_REQUEST"><code>PROP_CONTEXT_REFLECTS_CHANGE_REQUEST</code></a> has been set to true,
  otherwise false.</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i18" class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#setActualOccurrenceTime-java.lang.Long-">setActualOccurrenceTime</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a>&nbsp;ots)</code>
+<div class="block">Sets <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_OCCURRENCE_TIMESTAMP"><code>the original occurrence timestamp</code></a>.</div>
+</td>
+</tr>
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#setConfidence-java.lang.Integer-">setConfidence</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&nbsp;confidence)</code>
 <div class="block">Set the confidence</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#setExpirationTime-java.lang.Long-">setExpirationTime</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a>&nbsp;expirationTime)</code>
 <div class="block">Set the expiration time</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#setInvolvedUser-org.universAAL.middleware.rdf.Resource-">setInvolvedUser</a></span>(<a href="../../../../org/universAAL/middleware/rdf/Resource.html" title="class in org.universAAL.middleware.rdf">Resource</a>&nbsp;user)</code>
 <div class="block">Set the involved user</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i22" class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#setMeanOccurrenceTime-java.lang.Long-">setMeanOccurrenceTime</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a>&nbsp;eot)</code>
+<div class="block">Sets <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_MEAN_OCCURRENCE_TIME"><code>PROP_CONTEXT_MEAN_OCCURRENCE_TIME</code></a> with the provided value.</div>
+</td>
+</tr>
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#setProperty-java.lang.String-java.lang.Object-">setProperty</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;propURI,
            <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;value)</code>
@@ -456,37 +522,37 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Ev
  <code>propURI</code> as the predicate and the given value as the object.</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#setProvider-org.universAAL.middleware.context.owl.ContextProvider-">setProvider</a></span>(<a href="../../../../org/universAAL/middleware/context/owl/ContextProvider.html" title="class in org.universAAL.middleware.context.owl">ContextProvider</a>&nbsp;src)</code>
 <div class="block">Set the Context Provider</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i25" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#setRDFObject-java.lang.Object-">setRDFObject</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;o)</code>
 <div class="block">Set the object</div>
 </td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i26" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#setRDFPredicate-java.lang.String-">setRDFPredicate</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;propURI)</code>
 <div class="block">Set the predicate</div>
 </td>
 </tr>
-<tr id="i22" class="altColor">
+<tr id="i27" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#setRDFSubject-org.universAAL.middleware.rdf.Resource-">setRDFSubject</a></span>(<a href="../../../../org/universAAL/middleware/rdf/Resource.html" title="class in org.universAAL.middleware.rdf">Resource</a>&nbsp;subj)</code>
 <div class="block">Set the subject</div>
 </td>
 </tr>
-<tr id="i23" class="rowColor">
+<tr id="i28" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#setTimestamp-java.lang.Long-">setTimestamp</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a>&nbsp;timestamp)</code>
-<div class="block">Set the timestamp</div>
+<div class="block">Sets <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_TIMESTAMP"><code>the original construction timestamp</code></a>.</div>
 </td>
 </tr>
-<tr id="i24" class="altColor">
+<tr id="i29" class="rowColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/context/ContextEvent.html#toString--">toString</a></span>()</code>
 <div class="block">Get a String representation of this Resource; returns the URI.</div>
@@ -756,12 +822,13 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Ev
 <h4>LOCAL_NAME_TIMESTAMP</h4>
 <pre>public static final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> LOCAL_NAME_TIMESTAMP</pre>
 <div class="block">A timestamp, as a Long value to be interpreted as the number of
- milliseconds from 01.01.1970, will be set automatically as soon as a
+ milliseconds from 01.01.1970, that will be set automatically as soon as a
  context provider builds an instance of ContextEvent using the
- <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-"><code>ContextEvent(Resource, String)</code></a> constructor. However, when the
- middleware constructs a context event in the course of deserializing a
- context event using the constructors inherited from Resource, then it can
- set the timestamp 'manually'.</div>
+ <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-"><code>ContextEvent(Resource, String)</code></a> constructor. Therefore, this
+ timestamp can be interpreted as the reporting timestamp as opposed to
+ <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_OCCURRENCE_TIMESTAMP"><code>PROP_CONTEXT_OCCURRENCE_TIMESTAMP</code></a>, which can be set in order to
+ indicate that the actual time of occurrence for this event has been different 
+ from its reporting time.</div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../constant-values.html#org.universAAL.middleware.context.ContextEvent.LOCAL_NAME_TIMESTAMP">Constant Field Values</a></dd>
@@ -784,7 +851,7 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Ev
 <a name="PROP_CONTEXT_REFLECTS_CHANGE_REQUEST">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>PROP_CONTEXT_REFLECTS_CHANGE_REQUEST</h4>
 <pre>public static final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> PROP_CONTEXT_REFLECTS_CHANGE_REQUEST</pre>
@@ -797,6 +864,47 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Ev
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../constant-values.html#org.universAAL.middleware.context.ContextEvent.PROP_CONTEXT_REFLECTS_CHANGE_REQUEST">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a name="PROP_CONTEXT_OCCURRENCE_TIMESTAMP">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>PROP_CONTEXT_OCCURRENCE_TIMESTAMP</h4>
+<pre>public static final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> PROP_CONTEXT_OCCURRENCE_TIMESTAMP</pre>
+<div class="block">As opposed to <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_TIMESTAMP"><code>PROP_CONTEXT_TIMESTAMP</code></a> that is set automatically equal to the time of
+ creating a certain instance of ContextEvent, this timestamp can be set by providing an additional
+ parameter to the constructor to indicate that the change reported by this context event actually
+ happened earlier at the specified time. Therefore, this parameter may remain unset; but if set,
+ then it has to have a positive value smaller than the current time used for 
+ <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_TIMESTAMP"><code>PROP_CONTEXT_TIMESTAMP</code></a>.</div>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../constant-values.html#org.universAAL.middleware.context.ContextEvent.PROP_CONTEXT_OCCURRENCE_TIMESTAMP">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a name="PROP_CONTEXT_MEAN_OCCURRENCE_TIME">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>PROP_CONTEXT_MEAN_OCCURRENCE_TIME</h4>
+<pre>public static final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> PROP_CONTEXT_MEAN_OCCURRENCE_TIME</pre>
+<div class="block">When the occurrence time cannot be determined in "real time" (e.g., when the occurrence is detected
+ by periodic check to see if a value has changed), this property can be used to indicate that the exact 
+ occurrence time is not known but this is the best estimated occurrence time.
+ <p><b><u>Recommendations:</u></b></p>
+ <ul><li>When creating a context event is triggered based on "periodic check", this prop should be set
+ equal to the average of the previous and current check times.</li>
+ <li>When during the same "check" several changes are detected (e.g., when five motion sensors are checked
+ among which two had a value change since the last check), all reported changes should have the same mean
+ occurrence time in order to indicate that the precedence among them cannot be determined.</li></ul></div>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../constant-values.html#org.universAAL.middleware.context.ContextEvent.PROP_CONTEXT_MEAN_OCCURRENCE_TIME">Constant Field Values</a></dd>
 </dl>
 </li>
 </ul>
@@ -838,6 +946,25 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Ev
 </dl>
 </li>
 </ul>
+<a name="ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-long-long-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>ContextEvent</h4>
+<pre>public&nbsp;ContextEvent(<a href="../../../../org/universAAL/middleware/rdf/Resource.html" title="class in org.universAAL.middleware.rdf">Resource</a>&nbsp;subject,
+                    <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;predicate,
+                    long&nbsp;actualOccurrenceTime,
+                    long&nbsp;meanOccurrenceTime)</pre>
+<div class="block">Similar to <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-"><code>ContextEvent(Resource, String)</code></a> with the effect to set also one of
+ <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_OCCURRENCE_TIMESTAMP"><code>PROP_CONTEXT_OCCURRENCE_TIMESTAMP</code></a> or <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_MEAN_OCCURRENCE_TIME"><code>PROP_CONTEXT_MEAN_OCCURRENCE_TIME</code></a>.
+ These two properties may not exist simultaneously; therefore the constructor first checks
+ `actualOccurrenceTime´ to see if it is a positive number less than the current time; if yes,
+ it will set <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_OCCURRENCE_TIMESTAMP"><code>PROP_CONTEXT_OCCURRENCE_TIMESTAMP</code></a> with that value and will ignore
+ `meanOccurrenceTime´. Otherwise `actualOccurrenceTime´  will be ignored and <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_MEAN_OCCURRENCE_TIME"><code>PROP_CONTEXT_MEAN_OCCURRENCE_TIME</code></a> is set equal to `meanOccurrenceTime´
+ if this parameters has a positive number less than the current time as value.</div>
+</li>
+</ul>
 <a name="ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-boolean-">
 <!--   -->
 </a>
@@ -849,6 +976,21 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Ev
                     boolean&nbsp;reflectsChangeRequest)</pre>
 <div class="block">Similar to <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-"><code>ContextEvent(Resource, String)</code></a> with the effect to set also
  <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_REFLECTS_CHANGE_REQUEST"><code>PROP_CONTEXT_REFLECTS_CHANGE_REQUEST</code></a> to true.</div>
+</li>
+</ul>
+<a name="ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-boolean-long-long-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>ContextEvent</h4>
+<pre>public&nbsp;ContextEvent(<a href="../../../../org/universAAL/middleware/rdf/Resource.html" title="class in org.universAAL.middleware.rdf">Resource</a>&nbsp;subject,
+                    <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;predicate,
+                    boolean&nbsp;reflectsChangeRequest,
+                    long&nbsp;actualOccurrenceTime,
+                    long&nbsp;meanOccurrenceTime)</pre>
+<div class="block">Combines <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-boolean-"><code>ContextEvent(Resource, String, boolean)</code></a> and {@link #ContextEvent(Resource, String, long, long)
+ in one constructor..</div>
 </li>
 </ul>
 <a name="ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-java.lang.Object-">
@@ -1059,11 +1201,42 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Ev
 <li class="blockList">
 <h4>getTimestamp</h4>
 <pre>public&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a>&nbsp;getTimestamp()</pre>
-<div class="block">Get the timestamp of the event</div>
+<div class="block">Get the construction timestamp of the event.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>The timestamp, in UNIX format, associated to the event</dd>
+<dd>The timestamp, in UNIX format, associated with the event</dd>
 </dl>
+</li>
+</ul>
+<a name="getActualOccurrenceTime--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getActualOccurrenceTime</h4>
+<pre>public&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a>&nbsp;getActualOccurrenceTime()</pre>
+<div class="block">Returns the value set at the construction time for <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_OCCURRENCE_TIMESTAMP"><code>PROP_CONTEXT_OCCURRENCE_TIMESTAMP</code></a>
+ or null if it was not set.</div>
+</li>
+</ul>
+<a name="getMeanOccurrenceTime--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMeanOccurrenceTime</h4>
+<pre>public&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a>&nbsp;getMeanOccurrenceTime()</pre>
+<div class="block">Returns the value set at the construction time for <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_MEAN_OCCURRENCE_TIME"><code>PROP_CONTEXT_MEAN_OCCURRENCE_TIME</code></a>
+ or null if it was not set.</div>
+</li>
+</ul>
+<a name="getBestEstimatedOccurrenceTime--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getBestEstimatedOccurrenceTime</h4>
+<pre>public&nbsp;long&nbsp;getBestEstimatedOccurrenceTime()</pre>
 </li>
 </ul>
 <a name="reflectsChangeRequest--">
@@ -1187,11 +1360,31 @@ implements <a href="../../../../org/universAAL/middleware/bus/model/matchable/Ev
 <li class="blockList">
 <h4>setTimestamp</h4>
 <pre>public&nbsp;boolean&nbsp;setTimestamp(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a>&nbsp;timestamp)</pre>
-<div class="block">Set the timestamp</div>
+<div class="block">Sets <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_TIMESTAMP"><code>the original construction timestamp</code></a>.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>timestamp</code> - The timestamp in UNIX format</dd>
 </dl>
+</li>
+</ul>
+<a name="setActualOccurrenceTime-java.lang.Long-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setActualOccurrenceTime</h4>
+<pre>public&nbsp;boolean&nbsp;setActualOccurrenceTime(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a>&nbsp;ots)</pre>
+<div class="block">Sets <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_OCCURRENCE_TIMESTAMP"><code>the original occurrence timestamp</code></a>.</div>
+</li>
+</ul>
+<a name="setMeanOccurrenceTime-java.lang.Long-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setMeanOccurrenceTime</h4>
+<pre>public&nbsp;boolean&nbsp;setMeanOccurrenceTime(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a>&nbsp;eot)</pre>
+<div class="block">Sets <a href="../../../../org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_MEAN_OCCURRENCE_TIME"><code>PROP_CONTEXT_MEAN_OCCURRENCE_TIME</code></a> with the provided value.</div>
 </li>
 </ul>
 <a name="setInvolvedUser-org.universAAL.middleware.rdf.Resource-">

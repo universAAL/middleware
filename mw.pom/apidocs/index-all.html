@@ -2580,10 +2580,20 @@
 <div class="block">Construct a CHe stub ContextEvent inferring the object from the predicate
  which URI is present in the properties of the subject</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-long-long-">ContextEvent(Resource, String, long, long)</a></span> - Constructor for class org.universAAL.middleware.context.<a href="org/universAAL/middleware/context/ContextEvent.html" title="class in org.universAAL.middleware.context">ContextEvent</a></dt>
+<dd>
+<div class="block">Similar to <a href="org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-"><code>ContextEvent.ContextEvent(Resource, String)</code></a> with the effect to set also one of
+ <a href="org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_OCCURRENCE_TIMESTAMP"><code>ContextEvent.PROP_CONTEXT_OCCURRENCE_TIMESTAMP</code></a> or <a href="org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_MEAN_OCCURRENCE_TIME"><code>ContextEvent.PROP_CONTEXT_MEAN_OCCURRENCE_TIME</code></a>.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-boolean-">ContextEvent(Resource, String, boolean)</a></span> - Constructor for class org.universAAL.middleware.context.<a href="org/universAAL/middleware/context/ContextEvent.html" title="class in org.universAAL.middleware.context">ContextEvent</a></dt>
 <dd>
 <div class="block">Similar to <a href="org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-"><code>ContextEvent.ContextEvent(Resource, String)</code></a> with the effect to set also
  <a href="org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_REFLECTS_CHANGE_REQUEST"><code>ContextEvent.PROP_CONTEXT_REFLECTS_CHANGE_REQUEST</code></a> to true.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-boolean-long-long-">ContextEvent(Resource, String, boolean, long, long)</a></span> - Constructor for class org.universAAL.middleware.context.<a href="org/universAAL/middleware/context/ContextEvent.html" title="class in org.universAAL.middleware.context">ContextEvent</a></dt>
+<dd>
+<div class="block">Combines <a href="org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-boolean-"><code>ContextEvent.ContextEvent(Resource, String, boolean)</code></a> and {@link #ContextEvent(Resource, String, long, long)
+ in one constructor..</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-java.lang.Object-">ContextEvent(Resource, String, Object)</a></span> - Constructor for class org.universAAL.middleware.context.<a href="org/universAAL/middleware/context/ContextEvent.html" title="class in org.universAAL.middleware.context">ContextEvent</a></dt>
 <dd>
@@ -4506,6 +4516,11 @@
 <dd>
 <div class="block">Get the current mode for access control.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/ContextEvent.html#getActualOccurrenceTime--">getActualOccurrenceTime()</a></span> - Method in class org.universAAL.middleware.context.<a href="org/universAAL/middleware/context/ContextEvent.html" title="class in org.universAAL.middleware.context">ContextEvent</a></dt>
+<dd>
+<div class="block">Returns the value set at the construction time for <a href="org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_OCCURRENCE_TIMESTAMP"><code>ContextEvent.PROP_CONTEXT_OCCURRENCE_TIMESTAMP</code></a>
+ or null if it was not set.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/ui/UIRequest.html#getAddressedUser--">getAddressedUser()</a></span> - Method in class org.universAAL.middleware.ui.<a href="org/universAAL/middleware/ui/UIRequest.html" title="class in org.universAAL.middleware.ui">UIRequest</a></dt>
 <dd>
 <div class="block">Gets the addressed <code>User</code>.</div>
@@ -4709,6 +4724,8 @@
 <div class="block">Returns average response time of the measured response times for this
  ServiceRealization</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/ContextEvent.html#getBestEstimatedOccurrenceTime--">getBestEstimatedOccurrenceTime()</a></span> - Method in class org.universAAL.middleware.context.<a href="org/universAAL/middleware/context/ContextEvent.html" title="class in org.universAAL.middleware.context">ContextEvent</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/service/owls/process/ProcessResult.html#getBindings--">getBindings()</a></span> - Method in class org.universAAL.middleware.service.owls.process.<a href="org/universAAL/middleware/service/owls/process/ProcessResult.html" title="class in org.universAAL.middleware.service.owls.process">ProcessResult</a></dt>
 <dd>
 <div class="block">Return the list of output bindings ( a reference) of this process result</div>
@@ -5981,6 +5998,11 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/ui/rdf/Range.html#getMaxValue--">getMaxValue()</a></span> - Method in class org.universAAL.middleware.ui.rdf.<a href="org/universAAL/middleware/ui/rdf/Range.html" title="class in org.universAAL.middleware.ui.rdf">Range</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/ContextEvent.html#getMeanOccurrenceTime--">getMeanOccurrenceTime()</a></span> - Method in class org.universAAL.middleware.context.<a href="org/universAAL/middleware/context/ContextEvent.html" title="class in org.universAAL.middleware.context">ContextEvent</a></dt>
+<dd>
+<div class="block">Returns the value set at the construction time for <a href="org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_MEAN_OCCURRENCE_TIME"><code>ContextEvent.PROP_CONTEXT_MEAN_OCCURRENCE_TIME</code></a>
+ or null if it was not set.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/owl/Base64Restriction.html#getMemberLen-java.lang.Object-">getMemberLen(Object)</a></span> - Method in class org.universAAL.middleware.owl.<a href="org/universAAL/middleware/owl/Base64Restriction.html" title="class in org.universAAL.middleware.owl">Base64Restriction</a></dt>
 <dd>
 <div class="block">Calculate the length of a member.</div>
@@ -7543,7 +7565,7 @@
 </dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/ContextEvent.html#getTimestamp--">getTimestamp()</a></span> - Method in class org.universAAL.middleware.context.<a href="org/universAAL/middleware/context/ContextEvent.html" title="class in org.universAAL.middleware.context">ContextEvent</a></dt>
 <dd>
-<div class="block">Get the timestamp of the event</div>
+<div class="block">Get the construction timestamp of the event.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/bus/permission/Permission.html#getTitle--">getTitle()</a></span> - Method in class org.universAAL.middleware.bus.permission.<a href="org/universAAL/middleware/bus/permission/Permission.html" title="class in org.universAAL.middleware.bus.permission">Permission</a></dt>
 <dd>&nbsp;</dd>
@@ -10450,7 +10472,7 @@
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/ContextEvent.html#LOCAL_NAME_TIMESTAMP">LOCAL_NAME_TIMESTAMP</a></span> - Static variable in class org.universAAL.middleware.context.<a href="org/universAAL/middleware/context/ContextEvent.html" title="class in org.universAAL.middleware.context">ContextEvent</a></dt>
 <dd>
 <div class="block">A timestamp, as a Long value to be interpreted as the number of
- milliseconds from 01.01.1970, will be set automatically as soon as a
+ milliseconds from 01.01.1970, that will be set automatically as soon as a
  context provider builds an instance of ContextEvent using the
  <a href="org/universAAL/middleware/context/ContextEvent.html#ContextEvent-org.universAAL.middleware.rdf.Resource-java.lang.String-"><code>ContextEvent.ContextEvent(Resource, String)</code></a> constructor.</div>
 </dd>
@@ -12884,6 +12906,19 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_EXPIRATION_TIME">PROP_CONTEXT_EXPIRATION_TIME</a></span> - Static variable in class org.universAAL.middleware.context.<a href="org/universAAL/middleware/context/ContextEvent.html" title="class in org.universAAL.middleware.context">ContextEvent</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_MEAN_OCCURRENCE_TIME">PROP_CONTEXT_MEAN_OCCURRENCE_TIME</a></span> - Static variable in class org.universAAL.middleware.context.<a href="org/universAAL/middleware/context/ContextEvent.html" title="class in org.universAAL.middleware.context">ContextEvent</a></dt>
+<dd>
+<div class="block">When the occurrence time cannot be determined in "real time" (e.g., when the occurrence is detected
+ by periodic check to see if a value has changed), this property can be used to indicate that the exact 
+ occurrence time is not known but this is the best estimated occurrence time.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_OCCURRENCE_TIMESTAMP">PROP_CONTEXT_OCCURRENCE_TIMESTAMP</a></span> - Static variable in class org.universAAL.middleware.context.<a href="org/universAAL/middleware/context/ContextEvent.html" title="class in org.universAAL.middleware.context">ContextEvent</a></dt>
+<dd>
+<div class="block">As opposed to <a href="org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_TIMESTAMP"><code>ContextEvent.PROP_CONTEXT_TIMESTAMP</code></a> that is set automatically equal to the time of
+ creating a certain instance of ContextEvent, this timestamp can be set by providing an additional
+ parameter to the constructor to indicate that the change reported by this context event actually
+ happened earlier at the specified time.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/owl/ContextProvider.html#PROP_CONTEXT_PROVIDED_EVENTS">PROP_CONTEXT_PROVIDED_EVENTS</a></span> - Static variable in class org.universAAL.middleware.context.owl.<a href="org/universAAL/middleware/context/owl/ContextProvider.html" title="class in org.universAAL.middleware.context.owl">ContextProvider</a></dt>
 <dd>
 <div class="block">An array of <a href="org/universAAL/middleware/context/ContextEventPattern.html" title="class in org.universAAL.middleware.context"><code>ContextEventPattern</code></a>s each of which declares a class
@@ -14990,6 +15025,10 @@
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/rdf/UnmodifiableResourceList.html#set-int-java.lang.Object-">set(int, Object)</a></span> - Method in class org.universAAL.middleware.rdf.<a href="org/universAAL/middleware/rdf/UnmodifiableResourceList.html" title="class in org.universAAL.middleware.rdf">UnmodifiableResourceList</a></dt>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/util/GraphIterator.ObjectEqualsResource.html#set-org.universAAL.middleware.rdf.Resource-">set(Resource)</a></span> - Method in class org.universAAL.middleware.util.<a href="org/universAAL/middleware/util/GraphIterator.ObjectEqualsResource.html" title="class in org.universAAL.middleware.util">GraphIterator.ObjectEqualsResource</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/ContextEvent.html#setActualOccurrenceTime-java.lang.Long-">setActualOccurrenceTime(Long)</a></span> - Method in class org.universAAL.middleware.context.<a href="org/universAAL/middleware/context/ContextEvent.html" title="class in org.universAAL.middleware.context">ContextEvent</a></dt>
+<dd>
+<div class="block">Sets <a href="org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_OCCURRENCE_TIMESTAMP"><code>the original occurrence timestamp</code></a>.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/interfaces/space/xml/model/Space.html#setAdmin-java.lang.String-">setAdmin(String)</a></span> - Method in class org.universAAL.middleware.interfaces.space.xml.model.<a href="org/universAAL/middleware/interfaces/space/xml/model/Space.html" title="class in org.universAAL.middleware.interfaces.space.xml.model">Space</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/ui/rdf/Input.html#setAlertString-java.lang.String-">setAlertString(String)</a></span> - Method in class org.universAAL.middleware.ui.rdf.<a href="org/universAAL/middleware/ui/rdf/Input.html" title="class in org.universAAL.middleware.ui.rdf">Input</a></dt>
@@ -15434,6 +15473,10 @@
              <a href="org/universAAL/middleware/ui/rdf/FormElement.html#addAppearanceRecommendation-org.universAAL.middleware.ui.owl.Recommendation-"><code>FormElement.addAppearanceRecommendation(org.universAAL.middleware.ui.owl.Recommendation)</code></a>
              generalized method to provide the same information.</span></div>
 </div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/ContextEvent.html#setMeanOccurrenceTime-java.lang.Long-">setMeanOccurrenceTime(Long)</a></span> - Method in class org.universAAL.middleware.context.<a href="org/universAAL/middleware/context/ContextEvent.html" title="class in org.universAAL.middleware.context">ContextEvent</a></dt>
+<dd>
+<div class="block">Sets <a href="org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_MEAN_OCCURRENCE_TIME"><code>ContextEvent.PROP_CONTEXT_MEAN_OCCURRENCE_TIME</code></a> with the provided value.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/managers/deploy/uapp/model/AalUapp.App.html#setMenuEntry-org.universAAL.middleware.managers.deploy.uapp.model.AalUapp.App.MenuEntry-">setMenuEntry(AalUapp.App.MenuEntry)</a></span> - Method in class org.universAAL.middleware.managers.deploy.uapp.model.<a href="org/universAAL/middleware/managers/deploy/uapp/model/AalUapp.App.html" title="class in org.universAAL.middleware.managers.deploy.uapp.model">AalUapp.App</a></dt>
 <dd>
@@ -16104,7 +16147,7 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/context/ContextEvent.html#setTimestamp-java.lang.Long-">setTimestamp(Long)</a></span> - Method in class org.universAAL.middleware.context.<a href="org/universAAL/middleware/context/ContextEvent.html" title="class in org.universAAL.middleware.context">ContextEvent</a></dt>
 <dd>
-<div class="block">Set the timestamp</div>
+<div class="block">Sets <a href="org/universAAL/middleware/context/ContextEvent.html#PROP_CONTEXT_TIMESTAMP"><code>the original construction timestamp</code></a>.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/managers/deploy/uapp/model/DeploymentUnit.ContainerUnit.html#setTomcat-java.lang.Object-">setTomcat(Object)</a></span> - Method in class org.universAAL.middleware.managers.deploy.uapp.model.<a href="org/universAAL/middleware/managers/deploy/uapp/model/DeploymentUnit.ContainerUnit.html" title="class in org.universAAL.middleware.managers.deploy.uapp.model">DeploymentUnit.ContainerUnit</a></dt>
 <dd>

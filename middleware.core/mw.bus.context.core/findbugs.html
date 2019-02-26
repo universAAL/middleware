@@ -91,7 +91,7 @@
 <th>Missing Classes</th></tr>
 <tr class="b">
 <td>31</td>
-<td>14</td>
+<td>15</td>
 <td>0</td>
 <td>0</td></tr></table></div>
 <div class="section">
@@ -102,7 +102,7 @@
 <th>Bugs</th></tr>
 <tr class="b">
 <td><a href="#org.universAAL.middleware.context.ContextEvent">org.universAAL.middleware.context.ContextEvent</a></td>
-<td>4</td></tr>
+<td>5</td></tr>
 <tr class="a">
 <td><a href="#org.universAAL.middleware.context.ContextEventPattern">org.universAAL.middleware.context.ContextEventPattern</a></td>
 <td>2</td></tr>
@@ -131,75 +131,81 @@
 <td>new org.universAAL.middleware.context.ContextEvent(Resource, String) invokes inefficient new Long(long) constructor; use Long.valueOf(long) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
-<td>215</td>
+<td>239</td>
 <td>Medium</td></tr>
 <tr class="b">
+<td>new org.universAAL.middleware.context.ContextEvent(Resource, String, long, long) invokes inefficient new Long(long) constructor; use Long.valueOf(long) instead</td>
+<td>PERFORMANCE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
+<td>255</td>
+<td>Medium</td></tr>
+<tr class="a">
 <td>new org.universAAL.middleware.context.ContextEvent(Resource, String, Object) invokes inefficient new Long(long) constructor; use Long.valueOf(long) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
-<td>253</td>
+<td>305</td>
 <td>Medium</td></tr>
-<tr class="a">
+<tr class="b">
 <td>Suspicious comparison of Boolean references in org.universAAL.middleware.context.ContextEvent.reflectsChangeRequest()</td>
 <td>BAD_PRACTICE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RC_REF_COMPARISON_BAD_PRACTICE_BOOLEAN">RC_REF_COMPARISON_BAD_PRACTICE_BOOLEAN</a></td>
-<td>358</td>
+<td>438</td>
 <td>Medium</td></tr>
-<tr class="b">
+<tr class="a">
 <td>Suspicious comparison of Boolean references in org.universAAL.middleware.context.ContextEvent.setProperty(String, Object)</td>
 <td>BAD_PRACTICE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RC_REF_COMPARISON_BAD_PRACTICE_BOOLEAN">RC_REF_COMPARISON_BAD_PRACTICE_BOOLEAN</a></td>
-<td>525</td>
+<td>635</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.context.ContextEventPattern"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.context.ContextEventPattern"></a>org.universAAL.middleware.context.ContextEventPattern</h3>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="b">
+<tr class="a">
 <td>org.universAAL.middleware.context.ContextEventPattern doesn't override org.universAAL.middleware.rdf.Resource.equals(Object)</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EQ_DOESNT_OVERRIDE_EQUALS">EQ_DOESNT_OVERRIDE_EQUALS</a></td>
 <td>1</td>
 <td>Medium</td></tr>
-<tr class="a">
+<tr class="b">
 <td>org.universAAL.middleware.context.ContextEventPattern.matches(ContextEventPattern) makes inefficient use of keySet iterator instead of entrySet iterator</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#WMI_WRONG_MAP_ITERATOR">WMI_WRONG_MAP_ITERATOR</a></td>
-<td>247</td>
+<td>249</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.context.ContextEventPatternIndices"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.context.ContextEventPatternIndices"></a>org.universAAL.middleware.context.ContextEventPattern$Indices</h3>
 <table border="0" class="bodyTable">
-<tr class="b">
+<tr class="a">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="a">
+<tr class="b">
 <td>org.universAAL.middleware.context.ContextEventPattern$Indices.getProperties() may expose internal representation by returning ContextEventPattern$Indices.props</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
 <td>56</td>
 <td>Medium</td></tr>
-<tr class="b">
+<tr class="a">
 <td>org.universAAL.middleware.context.ContextEventPattern$Indices.getSubjectTypes() may expose internal representation by returning ContextEventPattern$Indices.subjectTypes</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
 <td>60</td>
 <td>Medium</td></tr>
-<tr class="a">
+<tr class="b">
 <td>org.universAAL.middleware.context.ContextEventPattern$Indices.getSubjects() may expose internal representation by returning ContextEventPattern$Indices.subjects</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
 <td>64</td>
 <td>Medium</td></tr>
-<tr class="b">
+<tr class="a">
 <td>Should org.universAAL.middleware.context.ContextEventPattern$Indices be a _static_ inner class?</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SIC_INNER_SHOULD_BE_STATIC">SIC_INNER_SHOULD_BE_STATIC</a></td>
@@ -208,19 +214,19 @@
 <div class="section">
 <h3><a name="org.universAAL.middleware.context.impl.ContextBusImpl"></a>org.universAAL.middleware.context.impl.ContextBusImpl</h3>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="b">
+<tr class="a">
 <td>org.universAAL.middleware.context.impl.ContextBusImpl.startModule(Container, ModuleContext, Object[], Object[]) may expose internal static state by storing a mutable object into a static field org.universAAL.middleware.context.impl.ContextBusImpl.busFetchParams</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_STATIC_REP2">EI_EXPOSE_STATIC_REP2</a></td>
 <td>80</td>
 <td>Medium</td></tr>
-<tr class="a">
+<tr class="b">
 <td>Incorrect lazy initialization of static field org.universAAL.middleware.context.impl.ContextBusImpl.theContextBus in org.universAAL.middleware.context.impl.ContextBusImpl.stopModule()</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#LI_LAZY_INIT_STATIC">LI_LAZY_INIT_STATIC</a></td>
@@ -229,13 +235,13 @@
 <div class="section">
 <h3><a name="org.universAAL.middleware.context.impl.ContextStrategy"></a>org.universAAL.middleware.context.impl.ContextStrategy</h3>
 <table border="0" class="bodyTable">
-<tr class="b">
+<tr class="a">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="a">
+<tr class="b">
 <td>org.universAAL.middleware.context.impl.ContextStrategy.getAllProvisions(ContextPublisher) invokes inefficient new Integer(int) constructor; use Integer.valueOf(int) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
@@ -244,13 +250,13 @@
 <div class="section">
 <h3><a name="org.universAAL.middleware.context.owl.ContextProviderType"></a>org.universAAL.middleware.context.owl.ContextProviderType</h3>
 <table border="0" class="bodyTable">
-<tr class="b">
+<tr class="a">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="a">
+<tr class="b">
 <td>org.universAAL.middleware.context.owl.ContextProviderType doesn't override org.universAAL.middleware.rdf.Resource.equals(Object)</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EQ_DOESNT_OVERRIDE_EQUALS">EQ_DOESNT_OVERRIDE_EQUALS</a></td>

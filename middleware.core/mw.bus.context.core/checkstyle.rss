@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2019 universAAL Consortium</copyright>
     <item>
       <title>File: 29,
-             Errors: 365,
+             Errors: 384,
              Warnings: 10,
-             Infos: 7
+             Infos: 30
       </title>
             <link>http://middleware/middleware.core/mw.bus.context.core//checkstyle.html</link>
       <description>
@@ -175,13 +175,13 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.ContextEvent.java">org/universAAL/middleware/context/ContextEvent.java</a>
                 </td>
                 <td>
-                  6
+                  25
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  82
+                  101
                 </td>
               </tr>
                           <tr>
@@ -329,7 +329,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.ContextEventPattern.java">org/universAAL/middleware/context/ContextEventPattern.java</a>
                 </td>
                 <td>
-                  0
+                  4
                 </td>
                 <td>
                   0
