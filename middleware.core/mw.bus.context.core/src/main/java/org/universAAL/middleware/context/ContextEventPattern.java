@@ -101,58 +101,53 @@ public class ContextEventPattern extends FinalizedResource implements EventAdver
 			throw new NullPointerException("Restriction cannot be null");
 
 		String prop = r.getOnProperty();
-		if (// deprecated -> ContextEvent.PROP_CONTEXT_ACCURACY.equals(prop) ||
-		ContextEvent.PROP_CONTEXT_CONFIDENCE.equals(prop) || ContextEvent.PROP_CONTEXT_PROVIDER.equals(prop)
-				|| ContextEvent.PROP_CONTEXT_EXPIRATION_TIME.equals(prop)
-				|| ContextEvent.PROP_CONTEXT_TIMESTAMP.equals(prop) || ContextEvent.PROP_RDF_OBJECT.equals(prop)
-				|| ContextEvent.PROP_RDF_PREDICATE.equals(prop) || ContextEvent.PROP_RDF_SUBJECT.equals(prop))
-			if (propRestrictionAllowed(prop)) {
-				mergedRestrictions.put(r.getOnProperty(), r);
-				restrictions.addAll(r.getRestrictions());
-				if (prop.equals(ContextEvent.PROP_RDF_SUBJECT)) {
-					TypeExpression type = (TypeExpression) r.getConstraint(MergedRestriction.allValuesFromID);
-					Object value = r.getConstraint(MergedRestriction.hasValueID);
-					indices.subjectTypes = (type == null) ? null : type.getNamedSuperclasses();
+		if (propRestrictionAllowed(prop)) {
+			mergedRestrictions.put(r.getOnProperty(), r);
+			restrictions.addAll(r.getRestrictions());
+			if (prop.equals(ContextEvent.PROP_RDF_SUBJECT)) {
+				TypeExpression type = (TypeExpression) r.getConstraint(MergedRestriction.allValuesFromID);
+				Object value = r.getConstraint(MergedRestriction.hasValueID);
+				indices.subjectTypes = (type == null) ? null : type.getNamedSuperclasses();
 
-					indices.subjects = (value instanceof Resource) ? new String[] { ((Resource) value).getURI() }
-							: null;
-					if (indices.subjects == null) {
-						Object[] elems = type.getUpperEnumeration();
-						if (elems != null) {
-							int num = 0;
+				indices.subjects = (value instanceof Resource) ? new String[] { ((Resource) value).getURI() }
+						: null;
+				if (indices.subjects == null) {
+					Object[] elems = type.getUpperEnumeration();
+					if (elems != null) {
+						int num = 0;
+						for (int i = 0; i < elems.length; i++)
+							if (elems[i] instanceof Resource)
+								num++;
+						if (num > 0) {
+							indices.subjects = new String[num];
 							for (int i = 0; i < elems.length; i++)
 								if (elems[i] instanceof Resource)
-									num++;
-							if (num > 0) {
-								indices.subjects = new String[num];
-								for (int i = 0; i < elems.length; i++)
-									if (elems[i] instanceof Resource)
-										indices.subjects[i] = ((Resource) elems[i]).getURI();
-							}
-						}
-					}
-				} else if (prop.equals(ContextEvent.PROP_RDF_PREDICATE)) {
-					Object value = r.getConstraint(MergedRestriction.hasValueID);
-					indices.props = (value instanceof Resource) ? new String[] { value.toString() } : null;
-					if (indices.props == null) {
-						TypeExpression type = (TypeExpression) r.getConstraint(MergedRestriction.allValuesFromID);
-						Object[] elems = (type == null) ? null : type.getUpperEnumeration();
-						if (elems != null) {
-							int num = 0;
-							for (int i = 0; i < elems.length; i++)
-								if (elems[i] instanceof Resource)
-									num++;
-							if (num > 0) {
-								indices.props = new String[num];
-								for (int i = 0; i < elems.length; i++)
-									if (elems[i] instanceof Resource)
-										indices.props[i] = elems[i].toString();
-							}
+									indices.subjects[i] = ((Resource) elems[i]).getURI();
 						}
 					}
 				}
-				return true;
+			} else if (prop.equals(ContextEvent.PROP_RDF_PREDICATE)) {
+				Object value = r.getConstraint(MergedRestriction.hasValueID);
+				indices.props = (value instanceof Resource) ? new String[] { value.toString() } : null;
+				if (indices.props == null) {
+					TypeExpression type = (TypeExpression) r.getConstraint(MergedRestriction.allValuesFromID);
+					Object[] elems = (type == null) ? null : type.getUpperEnumeration();
+					if (elems != null) {
+						int num = 0;
+						for (int i = 0; i < elems.length; i++)
+							if (elems[i] instanceof Resource)
+								num++;
+						if (num > 0) {
+							indices.props = new String[num];
+							for (int i = 0; i < elems.length; i++)
+								if (elems[i] instanceof Resource)
+									indices.props[i] = elems[i].toString();
+						}
+					}
+				}
 			}
+			return true;
+		}
 		return false;
 	}
 
@@ -179,7 +174,14 @@ public class ContextEventPattern extends FinalizedResource implements EventAdver
 	}
 
 	private boolean propRestrictionAllowed(String prop) {
-		return !mergedRestrictions.containsKey(prop);
+		return (// deprecated -> ContextEvent.PROP_CONTEXT_ACCURACY.equals(prop) ||
+						ContextEvent.PROP_RDF_SUBJECT.equals(prop) || ContextEvent.PROP_RDF_PREDICATE.equals(prop)
+						|| ContextEvent.PROP_CONTEXT_REFLECTS_CHANGE_REQUEST.equals(prop) || ContextEvent.PROP_RDF_OBJECT.equals(prop)
+						|| ContextEvent.PROP_CONTEXT_PROVIDER.equals(prop) || ContextEvent.PROP_CONTEXT_OCCURRENCE_TIMESTAMP.equals(prop)
+						|| ContextEvent.PROP_CONTEXT_MEAN_OCCURRENCE_TIME.equals(prop) || ContextEvent.PROP_CONTEXT_CONFIDENCE.equals(prop)
+						|| ContextEvent.PROP_CONTEXT_TIMESTAMP.equals(prop) || ContextEvent.PROP_CONTEXT_EXPIRATION_TIME.equals(prop)
+						|| ContextEvent.PROP_INVOLVED_HUMAN_USER.equals(prop))
+				&& !mergedRestrictions.containsKey(prop);
 	}
 
 	public boolean setProperty(String propURI, Object property) {
