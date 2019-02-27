@@ -35,6 +35,7 @@ public class NodeObject implements JSONLDValidator {
 	private ContextDefinition activeContext;
 
 	/**
+	 *
 	 * It does not contain the @value, @list, or @set keywords. A node object must
 	 * be a JSON object. All keys which are not IRIs, compact IRIs, terms valid in
 	 * the active context, or one of the following keywords must be ignored when
@@ -42,11 +43,12 @@ public class NodeObject implements JSONLDValidator {
 	 *
 	 * @context, @id, @graph, @type, @reverse, or @index
 	 */
+	
+	
 	public NodeObject(Object father, JsonObject obj) {
 		if (father instanceof ContextDefinition) {
-			throw new InvalidParameterException(
-					"A JSON object is a node object if it exists outside of a JSON-LD context");
-		}
+			throw new InvalidParameterException("A JSON object is a node object if it exists outside of a JSON-LD context");
+			}
 		this.father = father;
 		this.obj = obj;
 	}
@@ -82,7 +84,8 @@ public class NodeObject implements JSONLDValidator {
 			return false;
 		}
 
-		/* If the node object contains the @context key, its value must be null,
+		/* 
+		 * If the node object contains the @context key, its value must be null,
 		 * an absolute IRI, a relative IRI, a context definition,
 		 * or an array composed of any of these.
 		 */
@@ -94,9 +97,9 @@ public class NodeObject implements JSONLDValidator {
 					allContextValid &= isValidContext(je);
 					if (allContextValid) {
 						if (activeContext == null) {
-							activeContext = new ContextDefinition(je);
+							activeContext = new ContextDefinition(null);
 						}else {
-							activeContext.merge(new ContextDefinition(je));
+							activeContext.merge(new ContextDefinition(null));
 						}
 					}
 				}
@@ -104,7 +107,7 @@ public class NodeObject implements JSONLDValidator {
 					return false;
 				}
 			} else if (isValidContext(context)) {
-				activeContext = new ContextDefinition(context);
+				activeContext = new ContextDefinition(null);
 			}
 			else {
 				return false;
