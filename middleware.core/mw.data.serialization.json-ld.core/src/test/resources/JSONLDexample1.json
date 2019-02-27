@@ -2,7 +2,7 @@
   "@context": {
     "name": "http://rdf.data-vocabulary.org/#name",
     "ingredient": "http://rdf.data-vocabulary.org/#ingredients",
-    "yield": "http://rdf.data-vocabulary.org/#yield",
+    "@context": "http://rdf.data-vocabulary.org/#yield",
     "instructions": "http://rdf.data-vocabulary.org/#instructions",
     "step": {
       "@id": "http://rdf.data-vocabulary.org/#step",

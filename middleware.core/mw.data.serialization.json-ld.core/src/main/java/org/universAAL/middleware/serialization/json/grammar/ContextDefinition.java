@@ -47,6 +47,7 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<String> {
 //			// TODO read Context from reference.openStream()
 //		}
 		this.jsonToValidate = jsonObjectOrReference;
+		System.out.println("loading from ContextDefinition class->"+jsonObjectOrReference);
 	}
 
 
@@ -56,9 +57,10 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<String> {
 	public boolean keyControl(String element) {
 		//keys MUST either be terms, compact IRIs, absolute IRIs
 		//for (Entry<String, JsonElement> element : this.jsonToValidate.entrySet()) {
-			
+		System.out.println("element key control "+element);
+			System.out.println( "validating "+element);
 			if(Term.isTerm(element)) {
-				
+				System.out.println("term is vaid");
 				//keywords @language, @base, and @vocab.
 				//If the context definition has an @language key, its value MUST have the lexical form described in [BCP47] or be null.
 				if(element.equals(JsonLdKeyword.LANG)){
@@ -86,12 +88,13 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<String> {
 
 
 	public boolean validate() {
+		System.out.println("...validating...");
 		boolean state = false;;
 		for (Entry<String, JsonElement> element : this.jsonToValidate.entrySet()) {
 			state = this.keyControl(element.getValue().getAsString());
 			//The value of keys that are not keywords MUST be either an absolute IRI, a compact IRI, a term, a blank node identifier, a keyword, null, or an expanded term definition.
 			if(! JsonLdKeyword.isKeyword(element.getValue().getAsString())) {
-				return IRI.isAbsolute(element.getValue().getAsString()) ||
+				return  IRI.isAbsolute(element.getValue().getAsString()) ||
 						IRI.isCompact(this,element.getValue().getAsString()) ||
 						element.getValue().getAsString().equals(this.BLANK_NODE) ||
 						new ExpandedTermDefinition(this,element.getValue()).validate(); 

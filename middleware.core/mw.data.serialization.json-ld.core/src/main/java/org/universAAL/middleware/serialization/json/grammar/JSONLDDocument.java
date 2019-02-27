@@ -20,6 +20,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
+
+import javax.swing.SortingFocusTraversalPolicy;
+
 import java.util.Scanner;
 
 import org.universAAL.middleware.container.utils.LogUtils;
@@ -76,7 +79,7 @@ public class JSONLDDocument implements JSONLDValidator {
 	 * @return {@link Boolean} value indicating the status of the process
 	 */
 	public boolean validate() {
-		boolean state = false;
+		boolean state =false;
 //		// ¿has member called context (key equal context)?
 //		if (this.mainJSON.has(this.CONTEXT)) {
 //			
@@ -106,7 +109,8 @@ public class JSONLDDocument implements JSONLDValidator {
 			
 			if (item.getKey().equals(this.CONTEXT)) {
 				if(item.getValue().isJsonObject()) {
-					//analizar contexto
+					//System.out.println("context controlling");
+					System.out.println(item.getValue().getAsJsonObject());
 					state = new ContextDefinition(item.getValue().getAsJsonObject()).validate();
 				}else {
 					if(item.getValue().isJsonPrimitive()) {
@@ -123,9 +127,7 @@ public class JSONLDDocument implements JSONLDValidator {
 
 			
 		}
-		
-			
-		
+
 		return state;
 	}
 
