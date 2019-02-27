@@ -16,9 +16,15 @@
 package org.universAAL.middleware.serialization.json.grammar;
 
 import java.net.URL;
+import java.util.Map.Entry;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.serialization.json.JSONLDSerialization;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 /**
  * @author amedrano
@@ -58,6 +64,41 @@ public class IRI {
 			return isAbsolute(baseIRI+candidate);
 		}
 	}
+	
+	/**
+	 * 
+	 * https://www.w3.org/TR/2014/REC-json-ld-20140116/#dfn-compact-iri
+	 * 
+	 * 
+	 * A compact IRI is a way of expressing an IRI using a prefix and suffix separated by a colon (:).
+	 *  The prefix is a term taken from the active context and is a short string identifying a particular IRI in a JSON-LD document. For example, the prefix foaf may be used as a short hand for the Friend-of-a-Friend vocabulary, which is identified using the IRI http://xmlns.com/foaf/0.1/. A developer may append any of the FOAF vocabulary terms to the end of the prefix to specify a short-hand version of the absolute IRI for the vocabulary term.
+	 *  For example, foaf:name would be expanded to the IRI http://xmlns.com/foaf/0.1/name.
+	 * @param activeContext
+	 * @param candidate
+	 * @return
+	 */
+	public static boolean isCompact(ContextDefinition activeContext, Entry<String, JsonElement> candidate) {
+		if(!candidate.getValue().getAsString().contains(":")) return false;
+		/*
+		boolean flag;
+		for (Entry<String, JsonElement> iterable_element : activeContext.getJsonToValidate().entrySet() ) {
+			if(candidate.getKey().toString().contains(iterable_element.getKey().toString())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	*/
+		return activeContext.getJsonToValidate().entrySet().stream().map(h->h.getKey().toString()).collect(Collectors.toList()).contains(candidate.getKey().substring(0, candidate.getKey().indexOf(":")));
+	}
+	
+	public static boolean isCompact(ContextDefinition activeContext, String candidate) {
+		if(!candidate.contains(":")) return false;
+		 return activeContext.getJsonToValidate().entrySet().stream().map(h->h.getKey().toString()).collect(Collectors.toList()).contains(candidate.substring(0, candidate.indexOf(":")));
+	}
+	
+	
 
 
 }
