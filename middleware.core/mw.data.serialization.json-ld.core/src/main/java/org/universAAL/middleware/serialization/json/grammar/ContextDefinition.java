@@ -15,6 +15,10 @@
  ******************************************************************************/
 package org.universAAL.middleware.serialization.json.grammar;
 
+import java.util.Map.Entry;
+
+import org.universAAL.middleware.serialization.json.JsonLdKeyword;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -22,19 +26,27 @@ import com.google.gson.JsonObject;
  * @author amedrano
  * @see <a href=https://www.w3.org/TR/2014/REC-json-ld-20140116/#context-definitions>https://www.w3.org/TR/2014/REC-json-ld-20140116/#context-definitions</a>
  */
-public class ContextDefinition implements JSONLDValidator, KeyControl	 {
+public class ContextDefinition implements JSONLDValidator, KeyControl<String> {
 	private JsonObject jsonToValidate = null;
+	private static final String BLANK_NODE ="_:";
+	
+	public JsonObject getJsonToValidate() {
+		return jsonToValidate;
+	}
+
+
 	//A context definition MUST be a JSON object whose keys MUST either be terms, compact IRIs, absolute IRIs, or the keywords @language, @base, and @vocab.
-	public ContextDefinition(JsonElement jsonObjectOrReference) {
+	public ContextDefinition(JsonObject jsonObjectOrReference) {
 		
-		if (jsonObjectOrReference.isJsonObject()) {
-			this.jsonToValidate = jsonObjectOrReference.getAsJsonObject();
-		}
-		
-		if (jsonObjectOrReference.isJsonPrimitive()) {
-			jsonObjectOrReference.getAsString();
-			// TODO read Context from reference.openStream()
-		}
+//		if (jsonObjectOrReference.isJsonObject()) {
+//			this.jsonToValidate = jsonObjectOrReference.getAsJsonObject();
+//		}
+//		
+//		if (jsonObjectOrReference.isJsonPrimitive()) {
+//			jsonObjectOrReference.getAsString();
+//			// TODO read Context from reference.openStream()
+//		}
+		this.jsonToValidate = jsonObjectOrReference;
 	}
 
 
@@ -47,16 +59,62 @@ public class ContextDefinition implements JSONLDValidator, KeyControl	 {
 	 * @return {@link Boolean} value indicating the status of the process
 	 */
 	public boolean validate() {
-		//TODO
+		boolean state = false;;
+		for (Entry<String, JsonElement> element : this.jsonToValidate.entrySet()) {
+			state = this.keyControl(element.getValue().getAsString());
+			//The value of keys that are not keywords MUST be either an absolute IRI, a compact IRI, a term, a blank node identifier, a keyword, null, or an expanded term definition.
+			if(! JsonLdKeyword.isKeyword(element.getValue().getAsString())) {
+				return IRI.isAbsolute(element.getValue().getAsString()) ||
+						IRI.isCompact(this,element.getValue().getAsString()) ||
+						element.getValue().getAsString().equals(this.BLANK_NODE) ||
+						new ExpandedTermDefinition(this,element.getValue()).validate(); 
+			}
+		}
 		
-		return this.keyControl();
+		
+		
+		return state;
 	}
 
+	/**
+	 * key validation
+	 */
+	@Override
+	public boolean keyControl( String element ) {
+		//keys MUST either be terms, compact IRIs, absolute IRIs
+		//for (Entry<String, JsonElement> element : this.jsonToValidate.entrySet()) {
+			
+			if(Term.isTerm(element)) {
+				
+				//keywords @language, @base, and @vocab.
+				//If the context definition has an @language key, its value MUST have the lexical form described in [BCP47] or be null.
+				if(element.equals(JsonLdKeyword.LANG)){
+					return element.equals("null");
+				}
+				//If the context definition has an @base key, its value MUST be an absolute IRI, a relative IRI, or null.
+				if(element.equals(JsonLdKeyword.BASE)){
+					return IRI.isAbsolute(element) || /*IRI.isRelative(null, element.getValue().toString()) ||*/ element.equals("null");
+				}
+				//If the context definition has an @vocab key, its value MUST be a absolute IRI, a compact IRI, a blank node identifier, a term, or null.
+				if(element.equals(JsonLdKeyword.VOCAB)){
+					return IRI.isAbsolute(element.toString()) || 
+							IRI.isCompact(this, element)  ||
+							Term.isTerm(element.toString()) || 
+							element.equals("null") ||
+							element.equals(this.BLANK_NODE);
+				}
+				return true;
+			}else {
+					return IRI.isAbsolute(element) || IRI.isCompact(this, element);
+					
+				}
+//			}
+	//	return false;
 
-	public boolean keyControl() {
 		
-		return false;
 	}
+	
 
+	
 
 }
