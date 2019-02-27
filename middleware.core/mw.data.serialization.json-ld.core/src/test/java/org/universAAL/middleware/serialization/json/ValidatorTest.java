@@ -14,7 +14,7 @@ import com.google.gson.JsonSyntaxException;
 public class ValidatorTest {
 
 	@Test
-	public void test1() throws IOException {
+	public void contextTest() throws IOException {
 		InputStream is = this.getClass().getClassLoader().getResource("JSONLDexample1.json").openStream();
 		JSONLDDocument doc = new JSONLDDocument(is);
 		is.close();
@@ -35,14 +35,7 @@ public class ValidatorTest {
 	 * 			}
 	 * 
 	 * */
-	@Test 
-	public void test2() throws IOException {
-		InputStream is = this.getClass().getClassLoader().getResource("JSONLDexample2.json").openStream();
-		JSONLDDocument doc = new JSONLDDocument(is);
-		is.close();
-		assertTrue(doc.validate());
-	}
-	
+
 	
 	//---------------to test bad syntax of json-ld
 	
@@ -50,7 +43,7 @@ public class ValidatorTest {
 	 * test case if the main son is not an object..is an array
 	 * */
 	@Test (expected = ClassCastException.class)
-	public void test3() throws IOException {
+	public void errors1() throws IOException {
 		InputStream is = this.getClass().getClassLoader().getResource("JSONLDexample3.json").openStream();
 		JSONLDDocument doc = new JSONLDDocument(is);
 		is.close();
@@ -62,17 +55,20 @@ public class ValidatorTest {
 	 * @throws IOException
 	 */
 	@Test (expected = JsonSyntaxException.class)
-	public void test4() throws IOException {
+	public void errors2() throws IOException {
 		InputStream is = this.getClass().getClassLoader().getResource("JSONLDexample4.json").openStream();
 		JSONLDDocument doc = new JSONLDDocument(is);
 		is.close();
 		assertTrue(doc.validate());
 	}
-
-	
-	@Test
-	public void local() {
-		String t ="edu:ardo";
-		System.out.println(t.substring(0,t.indexOf(":")));
+	@Test 
+	public void errors3() throws IOException {
+		InputStream is = this.getClass().getClassLoader().getResource("JSONLDexample2.json").openStream();
+		JSONLDDocument doc = new JSONLDDocument(is);
+		is.close();
+		assertTrue(doc.validate());
 	}
+	
+
+
 }

@@ -37,7 +37,7 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<String> {
 
 	//A context definition MUST be a JSON object whose keys MUST either be terms, compact IRIs, absolute IRIs, or the keywords @language, @base, and @vocab.
 	public ContextDefinition(JsonObject jsonObjectOrReference) {
-		
+
 //		if (jsonObjectOrReference.isJsonObject()) {
 //			this.jsonToValidate = jsonObjectOrReference.getAsJsonObject();
 //		}
@@ -50,37 +50,10 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<String> {
 	}
 
 
-	public void merge(ContextDefinition cd) {
-		//TODO
-	}
+ 
+	
 
-	/**
-	 * Method to start json validation.
-	 * @return {@link Boolean} value indicating the status of the process
-	 */
-	public boolean validate() {
-		boolean state = false;;
-		for (Entry<String, JsonElement> element : this.jsonToValidate.entrySet()) {
-			state = this.keyControl(element.getValue().getAsString());
-			//The value of keys that are not keywords MUST be either an absolute IRI, a compact IRI, a term, a blank node identifier, a keyword, null, or an expanded term definition.
-			if(! JsonLdKeyword.isKeyword(element.getValue().getAsString())) {
-				return IRI.isAbsolute(element.getValue().getAsString()) ||
-						IRI.isCompact(this,element.getValue().getAsString()) ||
-						element.getValue().getAsString().equals(this.BLANK_NODE) ||
-						new ExpandedTermDefinition(this,element.getValue()).validate(); 
-			}
-		}
-		
-		
-		
-		return state;
-	}
-
-	/**
-	 * key validation
-	 */
-	@Override
-	public boolean keyControl( String element ) {
+	public boolean keyControl(String element) {
 		//keys MUST either be terms, compact IRIs, absolute IRIs
 		//for (Entry<String, JsonElement> element : this.jsonToValidate.entrySet()) {
 			
@@ -108,11 +81,27 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<String> {
 					return IRI.isAbsolute(element) || IRI.isCompact(this, element);
 					
 				}
-//			}
-	//	return false;
 
-		
 	}
+
+
+	public boolean validate() {
+		boolean state = false;;
+		for (Entry<String, JsonElement> element : this.jsonToValidate.entrySet()) {
+			state = this.keyControl(element.getValue().getAsString());
+			//The value of keys that are not keywords MUST be either an absolute IRI, a compact IRI, a term, a blank node identifier, a keyword, null, or an expanded term definition.
+			if(! JsonLdKeyword.isKeyword(element.getValue().getAsString())) {
+				return IRI.isAbsolute(element.getValue().getAsString()) ||
+						IRI.isCompact(this,element.getValue().getAsString()) ||
+						element.getValue().getAsString().equals(this.BLANK_NODE) ||
+						new ExpandedTermDefinition(this,element.getValue()).validate(); 
+			}
+		}
+
+		return state;
+	}
+
+
 	
 
 	

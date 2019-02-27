@@ -99,7 +99,7 @@ public class NodeObject implements JSONLDValidator {
 						if (activeContext == null) {
 							activeContext = new ContextDefinition(null);
 						}else {
-							activeContext.merge(new ContextDefinition(null));
+							//activeContext.merge(new ContextDefinition(null));
 						}
 					}
 				}

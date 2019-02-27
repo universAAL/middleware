@@ -22,5 +22,7 @@ package org.universAAL.middleware.serialization.json.grammar;
 public interface KeyControl <T>{
 
 	 boolean keyControl(T itemToControl);
+
+
 	
 }

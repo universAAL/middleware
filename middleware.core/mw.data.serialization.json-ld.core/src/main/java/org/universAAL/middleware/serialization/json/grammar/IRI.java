@@ -79,7 +79,7 @@ public class IRI {
 	 */
 	public static boolean isCompact(ContextDefinition activeContext, Entry<String, JsonElement> candidate) {
 		if(!candidate.getValue().getAsString().contains(":")) return false;
-		/*
+		
 		boolean flag;
 		for (Entry<String, JsonElement> iterable_element : activeContext.getJsonToValidate().entrySet() ) {
 			if(candidate.getKey().toString().contains(iterable_element.getKey().toString())) {
@@ -89,13 +89,22 @@ public class IRI {
 		return false;
 	}
 	
-	*/
-		return activeContext.getJsonToValidate().entrySet().stream().map(h->h.getKey().toString()).collect(Collectors.toList()).contains(candidate.getKey().substring(0, candidate.getKey().indexOf(":")));
-	}
+	
+		//return activeContext.getJsonToValidate().entrySet().stream().map(h->h.getKey().toString()).collect(Collectors.toList()).contains(candidate.getKey().substring(0, candidate.getKey().indexOf(":")));
+	
 	
 	public static boolean isCompact(ContextDefinition activeContext, String candidate) {
+//		if(!candidate.contains(":")) return false;
+//		 return activeContext.getJsonToValidate().entrySet().stream().map(h->h.getKey().toString()).collect(Collectors.toList()).contains(candidate.substring(0, candidate.indexOf(":")));
 		if(!candidate.contains(":")) return false;
-		 return activeContext.getJsonToValidate().entrySet().stream().map(h->h.getKey().toString()).collect(Collectors.toList()).contains(candidate.substring(0, candidate.indexOf(":")));
+		
+		boolean flag;
+		for (Entry<String, JsonElement> iterable_element : activeContext.getJsonToValidate().entrySet() ) {
+			if(candidate.contains(iterable_element.getKey().toString())) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	
