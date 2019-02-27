@@ -150,12 +150,10 @@ public final class ResourceUtil {
 	}
 	
 	public static void addResourceURI2SB(Resource r, StringBuffer sb) {
-		if (r == null  ||  r.isAnon())
+		if (r == null)
 			sb.append("anon");
-		else if (r.hasQualifiedName())
-			sb.append(r.getLocalName());
 		else
-			sb.append(r.getURI());
+			sb.append(r.getCompactRepresentationAsString());
 	}
 	
 	public static void addURI2SB(String uri, StringBuffer sb) {

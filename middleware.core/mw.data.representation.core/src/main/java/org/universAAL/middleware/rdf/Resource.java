@@ -548,6 +548,12 @@ public class Resource {
 						.areEqual(this, (Resource) other))
 						: false;
 	}
+	
+	public String getCompactRepresentationAsString() {
+		return uri.startsWith(ANON_URI_PREFIX)? "anon"
+				: (ns_delim_index >= 0)? uri.substring(ns_delim_index + 1)
+						: this.uri;
+	}
 
 	/**
 	 * Get the Resource comment. Convenient method to retrieve rdfs:comment.
