@@ -1,3 +1,4 @@
+
 /*******************************************************************************
  * Copyright 2018 Universidad Politécnica de Madrid UPM
  *
@@ -18,14 +19,18 @@ package org.universAAL.middleware.serialization.json.grammar;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.serialization.json.JSONLDSerialization;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 /**
  * Class to represent a entire Json document
@@ -36,20 +41,29 @@ import com.google.gson.JsonParser;
  */
 public class JSONLDDocument implements JSONLDValidator {
 
+	private ContextDefinition contexDefinitionValidator = null;
 	private JsonObject mainJSON = null;
 	private JsonParser jp = null;
+	private List<JsonObject> contextArray = null;
+	private static final String  CONTEXT="@context";
 
-	/**
-	 * Receive {@link InputStream} of a existing JsonLD
+	/**	
+	 * 
+	 * @param jsonToBeProcessed {@link InputStream} of json to be analyzed
+	 * @throws JsonParseException
+	 * @throws JsonSyntaxException
 	 */
-	public JSONLDDocument(InputStream jsonToBeProcessed) {
+	public JSONLDDocument(InputStream jsonToBeProcessed) throws JsonParseException, JsonSyntaxException,ClassCastException{
 
+		this.contextArray = new ArrayList<JsonObject>();
 		String jsonString = "";
 		Scanner s = new Scanner(jsonToBeProcessed);
 		s.useDelimiter("\\A");
 		jsonString = s.hasNext() ? s.next() : "";
 		s.close();
 		this.jp = new JsonParser();
+		//throws MalformedJsonException if the json is mal formed
+		//si no es un objecto json el string falla el codigo
 		this.mainJSON = (JsonObject) jp.parse(jsonString);
 
 	}
@@ -59,32 +73,59 @@ public class JSONLDDocument implements JSONLDValidator {
 	 * valid JSON document as described in [RFC4627]. A JSON-LD document must be a
 	 * single node object or an array whose elements are each node objects at the
 	 * top level.
-	 *
 	 * @return {@link Boolean} value indicating the status of the process
 	 */
 	public boolean validate() {
 		boolean state = false;
-		// ¿has context?
-		if (this.mainJSON.has("@context")) {
-			LogUtils.logDebug(JSONLDSerialization.owner, this.getClass(), "validate", mainJSON.toString());
-
-			if (mainJSON.isJsonArray()) {
-				boolean allNodeObject = true;
-				for (JsonElement je : mainJSON.getAsJsonArray()) {
-					allNodeObject &= je.isJsonObject();
-					allNodeObject &= new NodeObject(this, je.getAsJsonObject()).validate();
+//		// ¿has member called context (key equal context)?
+//		if (this.mainJSON.has(this.CONTEXT)) {
+//			
+//			
+//			System.out.println(mainJSON.toString());
+//			LogUtils.logDebug(JSONLDSerialization.owner, this.getClass(), "validate", mainJSON.toString());
+//			if (mainJSON.isJsonArray()) {
+//				
+//				boolean allNodeObject = true;
+//				for (JsonElement je : mainJSON.getAsJsonArray()) {
+//					allNodeObject &= je.isJsonObject();
+//					allNodeObject &= new NodeObject(this, je.getAsJsonObject() ).validate();
+//				}
+//				return (mainJSON.isJsonObject() & allNodeObject);
+//			} else {
+//				return (this.mainJSON.isJsonObject() & (new NodeObject(this, this.mainJSON.getAsJsonObject()).validate()));
+//			}
+//		} else {
+//			LogUtils.logDebug(JSONLDSerialization.owner, this.getClass(), "validate",
+//					"the given Json document has not any context to process");
+//			// TODO: log if the json document has not any context?
+//			System.out.println("the given Json document has not any context to process");
+//		}
+		//-------------------------------------------------------
+		
+		for (Entry<String, JsonElement> item : this.mainJSON.entrySet()) {
+			
+			if (item.getKey().equals(this.CONTEXT)) {
+				if(item.getValue().isJsonObject()) {
+					//analizar contexto
+					state = new ContextDefinition(item.getValue().getAsJsonObject()).validate();
+				}else {
+					if(item.getValue().isJsonPrimitive()) {
+						IRI.isAbsolute(item.getValue().getAsString());
+					}
 				}
-				return (mainJSON.isJsonObject() && allNodeObject);
-			} else {
-				return (this.mainJSON.isJsonObject() && (new NodeObject(this, this.mainJSON.getAsJsonObject()).validate()));
+				
+			}else {
+				/*
+				 * analizar todos los demas casos
+				 */
+				
 			}
-		} else {
 
-			LogUtils.logDebug(JSONLDSerialization.owner, this.getClass(), "validate",
-					"the given Json document has not any context to process");
-			// TODO: log if the json document has not any context?
+			
 		}
-
+		
+			
+		
 		return state;
 	}
 
