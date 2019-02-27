@@ -19,7 +19,8 @@ package org.universAAL.middleware.serialization.json.grammar;
  * @author Eduardo
  *
  */
-public interface KeyControl {
+public interface KeyControl <T>{
 
-	 boolean keyControl();
+	 boolean keyControl(T itemToControl);
+	
 }
