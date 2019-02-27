@@ -29,7 +29,7 @@ import com.google.gson.JsonParser;
  * @author amedrano
  * @see <a href=https://www.w3.org/TR/2014/REC-json-ld-20140116/#value-objects>https://www.w3.org/TR/2014/REC-json-ld-20140116/#value-objects</a>
  */
-public class ValueObject implements KeyControl, JSONLDInterpreter<JsonObject>{
+public class ValueObject implements KeyControl<String>, JSONLDInterpreter<JsonObject>{
 	private JsonObject jsonObjectOrReference; 
 	private JsonObject mainJSON = null;
 	private JsonParser jp = new JsonParser();
@@ -58,7 +58,7 @@ public class ValueObject implements KeyControl, JSONLDInterpreter<JsonObject>{
 			// It MAY also contain an @type, an @language, an @index, or an @context key 
 //			this.keyControl();
 //			return true;
-			return this.keyControl();
+			return this.keyControl(null);
 		}
 		return false;
 	}
@@ -73,7 +73,7 @@ public class ValueObject implements KeyControl, JSONLDInterpreter<JsonObject>{
 		return null;
 	}
 	
-	public boolean keyControl() {
+	public boolean keyControl(String t) {
 		//MUST NOT contain both an @type and an @language key at the same time
 		//TODO  A value object MUST NOT contain any other keys that expand to an absolute IRI or keyword.
 		if ( this.mainJSON.has(JsonLdKeyword.LANG.toString()) &&  this.mainJSON.has(JsonLdKeyword.TYPE.toString() )){
