@@ -20,6 +20,13 @@ public class ValidatorTest {
 		is.close();
 		assertTrue(doc.validate());
 	}
+	@Test
+	public void multipleContextTest() throws IOException {
+		InputStream is = this.getClass().getClassLoader().getResource("JSONLDexample3.json").openStream();
+		JSONLDDocument doc = new JSONLDDocument(is);
+		is.close();
+		assertTrue(doc.validate());
+	}
 	
 	//este test es para probarel caso de tener un array con context dentro
 	//nota: el json que esta testeando NO ES UN JSON-LD VALIDO, esta asi solamente para comprobar si es correcta mi interpretacion de la documentacion

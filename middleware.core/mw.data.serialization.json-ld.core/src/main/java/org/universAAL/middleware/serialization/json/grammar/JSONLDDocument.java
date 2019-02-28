@@ -27,6 +27,7 @@ import java.util.Scanner;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.serialization.json.JSONLDSerialization;
+import org.universAAL.middleware.serialization.json.JsonLdKeyword;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -44,11 +45,10 @@ import com.google.gson.JsonSyntaxException;
  */
 public class JSONLDDocument implements JSONLDValidator {
 
-	private ContextDefinition contexDefinitionValidator = null;
+	private ContextDefinition activeContext = null;
 	private JsonObject mainJSON = null;
 	private JsonParser jp = null;
 	private List<JsonObject> contextArray = null;
-	private static final String  CONTEXT="@context";
 
 	/**	
 	 * 
@@ -80,6 +80,7 @@ public class JSONLDDocument implements JSONLDValidator {
 	 */
 	public boolean validate() {
 		boolean state =false;
+		
 //		// ¿has member called context (key equal context)?
 //		if (this.mainJSON.has(this.CONTEXT)) {
 //			
@@ -107,11 +108,10 @@ public class JSONLDDocument implements JSONLDValidator {
 		
 		for (Entry<String, JsonElement> item : this.mainJSON.entrySet()) {
 			
-			if (item.getKey().equals(this.CONTEXT)) {
+			if (item.getKey().equals(JsonLdKeyword.CONTEXT)) {
 				if(item.getValue().isJsonObject()) {
-					//System.out.println("context controlling");
-					System.out.println(item.getValue().getAsJsonObject());
-					state = new ContextDefinition(item.getValue().getAsJsonObject()).validate();
+					this.activeContext = new ContextDefinition(item.getValue().getAsJsonObject());	
+					state = this.activeContext.validate();
 				}else {
 					if(item.getValue().isJsonPrimitive()) {
 						IRI.isAbsolute(item.getValue().getAsString());
@@ -119,9 +119,24 @@ public class JSONLDDocument implements JSONLDValidator {
 				}
 				
 			}else {
-				/*
-				 * analizar todos los demas casos
-				 */
+				//A JSON object is a node object if it exists outside of a JSON-LD context 
+				if(item.getValue().isJsonObject()) {
+					state = new NodeObject(this.activeContext, item.getValue().getAsJsonObject()).validate();
+				}
+				
+				if(item.getValue().isJsonPrimitive()) {
+					
+				}
+				
+				if(item.getValue().isJsonArray()) {
+					
+				}
+				
+				if(item.getValue().isJsonNull()) {
+					
+				}
+				
+
 				
 			}
 

@@ -35,7 +35,9 @@ public class ExpandedTermDefinition implements JSONLDValidator {
 	private static final String BLANK_NODE ="_:";
 
 	/**
-	 *
+	 * 
+	 * @param ctx Actual context  
+	 * @param jsonToValidate {@link JsonElement} to validate
 	 */
 	public ExpandedTermDefinition(ContextDefinition ctx,JsonElement jsonToValidate) {
 		this.jsonToValidate=jsonToValidate;

@@ -20,6 +20,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
@@ -33,6 +34,7 @@ public class NodeObject implements JSONLDValidator {
 	private JsonObject obj;
 	private Object father;
 	private ContextDefinition activeContext;
+	private boolean state;
 
 	/**
 	 *
@@ -45,10 +47,10 @@ public class NodeObject implements JSONLDValidator {
 	 */
 	
 	
-	public NodeObject(Object father, JsonObject obj) {
-		if (father instanceof ContextDefinition) {
-			throw new InvalidParameterException("A JSON object is a node object if it exists outside of a JSON-LD context");
-			}
+	public NodeObject(ContextDefinition father/*Object father*/, JsonObject obj) {
+//		if (father instanceof ContextDefinition) {
+//			throw new InvalidParameterException("A JSON object is a node object if it exists outside of a JSON-LD context");
+//			}
 		this.father = father;
 		this.obj = obj;
 	}
@@ -57,12 +59,12 @@ public class NodeObject implements JSONLDValidator {
 	 * Context's value must be null,
 	 * an absolute IRI, a relative IRI, or a context definition.
 	 */
-	private boolean isValidContext(JsonElement context) {
-		return context.isJsonNull()
-		|| IRI.isAbsolute(context.getAsString())
-		|| IRI.isRelative(null,context.getAsString())
-		|| new ContextDefinition(context.getAsJsonObject()).validate();
-	}
+//	private boolean isValidContext(JsonElement context) {
+//		return context.isJsonNull()
+//		|| IRI.isAbsolute(context.getAsString())
+//		|| IRI.isRelative(null,context.getAsString())
+//		|| new ContextDefinition(context.getAsJsonObject()).validate();
+//	}
 
 	/*
 	 * (non-Javadoc)
@@ -72,47 +74,73 @@ public class NodeObject implements JSONLDValidator {
 	 * ()
 	 */
 	public boolean validate() {
+		//If the node object contains the @context key, its value MUST be null, an absolute IRI, a relative IRI, a context definition, or an array composed of any of these.
+		
+		if(this.activeContext!=null) return false;
+		for (Entry<String, JsonElement> element : this.obj.entrySet()) {
+			if(element.getKey().equals(JsonLdKeyword.CONTEXT)) {
+				if(element.getValue().isJsonArray()) {
+					JsonArray jsa =element.getValue().getAsJsonArray();
+					for (JsonElement item : jsa) {
+//							if(item.isJsonObject()) {
+//								//item.getAsJsonObject().get(JsonLdKeyword.CONTEXT.toString());
+//							}
+						System.out.println(item);
+					}
+				}else {
+					this.state =element.getValue().isJsonNull() || IRI.isAbsolute(element.getValue().getAsString()) || IRI.isRelative(null, element.getValue().getAsString());
+				}
+				
+				
+			}
+			//this.state = IRI.isAbsolute(element.getKey()) || IRI.isCompact(activeContext, element) || Term.isTerm(element.getKey());
+		}
+		
+		
+		
 		// A node object must be a JSON object.
-		if (!obj.isJsonObject()) {
-			return false;
-		}
+//		if (!obj.isJsonObject()) {
+//			return false;
+//		}
 		//it is not the top-most JSON object in the JSON-LD document consisting of no other members than @graph and @context.
-		if (father instanceof JSONLDDocument
-				&& obj.entrySet().size() == 2
-				&& obj.entrySet().contains(JsonLdKeyword.GRAPH.toString())
-				&& obj.entrySet().contains(JsonLdKeyword.CONTEXT.toString())) {
-			return false;
-		}
-
+//		if (father instanceof JSONLDDocument
+//				&& obj.entrySet().contains(JsonLdKeyword.GRAPH.toString())
+//				&& obj.entrySet().contains(JsonLdKeyword.CONTEXT.toString())
+//				) {
+//			return false;
+//		}
+//		if (father instanceof JSONLDDocument && obj.entrySet().contains(JsonLdKeyword.GRAPH.toString())) {
+//			return false;
+//		}
 		/* 
 		 * If the node object contains the @context key, its value must be null,
 		 * an absolute IRI, a relative IRI, a context definition,
 		 * or an array composed of any of these.
 		 */
-		if (obj.entrySet().contains(JsonLdKeyword.CONTEXT.toString())) {
-			JsonElement context = obj.get(JsonLdKeyword.CONTEXT.toString());
-			if (context.isJsonArray()) {
-				boolean allContextValid = true;
-				for (JsonElement je : context.getAsJsonArray()) {
-					allContextValid &= isValidContext(je);
-					if (allContextValid) {
-						if (activeContext == null) {
-							activeContext = new ContextDefinition(null);
-						}else {
-							//activeContext.merge(new ContextDefinition(null));
-						}
-					}
-				}
-				if (!allContextValid) {
-					return false;
-				}
-			} else if (isValidContext(context)) {
-				activeContext = new ContextDefinition(null);
-			}
-			else {
-				return false;
-			}
-		}
+//		if (obj.entrySet().contains(JsonLdKeyword.CONTEXT.toString())) {
+//			JsonElement context = obj.get(JsonLdKeyword.CONTEXT.toString());
+//			if (context.isJsonArray()) {
+//				boolean allContextValid = true;
+//				for (JsonElement je : context.getAsJsonArray()) {
+//					allContextValid &= isValidContext(je);
+//					if (allContextValid) {
+//						if (activeContext == null) {
+//							activeContext = new ContextDefinition(null);
+//						}else {
+//							//activeContext.merge(new ContextDefinition(null));
+//						}
+//					}
+//				}
+//				if (!allContextValid) {
+//					return false;
+//				}
+//			} else if (isValidContext(context)) {
+//				activeContext = new ContextDefinition(null);
+//			}
+//			else {
+//				return false;
+//			}
+//		}
 
 		/* All keys which are not IRIs, compact IRIs, terms valid in the active context,
 		 * or one of the following keywords must be ignored when
