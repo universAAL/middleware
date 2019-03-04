@@ -15,6 +15,8 @@
  ******************************************************************************/
 package org.universAAL.middleware.serialization.json.grammar;
 
+import org.universAAL.middleware.serialization.json.JsonLdKeyword;
+
 /**
  * @author amedrano
  * @see <a href=https://www.w3.org/TR/2014/REC-json-ld-20140116/#terms>https://www.w3.org/TR/2014/REC-json-ld-20140116/#terms</a>
@@ -36,7 +38,7 @@ public class Term {
 	 * @see <a href=https://www.w3.org/TR/2014/REC-json-ld-20140116/#terms>https://www.w3.org/TR/2014/REC-json-ld-20140116/#terms</a>
 	 */
 	static public boolean isTerm(String candidate) {
-		return !candidate.startsWith("@");
+		return !(JsonLdKeyword.isKeyword(candidate) || candidate.startsWith("@"));
 	}
 
 	//TODO add expand method with active context

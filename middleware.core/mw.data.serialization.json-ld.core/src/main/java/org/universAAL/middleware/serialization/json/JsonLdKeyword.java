@@ -19,7 +19,7 @@ public enum JsonLdKeyword {
 	CONTEXT("@context"), ID("@id"), VALUE("@value"), LANG("@language"), TYPE(
 			"@type"), CONTAINER("@container"), LIST("@list"), SET("@set"), REVERSE(
 			"@reverse"), INDEX("@index"), BASE("@base"), VOCAB("@vocab"), GRAPH(
-			"@graph"), ;
+			"@graph"),BLANK_NODE("_:") ;
 	private final String text;
 
 	/**

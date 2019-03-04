@@ -29,56 +29,67 @@ import com.google.gson.JsonObject;
 public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<String, JsonElement> > {
 	private JsonObject jsonToValidate = null;
 	private static final String BLANK_NODE ="_:";
-	
+	private boolean state = false;
 	public JsonObject getJsonToValidate() {
 		return jsonToValidate;
 	}
 
 
 	//A context definition MUST be a JSON object whose keys MUST either be terms, compact IRIs, absolute IRIs, or the keywords @language, @base, and @vocab.
-	public ContextDefinition(JsonObject jsonObjectOrReference) {
+	public ContextDefinition(JsonElement jsonObjectOrReference) {
 
-//		if (jsonObjectOrReference.isJsonObject()) {
-//			this.jsonToValidate = jsonObjectOrReference.getAsJsonObject();
-//		}
-//		
-//		if (jsonObjectOrReference.isJsonPrimitive()) {
-//			jsonObjectOrReference.getAsString();
-//			// TODO read Context from reference.openStream()
-//		}
-		this.jsonToValidate = jsonObjectOrReference;
+		if (jsonObjectOrReference.isJsonObject()) {
+			this.jsonToValidate = jsonObjectOrReference.getAsJsonObject();
+		}
+		
+		if (jsonObjectOrReference.isJsonPrimitive() &&  !this.state) {
+			this.state = true;
+			  if (IRI.isAbsolute(jsonObjectOrReference.getAsString())) {
+				// TODO read Context from reference.openStream() and validate online context and control how to get the correct flag	  
+			  }
+			
+		}
+
 		System.out.println("loading from ContextDefinition class->"+jsonObjectOrReference);
 	}
 
 
- 
-	
-
-	
-
 
 	public boolean validate() {
-		boolean state = true;
+		
 
-		for (Entry<String, JsonElement> element : this.jsonToValidate.entrySet()) {
-			state = this.keyControl(element);
-			//The value of keys that are not keywords MUST be either an absolute IRI, a compact IRI, a term, a blank node identifier, a keyword, null, or an expanded term definition.
-			if(element.getValue().isJsonPrimitive()) {
-				if(! JsonLdKeyword.isKeyword(element.getValue().getAsString())) {
-					state = IRI.isAbsolute(element.getValue().getAsString()) ||
-							IRI.isCompact(this,element.getValue().getAsString()) ||
-							element.getValue().getAsString().equals(this.BLANK_NODE) ||
-							new ExpandedTermDefinition(this,element.getValue()).validate();	
+		if(this.jsonToValidate!=null) {
+			
+				if(jsonToValidate.isJsonArray()) {
+					//pude tener 2 formas de contextos- expanded o referidos
 				}
 				
-			}else {
-				if( element.getValue().isJsonObject()) {
-					state = new ExpandedTermDefinition(this, element.getValue()).validate();
-				}
-			}
-		
-		}
+				if(jsonToValidate.isJsonObject()) {
 
+					for (Entry<String, JsonElement> element : this.jsonToValidate.getAsJsonObject(JsonLdKeyword.CONTEXT.toString()).entrySet()) {
+						
+						this.state = this.keyControl(element);
+						//The value of keys that are not keywords MUST be either an absolute IRI, a compact IRI, a term, a blank node identifier, a keyword, null, or an expanded term definition.
+						if(element.getValue().isJsonPrimitive()) {
+							if(! JsonLdKeyword.isKeyword(element.getValue().getAsString())) {
+								this.state = IRI.isAbsolute(element.getValue().getAsString()) ||
+										IRI.isCompact(this,element.getValue().getAsString()) ||
+										element.getValue().getAsString().equals(this.BLANK_NODE) ||
+										new ExpandedTermDefinition(this,element.getValue()).validate();	
+							}
+							
+						}else {
+							if( element.getValue().isJsonObject()) {
+								this.state = new ExpandedTermDefinition(this, element.getValue()).validate();
+							}
+						}
+					
+					}	
+					
+				}
+			
+
+		}
 		return state;
 	}
 
@@ -86,7 +97,7 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 	public boolean keyControl(Entry<String, JsonElement> itemToControl) {
 		//keys MUST either be terms, compact IRIs, absolute IRIs
 		//for (Entry<String, JsonElement> element : this.jsonToValidate.entrySet()) {
-		
+//		System.out.println("itemcontrol "+itemToControl);
 			if(Term.isTerm(itemToControl.getKey())) {
 				//keywords @language, @base, and @vocab.
 				//If the context definition has an @language key, its value MUST have the lexical form described in [BCP47] or be null.

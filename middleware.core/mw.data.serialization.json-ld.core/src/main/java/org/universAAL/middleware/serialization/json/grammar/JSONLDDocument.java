@@ -110,7 +110,7 @@ public class JSONLDDocument implements JSONLDValidator {
 			
 			if (item.getKey().equals(JsonLdKeyword.CONTEXT)) {
 				if(item.getValue().isJsonObject()) {
-					this.activeContext = new ContextDefinition(item.getValue().getAsJsonObject());	
+					this.activeContext = new ContextDefinition(item.getValue());	
 					state = this.activeContext.validate();
 				}else {
 					if(item.getValue().isJsonPrimitive()) {
