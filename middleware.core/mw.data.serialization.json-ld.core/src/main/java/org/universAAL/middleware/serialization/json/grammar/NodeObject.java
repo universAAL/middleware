@@ -79,28 +79,46 @@ public class NodeObject implements JSONLDValidator {
 	 * ()
 	 */
 	public boolean validate() {
-		//If the node object contains the @context key, its value MUST be null, an absolute IRI, a relative IRI, a context definition, or an array composed of any of these.
+		
+		//If the node object contains the @context key, its value MUST be null,
+		//an absolute IRI, a relative IRI, a context definition, or an array composed of any of these.
 		
 		//LogUtils.logDebug(JSONLDSerialization.owner, this.getClass(), "validate","the given Json document has not any context to process");
 		
-		//significa que ya se encontro un contexto antes y este no debera analizarse...si aqui tambien hay context entonces el JSONLD esta mal
+		//si active context esta null significa que ya se encontro un contexto antes y este no debera analizarse...
+		//si aqui tambien hay context entonces el JSONLD esta mal
 		if(this.activeContext!=null) return false;
 		for (Entry<String, JsonElement> element : this.obj.entrySet()) {
-
 			
+			//If the node object contains the @context key,
 			if(element.getKey().equals(JsonLdKeyword.CONTEXT.toString())) {
+				//an array composed of any of these
 				if(element.getValue().isJsonArray()) {
 					JsonArray jsa =element.getValue().getAsJsonArray();
 					for (JsonElement item : jsa) {
-						//System.out.println(item);
-							if(item.isJsonObject()) {
-								this.state = new ContextDefinition(item).validate(); 	
+							//control each member of array if is satisfactible context definition
+							if(item.isJsonObject()) 
+								if (! (new ContextDefinition(item).validate()) )
+									return false;
+							
+							if(item.isJsonPrimitive()) {
+								//TODO if the context its a IRI need to be controlled, in the example on documentation the 
+								//json into array are IRI refecenre				
 							}
-
+						
+							
 					}
 				}else {
+					//if it not an array...
 					if(element.getValue().isJsonPrimitive()) {
-						this.state =element.getValue().isJsonNull() || IRI.isAbsolute(element.getValue().getAsString()) || IRI.isRelative(null, element.getValue().getAsString());	
+						//value MUST be null,an absolute IRI, a relative IRI, a context definition
+						if ( 	!(element.getValue().isJsonNull() ||
+								IRI.isAbsolute(element.getValue().getAsString()) ||
+								IRI.isRelative(null, element.getValue().getAsString()))
+							)
+							return false;
+					}else {
+						//TODO throw error
 					}
 					
 				}
@@ -112,10 +130,12 @@ public class NodeObject implements JSONLDValidator {
 			 *  See section 5.3 Node Identifiers, section 6.3 Compact IRIs, and section 6.14 Identifying Blank Nodes for further discussion on @id values.
 			 * */
 			if(element.getKey().equals(JsonLdKeyword.ID.toString())) {
-						this.state = IRI.isAbsolute(element.getValue().getAsString()) ||
+						if ( ! (IRI.isAbsolute(element.getValue().getAsString()) ||
 									IRI.isRelative("", element.getValue().getAsString()) ||
 									IRI.isCompact(this.activeContext, element.getValue().getAsString()) || 
-									element.getValue().getAsString().equals(JsonLdKeyword.BLANK_NODE);
+									element.getValue().getAsString().equals(JsonLdKeyword.BLANK_NODE))
+									)
+							return false;
 			}
 			/*
 			 * 
@@ -128,11 +148,11 @@ public class NodeObject implements JSONLDValidator {
 			if(element.getKey().equals(JsonLdKeyword.GRAPH.toString())) {
 				
 				if(element.getValue().isJsonObject()) {
-					//node object control
+					//node object control. Take care of infinite loop
 				}
 				
 				if(element.getValue().isJsonArray()) {
-					//array of node objects control
+					//array of node objects control.Take care of infinite loop
 				}
 				
 				
@@ -143,64 +163,19 @@ public class NodeObject implements JSONLDValidator {
 			 *   See section 5.4 Specifying the Type for further discussion on @type values.
 			 * */
 			if(element.getKey().equals(JsonLdKeyword.TYPE.toString())) {
-				
+				if(element.getValue().isJsonPrimitive()) {
+					if( !(IRI.isAbsolute(element.getValue().getAsString()) ||
+							/*IRI.isRelative(baseIRI, candidate) ||*/ 
+							IRI.isCompact(activeContext, element.getValue().getAsString()) ||
+							element.getValue().equals(JsonLdKeyword.BLANK_NODE.toString())
+							) ) return false;					
+				}
+
 						
 			}
 			//this.state = IRI.isAbsolute(element.getKey()) || IRI.isCompact(activeContext, element) || Term.isTerm(element.getKey());
 		}
-		
-		
-		
-		// A node object must be a JSON object.
-//		if (!obj.isJsonObject()) {
-//			return false;
-//		}
-		//it is not the top-most JSON object in the JSON-LD document consisting of no other members than @graph and @context.
-//		if (father instanceof JSONLDDocument
-//				&& obj.entrySet().contains(JsonLdKeyword.GRAPH.toString())
-//				&& obj.entrySet().contains(JsonLdKeyword.CONTEXT.toString())
-//				) {
-//			return false;
-//		}
-//		if (father instanceof JSONLDDocument && obj.entrySet().contains(JsonLdKeyword.GRAPH.toString())) {
-//			return false;
-//		}
-		/* 
-		 * If the node object contains the @context key, its value must be null,
-		 * an absolute IRI, a relative IRI, a context definition,
-		 * or an array composed of any of these.
-		 */
-//		if (obj.entrySet().contains(JsonLdKeyword.CONTEXT.toString())) {
-//			JsonElement context = obj.get(JsonLdKeyword.CONTEXT.toString());
-//			if (context.isJsonArray()) {
-//				boolean allContextValid = true;
-//				for (JsonElement je : context.getAsJsonArray()) {
-//					allContextValid &= isValidContext(je);
-//					if (allContextValid) {
-//						if (activeContext == null) {
-//							activeContext = new ContextDefinition(null);
-//						}else {
-//							//activeContext.merge(new ContextDefinition(null));
-//						}
-//					}
-//				}
-//				if (!allContextValid) {
-//					return false;
-//				}
-//			} else if (isValidContext(context)) {
-//				activeContext = new ContextDefinition(null);
-//			}
-//			else {
-//				return false;
-//			}
-//		}
 
-		/* All keys which are not IRIs, compact IRIs, terms valid in the active context,
-		 * or one of the following keywords must be ignored when
-		 * processed: @context, @id, @graph, @type, @reverse, or @index
-		 */
-
-		//TODO ...
 
 		return true;
 	}

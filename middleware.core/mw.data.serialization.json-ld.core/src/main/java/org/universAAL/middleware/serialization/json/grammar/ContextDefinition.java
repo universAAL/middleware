@@ -124,6 +124,19 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 				}
 
 	}
+	//a term defined in the active context expanding into an absolute IRI, or an array of any of these.
+	public boolean ActiveContextTermControl(JsonElement candidate) {
+		for (Entry<String, JsonElement> element : this.jsonToValidate.entrySet()) {
+			if(candidate.isJsonPrimitive() || candidate.isJsonArray()) {
+				
+			}else {
+				//throw error
+				return false;
+			}
+		}
+		return true;
+	}
+	
 
 
 	
