@@ -168,12 +168,37 @@ public class NodeObject implements JSONLDValidator {
 							/*IRI.isRelative(baseIRI, candidate) ||*/ 
 							IRI.isCompact(activeContext, element.getValue().getAsString()) ||
 							element.getValue().equals(JsonLdKeyword.BLANK_NODE.toString())
+							//TODO see:  a term defined in the active context expanding into an absolute IRI, or an array of any of these
 							) ) return false;					
 				}
 
 						
 			}
-			//this.state = IRI.isAbsolute(element.getKey()) || IRI.isCompact(activeContext, element) || Term.isTerm(element.getKey());
+			
+			/*3
+			 * .If the node object contains the @reverse key, its value MUST be a JSON object containing members representing reverse properties. 
+			 * Each value of such a reverse property MUST be an absolute IRI,
+			 *  a relative IRI, a compact IRI, a blank node identifier, a node object or an array containing a combination of these.*/
+			
+			if( element.getKey().equals(JsonLdKeyword.REVERSE)) {
+				if(element.getValue().isJsonObject()) {
+					JsonObject jso = element.getValue().getAsJsonObject(); 
+					
+				}else {
+					//TODO throw error
+					return false;
+				}
+			}
+			
+			/*
+			 * If the node object contains the @index key, its value MUST be a string.
+			 *  See section 6.16 Data Indexing for further discussion on @index values.
+			 * */
+			if(element.getKey().equals(JsonLdKeyword.INDEX)){
+				if(!element.getValue().isJsonPrimitive()) return false;
+			}
+		
+			//TODO :Keys in a node object that are not keywords MAY expand to an absolute IRI using the active context. The values associated with keys that expand to an absolute IRI MUST be one of the following:
 		}
 
 

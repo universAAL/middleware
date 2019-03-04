@@ -50,6 +50,21 @@ public class IRI {
 		return true;
 	}
 
+	
+	
+	public static boolean isAbsolute(Entry<String, JsonElement> element) {
+		try {
+			URL url = new URL(element.getKey());
+		} catch (Exception e) {
+			LogUtils.logDebug(JSONLDSerialization.owner, IRI.class, "validate", e.toString());
+			return false;
+			
+		}
+		return true;
+	}
+	
+	
+	
 	/**
 	 * A relative IRI is an IRI that is relative to some other absolute IRI. In JSON-LD all relative IRIs are resolved relative to the base IRI.
 	 * @param candidate
