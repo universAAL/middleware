@@ -123,16 +123,21 @@ public class JSONLDDocument implements JSONLDValidator {
 				System.out.println(item.getValue());
 				
 				if(item.getValue().isJsonArray()) {
-					state = new NodeObject(this.activeContext, item.getValue().getAsJsonArray().get(0).getAsJsonObject()).validate();
-				}else {
-					System.out.println("not json object "+item.getValue());
+					//print here item.getValue() to see why ..getAsJsonArray().get(0).getAsJsonObject()...in the following line
+					//gets [{.....}]-> an array of a object
+					if(item.getValue().getAsJsonArray().size()==1) {
+						state = new NodeObject(this.activeContext, item.getValue().getAsJsonArray().get(0).getAsJsonObject()).validate();
+					}else {
+						//TODO throw error or handle the error or do extra control
+					}
+ 					
 				}
 				
 				if(item.getValue().isJsonPrimitive()) {
 					
 				}
 				
-				if(item.getValue().isJsonArray()) {
+				if(item.getValue().isJsonObject()) {
 					
 				}
 				

@@ -79,16 +79,16 @@ public class NodeObject implements JSONLDValidator {
 	 * ()
 	 */
 	public boolean validate() {
-		System.out.println("validating...");
+		
 		
 		//If the node object contains the @context key, its value MUST be null,
 		//an absolute IRI, a relative IRI, a context definition, or an array composed of any of these.
 		
-		//LogUtils.logDebug(JSONLDSerialization.owner, this.getClass(), "validate","the given Json document has not any context to process");
+//		LogUtils.logDebug(JSONLDSerialization.owner, this.getClass(), "validate","the given Json document has not any context to process");
 		
 		//si active context esta null significa que ya se encontro un contexto antes y este no debera analizarse...
 		//si aqui tambien hay context entonces el JSONLD esta mal
-		System.out.println("activeContext->"+this.activeContext==null);
+		System.out.println(this.activeContext==null);
 		if(this.activeContext!=null) return false;
 		for (Entry<String, JsonElement> element : this.obj.entrySet()) {
 			
@@ -111,8 +111,8 @@ public class NodeObject implements JSONLDValidator {
 							
 					}
 				}else {
-					//if it not an array...
-					if(element.getValue().isJsonPrimitive()) {
+					//if it is not an array...
+					if(element.getValue().isJsonPrimitive()) {//control if it is a string to be processed as IRI
 						//value MUST be null,an absolute IRI, a relative IRI, a context definition
 						if ( 	!(element.getValue().isJsonNull() ||
 								IRI.isAbsolute(element.getValue().getAsString()) ||
@@ -120,6 +120,8 @@ public class NodeObject implements JSONLDValidator {
 							)
 							return false;
 					}else {
+						//return false;
+						//if it isn't primitive the node was incorrect structure
 						//TODO throw error
 					}
 					
@@ -152,7 +154,7 @@ public class NodeObject implements JSONLDValidator {
 				if(element.getValue().isJsonObject()) {
 					//node object control. Take care of infinite loop
 				}
-				
+				//cero or more node 
 				if(element.getValue().isJsonArray()) {
 					//array of node objects control.Take care of infinite loop
 				}
