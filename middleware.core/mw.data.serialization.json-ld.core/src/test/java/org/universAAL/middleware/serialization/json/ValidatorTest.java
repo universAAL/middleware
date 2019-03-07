@@ -15,14 +15,14 @@ public class ValidatorTest {
 
 	@Test
 	public void SimpleContext() throws IOException {
-		InputStream is = this.getClass().getClassLoader().getResource("SimpleContextExample.json").openStream();
+		InputStream is = this.getClass().getClassLoader().getResource("SImpleContextExample.json").openStream();
 		JSONLDDocument doc = new JSONLDDocument(is);
 		is.close();
 		assertTrue(doc.validate());
 	}
 	@Test
 	public void multipleContextTest() throws IOException {
-		InputStream is = this.getClass().getClassLoader().getResource("MultipleContextExample.json").openStream();
+		InputStream is = this.getClass().getClassLoader().getResource("MultipleComtextExample.json").openStream();
 		JSONLDDocument doc = new JSONLDDocument(is);
 		is.close();
 		assertTrue(doc.validate());

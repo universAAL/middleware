@@ -79,6 +79,7 @@ public class NodeObject implements JSONLDValidator {
 	 * ()
 	 */
 	public boolean validate() {
+		System.out.println("validating...");
 		
 		//If the node object contains the @context key, its value MUST be null,
 		//an absolute IRI, a relative IRI, a context definition, or an array composed of any of these.
@@ -87,6 +88,7 @@ public class NodeObject implements JSONLDValidator {
 		
 		//si active context esta null significa que ya se encontro un contexto antes y este no debera analizarse...
 		//si aqui tambien hay context entonces el JSONLD esta mal
+		System.out.println("activeContext->"+this.activeContext==null);
 		if(this.activeContext!=null) return false;
 		for (Entry<String, JsonElement> element : this.obj.entrySet()) {
 			

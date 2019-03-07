@@ -48,7 +48,6 @@ public class JSONLDDocument implements JSONLDValidator {
 	private ContextDefinition activeContext = null;
 	private JsonObject mainJSON = null;
 	private JsonParser jp = null;
-	private List<JsonObject> contextArray = null;
 
 	/**	
 	 * 
@@ -58,7 +57,6 @@ public class JSONLDDocument implements JSONLDValidator {
 	 */
 	public JSONLDDocument(InputStream jsonToBeProcessed) throws JsonParseException, JsonSyntaxException,ClassCastException{
 
-		this.contextArray = new ArrayList<JsonObject>();
 		String jsonString = "";
 		Scanner s = new Scanner(jsonToBeProcessed);
 		s.useDelimiter("\\A");
@@ -67,6 +65,7 @@ public class JSONLDDocument implements JSONLDValidator {
 		this.jp = new JsonParser();
 		//throws MalformedJsonException if the json is mal formed
 		//si no es un objecto json el string falla el codigo
+		
 		this.mainJSON = (JsonObject) jp.parse(jsonString);
 
 	}
@@ -105,7 +104,7 @@ public class JSONLDDocument implements JSONLDValidator {
 //			System.out.println("the given Json document has not any context to process");
 //		}
 		//-------------------------------------------------------
-		
+		if(this.mainJSON == null ) System.out.println("NULL");
 		for (Entry<String, JsonElement> item : this.mainJSON.entrySet()) {
 			
 			if (item.getKey().equals(JsonLdKeyword.CONTEXT)) {
@@ -120,8 +119,13 @@ public class JSONLDDocument implements JSONLDValidator {
 				
 			}else {
 				//A JSON object is a node object if it exists outside of a JSON-LD context 
-				if(item.getValue().isJsonObject()) {
-					state = new NodeObject(this.activeContext, item.getValue().getAsJsonObject()).validate();
+				System.out.println("jsonlddocument.java validating as node object");
+				System.out.println(item.getValue());
+				
+				if(item.getValue().isJsonArray()) {
+					state = new NodeObject(this.activeContext, item.getValue().getAsJsonArray().get(0).getAsJsonObject()).validate();
+				}else {
+					System.out.println("not json object "+item.getValue());
 				}
 				
 				if(item.getValue().isJsonPrimitive()) {
