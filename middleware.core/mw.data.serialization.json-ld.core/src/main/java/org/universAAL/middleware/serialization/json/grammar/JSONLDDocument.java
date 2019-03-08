@@ -106,8 +106,8 @@ public class JSONLDDocument implements JSONLDValidator {
 		//-------------------------------------------------------
 		if(this.mainJSON == null ) System.out.println("NULL");
 		for (Entry<String, JsonElement> item : this.mainJSON.entrySet()) {
-			
-			if (item.getKey().equals(JsonLdKeyword.CONTEXT)) {
+			System.out.println(item.getKey());
+			if (item.getKey().equals(JsonLdKeyword.CONTEXT.toString())) {
 				if(item.getValue().isJsonObject()) {
 					this.activeContext = new ContextDefinition(item.getValue());	
 					state = this.activeContext.validate();

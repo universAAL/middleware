@@ -57,7 +57,7 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 
 	public boolean validate() {
 		
-
+		 
 		if(this.jsonToValidate!=null) {
 			
 				if(jsonToValidate.isJsonArray()) {
@@ -66,7 +66,7 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 				
 				if(jsonToValidate.isJsonObject()) {
 
-					for (Entry<String, JsonElement> element : this.jsonToValidate.getAsJsonObject(JsonLdKeyword.CONTEXT.toString()).entrySet()) {
+					for (Entry<String, JsonElement> element : this.jsonToValidate.getAsJsonObject().entrySet()) {
 						
 						this.state = this.keyControl(element);
 						//The value of keys that are not keywords MUST be either an absolute IRI, a compact IRI, a term, a blank node identifier, a keyword, null, or an expanded term definition.
@@ -89,6 +89,8 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 				}
 			
 
+		}else {
+			System.out.println("null json to validate");
 		}
 		return state;
 	}
