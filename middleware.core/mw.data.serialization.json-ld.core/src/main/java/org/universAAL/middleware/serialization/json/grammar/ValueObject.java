@@ -58,7 +58,7 @@ public class ValueObject implements KeyControl<String>, JSONLDInterpreter<JsonOb
 			// It MAY also contain an @type, an @language, an @index, or an @context key 
 //			this.keyControl();
 //			return true;
-			return this.keyControl(null);
+			return this.valueOfKeyControl(null);
 		}
 		return false;
 	}
@@ -73,7 +73,7 @@ public class ValueObject implements KeyControl<String>, JSONLDInterpreter<JsonOb
 		return null;
 	}
 	
-	public boolean keyControl(String t) {
+	public boolean valueOfKeyControl(String t) {
 		//MUST NOT contain both an @type and an @language key at the same time
 		//TODO  A value object MUST NOT contain any other keys that expand to an absolute IRI or keyword.
 		if ( this.mainJSON.has(JsonLdKeyword.LANG.toString()) &&  this.mainJSON.has(JsonLdKeyword.TYPE.toString() )){
@@ -83,6 +83,11 @@ public class ValueObject implements KeyControl<String>, JSONLDInterpreter<JsonOb
 			 System.out.println(var);
 		}
 		return true;
+	}
+
+	public boolean keyControl(String itemToControlKey) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 

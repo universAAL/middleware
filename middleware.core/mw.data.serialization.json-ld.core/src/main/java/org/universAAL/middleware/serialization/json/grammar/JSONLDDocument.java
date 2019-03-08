@@ -106,41 +106,43 @@ public class JSONLDDocument implements JSONLDValidator {
 		//-------------------------------------------------------
 		if(this.mainJSON == null ) System.out.println("NULL");
 		for (Entry<String, JsonElement> item : this.mainJSON.entrySet()) {
-			System.out.println(item.getKey());
+			
 			if (item.getKey().equals(JsonLdKeyword.CONTEXT.toString())) {
-				if(item.getValue().isJsonObject()) {
-					this.activeContext = new ContextDefinition(item.getValue());	
-					state = this.activeContext.validate();
-				}else {
+				
+					//simple context
+					if(item.getValue().isJsonObject()) {
+						this.activeContext = new ContextDefinition(item.getValue());	
+						state = this.activeContext.validate();
+					}
+					
 					if(item.getValue().isJsonPrimitive()) {
 						IRI.isAbsolute(item.getValue().getAsString());
 					}
-				}
+					//multiple contexts
+					if(item.getValue().isJsonArray()) {
+						
+						for (int i = 0; i < item.getValue().getAsJsonArray().size(); i++) {
+						
+							if (  !(new NodeObject(this.activeContext, item.getValue().getAsJsonArray().get(i).getAsJsonObject()).validate()) ) {
+								return false;
+							}
+						}
+					}
+				
 				
 			}else {
-				//A JSON object is a node object if it exists outside of a JSON-LD context 
-				System.out.println("jsonlddocument.java validating as node object");
-				System.out.println(item.getValue());
-				
+
 				if(item.getValue().isJsonArray()) {
-					//print here item.getValue() to see why ..getAsJsonArray().get(0).getAsJsonObject()...in the following line
-					//gets [{.....}]-> an array of a object
-					if(item.getValue().getAsJsonArray().size()==1) {
-						state = new NodeObject(this.activeContext, item.getValue().getAsJsonArray().get(0).getAsJsonObject()).validate();
-					}else {
-						//TODO throw error or handle the error or do extra control
-					}
- 					
-				}
-				
-				if(item.getValue().isJsonPrimitive()) {
-					
+
 				}
 				
 				if(item.getValue().isJsonObject()) {
-					
+					//node object analyze
+				}				
+				if(item.getValue().isJsonPrimitive()) {
+					//validate prmitive as IRI...
 				}
-				
+
 				if(item.getValue().isJsonNull()) {
 					
 				}
@@ -152,7 +154,7 @@ public class JSONLDDocument implements JSONLDValidator {
 			
 		}
 
-		return state;
+		return true;
 	}
 
 }

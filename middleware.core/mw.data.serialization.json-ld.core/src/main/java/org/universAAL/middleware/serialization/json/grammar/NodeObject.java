@@ -88,7 +88,6 @@ public class NodeObject implements JSONLDValidator {
 		
 		//si active context esta null significa que ya se encontro un contexto antes y este no debera analizarse...
 		//si aqui tambien hay context entonces el JSONLD esta mal
-		System.out.println(this.activeContext==null);
 		if(this.activeContext!=null) return false;
 		for (Entry<String, JsonElement> element : this.obj.entrySet()) {
 			

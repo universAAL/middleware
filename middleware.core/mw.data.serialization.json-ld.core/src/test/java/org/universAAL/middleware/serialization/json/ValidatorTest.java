@@ -15,17 +15,34 @@ public class ValidatorTest {
 
 	@Test
 	public void SimpleContext() throws IOException {
+		boolean status;
+		//ReferencedContext.json
 		InputStream is = this.getClass().getClassLoader().getResource("SImpleContextExample.json").openStream();
 		JSONLDDocument doc = new JSONLDDocument(is);
 		is.close();
-		assertTrue(doc.validate());
+		status=doc.validate();
+		System.out.println(status);
+		assertTrue(status);
 	}
 	@Test
 	public void multipleContextTest() throws IOException {
+		boolean status;
 		InputStream is = this.getClass().getClassLoader().getResource("MultipleComtextExample.json").openStream();
 		JSONLDDocument doc = new JSONLDDocument(is);
 		is.close();
-		assertTrue(doc.validate());
+		status=doc.validate();
+		System.out.println(status);
+		assertTrue(status);
+	}
+	@Test
+	public void referencedContext() throws IOException {
+		boolean status;
+		InputStream is = this.getClass().getClassLoader().getResource("ReferencedContext.json").openStream();
+		JSONLDDocument doc = new JSONLDDocument(is);
+		is.close();
+		status=doc.validate();
+		System.out.println(status);
+		assertTrue(status);
 	}
 	
 	//este test es para probar el caso de tener un array con context dentro
