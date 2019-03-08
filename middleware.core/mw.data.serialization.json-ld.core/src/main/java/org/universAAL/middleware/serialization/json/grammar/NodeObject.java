@@ -89,6 +89,13 @@ public class NodeObject implements JSONLDValidator {
 		//si active context esta null significa que ya se encontro un contexto antes y este no debera analizarse...
 		//si aqui tambien hay context entonces el JSONLD esta mal
 		if(this.activeContext!=null) return false;
+		//it does not contain the @value, @list, or @set keywords,
+		if(this.obj.entrySet().contains(JsonLdKeyword.VALUE) ||
+				this.obj.entrySet().contains(JsonLdKeyword.LIST) ||
+				this.obj.entrySet().contains(JsonLdKeyword.SET))
+			return false;
+		
+		
 		for (Entry<String, JsonElement> element : this.obj.entrySet()) {
 			
 			//If the node object contains the @context key,
