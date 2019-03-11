@@ -55,7 +55,7 @@ public class JSONLDDocument implements JSONLDValidator {
 	 * @throws JsonParseException
 	 * @throws JsonSyntaxException
 	 */
-	public JSONLDDocument(InputStream jsonToBeProcessed) throws JsonParseException, JsonSyntaxException,ClassCastException{
+	public JSONLDDocument(InputStream jsonToBeProcessed) throws JsonParseException, JsonSyntaxException,ClassCastException,NullPointerException{
 
 		String jsonString = "";
 		Scanner s = new Scanner(jsonToBeProcessed);
@@ -65,8 +65,14 @@ public class JSONLDDocument implements JSONLDValidator {
 		this.jp = new JsonParser();
 		//throws MalformedJsonException if the json is mal formed
 		//si no es un objecto json el string falla el codigo
+		try {
+			
+			this.mainJSON = (JsonObject) jp.parse(jsonString);
+		}catch (Exception e) {
+			//TODO log error
 		
-		this.mainJSON = (JsonObject) jp.parse(jsonString);
+		}
+		
 
 	}
 
@@ -78,7 +84,6 @@ public class JSONLDDocument implements JSONLDValidator {
 	 * @return {@link Boolean} value indicating the status of the process
 	 */
 	public boolean validate() {
-		boolean state =false;
 		
 //		// ¿has member called context (key equal context)?
 //		if (this.mainJSON.has(this.CONTEXT)) {
@@ -104,26 +109,28 @@ public class JSONLDDocument implements JSONLDValidator {
 //			System.out.println("the given Json document has not any context to process");
 //		}
 		//-------------------------------------------------------
-		if(this.mainJSON == null ) System.out.println("NULL");
+		
 		for (Entry<String, JsonElement> item : this.mainJSON.entrySet()) {
-			
+			//analyze only elements with context key
 			if (item.getKey().equals(JsonLdKeyword.CONTEXT.toString())) {
-				
 					//simple context
 					if(item.getValue().isJsonObject()) {
 						this.activeContext = new ContextDefinition(item.getValue());	
-						state = this.activeContext.validate();
-					}
+						if (!this.activeContext.validate()) 
+							return false;
 					
+					}
 					if(item.getValue().isJsonPrimitive()) {
-						IRI.isAbsolute(item.getValue().getAsString());
+						if (!IRI.isAbsolute(item.getValue().getAsString())){
+							return false;
+						}
 					}
 					//multiple contexts
 					if(item.getValue().isJsonArray()) {
 						
 						for (int i = 0; i < item.getValue().getAsJsonArray().size(); i++) {
 						
-							if (  !(new NodeObject(this.activeContext, item.getValue().getAsJsonArray().get(i).getAsJsonObject()).validate()) ) {
+							if (  !(new NodeObject(this.activeContext, item.getValue().getAsJsonArray().get(i)).validate()) ) {
 								return false;
 							}
 						}
@@ -138,13 +145,16 @@ public class JSONLDDocument implements JSONLDValidator {
 				
 				if(item.getValue().isJsonObject()) {
 					//node object analyze
+					if(! new NodeObject(activeContext, item.getValue()).validate())
+						return false;
 				}				
 				if(item.getValue().isJsonPrimitive()) {
 					//validate prmitive as IRI...
+					
 				}
 
 				if(item.getValue().isJsonNull()) {
-					
+					//TODO: throw error
 				}
 				
 

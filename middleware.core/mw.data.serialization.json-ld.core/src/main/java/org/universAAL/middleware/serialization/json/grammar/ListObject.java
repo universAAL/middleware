@@ -15,17 +15,45 @@
  ******************************************************************************/
 package org.universAAL.middleware.serialization.json.grammar;
 
+import java.util.Map.Entry;
+import java.util.Set;
+
+import org.universAAL.middleware.serialization.json.JsonLdKeyword;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 /**
  * @author amedrano
  * @see <a href=https://www.w3.org/TR/2014/REC-json-ld-20140116/#lists-and-sets>https://www.w3.org/TR/2014/REC-json-ld-20140116/#lists-and-sets</a>
  */
-public class ListObject {
+public class ListObject implements JSONLDValidator{
+	private JsonElement candidate=null;
+	
+	public ListObject(JsonElement candidate) {
+		this.candidate=candidate;
+	}
 
-	/**
-	 *
-	 */
-	public ListObject() {
-		// TODO Auto-generated constructor stub
+	public boolean validate() {
+		//A list object MUST be a JSON object that contains no keys that expand to 
+		//an absolute IRI or keyword other than @list, @context, and @index.
+		
+		if(this.candidate.isJsonObject() && this.candidate != null) {
+			JsonObject obj = this.candidate.getAsJsonObject();
+			
+			for (Entry<String, JsonElement> element : obj.entrySet()) {
+				if( !(element.getKey().equals(JsonLdKeyword.LIST.toString()) ||
+						element.getKey().equals(JsonLdKeyword.CONTEXT.toString()) ||
+						element.getKey().equals(JsonLdKeyword.INDEX.toString())))
+					return false;
+     
+			}
+			
+		}else
+			//TODO  
+			return false;
+		
+		return true;
 	}
 
 }

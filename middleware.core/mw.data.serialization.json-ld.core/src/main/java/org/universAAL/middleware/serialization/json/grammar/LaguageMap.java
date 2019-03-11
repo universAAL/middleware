@@ -22,7 +22,12 @@ package org.universAAL.middleware.serialization.json.grammar;
 public class LaguageMap {
 
 	/**
-	 *
+	 *A language map is used to associate a 
+	 *language with a value in a way that allows easy programmatic access.
+	 *A language map may be used as a term value within a node object if
+	 *the term is defined with @container set to @language. 
+	 *The keys of a language map MUST be strings representing [BCP47] 
+	 *language codes and the values MUST be any of the following types:
 	 */
 	public LaguageMap() {
 		// TODO Auto-generated constructor stub

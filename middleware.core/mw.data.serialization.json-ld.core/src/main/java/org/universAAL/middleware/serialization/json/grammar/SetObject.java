@@ -15,17 +15,37 @@
  ******************************************************************************/
 package org.universAAL.middleware.serialization.json.grammar;
 
+import com.google.gson.JsonElement;
+
 /**
  * @author amedrano
  * @see <a href=https://www.w3.org/TR/2014/REC-json-ld-20140116/#lists-and-sets>https://www.w3.org/TR/2014/REC-json-ld-20140116/#lists-and-sets</a>
  */
-public class SetObject {
+public class SetObject implements JSONLDValidator{
+	private JsonElement candidate=null;
 
-	/**
-	 *
+	
+	/*
+	 *A set object MUST be a JSON object that contains no keys that expand to an absolute IRI or keyword other than @list, @context, and @index. 
+	 *Please note that the @index key will be ignored when being processed.
 	 */
-	public SetObject() {
-		// TODO Auto-generated constructor stub
+	
+	/**
+	 * 
+	 * @param candidate
+	 */
+	public SetObject(JsonElement candidate) {
+		this.candidate = candidate;
+	}
+
+
+	public boolean validate() {
+		
+			if(this.candidate != null && this.candidate.isJsonObject()) {
+				
+			}
+			
+		return true;
 	}
 
 }

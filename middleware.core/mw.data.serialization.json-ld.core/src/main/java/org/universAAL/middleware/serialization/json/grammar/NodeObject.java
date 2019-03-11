@@ -36,7 +36,7 @@ import com.google.gson.JsonObject;
  *      href=https://www.w3.org/TR/2014/REC-json-ld-20140116/#node-objects>https://www.w3.org/TR/2014/REC-json-ld-20140116/#node-objects</a>
  */
 public class NodeObject implements JSONLDValidator {
-	private JsonObject obj;
+	private JsonElement obj;
 	private Object father;
 	private ContextDefinition activeContext;
 	private boolean state;
@@ -52,7 +52,7 @@ public class NodeObject implements JSONLDValidator {
 	 */
 	
 	
-	public NodeObject(ContextDefinition father/*Object father*/, JsonObject obj) {
+	public NodeObject(ContextDefinition father/*Object father*/, JsonElement obj) {
 //		if (father instanceof ContextDefinition) {
 //			throw new InvalidParameterException("A JSON object is a node object if it exists outside of a JSON-LD context");
 //			}
@@ -89,14 +89,15 @@ public class NodeObject implements JSONLDValidator {
 		//si active context esta null significa que ya se encontro un contexto antes y este no debera analizarse...
 		//si aqui tambien hay context entonces el JSONLD esta mal
 		if(this.activeContext!=null) return false;
+		if(this.obj==null || !this.obj.isJsonObject()) return false;
 		//it does not contain the @value, @list, or @set keywords,
-		if(this.obj.entrySet().contains(JsonLdKeyword.VALUE) ||
-				this.obj.entrySet().contains(JsonLdKeyword.LIST) ||
-				this.obj.entrySet().contains(JsonLdKeyword.SET))
+		if(this.obj.getAsJsonObject().entrySet().contains(JsonLdKeyword.VALUE) ||
+				this.obj.getAsJsonObject().entrySet().contains(JsonLdKeyword.LIST) ||
+				this.obj.getAsJsonObject().entrySet().contains(JsonLdKeyword.SET))
 			return false;
 		
 		
-		for (Entry<String, JsonElement> element : this.obj.entrySet()) {
+		for (Entry<String, JsonElement> element : this.obj.getAsJsonObject().entrySet()) {
 			
 			//If the node object contains the @context key,
 			if(element.getKey().equals(JsonLdKeyword.CONTEXT.toString())) {
@@ -135,12 +136,53 @@ public class NodeObject implements JSONLDValidator {
 				
 				
 			}
+			
+			/*
+			 * Keys in a node object that are not keywords MAY expand to an absolute IRI using the active context
+			 * The values associated with keys that expand to an absolute IRI MUST be one of the following:*/
+			if(!JsonLdKeyword.isKeyword(element.getKey())) {
+				/*
+			    string,
+			    number,
+			    true,
+			    false,
+			    null,
+			    node object,
+			    value object,
+			    list object,
+			    set object,
+			    an array of zero or more of the possibilities above,
+			    a language map, or
+			    an index map
+			*/
+				
+				if(element.getValue().isJsonPrimitive()) {
+					//TODO null will be interpreted as primitive in this case
+					//no puede ser objeto ni array 
+				}else {
+					if(element.getValue().isJsonObject()) {
+						//puede ser node object, value object,list,set
+						if( !(new NodeObject(activeContext, element.getValue()).validate() ||
+							  new ValueObject(activeContext, element.getValue()).validate()) ||
+							  new SetAndListAnalyzer(element.getValue()).validate()	)
+							return false;
+					}
+					if(element.getValue().isJsonArray()) {
+						//an array of zero or more of the possibilities above,		
+					}
+					//TODO interpret index map and language map
+				}
+				
+				
+
+				
+			}
 			/*
 			 * If the node object contains the @id key, its value MUST be an absolute IRI, a relative IRI, or a compact IRI (including blank node identifiers).
 			 *  See section 5.3 Node Identifiers, section 6.3 Compact IRIs, and section 6.14 Identifying Blank Nodes for further discussion on @id values.
 			 * */
 			if(element.getKey().equals(JsonLdKeyword.ID.toString())) {
-						if ( ! (IRI.isAbsolute(element.getValue().getAsString()) ||
+						if (!(IRI.isAbsolute(element.getValue().getAsString()) ||
 									IRI.isRelative("", element.getValue().getAsString()) ||
 									IRI.isCompact(this.activeContext, element.getValue().getAsString()) || 
 									element.getValue().getAsString().equals(JsonLdKeyword.BLANK_NODE))
@@ -158,11 +200,20 @@ public class NodeObject implements JSONLDValidator {
 			if(element.getKey().equals(JsonLdKeyword.GRAPH.toString())) {
 				
 				if(element.getValue().isJsonObject()) {
+					if (! new NodeObject(activeContext, element.getValue().getAsJsonObject()).validate())
+						return false;
 					//node object control. Take care of infinite loop
 				}
 				//cero or more node 
 				if(element.getValue().isJsonArray()) {
-					//array of node objects control.Take care of infinite loop
+					for (int i = 0; i < element.getValue().getAsJsonArray().size(); i++) {
+						if(element.getValue().getAsJsonArray().get(i).isJsonObject()) {
+							if (! new NodeObject(activeContext, element.getValue().getAsJsonArray().get(i).getAsJsonObject()).validate())
+								return false;
+						}
+			
+					}
+					
 				}
 				
 				
@@ -185,15 +236,15 @@ public class NodeObject implements JSONLDValidator {
 						
 			}
 			
-			/*3
-			 * .If the node object contains the @reverse key, its value MUST be a JSON object containing members representing reverse properties. 
+			/*
+			 * If the node object contains the @reverse key, its value MUST be a JSON object containing members representing reverse properties. 
 			 * Each value of such a reverse property MUST be an absolute IRI,
 			 *  a relative IRI, a compact IRI, a blank node identifier, a node object or an array containing a combination of these.*/
 			
 			if( element.getKey().equals(JsonLdKeyword.REVERSE)) {
 				if(element.getValue().isJsonObject()) {
 					JsonObject jso = element.getValue().getAsJsonObject(); 
-					
+					//TODO see https://json-ld.org/spec/latest/json-ld/#reverse-properties
 				}else {
 					//TODO throw error
 					return false;
@@ -205,10 +256,12 @@ public class NodeObject implements JSONLDValidator {
 			 *  See section 6.16 Data Indexing for further discussion on @index values.
 			 * */
 			if(element.getKey().equals(JsonLdKeyword.INDEX)){
-				if(!element.getValue().isJsonPrimitive()) return false;
+				if(!element.getValue().isJsonPrimitive())
+					return false;
 			}
 		
-			//TODO :Keys in a node object that are not keywords MAY expand to an absolute IRI using the active context. The values associated with keys that expand to an absolute IRI MUST be one of the following:
+			//TODO :Keys in a node object that are not keywords MAY expand to an absolute IRI using the active context. 
+			//The values associated with keys that expand to an absolute IRI MUST be one of the following:
 		}
 
 
