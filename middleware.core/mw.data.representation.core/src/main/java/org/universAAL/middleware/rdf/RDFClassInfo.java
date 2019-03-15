@@ -382,11 +382,14 @@ public class RDFClassInfo extends FinalizedResource {
 	 * @return The set of URIs of all named super classes.
 	 */
 	public final String[] getNamedSuperClasses(boolean inherited, boolean includeAbstractClasses) {
+		HashSet hs = new HashSet();
+		addNamedSuperClasses(hs, inherited, includeAbstractClasses);
+		return (String[]) hs.toArray(new String[hs.size()]);
+	}
 
-		ArrayList al = new ArrayList();
-
+	private void addNamedSuperClasses(HashSet hs, boolean inherited, boolean includeAbstractClasses) {
 		if (includeAbstractClasses)
-			al.addAll(namedSuperClasses);
+			hs.addAll(namedSuperClasses);
 		else {
 			// add only non-abstract super classes
 			Iterator it = namedSuperClasses.iterator();
@@ -395,7 +398,7 @@ public class RDFClassInfo extends FinalizedResource {
 				OntClassInfo info = OntologyManagement.getInstance().getOntClassInfo(superClassURI);
 				if (info != null)
 					if (!info.isAbstract())
-						al.add(superClassURI);
+						hs.add(superClassURI);
 			}
 		}
 
@@ -404,16 +407,11 @@ public class RDFClassInfo extends FinalizedResource {
 			Iterator it = namedSuperClasses.iterator();
 			while (it.hasNext()) {
 				String superClassURI = (String) it.next();
-				OntClassInfo info = OntologyManagement.getInstance().getOntClassInfo(superClassURI);
-				if (info != null) {
-					String[] res = info.getNamedSuperClasses(inherited, includeAbstractClasses);
-					for (int i = 0; i < res.length; i++)
-						al.add(res[i]);
-				}
+				RDFClassInfo info = OntologyManagement.getInstance().getOntClassInfo(superClassURI);
+				if (info != null)
+					info.addNamedSuperClasses(hs, inherited, includeAbstractClasses);
 			}
 		}
-
-		return (String[]) al.toArray(new String[al.size()]);
 	}
 
 	/**
