@@ -64,13 +64,12 @@ public class JSONLDDocument implements JSONLDValidator {
 		s.close();
 		this.jp = new JsonParser();
 		//throws MalformedJsonException if the json is mal formed
-		//si no es un objecto json el string falla el codigo
 		try {
 			
 			this.mainJSON = (JsonObject) jp.parse(jsonString);
 		}catch (Exception e) {
 			//TODO log error
-		
+			System.out.println(e.getMessage());
 		}
 		
 
@@ -127,12 +126,17 @@ public class JSONLDDocument implements JSONLDValidator {
 					}
 					//multiple contexts
 					if(item.getValue().isJsonArray()) {
-						
+						//if the element has a context key and is an array...will be interpreted as an array of contexts
 						for (int i = 0; i < item.getValue().getAsJsonArray().size(); i++) {
-						
-							if (  !(new NodeObject(this.activeContext, item.getValue().getAsJsonArray().get(i)).validate()) ) {
+							if(item.getValue().getAsJsonArray().get(i).isJsonObject()) {
+								if (  !(new NodeObject(this.activeContext, item.getValue().getAsJsonArray().get(i)).validate()) ) {
+									return false;
+								}
+							}else {
+								//TODO throw error
 								return false;
 							}
+								
 						}
 					}
 				

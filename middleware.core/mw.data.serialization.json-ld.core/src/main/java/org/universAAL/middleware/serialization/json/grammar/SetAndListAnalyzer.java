@@ -3,6 +3,7 @@
  */
 package org.universAAL.middleware.serialization.json.grammar;
 
+import java.nio.channels.SeekableByteChannel;
 import java.util.Map.Entry;
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
 import com.google.gson.JsonElement;
@@ -17,6 +18,8 @@ public class SetAndListAnalyzer implements JSONLDValidator{
 	/**
 	 * 
 	 * @param candidate {@link JsonElement} to be validated
+	 * @see  definition https://www.w3.org/TR/2014/REC-json-ld-20140116/#dfn-list-object
+	 * @see  definition https://www.w3.org/TR/2014/REC-json-ld-20140116/#dfn-set-object
 	 */
 	public SetAndListAnalyzer(JsonElement candidate) {
 		this.candidate = candidate;

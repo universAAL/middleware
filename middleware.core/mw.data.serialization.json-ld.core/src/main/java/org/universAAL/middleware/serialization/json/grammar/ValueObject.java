@@ -29,7 +29,7 @@ import com.google.gson.JsonParser;
  * @author amedrano
  * @see <a href=https://www.w3.org/TR/2014/REC-json-ld-20140116/#value-objects>https://www.w3.org/TR/2014/REC-json-ld-20140116/#value-objects</a>
  */
-public class ValueObject implements KeyControl<JsonElement>, JSONLDValidator{
+public class ValueObject implements  JSONLDValidator{
 	private  JsonElement candidate=null;
 	private ContextDefinition activeContext=null;
 	
@@ -56,7 +56,7 @@ public class ValueObject implements KeyControl<JsonElement>, JSONLDValidator{
 							if( entry.getKey().equals(JsonLdKeyword.VALUE.toString() )) {
 								if( !(entry.getValue().isJsonPrimitive() || entry.getValue().isJsonNull())   ) return false;
 							}
-//							//The value associated with the @type key MUST be a term, a compact IRI, an absolute IRI, a relative IRI, or null.
+							//The value associated with the @type key MUST be a term, a compact IRI, an absolute IRI, a relative IRI, or null.
 							if(entry.getKey().equals(JsonLdKeyword.TYPE.toString())) {
 								if( !(IRI.isCompact(this.activeContext, entry.getValue().getAsString())) ||
 										IRI.isAbsolute(entry.getValue().getAsString()) ||
@@ -83,18 +83,6 @@ public class ValueObject implements KeyControl<JsonElement>, JSONLDValidator{
 			}
 		return true;
 	}	
-	
-	public boolean valueOfKeyControl(JsonElement itemToControl) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	public boolean keyControl(JsonElement itemToControlKey) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-
 	
 
 
