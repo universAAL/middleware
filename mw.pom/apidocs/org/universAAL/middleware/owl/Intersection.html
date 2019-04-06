@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -314,6 +314,13 @@ extends <a href="../../../../org/universAAL/middleware/owl/TypeExpression.html" 
 </td>
 </tr>
 <tr id="i9" class="rowColor">
+<td class="colFirst"><code><a href="../../../../org/universAAL/middleware/owl/Intersection.html" title="class in org.universAAL.middleware.owl">Intersection</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/owl/Intersection.html#of-org.universAAL.middleware.owl.TypeExpression-">of</a></span>(<a href="../../../../org/universAAL/middleware/owl/TypeExpression.html" title="class in org.universAAL.middleware.owl">TypeExpression</a>&nbsp;type)</code>
+<div class="block">Add a new Child <a href="../../../../org/universAAL/middleware/owl/TypeExpression.html" title="class in org.universAAL.middleware.owl"><code>TypeExpression</code></a>, same as <a href="../../../../org/universAAL/middleware/owl/Intersection.html#addType-org.universAAL.middleware.owl.TypeExpression-"><code>addType(TypeExpression)</code></a>, 
+ but returns the intersection it self, for convenient inline definition.</div>
+</td>
+</tr>
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/owl/Intersection.html#setProperty-java.lang.String-java.lang.Object-">setProperty</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;propURI,
            <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;o)</code>
@@ -321,13 +328,13 @@ extends <a href="../../../../org/universAAL/middleware/owl/TypeExpression.html" 
  <code>propURI</code> as the predicate and the given value as the object.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/owl/Intersection.html#size--">size</a></span>()</code>
 <div class="block">Returns the number of elements in this intersection.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../org/universAAL/middleware/owl/TypeExpression.html" title="class in org.universAAL.middleware.owl">TypeExpression</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/owl/Intersection.html#types--">types</a></span>()</code>
 <div class="block">Get an iterator for the child type expressions.</div>
@@ -449,6 +456,23 @@ extends <a href="../../../../org/universAAL/middleware/owl/TypeExpression.html" 
 <dd><code>type</code> - The type expression to add.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true, if the given type expression could be added.</dd>
+</dl>
+</li>
+</ul>
+<a name="of-org.universAAL.middleware.owl.TypeExpression-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>of</h4>
+<pre>public&nbsp;<a href="../../../../org/universAAL/middleware/owl/Intersection.html" title="class in org.universAAL.middleware.owl">Intersection</a>&nbsp;of(<a href="../../../../org/universAAL/middleware/owl/TypeExpression.html" title="class in org.universAAL.middleware.owl">TypeExpression</a>&nbsp;type)</pre>
+<div class="block">Add a new Child <a href="../../../../org/universAAL/middleware/owl/TypeExpression.html" title="class in org.universAAL.middleware.owl"><code>TypeExpression</code></a>, same as <a href="../../../../org/universAAL/middleware/owl/Intersection.html#addType-org.universAAL.middleware.owl.TypeExpression-"><code>addType(TypeExpression)</code></a>, 
+ but returns the intersection it self, for convenient inline definition.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>type</code> - </dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>This intersection.</dd>
 </dl>
 </li>
 </ul>
