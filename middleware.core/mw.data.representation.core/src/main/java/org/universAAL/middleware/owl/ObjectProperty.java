@@ -94,46 +94,53 @@ public final class ObjectProperty extends Property {
 			super(prop);
 		}
 
-		public void setInverseOf(String _inverseOf) {
+		public ObjectPropertySetup setInverseOf(String _inverseOf) {
 			inverseOf = _inverseOf;
+			return this;
 		}
 
-		public void setInverseFunctional() {
+		public ObjectPropertySetup setInverseFunctional() {
 			isInverseFunctional = true;
 			addType(TYPE_INVERSE_FUNCTIONAL, false);
+			return this;
 		}
 
-		public void setTransitive() {
+		public ObjectPropertySetup setTransitive() {
 			isTransitive = true;
 			addType(TYPE_TRANSITIVE, false);
+			return this;
 		}
 
-		public void setSymmetric() {
+		public ObjectPropertySetup setSymmetric() {
 			if (!isAsymmetric) {
 				isSymmetric = true;
 				addType(TYPE_SYMMETRIC, false);
 			}
+			return this;
 		}
 
-		public void setAsymmetric() {
+		public ObjectPropertySetup setAsymmetric() {
 			if (!isSymmetric) {
 				isAsymmetric = true;
 				addType(TYPE_ASYMMETRIC, false);
 			}
+			return this;
 		}
 
-		public void setReflexive() {
+		public ObjectPropertySetup setReflexive() {
 			if (!isIrreflexive) {
 				isReflexive = true;
 				addType(TYPE_REFLEXIVE, false);
 			}
+			return this;
 		}
 
-		public void setIrreflexive() {
+		public ObjectPropertySetup setIrreflexive() {
 			if (!isReflexive) {
 				isIrreflexive = true;
 				addType(TYPE_IRREFLEXIVE, false);
 			}
+			return this;
 		}
 	}
 

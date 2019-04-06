@@ -90,21 +90,23 @@ public abstract class Property extends FinalizedResource {
 			return prop;
 		}
 
-		public void setFunctional() {
+		public PropertySetup setFunctional() {
 			prop.isFunctional = true;
 			addType(TYPE_FUNCTIONAL, false);
+			return this;
 		}
 
-		public synchronized void addSuperProperty(String superProperty) {
+		public synchronized PropertySetup addSuperProperty(String superProperty) {
 			if (subPropertyOf.contains(superProperty))
-				return;
+				return this;
 
 			ArrayList al = new ArrayList(subPropertyOf);
 			al.add(superProperty);
 			subPropertyOf = al;
+			return this;
 		}
 
-		public void addEquivalentProperty(String equivalentProperty) {
+		public PropertySetup addEquivalentProperty(String equivalentProperty) {
 			// we have to synchronize for all Property instances that may be in
 			// the
 			// set of equivalent properties
@@ -128,10 +130,12 @@ public abstract class Property extends FinalizedResource {
 			// for (int i = 0; i < comb.size(); i++)
 			// ((Property) comb.get(i)).equivalentProperties = comb;
 			// }
+			return this;
 		}
 
-		public void addDisjointProperty(String disjointProperty) {
+		public PropertySetup addDisjointProperty(String disjointProperty) {
 			// TODO Auto-generated method stub
+			return this;
 		}
 
 		public void setDomain(TypeExpression domain) {
