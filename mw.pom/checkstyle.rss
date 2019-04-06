@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2019 universAAL Consortium</copyright>
     <item>
       <title>File: 555,
-             Errors: 8072,
+             Errors: 8076,
              Warnings: 479,
-             Infos: 650
+             Infos: 657
       </title>
             <link>http://middleware/mw.pom//checkstyle.html</link>
       <description>
@@ -3843,13 +3843,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.rdf.Resource.java">org/universAAL/middleware/rdf/Resource.java</a>
                 </td>
                 <td>
-                  40
+                  47
                 </td>
                 <td>
                   1
                 </td>
                 <td>
-                  91
+                  95
                 </td>
               </tr>
                           <tr>

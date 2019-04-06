@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2019 universAAL Consortium</copyright>
     <item>
       <title>File: 80,
-             Errors: 709,
+             Errors: 713,
              Warnings: 71,
-             Infos: 127
+             Infos: 134
       </title>
             <link>http://middleware/middleware.core/mw.data.representation.core//checkstyle.html</link>
       <description>
@@ -861,13 +861,13 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.rdf.Resource.java">org/universAAL/middleware/rdf/Resource.java</a>
                 </td>
                 <td>
-                  40
+                  47
                 </td>
                 <td>
                   1
                 </td>
                 <td>
-                  91
+                  95
                 </td>
               </tr>
                           <tr>
