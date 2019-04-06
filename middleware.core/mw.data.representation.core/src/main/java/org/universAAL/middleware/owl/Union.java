@@ -82,6 +82,17 @@ public final class Union extends TypeExpression {
 		return false;
 	}
 
+	/**
+	 * Add a new Child {@link TypeExpression}, same as {@link Union#addType(TypeExpression)}, 
+	 * but returns the union it self, for convenient inline definition.
+	 * @param type
+	 * @return This union.
+	 */
+	public Union of(TypeExpression type) {
+		addType(type);
+		return this;
+	}
+	
 	@Override
 	public TypeExpression copy() {
 		Union result = new Union();
