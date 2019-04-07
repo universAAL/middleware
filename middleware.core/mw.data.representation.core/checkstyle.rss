@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2019 universAAL Consortium</copyright>
     <item>
       <title>File: 80,
-             Errors: 716,
+             Errors: 743,
              Warnings: 71,
-             Infos: 138
+             Infos: 142
       </title>
             <link>http://middleware/middleware.core/mw.data.representation.core//checkstyle.html</link>
       <description>
@@ -161,13 +161,13 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.LengthRestriction.java">org/universAAL/middleware/owl/LengthRestriction.java</a>
                 </td>
                 <td>
-                  0
+                  4
                 </td>
                 <td>
                   2
                 </td>
                 <td>
-                  34
+                  61
                 </td>
               </tr>
                           <tr>
