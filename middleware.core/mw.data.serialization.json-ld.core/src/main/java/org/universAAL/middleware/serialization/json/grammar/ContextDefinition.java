@@ -34,7 +34,10 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 		return jsonToValidate;
 	}
 
-
+/**
+ * 
+ * @param {@link JsonElement} jsonObjectOrReference  to be analyzed
+ */
 	//A context definition MUST be a JSON object whose keys MUST either be terms, compact IRIs, absolute IRIs, or the keywords @language, @base, and @vocab.
 	public ContextDefinition(JsonElement jsonObjectOrReference) {
 
@@ -57,92 +60,28 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 	}
 
 
-
+/**
+ * method to validate the JsonElement given in {@link ContextDefinition} constructor
+ */
 	public boolean validate() {
 		
 		 
 		if(this.jsonToValidate!=null) {
 			
 				if(jsonToValidate.isJsonArray()) {
-					//pude tener 2 formas de contextos- expanded o referidos
-				}
+					//can have 2 types of context: referenced or expanded			
+					}
 				
 				if(jsonToValidate.isJsonObject()) {
 
 					for (Entry<String, JsonElement> element : this.jsonToValidate.getAsJsonObject().entrySet()) {
 		
-							//keyword control
-							if((JsonLdKeyword.isKeyword(element.getKey()))) {
-								
-								if(element.getKey().equals(JsonLdKeyword.LANG)){
-									return element.getValue().isJsonPrimitive();
-								}
-								//If the context definition has an @base key, its value MUST be an absolute IRI, a relative IRI, or null.
-								if(element.getKey().equals(JsonLdKeyword.BASE)){
-									return IRI.isAbsolute(element.getValue().getAsString()) || /*IRI.isRelative(null, element.getValue().toString()) ||*/ element.getValue().equals("null");
-								}
-								//If the context definition has an @vocab key, its value MUST be a absolute IRI, a compact IRI, a blank node identifier, a term, or null.
-								if(element.getKey().equals(JsonLdKeyword.VOCAB)){
-									return IRI.isAbsolute(element.getValue().toString()) || 
-											IRI.isCompact(this, element.getValue().getAsString())  ||
-											Term.isTerm(element.getValue().toString()) || 
-											element.getValue().equals("null") ||
-											element.getValue().equals(this.BLANK_NODE);
-								}
-								
-								
-//					            if (!(IRI.isAbsolute(element.getValue().getAsString()) ||
-//									IRI.isCompact(this,element.getValue().getAsString()) ||
-//									element.getValue().getAsString().equals(this.BLANK_NODE) ||
-//									new ExpandedTermDefinition(this,element.getValue()).validate()))
-//					            		return false;
-							}else {
-								
-							}
-						
-						
-						//---------------------
-//						if(!(JsonLdKeyword.isKeyword(element.getValue().getAsString()))) {
-//					            if (!(IRI.isAbsolute(element.getValue().getAsString()) ||
-//									IRI.isCompact(this,element.getValue().getAsString()) ||
-//									element.getValue().getAsString().equals(this.BLANK_NODE) ||
-//									new ExpandedTermDefinition(this,element.getValue()).validate()))
-//					            		return false;
-//						}else {
-//							/*
-//							 * The value of keys that are not keywords MUST be either an absolute IRI, a compact IRI,
-//							 *  a term, a blank node identifier, a keyword, null, or an expanded term definition.
-//							 * */
-//							if (!this.valueOfKeyControl(element))
-//								return false;
-//							if( element.getValue().isJsonObject()) {
-//								if( !(new ExpandedTermDefinition(this, element.getValue()).validate())  ) {
-//									return false;
-//								}
-//							}
-//						}
-						
-//						
-//						this.state = this.keyControl(element);
-//						//The value of keys that are not keywords MUST be either an absolute IRI, a compact IRI, a term, a blank node identifier, a keyword, null, or an expanded term definition.
-//						if(element.getValue().isJsonPrimitive()) {
-//							if(! JsonLdKeyword.isKeyword(element.getValue().getAsString())) {
-//								this.state = IRI.isAbsolute(element.getValue().getAsString()) ||
-//										IRI.isCompact(this,element.getValue().getAsString()) ||
-//										element.getValue().getAsString().equals(this.BLANK_NODE) ||
-//										new ExpandedTermDefinition(this,element.getValue()).validate();	
-//							}
-//							
-//						}else {
-//							if( element.getValue().isJsonObject()) {
-//								this.state = new ExpandedTermDefinition(this, element.getValue()).validate();
-//							}
-//						}
-					
+						//keyword control
+						//A context definition MUST be a JSON object whose keys MUST either be terms, compact IRIs, absolute IRIs, or the keywords @language, @base, and @vocab.
+						return this.keyControl(element);	
 					}	
 					
 				}
-			
 
 		}else {
 			//TODO use logging system 
@@ -159,18 +98,18 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 		//a blank node identifier, a keyword, null, or an expanded term definition.
 
 
-			if(Term.isTerm(itemToControl.getKey())) {
+			if(Term.isTerm(itemToControl.getValue().getAsString())) {
 				//keywords @language, @base, and @vocab.
 				//If the context definition has an @language key, its value MUST have the lexical form described in [BCP47] or be null.
-				if(itemToControl.getKey().equals(JsonLdKeyword.LANG)){
+				if(itemToControl.getValue().equals(JsonLdKeyword.LANG)){
 					return itemToControl.getValue().isJsonPrimitive();
 				}
 				//If the context definition has an @base key, its value MUST be an absolute IRI, a relative IRI, or null.
-				if(itemToControl.getKey().equals(JsonLdKeyword.BASE)){
+				if(itemToControl.getValue().equals(JsonLdKeyword.BASE)){
 					return IRI.isAbsolute(itemToControl.getValue().getAsString()) || /*IRI.isRelative(null, element.getValue().toString()) ||*/ itemToControl.getValue().equals("null");
 				}
 				//If the context definition has an @vocab key, its value MUST be a absolute IRI, a compact IRI, a blank node identifier, a term, or null.
-				if(itemToControl.getKey().equals(JsonLdKeyword.VOCAB)){
+				if(itemToControl.getValue().equals(JsonLdKeyword.VOCAB)){
 					return IRI.isAbsolute(itemToControl.getValue().toString()) || 
 							IRI.isCompact(this, itemToControl.getValue().getAsString())  ||
 							Term.isTerm(itemToControl.getValue().toString()) || 
@@ -179,14 +118,14 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 				}
 				
 				if(itemToControl.getValue().isJsonObject()) {
-					//control expanded term definition
+					return new ExpandedTermDefinition(this, itemToControl.getValue().getAsJsonObject()).validate();
 				}
-				return true;
+				
 			}else {
 					return IRI.isAbsolute(itemToControl.getValue().getAsString()) || IRI.isCompact(this,itemToControl.getValue().getAsString());
 					
 				}
-
+			return true;
 	}
 	//TODO a term defined in the active context expanding into an absolute IRI, or an array of any of these.
 	public boolean ActiveContextTermControl(JsonElement candidate) {
@@ -202,9 +141,39 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 	}
 
 
-	public boolean keyControl(Entry<String, JsonElement> itemToControlKey) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean keyControl(Entry<String, JsonElement> element) {
+		
+		
+		if(!Term.isTerm(element.getKey())) return false;
+		
+		if(! IRI.isCompact(this, element)) return false;
+		
+		if(!IRI.isAbsolute(element.getKey())) return false;
+	
+		//keyword control
+		if((JsonLdKeyword.isKeyword(element.getKey()))) {
+
+			
+			if(element.getKey().equals(JsonLdKeyword.LANG)){
+				return element.getValue().isJsonPrimitive();
+			}
+			//If the context definition has an @base key, its value MUST be an absolute IRI, a relative IRI, or null.
+			if(element.getKey().equals(JsonLdKeyword.BASE)){
+				return IRI.isAbsolute(element.getValue().getAsString()) || /*IRI.isRelative(null, element.getValue().toString()) ||*/ element.getValue().equals("null");
+			}
+			//If the context definition has an @vocab key, its value MUST be a absolute IRI, a compact IRI, a blank node identifier, a term, or null.
+			if(element.getKey().equals(JsonLdKeyword.VOCAB)){
+				return IRI.isAbsolute(element.getValue().toString()) || 
+						IRI.isCompact(this, element.getValue().getAsString())  ||
+						Term.isTerm(element.getValue().toString()) || 
+						element.getValue().isJsonNull() ||
+						element.getValue().equals(this.BLANK_NODE);
+			}
+			
+		}else {
+			if(!this.valueOfKeyControl(element)) return false;
+		}
+		return true;
 	}
 
 
