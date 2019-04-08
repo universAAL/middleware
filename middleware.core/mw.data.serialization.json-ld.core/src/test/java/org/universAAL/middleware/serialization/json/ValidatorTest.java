@@ -1,5 +1,6 @@
 package org.universAAL.middleware.serialization.json;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.io.InputStream;
 import org.junit.Test;
 import org.universAAL.middleware.serialization.json.grammar.JSONLDDocument;
 
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.MalformedJsonException;
 
 public class ValidatorTest {
@@ -49,12 +51,19 @@ public class ValidatorTest {
 	 * to test if the json has not a correct structure (missing close bracket)
 	 * @throws IOException
 	 */
-	@Test (expected = IOException.class)
+	@Test 
 	public void InvalidJSON() throws IOException {
-		InputStream is = this.getClass().getClassLoader().getResource("rrrr.json").openStream();
-		JSONLDDocument doc = new JSONLDDocument(is);
-		is.close();
-		assertTrue(doc.validate());
+		try {
+			InputStream is = this.getClass().getClassLoader().getResource("ErrorJSON.json").openStream();
+			JSONLDDocument doc = new JSONLDDocument(is);
+			is.close();
+			assertTrue(doc.validate());	
+		} catch (Exception e) {
+			
+			assertFalse(Boolean.FALSE);
+			e.printStackTrace();
+		}
+		
 	}
 
 	

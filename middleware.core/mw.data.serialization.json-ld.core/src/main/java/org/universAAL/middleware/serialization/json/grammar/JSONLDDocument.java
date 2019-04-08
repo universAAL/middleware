@@ -55,7 +55,7 @@ public class JSONLDDocument implements JSONLDValidator {
 	 * @throws JsonParseException
 	 * @throws JsonSyntaxException
 	 */
-	public JSONLDDocument(InputStream jsonToBeProcessed) throws JsonParseException, JsonSyntaxException,ClassCastException,NullPointerException{
+	public JSONLDDocument(InputStream jsonToBeProcessed) throws JsonParseException, JsonSyntaxException,ClassCastException,NullPointerException,JsonSyntaxException{
 
 		String jsonString = "";
 		Scanner s = new Scanner(jsonToBeProcessed);
@@ -67,9 +67,8 @@ public class JSONLDDocument implements JSONLDValidator {
 		try {
 			
 			this.mainJSON = (JsonObject) jp.parse(jsonString);
-		}catch (Exception e) {
-			//TODO log error
-			System.out.println(e.getMessage());
+		}catch (JsonSyntaxException e) {
+			throw e;
 		}
 		
 
@@ -84,30 +83,7 @@ public class JSONLDDocument implements JSONLDValidator {
 	 */
 	public boolean validate() {
 		
-//		// ¿has member called context (key equal context)?
-//		if (this.mainJSON.has(this.CONTEXT)) {
-//			
-//			
-//			System.out.println(mainJSON.toString());
-//			LogUtils.logDebug(JSONLDSerialization.owner, this.getClass(), "validate", mainJSON.toString());
-//			if (mainJSON.isJsonArray()) {
-//				
-//				boolean allNodeObject = true;
-//				for (JsonElement je : mainJSON.getAsJsonArray()) {
-//					allNodeObject &= je.isJsonObject();
-//					allNodeObject &= new NodeObject(this, je.getAsJsonObject() ).validate();
-//				}
-//				return (mainJSON.isJsonObject() & allNodeObject);
-//			} else {
-//				return (this.mainJSON.isJsonObject() & (new NodeObject(this, this.mainJSON.getAsJsonObject()).validate()));
-//			}
-//		} else {
-//			LogUtils.logDebug(JSONLDSerialization.owner, this.getClass(), "validate",
-//					"the given Json document has not any context to process");
-//			// TODO: log if the json document has not any context?
-//			System.out.println("the given Json document has not any context to process");
-//		}
-		//-------------------------------------------------------
+
 		
 		for (Entry<String, JsonElement> item : this.mainJSON.entrySet()) {
 			//analyze only elements with context key
@@ -119,6 +95,7 @@ public class JSONLDDocument implements JSONLDValidator {
 							return false;
 					
 					}
+					//if the value associated to Context key is a json primitive...it must be a valid IRI
 					if(item.getValue().isJsonPrimitive()) {
 						if (!IRI.isAbsolute(item.getValue().getAsString())){
 							return false;
