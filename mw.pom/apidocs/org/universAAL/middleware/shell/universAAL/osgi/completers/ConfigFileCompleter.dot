@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.shell.universAAL.osgi.completers.ConfigEntityCompleter
-	c132087 [label=<<table title="org.universAAL.middleware.shell.universAAL.osgi.completers.ConfigEntityCompleter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigEntityCompleter.html">
+	c132310 [label=<<table title="org.universAAL.middleware.shell.universAAL.osgi.completers.ConfigEntityCompleter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigEntityCompleter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConfigEntityCompleter </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ConfigEntityCompleter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.shell.universAAL.osgi.completers.ConfigFileCompleter
-	c132088 [label=<<table title="org.universAAL.middleware.shell.universAAL.osgi.completers.ConfigFileCompleter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ConfigFileCompleter.html">
+	c132311 [label=<<table title="org.universAAL.middleware.shell.universAAL.osgi.completers.ConfigFileCompleter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ConfigFileCompleter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConfigFileCompleter </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ConfigFileCompleter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.shell.universAAL.osgi.completers.ConfigFileCompleter extends org.universAAL.middleware.shell.universAAL.osgi.completers.ConfigEntityCompleter
-	c132087:p -> c132088:p [dir=back,arrowtail=empty];
+	c132310:p -> c132311:p [dir=back,arrowtail=empty];
 }
 

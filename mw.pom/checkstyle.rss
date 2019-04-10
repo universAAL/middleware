@@ -25,10 +25,10 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2019 universAAL Consortium</copyright>
     <item>
-      <title>File: 555,
-             Errors: 8106,
-             Warnings: 479,
-             Infos: 665
+      <title>File: 556,
+             Errors: 8107,
+             Warnings: 480,
+             Infos: 671
       </title>
             <link>http://middleware/mw.pom//checkstyle.html</link>
       <description>
@@ -7490,6 +7490,20 @@ under the License.
                 </td>
                 <td>
                   2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.util.InlineResource.java">org/universAAL/middleware/util/InlineResource.java</a>
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  1
                 </td>
               </tr>
                           <tr>

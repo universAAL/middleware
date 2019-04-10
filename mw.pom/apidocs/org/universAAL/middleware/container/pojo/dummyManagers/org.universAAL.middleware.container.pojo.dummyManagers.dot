@@ -10,13 +10,13 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.container.pojo.dummyManagers.DummyCommunicationModule
-	c56782 [label=<<table title="org.universAAL.middleware.container.pojo.dummyManagers.DummyCommunicationModule" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DummyCommunicationModule.html">
+	c56878 [label=<<table title="org.universAAL.middleware.container.pojo.dummyManagers.DummyCommunicationModule" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DummyCommunicationModule.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DummyCommunicationModule </td></tr>
 		</table></td></tr>
 		</table>>, URL="./DummyCommunicationModule.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.container.pojo.dummyManagers.DummySpaceManager
-	c56783 [label=<<table title="org.universAAL.middleware.container.pojo.dummyManagers.DummySpaceManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DummySpaceManager.html">
+	c56879 [label=<<table title="org.universAAL.middleware.container.pojo.dummyManagers.DummySpaceManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DummySpaceManager.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DummySpaceManager </td></tr>
 		</table></td></tr>

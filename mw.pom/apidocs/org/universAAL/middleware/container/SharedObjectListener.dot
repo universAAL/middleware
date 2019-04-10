@@ -10,107 +10,107 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.container.SharedObjectListener
-	c349443 [label=<<table title="org.universAAL.middleware.container.SharedObjectListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./SharedObjectListener.html">
+	c350626 [label=<<table title="org.universAAL.middleware.container.SharedObjectListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./SharedObjectListener.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> SharedObjectListener </td></tr>
 		</table></td></tr>
 		</table>>, URL="./SharedObjectListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.modules.communication.CommunicationModuleImpl
-	c349684 [label=<<table title="org.universAAL.middleware.modules.communication.CommunicationModuleImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../modules/communication/CommunicationModuleImpl.html">
+	c350868 [label=<<table title="org.universAAL.middleware.modules.communication.CommunicationModuleImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../modules/communication/CommunicationModuleImpl.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CommunicationModuleImpl </td></tr>
 		</table></td></tr>
 		</table>>, URL="../modules/communication/CommunicationModuleImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.brokers.control.ControlBroker
-	c349711 [label=<<table title="org.universAAL.middleware.brokers.control.ControlBroker" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../brokers/control/ControlBroker.html">
+	c350895 [label=<<table title="org.universAAL.middleware.brokers.control.ControlBroker" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../brokers/control/ControlBroker.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ControlBroker </td></tr>
 		</table></td></tr>
 		</table>>, URL="../brokers/control/ControlBroker.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.modules.space.SpaceModuleImpl
-	c349712 [label=<<table title="org.universAAL.middleware.modules.space.SpaceModuleImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../modules/space/SpaceModuleImpl.html">
+	c350896 [label=<<table title="org.universAAL.middleware.modules.space.SpaceModuleImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../modules/space/SpaceModuleImpl.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SpaceModuleImpl </td></tr>
 		</table></td></tr>
 		</table>>, URL="../modules/space/SpaceModuleImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.connectors.discovery.slp.SLPDiscoveryConnector
-	c349715 [label=<<table title="org.universAAL.middleware.connectors.discovery.slp.SLPDiscoveryConnector" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../connectors/discovery/slp/SLPDiscoveryConnector.html">
+	c350899 [label=<<table title="org.universAAL.middleware.connectors.discovery.slp.SLPDiscoveryConnector" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../connectors/discovery/slp/SLPDiscoveryConnector.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SLPDiscoveryConnector </td></tr>
 		</table></td></tr>
 		</table>>, URL="../connectors/discovery/slp/SLPDiscoveryConnector.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.space.SpaceManagerImpl
-	c349722 [label=<<table title="org.universAAL.middleware.managers.space.SpaceManagerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../managers/space/SpaceManagerImpl.html">
+	c350906 [label=<<table title="org.universAAL.middleware.managers.space.SpaceManagerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../managers/space/SpaceManagerImpl.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SpaceManagerImpl </td></tr>
 		</table></td></tr>
 		</table>>, URL="../managers/space/SpaceManagerImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.deploy.DeployManagerImpl
-	c349724 [label=<<table title="org.universAAL.middleware.managers.deploy.DeployManagerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../managers/deploy/DeployManagerImpl.html">
+	c350908 [label=<<table title="org.universAAL.middleware.managers.deploy.DeployManagerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../managers/deploy/DeployManagerImpl.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DeployManagerImpl </td></tr>
 		</table></td></tr>
 		</table>>, URL="../managers/deploy/DeployManagerImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.SharedObjectConnector
-	c349745 [label=<<table title="org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.SharedObjectConnector" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../managers/configuration/core/impl/secondaryManagers/SharedObjectConnector.html">
+	c350929 [label=<<table title="org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.SharedObjectConnector" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../managers/configuration/core/impl/secondaryManagers/SharedObjectConnector.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SharedObjectConnector </td></tr>
 		</table></td></tr>
 		</table>>, URL="../managers/configuration/core/impl/secondaryManagers/SharedObjectConnector.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy
-	c349913 [label=<<table title="org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ui/impl/generic/CoordinatedStrategy.html">
+	c351097 [label=<<table title="org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ui/impl/generic/CoordinatedStrategy.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CoordinatedStrategy </td></tr>
 		</table></td></tr>
 		</table>>, URL="../ui/impl/generic/CoordinatedStrategy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.tracker.impl.BusMemberRegistryImpl
-	c349924 [label=<<table title="org.universAAL.middleware.tracker.impl.BusMemberRegistryImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../tracker/impl/BusMemberRegistryImpl.html">
+	c351108 [label=<<table title="org.universAAL.middleware.tracker.impl.BusMemberRegistryImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../tracker/impl/BusMemberRegistryImpl.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BusMemberRegistryImpl </td></tr>
 		</table></td></tr>
 		</table>>, URL="../tracker/impl/BusMemberRegistryImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.distributedmw.impl.SharedObjectConnector
-	c349948 [label=<<table title="org.universAAL.middleware.managers.distributedmw.impl.SharedObjectConnector" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../managers/distributedmw/impl/SharedObjectConnector.html">
+	c351132 [label=<<table title="org.universAAL.middleware.managers.distributedmw.impl.SharedObjectConnector" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../managers/distributedmw/impl/SharedObjectConnector.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SharedObjectConnector </td></tr>
 		</table></td></tr>
 		</table>>, URL="../managers/distributedmw/impl/SharedObjectConnector.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.distributedmw.impl.MySpaceListener
-	c349954 [label=<<table title="org.universAAL.middleware.managers.distributedmw.impl.MySpaceListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../managers/distributedmw/impl/MySpaceListener.html">
+	c351138 [label=<<table title="org.universAAL.middleware.managers.distributedmw.impl.MySpaceListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../managers/distributedmw/impl/MySpaceListener.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MySpaceListener </td></tr>
 		</table></td></tr>
 		</table>>, URL="../managers/distributedmw/impl/MySpaceListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.connectors.deploy.karaf.KarafDeployConnector
-	c349991 [label=<<table title="org.universAAL.middleware.connectors.deploy.karaf.KarafDeployConnector" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../connectors/deploy/karaf/KarafDeployConnector.html">
+	c351175 [label=<<table title="org.universAAL.middleware.connectors.deploy.karaf.KarafDeployConnector" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../connectors/deploy/karaf/KarafDeployConnector.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KarafDeployConnector </td></tr>
 		</table></td></tr>
 		</table>>, URL="../connectors/deploy/karaf/KarafDeployConnector.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.modules.communication.CommunicationModuleImpl implements org.universAAL.middleware.container.SharedObjectListener
-	c349443:p -> c349684:p [dir=back,arrowtail=empty,style=dashed];
+	c350626:p -> c350868:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.brokers.control.ControlBroker implements org.universAAL.middleware.container.SharedObjectListener
-	c349443:p -> c349711:p [dir=back,arrowtail=empty,style=dashed];
+	c350626:p -> c350895:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.modules.space.SpaceModuleImpl implements org.universAAL.middleware.container.SharedObjectListener
-	c349443:p -> c349712:p [dir=back,arrowtail=empty,style=dashed];
+	c350626:p -> c350896:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.connectors.discovery.slp.SLPDiscoveryConnector implements org.universAAL.middleware.container.SharedObjectListener
-	c349443:p -> c349715:p [dir=back,arrowtail=empty,style=dashed];
+	c350626:p -> c350899:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.managers.space.SpaceManagerImpl implements org.universAAL.middleware.container.SharedObjectListener
-	c349443:p -> c349722:p [dir=back,arrowtail=empty,style=dashed];
+	c350626:p -> c350906:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.managers.deploy.DeployManagerImpl implements org.universAAL.middleware.container.SharedObjectListener
-	c349443:p -> c349724:p [dir=back,arrowtail=empty,style=dashed];
+	c350626:p -> c350908:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.SharedObjectConnector implements org.universAAL.middleware.container.SharedObjectListener
-	c349443:p -> c349745:p [dir=back,arrowtail=empty,style=dashed];
+	c350626:p -> c350929:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy implements org.universAAL.middleware.container.SharedObjectListener
-	c349443:p -> c349913:p [dir=back,arrowtail=empty,style=dashed];
+	c350626:p -> c351097:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.tracker.impl.BusMemberRegistryImpl implements org.universAAL.middleware.container.SharedObjectListener
-	c349443:p -> c349924:p [dir=back,arrowtail=empty,style=dashed];
+	c350626:p -> c351108:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.managers.distributedmw.impl.SharedObjectConnector implements org.universAAL.middleware.container.SharedObjectListener
-	c349443:p -> c349948:p [dir=back,arrowtail=empty,style=dashed];
+	c350626:p -> c351132:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.managers.distributedmw.impl.MySpaceListener implements org.universAAL.middleware.container.SharedObjectListener
-	c349443:p -> c349954:p [dir=back,arrowtail=empty,style=dashed];
+	c350626:p -> c351138:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.connectors.deploy.karaf.KarafDeployConnector implements org.universAAL.middleware.container.SharedObjectListener
-	c349443:p -> c349991:p [dir=back,arrowtail=empty,style=dashed];
+	c350626:p -> c351175:p [dir=back,arrowtail=empty,style=dashed];
 }
 
