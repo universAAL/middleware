@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.455526544821584" branch-rate="0.34306167400881055" lines-covered="2617" lines-valid="5745" branches-covered="1246" branches-valid="3632" complexity="3.8179848320693393" version="2.1.1" timestamp="1554647133591">
+<coverage line-rate="0.45441916999479076" branch-rate="0.34306167400881055" lines-covered="2617" lines-valid="5759" branches-covered="1246" branches-valid="3632" complexity="3.796774193548387" version="2.1.1" timestamp="1554896571247">
 	<sources>
 		<source>--source</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.core/mw.data.representation.core/src/main/java</source>
@@ -24169,7 +24169,7 @@
 				</class>
 			</classes>
 		</package>
-		<package name="org.universAAL.middleware.util" line-rate="0.5368852459016393" branch-rate="0.4844961240310077" complexity="3.364864864864865">
+		<package name="org.universAAL.middleware.util" line-rate="0.5219123505976095" branch-rate="0.4844961240310077" complexity="3.1604938271604937">
 			<classes>
 				<class name="org.universAAL.middleware.util.Constants" filename="org/universAAL/middleware/util/Constants.java" line-rate="0.0" branch-rate="1.0" complexity="1.0">
 					<methods>
@@ -24927,6 +24927,68 @@
 						<line number="79" hits="308" branch="false"/>
 						<line number="88" hits="219" branch="false"/>
 						<line number="97" hits="918" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.util.InlineResource" filename="org/universAAL/middleware/util/InlineResource.java" line-rate="0.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="34" hits="0" branch="false"/>
+								<line number="35" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="42" hits="0" branch="false"/>
+								<line number="43" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="anonymous" signature="()Lorg/universAAL/middleware/util/InlineResource;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="62" hits="0" branch="false"/>
+								<line number="63" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="specialize" signature="()Lorg/universAAL/middleware/rdf/Resource;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="97" hits="0" branch="false"/>
+								<line number="98" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="subTypeOf" signature="(Ljava/lang/String;)Lorg/universAAL/middleware/util/InlineResource;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="73" hits="0" branch="false"/>
+								<line number="74" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="withProperty" signature="(Ljava/lang/String;Ljava/lang/Object;)Lorg/universAAL/middleware/util/InlineResource;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="86" hits="0" branch="false"/>
+								<line number="87" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="withURI" signature="(Ljava/lang/String;)Lorg/universAAL/middleware/util/InlineResource;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="52" hits="0" branch="false"/>
+								<line number="53" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="34" hits="0" branch="false"/>
+						<line number="35" hits="0" branch="false"/>
+						<line number="42" hits="0" branch="false"/>
+						<line number="43" hits="0" branch="false"/>
+						<line number="52" hits="0" branch="false"/>
+						<line number="53" hits="0" branch="false"/>
+						<line number="62" hits="0" branch="false"/>
+						<line number="63" hits="0" branch="false"/>
+						<line number="73" hits="0" branch="false"/>
+						<line number="74" hits="0" branch="false"/>
+						<line number="86" hits="0" branch="false"/>
+						<line number="87" hits="0" branch="false"/>
+						<line number="97" hits="0" branch="false"/>
+						<line number="98" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.util.IntAggregator" filename="org/universAAL/middleware/util/IntAggregator.java" line-rate="0.0" branch-rate="0.0" complexity="1.5">
