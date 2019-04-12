@@ -58,10 +58,11 @@ public class JSONLDSerialization implements MessageContentSerializerEx {
 	 * @see org.universAAL.middleware.serialization.MessageContentSerializerEx#deserialize(java.lang.String, java.lang.String)
 	 */
 	public Object deserialize(String serialized, String resourceURI) {
+		
 		InputStream is = new ByteArrayInputStream(serialized.getBytes());
 		JSONLDDocument jd = new JSONLDDocument(is);
 		//TODO jd.interpret
-		jd.validate();
+		jd.getResource(resourceURI);
 		//TODO find object with resourceURI
 		return null;
 	}
