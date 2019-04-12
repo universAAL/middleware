@@ -26,6 +26,7 @@ import javax.swing.SortingFocusTraversalPolicy;
 import java.util.Scanner;
 
 import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.serialization.json.JSONLDSerialization;
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
 
@@ -73,6 +74,8 @@ public class JSONLDDocument implements JSONLDValidator {
 		
 
 	}
+	
+
 
 	/**
 	 * Method to start the Json validation process. A JSON-LD document must be a
@@ -119,7 +122,7 @@ public class JSONLDDocument implements JSONLDValidator {
 				
 				
 			}else {
-
+				
 				if(item.getValue().isJsonArray()) {
 
 				}
@@ -148,4 +151,16 @@ public class JSONLDDocument implements JSONLDValidator {
 		return true;
 	}
 
+	/**
+	 * after get the resource, the method check if the Json is valid 
+	 * @param resourceURI
+	 */
+	public Resource getResource(String resourceURI){
+		if(this.validate()) {
+			//TODO search the resource matching with resourceURI
+			return new Resource();
+		}else
+			return null;
+	}
+	
 }
