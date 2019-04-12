@@ -43,8 +43,8 @@ public class URICompactor {
 	};
 
 	public class URIPrefix implements Comparable<URIPrefix> {
-		String compactedPrefix;
-		String fullPrefix;
+		String compactedPrefix=null;
+		String fullPrefix=null;
 		int references;
 
 		/**
@@ -52,12 +52,12 @@ public class URICompactor {
 		 */
 		public String getCompactedPrefix() {
 			if (compactedPrefix != null) {
-				return compactedPrefix;
+				return compactedPrefix;// returns null 
 			} else {
 				// find a suitable compacted prefix
 				Set<String> existingPrefixes = new HashSet<String>();
 				for (URIPrefix pr : prefixes) {
-					existingPrefixes.add(pr.compactedPrefix);
+					existingPrefixes.add(pr.compactedPrefix); // compacted prefix is not null
 				}
 				String[] lexem = this.fullPrefix.split("[^\\pL\\p{Pc}]+");
 				for (int i = lexem.length - 1; i >= 0; i--) {
