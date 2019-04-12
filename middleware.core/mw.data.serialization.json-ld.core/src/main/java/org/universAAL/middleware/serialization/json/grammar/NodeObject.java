@@ -51,8 +51,12 @@ public class NodeObject implements JSONLDValidator {
 	 * @context, @id, @graph, @type, @reverse, or @index
 	 */
 	
-	
-	public NodeObject(ContextDefinition father/*Object father*/, JsonElement obj) {
+	/**
+	 * 
+	 * @param father Parent context
+	 * @param obj {@link JsonElement} to be analyzed as NodeObject
+	 */
+	public NodeObject(ContextDefinition father/*, Object father*/, JsonElement obj) {
 //		if (father instanceof ContextDefinition) {
 //			throw new InvalidParameterException("A JSON object is a node object if it exists outside of a JSON-LD context");
 //			}
@@ -84,10 +88,11 @@ public class NodeObject implements JSONLDValidator {
 		//If the node object contains the @context key, its value MUST be null,
 		//an absolute IRI, a relative IRI, a context definition, or an array composed of any of these.
 		
-//		LogUtils.logDebug(JSONLDSerialization.owner, this.getClass(), "validate","the given Json document has not any context to process");
+		//LogUtils.logDebug(JSONLDSerialization.owner, this.getClass(), "validate","the given Json document has not any context to process");
+
+		//if active context is null...exists another context and this context will not be analyzed
+		//if exist a context into this object...the jsonLD structure is bad
 		
-		//si active context esta null significa que ya se encontro un contexto antes y este no debera analizarse...
-		//si aqui tambien hay context entonces el JSONLD esta mal
 		if(this.activeContext!=null) return false;
 		if(this.obj==null || !this.obj.isJsonObject()) return false;
 		//it does not contain the @value, @list, or @set keywords,
@@ -113,6 +118,11 @@ public class NodeObject implements JSONLDValidator {
 							if(item.isJsonPrimitive()) {
 								//TODO if the context its a IRI need to be controlled, in the example on documentation the 
 								//json into array are IRI refecenre				
+								if (!(element.getValue().isJsonNull() ||
+										IRI.isAbsolute(element.getValue().getAsString()) ||
+										IRI.isRelative(null, element.getValue().getAsString()))
+									)
+									return false;
 							}
 						
 							
@@ -230,8 +240,11 @@ public class NodeObject implements JSONLDValidator {
 							IRI.isCompact(activeContext, element.getValue().getAsString()) ||
 							element.getValue().equals(JsonLdKeyword.BLANK_NODE.toString())
 							//TODO see:  a term defined in the active context expanding into an absolute IRI, or an array of any of these
-							) ) return false;					
+							) ) return false;
+					if(!this.activeContext.getJsonToValidate().has(element.getKey())) return false;
 				}
+				else 
+					return false;
 
 						
 			}
@@ -244,6 +257,22 @@ public class NodeObject implements JSONLDValidator {
 			if( element.getKey().equals(JsonLdKeyword.REVERSE)) {
 				if(element.getValue().isJsonObject()) {
 					JsonObject jso = element.getValue().getAsJsonObject(); 
+					for (Entry<String, JsonElement> item : jso.entrySet()) {
+						
+						if(item.getValue().isJsonObject()) {
+							
+						}
+						if(item.getValue().isJsonArray()) {
+							
+						}
+						
+						if(
+						  IRI.isAbsolute(item) || 
+						  IRI.isRelative(null, item.getKey()) ||
+						  IRI.isCompact(activeContext, item.getKey()) ||
+						  item.getKey().equals(JsonLdKeyword.BLANK_NODE)
+					      ) return false;
+					}
 					//TODO see https://json-ld.org/spec/latest/json-ld/#reverse-properties
 				}else {
 					//TODO throw error
@@ -266,5 +295,9 @@ public class NodeObject implements JSONLDValidator {
 
 
 		return true;
+	}
+
+	public boolean mergeNodeObjects() {
+		return false;
 	}
 }
