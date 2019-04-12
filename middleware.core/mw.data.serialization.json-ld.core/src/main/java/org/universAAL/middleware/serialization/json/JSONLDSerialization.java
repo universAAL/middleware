@@ -38,6 +38,7 @@ public class JSONLDSerialization implements MessageContentSerializerEx {
 	public Object deserialize(String serialized) {
 		InputStream is = new ByteArrayInputStream(serialized.getBytes());
 		JSONLDDocument jd = new JSONLDDocument(is);
+		jd.validate();
 		//TODO jd.interpret
 		return null;
 	}
@@ -60,6 +61,7 @@ public class JSONLDSerialization implements MessageContentSerializerEx {
 		InputStream is = new ByteArrayInputStream(serialized.getBytes());
 		JSONLDDocument jd = new JSONLDDocument(is);
 		//TODO jd.interpret
+		jd.validate();
 		//TODO find object with resourceURI
 		return null;
 	}
