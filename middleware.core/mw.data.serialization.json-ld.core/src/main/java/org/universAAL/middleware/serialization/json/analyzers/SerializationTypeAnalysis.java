@@ -30,8 +30,7 @@ public class SerializationTypeAnalysis implements TripleAnalyzer {
 	public static int REF_TYPE_FULL = 1;
 	public static int REF_TYPE_OPT = 2;
 	public static int REF_TYPE_RED = 4;
-	public static int REF_TYPE_ALL = REF_TYPE_FULL | REF_TYPE_OPT
-			| REF_TYPE_RED;
+	public static int REF_TYPE_ALL = REF_TYPE_FULL | REF_TYPE_OPT | REF_TYPE_RED;
 
 	private class SerialziationTypeRefs {
 		int full = 0;

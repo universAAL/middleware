@@ -123,6 +123,12 @@ public class JSONLDDocument implements JSONLDValidator {
 				
 			}else {
 				
+				/*
+				 * if hasn't context,treat the json in the compacted form?
+				 * 
+				 * */
+				
+				
 				if(item.getValue().isJsonArray()) {
 
 				}
