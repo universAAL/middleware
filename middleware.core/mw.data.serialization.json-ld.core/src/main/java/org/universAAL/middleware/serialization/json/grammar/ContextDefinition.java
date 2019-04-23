@@ -177,28 +177,35 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 	}
 	
 	public static ContextDefinition mergeContexts(ContextDefinition c1, ContextDefinition c2) {
-		JsonObject aux= c2.getJsonToValidate();
-		ContextDefinition context;
-		Set<Entry<String, JsonElement>> c1_aux = c1.getJsonToValidate().entrySet();
-		Set<Entry<String, JsonElement>> c2_aux = c2.getJsonToValidate().entrySet();
-		
-		for (Entry<String, JsonElement> entry : c2_aux) {
-			if(c1_aux.contains(entry)) {
-				aux.remove(entry.getKey());
-				aux.add(entry.getKey(),c1.getJsonToValidate().get(entry.getKey()));
+	
+		if(c1 != null && c2 != null) {
+			JsonObject aux= c2.getJsonToValidate();
+			ContextDefinition context;
+			Set<Entry<String, JsonElement>> c1_aux = c1.getJsonToValidate().entrySet();
+			Set<Entry<String, JsonElement>> c2_aux = c2.getJsonToValidate().entrySet();
+			
+			for (Entry<String, JsonElement> entry : c2_aux) {
+				if(c1_aux.contains(entry)) {
+					aux.remove(entry.getKey());
+					aux.add(entry.getKey(),c1.getJsonToValidate().get(entry.getKey()));
+				}
 			}
-		}
-		for (Entry<String, JsonElement> entry : c1_aux) {
-			if(!c2_aux.contains(entry)) {
-				aux.add(entry.getKey(), c1.getJsonToValidate().get(entry.getKey()));
+			for (Entry<String, JsonElement> entry : c1_aux) {
+				if(!c2_aux.contains(entry)) {
+					aux.add(entry.getKey(), c1.getJsonToValidate().get(entry.getKey()));
+				}
 			}
+		context = new ContextDefinition(aux);
+		System.out.println(aux);
+			if(!context.validate())
+			   return null;
+			else
+				return context;
+		}else {
+			System.out.println("contextos nulos");
+
 		}
-	context = new ContextDefinition(aux);
-	System.out.println(aux);
-		if(!context.validate())
-		   return null;
-		else
-			return context;
+		return null;
 	}
 
 
