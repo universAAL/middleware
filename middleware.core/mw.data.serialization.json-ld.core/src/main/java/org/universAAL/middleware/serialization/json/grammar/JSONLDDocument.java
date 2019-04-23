@@ -26,6 +26,7 @@ import javax.swing.SortingFocusTraversalPolicy;
 import java.util.Scanner;
 
 import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.serialization.json.JSONLDSerialization;
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
 
@@ -84,11 +85,44 @@ public class JSONLDDocument implements JSONLDValidator {
 	 * @return {@link Boolean} value indicating the status of the process
 	 */
 	public boolean validate() {
-
+		ContextDefinition active=null;
+		Boolean compacted=false;
+		
+		Resource subject=null, predicate=null,resource=null;
+		if(this.mainJSON.has(JsonLdKeyword.CONTEXT.toString())) {
+			compacted=true;
+		}
+	
+		if(compacted) {
+			active = new ContextDefinition( this.mainJSON.get(JsonLdKeyword.CONTEXT.toString()));
+			if (!active.validate()) 
+				return false;
+		}else {
+			//missing context. expanded JsonLD
+			for (Entry<String, JsonElement> item : this.mainJSON.entrySet()) {
+					if(item.getValue().isJsonArray()) {
+						//TODO control the item key to check if it is valid
+						//the key must be a valid URI
+						if(!IRI.isAbsolute(item.getKey())) return false; //TODO if URI is relative
+						
+						
+						//may be parse as collection
+					}
+					if(item.getValue().isJsonObject()) {
+						//parse as triple(?)
+						//TODO check the jsonLD format
+					}
+					if(item.getValue().isJsonPrimitive()) {
+						//parse as triple(?)
+						//TODO check the jsonLD format
+					}
+			}
+		}
+		
 		for (Entry<String, JsonElement> item : this.mainJSON.entrySet()) {
 			
-			
-			//TODO appear  gson just use the last context into the json, so is not needed to merge context. Check documenation
+			//if the json is espanded or compacted
+			//TODO appear gson just use the last context into the json, so is not needed to merge context. Check documenation
 			if (item.getKey().equals(JsonLdKeyword.CONTEXT.toString())) {
 				
 					//simple context
@@ -122,6 +156,8 @@ public class JSONLDDocument implements JSONLDValidator {
 					 * step 2: check if this is the first object in the document
 					 * step 3: add this node as a first resource (initialize it with its IRI and value)
 					 * 
+					 * 
+					 * store key, check if is a collection
 					 * */
 				/*
 				1.0 
