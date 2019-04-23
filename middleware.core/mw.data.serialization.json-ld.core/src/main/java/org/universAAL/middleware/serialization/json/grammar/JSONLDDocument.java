@@ -88,7 +88,7 @@ public class JSONLDDocument implements JSONLDValidator {
 		for (Entry<String, JsonElement> item : this.mainJSON.entrySet()) {
 			
 			
-			//analyze only elements with context key
+			//TODO appear  gson just use the last context into the json, so is not needed to merge context. Check documenation
 			if (item.getKey().equals(JsonLdKeyword.CONTEXT.toString())) {
 				
 					//simple context
@@ -105,17 +105,7 @@ public class JSONLDDocument implements JSONLDValidator {
 					}
 					//multiple contexts
 					if(item.getValue().isJsonArray()) {
-//						//if the element has a context key and is an array...will be interpreted as an array of contexts
-//						for (int i = 0; i < item.getValue().getAsJsonArray().size(); i++) {
-//							if(item.getValue().getAsJsonArray().get(i).isJsonObject()) {
-//								if (  !(new NodeObject(this.activeContext, item.getValue().getAsJsonArray().get(i)).validate()) ) {
-//									return false;
-//								}
-//							}else {
-//								//TODO throw error
-//								return false;
-//							}			
-//						}
+
 					}					
 				
 	
@@ -127,6 +117,12 @@ public class JSONLDDocument implements JSONLDValidator {
 				}
 				
 				if(item.getValue().isJsonObject()) {
+					/*
+					 * step 1: check if this node is a collection 
+					 * step 2: check if this is the first object in the document
+					 * step 3: add this node as a first resource (initialize it with its IRI and value)
+					 * 
+					 * */
 				/*
 				1.0 
 				A node object represents zero or more properties of a node in the graph serialized by the JSON-LD document. 
@@ -145,11 +141,6 @@ public class JSONLDDocument implements JSONLDValidator {
 					} 
 					if(item.getKey().equals(JsonLdKeyword.GRAPH)) {
 
-						//walk over json and build Resource  object
-						
-//						if(! new NodeObject(activeContext, item.getValue()).validate() ) {
-//							return false;
-//						}
 					}else
 						return false;
 					
