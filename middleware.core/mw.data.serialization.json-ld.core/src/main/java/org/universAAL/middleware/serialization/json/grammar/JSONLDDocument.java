@@ -47,6 +47,8 @@ public class JSONLDDocument implements JSONLDValidator {
 	private ArrayList<ContextDefinition> contexts = new ArrayList<ContextDefinition>(2) ; 
 	private ContextDefinition activeContext=null, lastContext= null;
 	private JsonObject mainJSON = null;
+	
+
 	private JsonParser jp = null;
 
 	/**	
@@ -91,14 +93,7 @@ public class JSONLDDocument implements JSONLDValidator {
 				
 					//simple context
 					if(item.getValue().isJsonObject()) {
-						if(this.lastContext==null) {
-							this.activeContext = new ContextDefinition(item.getValue());
-							this.lastContext = this.activeContext;
-						}else {
-							this.activeContext=ContextDefinition.mergeContexts(new ContextDefinition(item.getValue()),this.lastContext);
-							this.lastContext=new ContextDefinition(item.getValue());
-						}
-						//this.activeContext = new ContextDefinition(item.getValue());	
+						this.activeContext = new ContextDefinition(item.getValue());	
 						if (!this.activeContext.validate()) 
 							return false;
 					}
@@ -177,6 +172,8 @@ public class JSONLDDocument implements JSONLDValidator {
 
 		return true;
 	}
-
+	public JsonObject getMainJSON() {
+		return mainJSON;
+	}
 	
 }
