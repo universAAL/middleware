@@ -21,7 +21,7 @@ public class ValidatorTest {
 	@Test
 	public void SimpleContext() throws IOException {
 		boolean status;
-		//ReferencedContext.json
+		// FIXME bug into context key validation
 		InputStream is = this.getClass().getClassLoader().getResource("SimpleContext.json").openStream();
 		JSONLDDocument doc = new JSONLDDocument(is);
 		is.close();
