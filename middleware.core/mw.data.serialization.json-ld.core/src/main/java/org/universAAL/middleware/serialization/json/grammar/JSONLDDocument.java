@@ -48,7 +48,7 @@ public class JSONLDDocument implements JSONLDValidator {
 	private ArrayList<ContextDefinition> contexts = new ArrayList<ContextDefinition>(2) ; 
 	private ContextDefinition activeContext=null, lastContext= null;
 	private JsonObject mainJSON = null;
-	
+	private List<Resource> resources=null; 
 
 	private JsonParser jp = null;
 
@@ -59,7 +59,7 @@ public class JSONLDDocument implements JSONLDValidator {
 	 * @throws JsonSyntaxException
 	 */
 	public JSONLDDocument(InputStream jsonToBeProcessed) throws JsonParseException, JsonSyntaxException,ClassCastException,NullPointerException,JsonSyntaxException{
-
+		this.resources = new ArrayList<Resource>();
 		String jsonString = "";
 		Scanner s = new Scanner(jsonToBeProcessed);
 		s.useDelimiter("\\A");
@@ -87,123 +87,63 @@ public class JSONLDDocument implements JSONLDValidator {
 	 * @return {@link Boolean} value indicating the status of the process
 	 */
 	public boolean validate() {
+		JsonObject aux = this.mainJSON;
 		ContextDefinition active=null;
 		Boolean compacted=false;
-		
 		Resource subject=null, predicate=null,resource=null;
+		
 		if(this.mainJSON.has(JsonLdKeyword.CONTEXT.toString())) {
 			compacted=true;
 		}
 	
 		if(compacted) {
-			active = new ContextDefinition( this.mainJSON.get(JsonLdKeyword.CONTEXT.toString()));
+			active = new ContextDefinition( aux.get(JsonLdKeyword.CONTEXT.toString()));
 			if (!active.validate()) 
 				return false;
-		}else {
-			//missing context. expanded JsonLD
-			for (Entry<String, JsonElement> item : this.mainJSON.entrySet()) {
-					if(item.getValue().isJsonArray()) {
-						//TODO control the item key to check if it is valid
-						//the key must be a valid URI
-						if(!IRI.isAbsolute(item.getKey())) return false; //TODO if URI is relative
-						
-						
-						//may be parse as collection
-					}
-					if(item.getValue().isJsonObject()) {
-						//parse as triple(?)
-						//TODO check the jsonLD format
-					}
-					if(item.getValue().isJsonPrimitive()) {
-						//parse as triple(?)
-						//TODO check the jsonLD format
-					}
-			}
+			aux.remove(JsonLdKeyword.CONTEXT.toString());
 		}
-		
-		for (Entry<String, JsonElement> item : this.mainJSON.entrySet()) {
-			
-			//if the json is espanded or compacted
-			//TODO appear gson just use the last context into the json, so is not needed to merge context. Check documenation
-			if (item.getKey().equals(JsonLdKeyword.CONTEXT.toString())) {
-				
-					//simple context
-					if(item.getValue().isJsonObject()) {
-						this.activeContext = new ContextDefinition(item.getValue());	
-						if (!this.activeContext.validate()) 
-							return false;
-					}
-					//if the value associated to Context key is a json primitive...it must be a valid IRI
-					if(item.getValue().isJsonPrimitive()) {
-						if (!IRI.isAbsolute(item.getValue().getAsString())){
-							return false;
-						}
-					}
-					//multiple contexts
-					if(item.getValue().isJsonArray()) {
 
-					}					
+		return this.validateBody(aux);
+	}
+	
+	private boolean validateBody(JsonElement toValidate) {
+
+		
+		if(toValidate.isJsonObject()){
+			
+			if(this.resources.isEmpty()) {
+			//validate key before generate resource(?)
 				
+			}
 				
-			}else {
-				
-				/*
-				 * if hasn't context,treat the json in the compacted form?
-				 * 
-				 * */
-				
+			for (Entry<String, JsonElement> item : toValidate.getAsJsonObject().entrySet()) {
 				
 				if(item.getValue().isJsonArray()) {
-
+					//TODO control the item key to check if it is valid
+					//the key must be a valid URI
+					if(!IRI.isAbsolute(item.getKey())) return false; //TODO if URI is relative
+					//may be parse as collection
 				}
-				
 				if(item.getValue().isJsonObject()) {
-					/*
-					 * step 1: check if this node is a collection 
-					 * step 2: check if this is the first object in the document
-					 * step 3: add this node as a first resource (initialize it with its IRI and value)
-					 * 
-					 * 
-					 * store key, check if is a collection
-					 * */
-				/*
-				1.0 
-				A node object represents zero or more properties of a node in the graph serialized by the JSON-LD document. 
-				A JSON object is a node object if it exists outside of a JSON-LD context and:
-				it does not contain the @value, @list, or @set keywords, and
-				it is not the top-most JSON object in the JSON-LD document consisting of no other members than @graph and @context.
-				*/
-					for (Entry<String, JsonElement> element : item.getValue().getAsJsonObject().entrySet()) {
-						if(
-							element.getKey().equals(JsonLdKeyword.VALUE) ||
-							element.getKey().equals(JsonLdKeyword.LIST) ||
-							element.getKey().equals(JsonLdKeyword.SET)
-							) {
-							return false;
-						}
-					} 
-					if(item.getKey().equals(JsonLdKeyword.GRAPH)) {
-
-					}else
-						return false;
-					
-				}				
+					//parse as triple(?)
+					//TODO check the jsonLD format
+				}
 				if(item.getValue().isJsonPrimitive()) {
-					//validate prmitive as IRI...
-					
+					//parse as triple(?)
+					//TODO check the jsonLD format
 				}
-
-				if(item.getValue().isJsonNull()) {
-					return false;
-				}
-				
-
-				
-			}
-
+		}
 			
 		}
-
+		
+		if(toValidate.isJsonObject()){
+					
+		}
+		
+		if(toValidate.isJsonObject()){
+			
+		}
+	
 		return true;
 	}
 
