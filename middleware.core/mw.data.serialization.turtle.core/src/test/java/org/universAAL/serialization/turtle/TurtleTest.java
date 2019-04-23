@@ -16,6 +16,7 @@ import org.universAAL.middleware.owl.TypeURI;
 import org.universAAL.middleware.rdf.LangString;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ResourceFactory;
+import org.universAAL.middleware.serialization.turtle.TurtleParser;
 import org.universAAL.middleware.serialization.turtle.TurtleSerializer;
 import org.universAAL.middleware.util.ResourceComparator;
 
@@ -280,6 +281,7 @@ public class TurtleTest extends TestCase {
 		assertTrue(check(r1));
 	}
 
+	
 	// public void testQuotedLiteral() {
 	// Resource r1 = new Resource("testResource"); // input resource
 	// r1.setProperty("testProp", new Integer(100));

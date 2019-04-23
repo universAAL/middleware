@@ -16,9 +16,11 @@
 package org.universAAL.middleware.serialization.json.grammar;
 
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -75,7 +77,6 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 				if(jsonToValidate.isJsonObject()) {
 
 					for (Entry<String, JsonElement> element : this.jsonToValidate.getAsJsonObject().entrySet()) {
-		
 						//keyword control
 						//A context definition MUST be a JSON object whose keys MUST either be terms, compact IRIs, absolute IRIs, or the keywords @language, @base, and @vocab.
 						return this.keyControl(element);	
@@ -140,7 +141,6 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 		return true;
 	}
 
-
 	public boolean keyControl(Entry<String, JsonElement> element) {
 		
 		
@@ -175,7 +175,31 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 		}
 		return true;
 	}
-
+	
+	public static ContextDefinition mergeContexts(ContextDefinition c1, ContextDefinition c2) {
+		JsonObject aux= c2.getJsonToValidate();
+		ContextDefinition context;
+		Set<Entry<String, JsonElement>> c1_aux = c1.getJsonToValidate().entrySet();
+		Set<Entry<String, JsonElement>> c2_aux = c2.getJsonToValidate().entrySet();
+		
+		for (Entry<String, JsonElement> entry : c2_aux) {
+			if(c1_aux.contains(entry)) {
+				aux.remove(entry.getKey());
+				aux.add(entry.getKey(),c1.getJsonToValidate().get(entry.getKey()));
+			}
+		}
+		for (Entry<String, JsonElement> entry : c1_aux) {
+			if(!c2_aux.contains(entry)) {
+				aux.add(entry.getKey(), c1.getJsonToValidate().get(entry.getKey()));
+			}
+		}
+	context = new ContextDefinition(aux);
+	System.out.println(aux);
+		if(!context.validate())
+		   return null;
+		else
+			return context;
+	}
 
 
 	

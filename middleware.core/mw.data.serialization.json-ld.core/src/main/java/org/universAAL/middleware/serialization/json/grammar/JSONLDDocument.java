@@ -45,8 +45,8 @@ import com.google.gson.JsonSyntaxException;
  *      href=https://www.w3.org/TR/2014/REC-json-ld-20140116/#json-ld-grammar>https://www.w3.org/TR/2014/REC-json-ld-20140116/#json-ld-grammar</a>
  */
 public class JSONLDDocument implements JSONLDValidator {
-
-	private ContextDefinition activeContext = null;
+	private ArrayList<ContextDefinition> contexts = new ArrayList<ContextDefinition>(2) ; 
+	private ContextDefinition activeContext=null, lastContext= null;
 	private JsonObject mainJSON = null;
 	private JsonParser jp = null;
 
@@ -85,18 +85,25 @@ public class JSONLDDocument implements JSONLDValidator {
 	 * @return {@link Boolean} value indicating the status of the process
 	 */
 	public boolean validate() {
-		
 
-		
 		for (Entry<String, JsonElement> item : this.mainJSON.entrySet()) {
+			
+			
 			//analyze only elements with context key
 			if (item.getKey().equals(JsonLdKeyword.CONTEXT.toString())) {
+				
 					//simple context
 					if(item.getValue().isJsonObject()) {
-						this.activeContext = new ContextDefinition(item.getValue());	
+						if(this.lastContext==null) {
+							this.activeContext = new ContextDefinition(item.getValue());
+							this.lastContext = this.activeContext;
+						}else {
+							this.activeContext=ContextDefinition.mergeContexts(new ContextDefinition(item.getValue()),this.lastContext);
+							this.lastContext=new ContextDefinition(item.getValue());
+						}
+						//this.activeContext = new ContextDefinition(item.getValue());	
 						if (!this.activeContext.validate()) 
 							return false;
-					
 					}
 					//if the value associated to Context key is a json primitive...it must be a valid IRI
 					if(item.getValue().isJsonPrimitive()) {
@@ -106,19 +113,18 @@ public class JSONLDDocument implements JSONLDValidator {
 					}
 					//multiple contexts
 					if(item.getValue().isJsonArray()) {
-						//if the element has a context key and is an array...will be interpreted as an array of contexts
-						for (int i = 0; i < item.getValue().getAsJsonArray().size(); i++) {
-							if(item.getValue().getAsJsonArray().get(i).isJsonObject()) {
-								if (  !(new NodeObject(this.activeContext, item.getValue().getAsJsonArray().get(i)).validate()) ) {
-									return false;
-								}
-							}else {
-								//TODO throw error
-								return false;
-							}
-								
-						}
-					}
+//						//if the element has a context key and is an array...will be interpreted as an array of contexts
+//						for (int i = 0; i < item.getValue().getAsJsonArray().size(); i++) {
+//							if(item.getValue().getAsJsonArray().get(i).isJsonObject()) {
+//								if (  !(new NodeObject(this.activeContext, item.getValue().getAsJsonArray().get(i)).validate()) ) {
+//									return false;
+//								}
+//							}else {
+//								//TODO throw error
+//								return false;
+//							}			
+//						}
+					}					
 				
 				
 			}else {
@@ -134,9 +140,32 @@ public class JSONLDDocument implements JSONLDValidator {
 				}
 				
 				if(item.getValue().isJsonObject()) {
-					//node object analyze
-					if(! new NodeObject(activeContext, item.getValue()).validate())
+				/*
+				1.0 
+				A node object represents zero or more properties of a node in the graph serialized by the JSON-LD document. 
+				A JSON object is a node object if it exists outside of a JSON-LD context and:
+				it does not contain the @value, @list, or @set keywords, and
+				it is not the top-most JSON object in the JSON-LD document consisting of no other members than @graph and @context.
+				*/
+					for (Entry<String, JsonElement> element : item.getValue().getAsJsonObject().entrySet()) {
+						if(
+							element.getKey().equals(JsonLdKeyword.VALUE) ||
+							element.getKey().equals(JsonLdKeyword.LIST) ||
+							element.getKey().equals(JsonLdKeyword.SET)
+							) {
+							return false;
+						}
+					} 
+					if(item.getKey().equals(JsonLdKeyword.GRAPH)) {
+
+						//walk over json and build Resource  object
+						
+//						if(! new NodeObject(activeContext, item.getValue()).validate() ) {
+//							return false;
+//						}
+					}else
 						return false;
+					
 				}				
 				if(item.getValue().isJsonPrimitive()) {
 					//validate prmitive as IRI...
@@ -144,7 +173,7 @@ public class JSONLDDocument implements JSONLDValidator {
 				}
 
 				if(item.getValue().isJsonNull()) {
-					//TODO: throw error
+					return false;
 				}
 				
 
