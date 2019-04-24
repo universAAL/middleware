@@ -28,12 +28,7 @@
     },
     {
       "step": 2,
-      "description": "Fill glass to top with ice cubes.",
-      "substep":[
-      			{"d":"a"},
-      			{"dd":"a"},
-      			{"ddd":"a"}
-      			]
+      "description": "Fill glass to top with ice cubes."
     },
     {
       "step": 3,
