@@ -1,15 +1,18 @@
 package org.universAAL.middleware.serialization.json;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
 import org.junit.Test;
+import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.serialization.json.grammar.ContextDefinition;
 import org.universAAL.middleware.serialization.json.grammar.JSONLDDocument;
 
@@ -26,35 +29,23 @@ public class ValidatorTest {
 
 	@Test
 	public void SimpleContext() throws IOException {
-		boolean status;
-		// FIXME bug into context key validation
-		InputStream is = this.getClass().getClassLoader().getResource("SimpleContext.json").openStream();
+		InputStream is = this.getClass().getClassLoader().getResource("example.json").openStream();
 		JSONLDDocument doc = new JSONLDDocument(is);
 		is.close();
-		status=doc.validate();
-		System.out.println(status);
-		assertTrue(status);
+		doc.validate();
+		//System.out.println(doc.getResource("http://rdf.data-vocabulary.org/#ingredients"));
+		Enumeration<Resource> t = doc.getAllResources();
+		
+		while(t.hasMoreElements()) {
+			Resource k =t.nextElement();
+			System.out.println(k.getURI());
+		}
+		
+		//assertNotNull(doc.getResource("http://rdf.data-vocabulary.org/#ingredients"));
 	}
-//	@Test
-//	public void multipleContextTest() throws IOException {
-//		boolean status;
-//		InputStream is = this.getClass().getClassLoader().getResource("MultipleContext.json").openStream();
-//		JSONLDDocument doc = new JSONLDDocument(is);
-//		is.close();
-//		status=doc.validate();
-//		System.out.println(status);
-//		assertTrue(status);
-//	}
-	@Test
-	public void referencedContext() throws IOException {
-		boolean status;
-		InputStream is = this.getClass().getClassLoader().getResource("ReferencedContext.json").openStream();
-		JSONLDDocument doc = new JSONLDDocument(is);
-		is.close();
-		status=doc.validate();
-		System.out.println(status);
-		assertTrue(status);
-	}
+	
+
+
 
 	/**
 	 * to test if the json has not a correct structure (missing close bracket)

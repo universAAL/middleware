@@ -21,7 +21,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -59,10 +61,13 @@ public class JSONLDDocument implements JSONLDValidator {
 	private ArrayList<ContextDefinition> contexts = new ArrayList<ContextDefinition>(2) ; 
 	private ContextDefinition activeContext=null, lastContext= null;
 	private JsonElement mainJSON = null;
-	private List<Resource> resources=null; 
-	private Resource firstResource=null;
+
+
+	private List<Resource> resourcesList=null; 
+	private Resource subject=null,predicate=null,object=null;
 	private String mainJsonString;
 	private JsonParser jp = null;
+	private Hashtable resources = new Hashtable();
 
 	/**	
 	 * 
@@ -72,7 +77,7 @@ public class JSONLDDocument implements JSONLDValidator {
 	 */
 	public JSONLDDocument(InputStream jsonToBeProcessed) throws JsonParseException, JsonSyntaxException,ClassCastException,NullPointerException,JsonSyntaxException{
 		//maybe its necesary to use jsonld library to expand the json to process it 
-		this.resources = new ArrayList<Resource>();
+		this.resourcesList = new ArrayList<Resource>();
 		
 		String jsonString = "";
 		Scanner s = new Scanner(jsonToBeProcessed);
@@ -85,7 +90,7 @@ public class JSONLDDocument implements JSONLDValidator {
 		try {
 			this.mainJSON = jp.parse(this.processJsonLDFormat("expand"));
 		}catch (JsonSyntaxException e) {
-			throw e;
+			e.printStackTrace();
 		}
 		
 
@@ -107,37 +112,31 @@ public class JSONLDDocument implements JSONLDValidator {
 		A JSON-LD document MUST be a single node object or an array whose elements are each node objects at the top level.
 		*/
 		//add the default graph as resource 
+		
 		if(this.mainJSON.isJsonArray()){
-			//elements are each node objects at the top level.
-			
-			//JsonObject objAux = this.mainJSON .getAsJsonArray().iterator().next().getAsJsonObject();
-					//node object check
-					//iterate over internal graphs. Named graphs
-					for (Entry<String, JsonElement> namedGraph: this.mainJSON .getAsJsonArray().iterator().next().getAsJsonObject().entrySet()) {
-						//each entry element represents a named graph	
-						if(IRI.isAbsolute(namedGraph.getKey())) {
-							//check the child nodes
-							//build a resource with the key of this node
-							//check the child nodes
-							new Resource(namedGraph.getKey());
-							
-							if(namedGraph.getValue().isJsonArray() || namedGraph.getValue().isJsonArray()) {
-								//parseCollection()
-							}
-						}else if(namedGraph.getKey().equals(JsonLdKeyword.BLANK_NODE)){
-							new Resource();
-						}else
-							return false;
-					}
+			System.out.println("validating json array..."+this.mainJSON);
+			for (Entry<String, JsonElement> namedGraph: this.mainJSON .getAsJsonArray().iterator().next().getAsJsonObject().entrySet()) {
+				//each entry element represents a named graph
+				System.err.println("graph name----->"+namedGraph.getKey());
+				if(namedGraph.getValue().isJsonArray()) {
+					this.processGraph(namedGraph.getValue().getAsJsonArray());
+				}else {
+					System.out.println("not array");
 				}
 
-		else if(this.mainJSON .isJsonObject()) {
-			//TODO interpret this case
-		}else if(this.mainJSON .isJsonPrimitive()) {
-			//TODO interpret this case			
-		} else
-			//TODO check documentation
-			return false;
+			}
+			
+			
+			
+				}
+
+//		else if(this.mainJSON .isJsonObject()) {
+//			//TODO interpret this case
+//		}else if(this.mainJSON .isJsonPrimitive()) {
+//			//TODO interpret this case			
+//		} else
+//			//TODO check documentation
+//			return false;
 
 		return true;
 }
@@ -146,11 +145,38 @@ public class JSONLDDocument implements JSONLDValidator {
 	 * @param resourceURI
 	 */
 	public Resource getResource(String resourceURI){
-		if(this.validate()) {
-			//TODO search the resource matching with resourceURI
-			return new Resource();
-		}else
-			return null;
+		return (Resource) resources.get(resourceURI);
+	}
+	
+	public Enumeration<Resource> getAllResources() {
+		return this.resources.elements();
+	}
+	
+	private void processGraph(JsonArray graph) {
+		Resource resource=null;
+		System.out.println("\n processing graph..."+graph.toString());
+		
+		for(int z =0; z<graph.size();z++) {
+			if(graph.get(z).isJsonArray()) {
+				processGraph(graph.get(z).getAsJsonArray());
+			}
+			if(graph.get(z).isJsonObject()) {
+				processCollection(graph.get(z).getAsJsonObject());
+			}
+		}
+		
+	}
+	
+	private void processCollection(JsonObject list) {
+		System.out.println("processing collection..."+list);
+		for (Entry<String, JsonElement> item : list.entrySet()) {
+			if(item.getValue().isJsonArray()) {
+				this.processGraph(item.getValue().getAsJsonArray());
+			}else {
+				System.err.println("build resource heare using resprop="+item.getKey()+" and resobj="+item.getValue());
+			
+			}
+		}
 	}
 	
 	private  String processJsonLDFormat(String out)  {
@@ -185,5 +211,11 @@ public class JSONLDDocument implements JSONLDValidator {
 			return null;
 		} 
 	}
+	
+	public JsonElement getMainJSON() {
+		return mainJSON;
+	}
+
+
 
 }
