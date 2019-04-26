@@ -37,7 +37,6 @@ import com.google.gson.JsonObject;
  */
 public class NodeObject implements JSONLDValidator {
 	private JsonElement obj;
-	private Object father;
 	private ContextDefinition activeContext;
 	private boolean state;
 
@@ -53,35 +52,15 @@ public class NodeObject implements JSONLDValidator {
 	
 	/**
 	 * 
-	 * @param father Parent context
+	 * @param parentContext Parent context
 	 * @param obj {@link JsonElement} to be analyzed as NodeObject
 	 */
-	public NodeObject(ContextDefinition father/*, Object father*/, JsonElement obj) {
-//		if (father instanceof ContextDefinition) {
-//			throw new InvalidParameterException("A JSON object is a node object if it exists outside of a JSON-LD context");
-//			}
-		this.father = father;
+	public NodeObject(ContextDefinition activeContext, JsonElement obj) {
+
+		this.activeContext = activeContext;
 		this.obj = obj;
 	}
 
-	/**
-	 * Context's value must be null,
-	 * an absolute IRI, a relative IRI, or a context definition.
-	 */
-//	private boolean isValidContext(JsonElement context) {
-//		return context.isJsonNull()
-//		|| IRI.isAbsolute(context.getAsString())
-//		|| IRI.isRelative(null,context.getAsString())
-//		|| new ContextDefinition(context.getAsJsonObject()).validate();
-//	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * org.universAAL.middleware.serialization.json.grammar.JSONLDValidator#validate
-	 * ()
-	 */
 	public boolean validate() {
 		
 		
@@ -93,7 +72,7 @@ public class NodeObject implements JSONLDValidator {
 		//if active context is null...exists another context and this context will not be analyzed
 		//if exist a context into this object...the jsonLD structure is bad
 		
-		if(this.activeContext!=null) return false;
+		//if(this.activeContext!=null) return false;
 		if(this.obj==null || !this.obj.isJsonObject()) return false;
 		//it does not contain the @value, @list, or @set keywords,
 		if(this.obj.getAsJsonObject().entrySet().contains(JsonLdKeyword.VALUE) ||
@@ -104,96 +83,52 @@ public class NodeObject implements JSONLDValidator {
 		
 		for (Entry<String, JsonElement> element : this.obj.getAsJsonObject().entrySet()) {
 			
-			//If the node object contains the @context key,
+			//If the node object contains the @context key,its value MUST be null, an absolute IRI, a relative IRI, a context definition, or an array composed of any of these.
 			if(element.getKey().equals(JsonLdKeyword.CONTEXT.toString())) {
 				//an array composed of any of these
 				if(element.getValue().isJsonArray()) {
 					JsonArray jsa =element.getValue().getAsJsonArray();
 					for (JsonElement item : jsa) {
 							//control each member of array if is satisfactible context definition
-							if(item.isJsonObject()) 
-								if (! (new ContextDefinition(item).validate()) )
+						//its value MUST be null, an absolute IRI, a relative IRI, a context definition
+							if(item.isJsonObject()) {
+								//context definition case
+								if (! (new ContextDefinition(this.activeContext,item).validate()) )
 									return false;
-							
+							}
 							if(item.isJsonPrimitive()) {
-								//TODO if the context its a IRI need to be controlled, in the example on documentation the 
-								//json into array are IRI refecenre				
+								//TODO if the context its a IRI need to be controlled, in the example on documentation the json into array are IRI refecenre				
 								if (!(element.getValue().isJsonNull() ||
 										IRI.isAbsolute(element.getValue().getAsString()) ||
-										IRI.isRelative(null, element.getValue().getAsString()))
+										IRI.isRelative(this.activeContext.getBaseIRI(), element.getValue().getAsString()))
 									)
 									return false;
 							}
 						
 							
 					}
-				}else {
-					//if it is not an array...
-					if(element.getValue().isJsonPrimitive()) {//control if it is a string to be processed as IRI
+				}else if(element.getValue().isJsonPrimitive()) {//control if it is a string to be processed as IRI
 						//value MUST be null,an absolute IRI, a relative IRI, a context definition
 						if ( 	!(element.getValue().isJsonNull() ||
 								IRI.isAbsolute(element.getValue().getAsString()) ||
-								IRI.isRelative(null, element.getValue().getAsString()))
+								IRI.isRelative(this.activeContext.getBaseIRI(), element.getValue().getAsString()))
 							)
 							return false;
 					}else {
-						//return false;
-						//if it isn't primitive the node was incorrect structure
-						//TODO throw error
-					}
+						//the value of context key is an object
+						//if it isn't primitive or array the context was incorrect structure
+						return false;
+						}
 					
 				}
-				
-				
-			}
-			
-			/*
-			 * Keys in a node object that are not keywords MAY expand to an absolute IRI using the active context
-			 * The values associated with keys that expand to an absolute IRI MUST be one of the following:*/
-			if(!JsonLdKeyword.isKeyword(element.getKey())) {
-				/*
-			    string,
-			    number,
-			    true,
-			    false,
-			    null,
-			    node object,
-			    value object,
-			    list object,
-			    set object,
-			    an array of zero or more of the possibilities above,
-			    a language map, or
-			    an index map
-			*/
-				
-				if(element.getValue().isJsonPrimitive()) {
-					//TODO null will be interpreted as primitive in this case
-					//no puede ser objeto ni array 
-				}else {
-					if(element.getValue().isJsonObject()) {
-						//puede ser node object, value object,list,set
-						if( !(new NodeObject(activeContext, element.getValue()).validate() ||
-							  new ValueObject(activeContext, element.getValue()).validate()) ||
-							  new SetAndListAnalyzer(element.getValue()).validate()	)
-							return false;
-					}
-					if(element.getValue().isJsonArray()) {
-						//an array of zero or more of the possibilities above,		
-					}
-					//TODO interpret index map and language map
-				}
-				
-				
 
-				
-			}
 			/*
 			 * If the node object contains the @id key, its value MUST be an absolute IRI, a relative IRI, or a compact IRI (including blank node identifiers).
 			 *  See section 5.3 Node Identifiers, section 6.3 Compact IRIs, and section 6.14 Identifying Blank Nodes for further discussion on @id values.
 			 * */
 			if(element.getKey().equals(JsonLdKeyword.ID.toString())) {
 						if (!(IRI.isAbsolute(element.getValue().getAsString()) ||
-									IRI.isRelative("", element.getValue().getAsString()) ||
+									IRI.isRelative(this.activeContext.getBaseIRI(), element.getValue().getAsString()) ||
 									IRI.isCompact(this.activeContext, element.getValue().getAsString()) || 
 									element.getValue().getAsString().equals(JsonLdKeyword.BLANK_NODE))
 									)
@@ -215,7 +150,7 @@ public class NodeObject implements JSONLDValidator {
 					//node object control. Take care of infinite loop
 				}
 				//cero or more node 
-				if(element.getValue().isJsonArray()) {
+				else if(element.getValue().isJsonArray()) {
 					for (int i = 0; i < element.getValue().getAsJsonArray().size(); i++) {
 						if(element.getValue().getAsJsonArray().get(i).isJsonObject()) {
 							if (! new NodeObject(activeContext, element.getValue().getAsJsonArray().get(i).getAsJsonObject()).validate())
@@ -225,7 +160,9 @@ public class NodeObject implements JSONLDValidator {
 					}
 					
 				}
-				
+				else 
+					//jsonPrimitive given...
+					return false;
 				
 			}
 			/*
@@ -236,14 +173,26 @@ public class NodeObject implements JSONLDValidator {
 			if(element.getKey().equals(JsonLdKeyword.TYPE.toString())) {
 				if(element.getValue().isJsonPrimitive()) {
 					if( !(IRI.isAbsolute(element.getValue().getAsString()) ||
-							/*IRI.isRelative(baseIRI, candidate) ||*/ 
+							IRI.isRelative(this.activeContext.getBaseIRI(), element.getValue().toString()) || 
 							IRI.isCompact(activeContext, element.getValue().getAsString()) ||
-							element.getValue().equals(JsonLdKeyword.BLANK_NODE.toString())
-							//TODO see:  a term defined in the active context expanding into an absolute IRI, or an array of any of these
+							element.getValue().equals(JsonLdKeyword.BLANK_NODE.toString()) ||
+							this.activeContext.hasTerm(element.getValue().toString())
 							) ) return false;
-					if(!this.activeContext.getJsonToValidate().has(element.getKey())) return false;
 				}
-				else 
+				else if(element.getValue().isJsonArray()) {
+					for (JsonElement item : element.getValue().getAsJsonArray()) {
+						if(item.isJsonPrimitive()) {
+							
+							if( !(IRI.isAbsolute(element.getValue().getAsString()) ||
+									IRI.isRelative(this.activeContext.getBaseIRI(), element.getValue().toString()) || 
+									IRI.isCompact(activeContext, element.getValue().getAsString()) ||
+									element.getValue().equals(JsonLdKeyword.BLANK_NODE.toString()) ||
+									this.activeContext.hasTerm(element.getValue().toString())
+									) ) return false;
+						}else 
+							return false;
+					}
+				}
 					return false;
 
 						
@@ -255,15 +204,40 @@ public class NodeObject implements JSONLDValidator {
 			 *  a relative IRI, a compact IRI, a blank node identifier, a node object or an array containing a combination of these.*/
 			
 			if( element.getKey().equals(JsonLdKeyword.REVERSE)) {
+				
 				if(element.getValue().isJsonObject()) {
-					JsonObject jso = element.getValue().getAsJsonObject(); 
-					for (Entry<String, JsonElement> item : jso.entrySet()) {
+					
+					for (Entry<String, JsonElement> item : element.getValue().getAsJsonObject().entrySet()) {
 						
 						if(item.getValue().isJsonObject()) {
-							
-						}
-						if(item.getValue().isJsonArray()) {
-							
+							//validate NodeObject
+							if( ! new NodeObject(activeContext, item.getValue()).validate()) 
+								return false;
+						}else if(item.getValue().isJsonArray()) {
+							for (JsonElement value : item.getValue().getAsJsonArray()) {
+								if(value.isJsonPrimitive()) {
+									
+									if( !(IRI.isAbsolute(value.toString()) ||
+											IRI.isRelative(this.activeContext.getBaseIRI(), value.toString()) || 
+											IRI.isCompact(this.activeContext, value.toString()) ||
+											value.toString().equals(JsonLdKeyword.BLANK_NODE.toString()))
+											 ) return false;
+								}else if( value.isJsonObject()) {
+									if( ! new NodeObject(activeContext, value).validate()) 
+										return false;
+								}
+									
+							} 
+						}else if(item.getValue().isJsonPrimitive()) {
+							/*absolute IRI,
+							 *  a relative IRI, a compact IRI, a blank node identifier*/
+							if( !(IRI.isAbsolute(element.getValue().getAsString()) ||
+									IRI.isRelative(this.activeContext.getBaseIRI(), element.getValue().toString()) || 
+									IRI.isCompact(activeContext, element.getValue().getAsString()) ||
+									element.getValue().equals(JsonLdKeyword.BLANK_NODE.toString()))
+									 ) return false;
+						}else {
+							return false;
 						}
 						
 						if(
@@ -288,15 +262,65 @@ public class NodeObject implements JSONLDValidator {
 				if(!element.getValue().isJsonPrimitive())
 					return false;
 			}
-		
-			//TODO :Keys in a node object that are not keywords MAY expand to an absolute IRI using the active context. 
-			//The values associated with keys that expand to an absolute IRI MUST be one of the following:
+			
+			
+
+			
+		/*
+		 * Keys in a node object that are not keywords MAY expand to an absolute IRI using the active context
+		 * The values associated with keys that expand to an absolute IRI MUST be one of the following:*/
+		if(!JsonLdKeyword.isKeyword(element.getKey())) {
+			//TODO complete this step
+			/*
+		    string,
+		    number,
+		    true,
+		    false,
+		    null,
+		    node object,
+		    value object, --> A value object is used to explicitly associate a type or a language with a value to create a typed value or a language-tagged string.
+		    list object,
+		    set object,
+		    an array of zero or more of the possibilities above,
+		    a language map, or
+		    an index map
+		*/
+			if(!this.activeContext.hasTerm(element.getKey())) {
+				return false;
+			}else {
+				if(!IRI.isAbsolute(this.activeContext.getTermValue(element.getKey())))
+					return false;
+				
+				if(element.getValue().isJsonPrimitive()) {
+					//TODO null will be interpreted as primitive in this case
+			  
+				}else  if(element.getValue().isJsonObject()) {
+						//puede ser node object, value object,list,set
+						if( !(new NodeObject(activeContext, element.getValue()).validate() ||
+							  new ValueObject(activeContext, element.getValue()).validate()) ||
+							  new SetAndListAnalyzer(element.getValue()).validate()	)
+							return false;
+					}
+					if(element.getValue().isJsonArray()) {
+			 		
+					}
+			}
+			
+
+	 
+			}
+			
+			
+
+			
 		}
+
+		
 
 
 		return true;
 	}
-
+	
 	public boolean mergeNodeObjects() {
 		return false;
 	}

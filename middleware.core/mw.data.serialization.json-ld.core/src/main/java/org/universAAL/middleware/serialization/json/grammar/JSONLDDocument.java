@@ -37,11 +37,11 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.serialization.json.JSONLDSerialization;
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.github.jsonldjava.core.JsonLdError;
-import com.github.jsonldjava.core.JsonLdOptions;
-import com.github.jsonldjava.core.JsonLdProcessor;
-import com.github.jsonldjava.utils.JsonUtils;
+//import com.fasterxml.jackson.core.JsonGenerationException;
+//import com.github.jsonldjava.core.JsonLdError;
+//import com.github.jsonldjava.core.JsonLdOptions;
+//import com.github.jsonldjava.core.JsonLdProcessor;
+//import com.github.jsonldjava.utils.JsonUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -59,7 +59,7 @@ import com.google.gson.JsonSyntaxException;
  */
 public class JSONLDDocument implements JSONLDValidator {
 	private ArrayList<ContextDefinition> contexts = new ArrayList<ContextDefinition>(2) ; 
-	private ContextDefinition activeContext=null, lastContext= null;
+	private ContextDefinition mainContext=null;
 	private JsonElement mainJSON = null;
 
 
@@ -88,7 +88,7 @@ public class JSONLDDocument implements JSONLDValidator {
 		this.jp = new JsonParser();
 		//throws MalformedJsonException if the json is mal formed
 		try {
-			this.mainJSON = jp.parse(this.processJsonLDFormat("expand"));
+			this.mainJSON = jp.parse(this.mainJsonString);
 		}catch (JsonSyntaxException e) {
 			e.printStackTrace();
 		}
@@ -125,10 +125,18 @@ public class JSONLDDocument implements JSONLDValidator {
 				}
 
 			}
-			
-			
-			
+						
 				}
+		
+		if(this.mainJSON.isJsonObject()) {
+			System.out.println("validating object...maybe json is expanded");
+			//TODO check multiple contexts
+			if(this.mainJSON.getAsJsonObject().has(JsonLdKeyword.CONTEXT.toString())) {
+				System.out.println("...validating context...");
+				if(! new ContextDefinition(this.mainContext,this.mainJSON.getAsJsonObject().get(JsonLdKeyword.CONTEXT.toString())).validate())
+					return false;
+			}
+		}
 
 //		else if(this.mainJSON .isJsonObject()) {
 //			//TODO interpret this case
@@ -168,49 +176,52 @@ public class JSONLDDocument implements JSONLDValidator {
 	}
 	
 	private void processCollection(JsonObject list) {
+		Resource r;
 		System.out.println("processing collection..."+list);
 		for (Entry<String, JsonElement> item : list.entrySet()) {
 			if(item.getValue().isJsonArray()) {
 				this.processGraph(item.getValue().getAsJsonArray());
 			}else {
 				System.err.println("build resource heare using resprop="+item.getKey()+" and resobj="+item.getValue());
-			
+				r= new Resource();
+				this.resources.put(r.getURI(), r);
+				r.setProperty(item.getKey(), item.getValue());
 			}
 		}
 	}
 	
-	private  String processJsonLDFormat(String out)  {
-		try {
-			// Open a valid json(-ld) input file
-			//InputStream inputStream = new FileInputStream("input.json");
-			// Read the file into an Object (The type of this object will be a List, Map, String, Boolean,
-			// Number or null depending on the root object in the file).
-			Object jsonObject = JsonUtils.fromString(this.mainJsonString);
-			// Create a context JSON map containing prefixes and definitions
-			//Map context = new HashMap();
-			// Customise context...
-			// Create an instance of JsonLdOptions with the standard JSON-LD options
-			JsonLdOptions options = new JsonLdOptions();
-			// Customise options...
-			// Call whichever JSONLD function you want! (e.g. compact)
-			Object compact=null; 
-			switch (out) {
-				case "expand":
-					compact = JsonLdProcessor.expand(jsonObject, options);
-					break;
-				case "compact":
-					compact = JsonLdProcessor.compact(jsonObject, new HashMap(), options);
-					break;
-			}
-			
-			// Print out the result (or don't, it's your call!)
-			System.out.println("algorithm result  " +out+" --> "+JsonUtils.toString(compact));
-			return JsonUtils.toString(compact);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		} 
-	}
+//	private  String processJsonLDFormat(String out)  {
+//		try {
+//			// Open a valid json(-ld) input file
+//			//InputStream inputStream = new FileInputStream("input.json");
+//			// Read the file into an Object (The type of this object will be a List, Map, String, Boolean,
+//			// Number or null depending on the root object in the file).
+//			Object jsonObject = JsonUtils.fromString(this.mainJsonString);
+//			// Create a context JSON map containing prefixes and definitions
+//			//Map context = new HashMap();
+//			// Customise context...
+//			// Create an instance of JsonLdOptions with the standard JSON-LD options
+//			JsonLdOptions options = new JsonLdOptions();
+//			// Customise options...
+//			// Call whichever JSONLD function you want! (e.g. compact)
+//			Object compact=null; 
+//			switch (out) {
+//				case "expand":
+//					compact = JsonLdProcessor.expand(jsonObject, options);
+//					break;
+//				case "compact":
+//					compact = JsonLdProcessor.compact(jsonObject, new HashMap(), options);
+//					break;
+//			}
+//			
+//			// Print out the result (or don't, it's your call!)
+//			System.out.println("algorithm result  " +out+" --> "+JsonUtils.toString(compact));
+//			return JsonUtils.toString(compact);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return null;
+//		} 
+//	}
 	
 	public JsonElement getMainJSON() {
 		return mainJSON;

@@ -40,10 +40,11 @@ public class IRI {
 	 * @return
 	 */
 	public static boolean isAbsolute(String candidateIRI) {
+		System.out.println("isAbsolute "+candidateIRI);
 		try {
 			URL url = new URL(candidateIRI);
 		} catch (Exception e) {
-			LogUtils.logDebug(JSONLDSerialization.owner, IRI.class, "validate", e.toString());
+			System.out.println(e.getMessage());
 			return false;
 			
 		}
@@ -66,8 +67,9 @@ public class IRI {
 	
 	
 	/**
-	 * A relative IRI is an IRI that is relative to some other absolute IRI. In JSON-LD all relative IRIs are resolved relative to the base IRI.
-	 * @param candidate
+	 * A relative IRI is an IRI that is relative to some other absolute IRI. In JSON-LD all relative IRIs are resolved relative to the base IRI
+	 * @param baseIRI given in context at @base key
+	 * @param candidate 
 	 * @return
 	 */
 	public static boolean isRelative(String baseIRI, String candidate) {
@@ -92,6 +94,7 @@ public class IRI {
 	 * @param candidate
 	 * @return
 	 */
+	/*
 	public static boolean isCompact(ContextDefinition activeContext, Entry<String, JsonElement> candidate) {
 		if(!candidate.getValue().getAsString().contains(":")) return false;
 		
@@ -103,23 +106,28 @@ public class IRI {
 		}
 		return false;
 	}
+	*/
 	
-	
-		//return activeContext.getJsonToValidate().entrySet().stream().map(h->h.getKey().toString()).collect(Collectors.toList()).contains(candidate.getKey().substring(0, candidate.getKey().indexOf(":")));
-	
+	/**
+	 * 
+	 * https://www.w3.org/TR/2014/REC-json-ld-20140116/#dfn-compact-iri
+	 * 
+	 * 
+	 * A compact IRI is a way of expressing an IRI using a prefix and suffix separated by a colon (:).
+	 *  The prefix is a term taken from the active context and is a short string identifying a particular IRI in a JSON-LD document. For example, the prefix foaf may be used as a short hand for the Friend-of-a-Friend vocabulary, which is identified using the IRI http://xmlns.com/foaf/0.1/. A developer may append any of the FOAF vocabulary terms to the end of the prefix to specify a short-hand version of the absolute IRI for the vocabulary term.
+	 *  For example, foaf:name would be expanded to the IRI http://xmlns.com/foaf/0.1/name.
+	 * @param activeContext
+	 * @param candidate
+	 * @return
+	 */
 	
 	public static boolean isCompact(ContextDefinition activeContext, String candidate) {
-//		if(!candidate.contains(":")) return false;
-//		 return activeContext.getJsonToValidate().entrySet().stream().map(h->h.getKey().toString()).collect(Collectors.toList()).contains(candidate.substring(0, candidate.indexOf(":")));
-		if(!candidate.contains(":")) return false;
+		//A compact IRI is a way of expressing an IRI using a prefix and suffix separated by a colon (:). 
+		//The prefix is a term taken from the active context and is a short string identifying a particular IRI in a JSON-LD document
 		
-		boolean flag;
-		for (Entry<String, JsonElement> iterable_element : activeContext.getJsonToValidate().entrySet() ) {
-			if(candidate.contains(iterable_element.getKey().toString())) {
-				return true;
-			}
-		}
-		return false;
+		if(!candidate.contains(":")) return false;
+		String aux = candidate.substring(0, candidate.indexOf(":"));
+		return activeContext.hasTerm(aux);
 	}
 	
 	

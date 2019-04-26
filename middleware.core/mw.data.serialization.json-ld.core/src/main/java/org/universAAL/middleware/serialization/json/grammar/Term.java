@@ -34,12 +34,25 @@ public class Term {
 	/**
 	 * Test if a {@link String} complies with Term restrictions.
 	 * @param candidate
-	 * @return
+	 * @return true if the term is valid, false if it is not valid
 	 * @see <a href=https://www.w3.org/TR/2014/REC-json-ld-20140116/#terms>https://www.w3.org/TR/2014/REC-json-ld-20140116/#terms</a>
 	 */
 	static public boolean isTerm(String candidate) {
-		return !(JsonLdKeyword.isKeyword(candidate) || candidate.startsWith("@"));
+		System.out.println("JsonLdKeyword.isKeyword(candidate)  "+JsonLdKeyword.isKeyword(candidate) );
+		System.out.println("candidate.startsWith(\"@\") "+candidate.startsWith("@"));
+	
+		return !(candidate.startsWith("@"));
 	}
-
+	
+	/**	
+	 * test if the full tem (key and value) is valid
+	 * @param candidateKey key to be checked
+	 * @param candidateIRI value to check if is a valid URI
+	 * @return true if the term is valid, false if it is not valid
+	 */
+	static public boolean isTerm(String candidateKey,String candidateURI) {
+		return ! ((JsonLdKeyword.isKeyword(candidateKey) || candidateKey.startsWith("@")) && IRI.isAbsolute(candidateURI));
+	}
+ 
 	//TODO add expand method with active context
 }

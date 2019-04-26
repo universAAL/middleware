@@ -32,31 +32,26 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 	private JsonObject jsonToValidate = null;
 	private static final String BLANK_NODE ="_:";
 	private boolean state = false;
-	public JsonObject getJsonToValidate() {
-		return jsonToValidate;
-	}
+	private ContextDefinition lastContext=null;
 
 /**
  * 
  * @param {@link JsonElement} jsonObjectOrReference  to be analyzed
  */
 	//A context definition MUST be a JSON object whose keys MUST either be terms, compact IRIs, absolute IRIs, or the keywords @language, @base, and @vocab.
-	public ContextDefinition(JsonElement jsonObjectOrReference) {
-
-		if (jsonObjectOrReference.isJsonObject()) {
-			this.jsonToValidate = jsonObjectOrReference.getAsJsonObject();
-		}
+	public ContextDefinition(ContextDefinition lastContext,JsonElement toValidate) {
 		
-		
-		// to read context from website and validate it
-		 
-		if (jsonObjectOrReference.isJsonPrimitive() &&  !this.state) {
+		this.lastContext=this.lastContext;
+		if (toValidate.isJsonObject()) {
+			this.jsonToValidate = toValidate.getAsJsonObject();
+		}else if (toValidate.isJsonPrimitive() &&  !this.state) {
 			this.state = true;
-			  if (IRI.isAbsolute(jsonObjectOrReference.getAsString())) {
+			  if (IRI.isAbsolute(toValidate.getAsString())) {
 				// TODO read Context from reference.openStream() and validate online context and control how to get the correct flag	  
 			  }
 			
 		}
+			
 
 		
 	}
@@ -75,18 +70,20 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 					}
 				
 				if(jsonToValidate.isJsonObject()) {
-
-					for (Entry<String, JsonElement> element : this.jsonToValidate.getAsJsonObject().entrySet()) {
+					//merge contexts them validate
+					for (Entry<String, JsonElement> element : this.jsonToValidate.getAsJsonObject().get(JsonLdKeyword.CONTEXT.toString()).getAsJsonObject().entrySet()) {
+						System.out.println(element);
 						//keyword control
 						//A context definition MUST be a JSON object whose keys MUST either be terms, compact IRIs, absolute IRIs, or the keywords @language, @base, and @vocab.
-						return this.keyControl(element);	
+						if( !this.keyControl(element) ) return false;
+						if( !this.valueOfKeyControl(element) ) return false;
 					}	
 					
 				}
 
 		}else {
 			//TODO use logging system 
-			System.out.println("null json to validate");
+			System.out.println("null json to validate...");
 			return false;
 		}
 		return true;
@@ -95,11 +92,8 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 
 	public boolean valueOfKeyControl(Entry<String, JsonElement> itemToControl) {
 		
-		//The value of keys that are not keywords MUST be either an absolute IRI, a compact IRI, a term,
-		//a blank node identifier, a keyword, null, or an expanded term definition.
-
-
-			if(Term.isTerm(itemToControl.getValue().getAsString())) {
+		
+			if(JsonLdKeyword.isKeyword(itemToControl.getValue().toString())) {
 				//keywords @language, @base, and @vocab.
 				//If the context definition has an @language key, its value MUST have the lexical form described in [BCP47] or be null.
 				if(itemToControl.getValue().equals(JsonLdKeyword.LANG)){
@@ -119,12 +113,30 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 				}
 				
 				if(itemToControl.getValue().isJsonObject()) {
+					System.out.println("to analize expanded term def "+itemToControl.getValue());
 					return new ExpandedTermDefinition(this, itemToControl.getValue().getAsJsonObject()).validate();
 				}
 				
 			}else {
-					return IRI.isAbsolute(itemToControl.getValue().getAsString()) || IRI.isCompact(this,itemToControl.getValue().getAsString());
-					
+				//The value of keys that are NOT keywords MUST be either an absolute IRI, a compact IRI, a term, a blank node identifier, a keyword, null, or an expanded term definition.
+					if(!IRI.isAbsolute(itemToControl.getValue().toString())) {
+						if(!IRI.isCompact(this,itemToControl.getValue().toString())) {
+							if(!JsonLdKeyword.isKeyword(itemToControl.getValue().toString())) {
+								if(!itemToControl.getValue().toString().equals(JsonLdKeyword.BLANK_NODE.toString())) {
+									if(!itemToControl.getValue().isJsonNull()) {
+										if( itemToControl.getValue().isJsonObject()) {
+											return new ExpandedTermDefinition(this, itemToControl.getValue().getAsJsonObject()).validate();
+										}else {
+											if(itemToControl.getValue().toString().startsWith("@")) {
+												return false;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					//return IRI.isAbsolute(itemToControl.getValue().toString()) || IRI.isCompact(this,itemToControl.getValue().toString());
 				}
 			return true;
 	}
@@ -142,77 +154,56 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 	}
 
 	public boolean keyControl(Entry<String, JsonElement> element) {
-		
-		
-		if(!Term.isTerm(element.getKey())) return false;
-		
-		if(! IRI.isCompact(this, element)) return false;
-		
-		if(!IRI.isAbsolute(element.getKey())) return false;
-	
-		//keyword control
-		if((JsonLdKeyword.isKeyword(element.getKey()))) {
-
-			
-			if(element.getKey().equals(JsonLdKeyword.LANG)){
-				return element.getValue().isJsonPrimitive();
+		if( ! IRI.isAbsolute(element.getKey().toString())) {
+			if(! IRI.isCompact(this, element.getKey().toString())) {
+				if(element.getKey().toString().startsWith("@")){
+					if( !(element.getKey().toString().equals(JsonLdKeyword.BASE) || element.getKey().toString().equals(JsonLdKeyword.LANG) || element.getKey().toString().equals(JsonLdKeyword.VOCAB)) ) {
+						System.out.println("error, term must not start with @ if it isn't a keyword. Given="+element.getKey().toString());
+						return false;
+					}
+				}else {
+					return true;
+				}
 			}
-			//If the context definition has an @base key, its value MUST be an absolute IRI, a relative IRI, or null.
-			if(element.getKey().equals(JsonLdKeyword.BASE)){
-				return IRI.isAbsolute(element.getValue().getAsString()) || /*IRI.isRelative(null, element.getValue().toString()) ||*/ element.getValue().equals("null");
-			}
-			//If the context definition has an @vocab key, its value MUST be a absolute IRI, a compact IRI, a blank node identifier, a term, or null.
-			if(element.getKey().equals(JsonLdKeyword.VOCAB)){
-				return IRI.isAbsolute(element.getValue().toString()) || 
-						IRI.isCompact(this, element.getValue().getAsString())  ||
-						Term.isTerm(element.getValue().toString()) || 
-						element.getValue().isJsonNull() ||
-						element.getValue().equals(this.BLANK_NODE);
-			}
-			
-		}else {
-			if(!this.valueOfKeyControl(element)) return false;
 		}
 		return true;
 	}
 	
 	public static ContextDefinition mergeContexts(ContextDefinition c1, ContextDefinition c2) {
 	
-		if(c1 != null && c2 != null) {
-			JsonObject aux= c2.getJsonToValidate();
-			ContextDefinition context;
-			Set<Entry<String, JsonElement>> c1_aux = c1.getJsonToValidate().entrySet();
-			Set<Entry<String, JsonElement>> c2_aux = c2.getJsonToValidate().entrySet();
-			
-			for (Entry<String, JsonElement> entry : c2_aux) {
-				if(c1_aux.contains(entry)) {
-					aux.remove(entry.getKey());
-					aux.add(entry.getKey(),c1.getJsonToValidate().get(entry.getKey()));
-				}
-			}
-			for (Entry<String, JsonElement> entry : c1_aux) {
-				if(!c2_aux.contains(entry)) {
-					aux.add(entry.getKey(), c1.getJsonToValidate().get(entry.getKey()));
-				}
-			}
-		context = new ContextDefinition(aux);
-		System.out.println(aux);
-			if(!context.validate())
-			   return null;
-			else
-				return context;
-		}else {
-			System.out.println("contextos nulos");
 
-		}
 		return null;
 	}
-
-
 	
+	/**
+	 * 
+	 * @return the base IRI defined in this context
+	 */
+	public String getBaseIRI() {
+		return this.jsonToValidate.get(JsonLdKeyword.BASE.toString()).toString();
+	}
 
+	/**
+	 * to check if this term is defined into the context
+	 * @param term
+	 * @return true if the context contains this term
+	 */
+	public boolean hasTerm(String term) {
+		return this.jsonToValidate.has(term);
+	}
 
+	/**
+	 * method to get the value associates to given term
+	 * @param term
+	 * @return the value of term
+	 */
+	public String getTermValue(String term) {
+		return this.jsonToValidate.get(term).getAsString();
+	}
 	
+	public JsonObject getJsonToValidate() {
+		return jsonToValidate;
+	}
 
 	
 
