@@ -45,7 +45,7 @@
 		<groupId>com.github.jsonld-java</groupId>
 		<artifactId>jsonld-java</artifactId>
 		<version>0.12.3</version>
-		
+		<scope>test</scope>
 </dependency>
   </dependencies>
 </project>
