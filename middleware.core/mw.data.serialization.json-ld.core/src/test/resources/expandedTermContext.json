@@ -1,0 +1,10 @@
+{
+
+  "@context": {
+    "step": {
+      "@id": "http://rdf.data-vocabulary.org/#step",
+      "@type": "xsd:integer"
+    }
+  }
+  
+  }
