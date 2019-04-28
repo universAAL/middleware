@@ -21,6 +21,7 @@ import java.util.Set;
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -30,6 +31,7 @@ import com.google.gson.JsonObject;
  */
 public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<String, JsonElement> > {
 	private JsonObject jsonToValidate = null;
+	private JsonArray contextToMerge = null;
 	private static final String BLANK_NODE ="_:";
 	private boolean state = false;
 	private ContextDefinition lastContext=null;
@@ -39,9 +41,9 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
  * @param {@link JsonElement} jsonObjectOrReference  to be analyzed
  */
 	//A context definition MUST be a JSON object whose keys MUST either be terms, compact IRIs, absolute IRIs, or the keywords @language, @base, and @vocab.
-	public ContextDefinition(ContextDefinition lastContext,JsonElement toValidate) {
+	public ContextDefinition(JsonElement toValidate) {
+		System.out.println(toValidate);
 		
-		this.lastContext=this.lastContext;
 		if (toValidate.isJsonObject()) {
 			this.jsonToValidate = toValidate.getAsJsonObject();
 		}else if (toValidate.isJsonPrimitive() &&  !this.state) {
@@ -50,28 +52,31 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 				// TODO read Context from reference.openStream() and validate online context and control how to get the correct flag	  
 			  }
 			
+		}else if(toValidate.isJsonArray()) {
+			this.contextToMerge = toValidate.getAsJsonArray();
 		}
-			
 
-		
 	}
-
+	public ContextDefinition(ContextDefinition ctx,JsonElement toValidate) {
+		this(toValidate);
+		this.lastContext = ctx;
+	}
 
 /**
  * method to validate the JsonElement given in {@link ContextDefinition} constructor
  */
 	public boolean validate() {
 		
+		if(this.contextToMerge!=null) {
+			this.jsonToValidate = mergeContexts(this.contextToMerge);
+		}
 		 
 		if(this.jsonToValidate!=null) {
-			
-				if(jsonToValidate.isJsonArray()) {
-					//can have 2 types of context: referenced or expanded			
-					}
-				
+							
 				if(jsonToValidate.isJsonObject()) {
 					//merge contexts them validate
-					for (Entry<String, JsonElement> element : this.jsonToValidate.getAsJsonObject().get(JsonLdKeyword.CONTEXT.toString()).getAsJsonObject().entrySet()) {
+					System.out.println(this.jsonToValidate);
+					for (Entry<String, JsonElement> element : this.jsonToValidate.entrySet()) {
 						System.out.println(element);
 						//keyword control
 						//A context definition MUST be a JSON object whose keys MUST either be terms, compact IRIs, absolute IRIs, or the keywords @language, @base, and @vocab.
@@ -168,12 +173,28 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 		}
 		return true;
 	}
-	
-	public static ContextDefinition mergeContexts(ContextDefinition c1, ContextDefinition c2) {
+	/**
+	 * method to merge contexts grouped in array
+	 * @param ToMerge
+	 * @return {@link JsonObject} representing the merged context
+	 */
+	public static  JsonObject mergeContexts(JsonArray ToMerge) {
+		System.out.println("merge context ... "+ToMerge);
+		JsonObject obj = new JsonObject();
+		if(ToMerge ==null) return null;
+		for (JsonElement item : ToMerge) {
+			if(item.isJsonObject()) {
+				for (Entry<String, JsonElement> jsonElement : item.getAsJsonObject().entrySet()) {
+					obj.add(jsonElement.getKey(),jsonElement.getValue());
+				}
+			}else
+				return null;
+		}
+
+		return obj;
+	}
 	
 
-		return null;
-	}
 	
 	/**
 	 * 

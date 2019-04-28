@@ -65,13 +65,13 @@ public class ValidatorTest {
 
 	@Test
 	public void ContextValidationTest() {
+		
 		try {
 			InputStream is = this.getClass().getClassLoader().getResource("context.json").openStream();
 			JSONLDDocument doc = new JSONLDDocument(is);
 			is.close();
 			assertTrue(doc.validate());	
 		} catch (Exception e) {
-			assertFalse(Boolean.FALSE);
 			e.printStackTrace();
 		}
 	}

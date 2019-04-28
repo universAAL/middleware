@@ -133,7 +133,7 @@ public class JSONLDDocument implements JSONLDValidator {
 			//TODO check multiple contexts
 			if(this.mainJSON.getAsJsonObject().has(JsonLdKeyword.CONTEXT.toString())) {
 				System.out.println("...validating context...");
-				if(! new ContextDefinition(this.mainContext,this.mainJSON.getAsJsonObject().get(JsonLdKeyword.CONTEXT.toString())).validate())
+				if(! new ContextDefinition(this.mainJSON.getAsJsonObject().get(JsonLdKeyword.CONTEXT.toString())).validate())
 					return false;
 			}
 		}

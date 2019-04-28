@@ -93,7 +93,9 @@ public class NodeObject implements JSONLDValidator {
 						//its value MUST be null, an absolute IRI, a relative IRI, a context definition
 							if(item.isJsonObject()) {
 								//context definition case
-								if (! (new ContextDefinition(this.activeContext,item).validate()) )
+								//if (! (new ContextDefinition(this.activeContext,item).validate()) )
+								if (! (new ContextDefinition(item).validate()) )
+									//TODO if exists a main context, this should be merged with it?
 									return false;
 							}
 							if(item.isJsonPrimitive()) {
