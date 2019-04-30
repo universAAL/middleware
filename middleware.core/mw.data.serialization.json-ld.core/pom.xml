@@ -17,12 +17,6 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
     </dependency>
-   
-      <dependency>
-	      <groupId>org.universAAL.middleware</groupId>
-	      <artifactId>mw.data.serialization.turtle.core</artifactId>
-   	</dependency>
-    
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.data.representation.core</artifactId>
@@ -40,12 +34,11 @@
       <artifactId>mw.container.junit</artifactId>
       <scope>test</scope>
     </dependency>
-    
-    	<dependency>
+   	<dependency>
 		<groupId>com.github.jsonld-java</groupId>
 		<artifactId>jsonld-java</artifactId>
 		<version>0.12.3</version>
 		<scope>test</scope>
-</dependency>
+	</dependency>
   </dependencies>
 </project>
