@@ -129,12 +129,14 @@ public class JSONLDDocument implements JSONLDValidator {
 				}
 		
 		if(this.mainJSON.isJsonObject()) {
-			System.out.println("validating object...maybe json is expanded");
 			//TODO check multiple contexts
 			if(this.mainJSON.getAsJsonObject().has(JsonLdKeyword.CONTEXT.toString())) {
 				System.out.println("...validating context...");
-				if(! new ContextDefinition(this.mainJSON.getAsJsonObject().get(JsonLdKeyword.CONTEXT.toString())).validate())
+				this.mainContext = new ContextDefinition(this.mainJSON.getAsJsonObject().get(JsonLdKeyword.CONTEXT.toString()));
+				if(!this.mainContext.validate())
 					return false;
+			}else {
+				//validate the rest of jsonLD...maybe is expanded and we need to check it with actual context
 			}
 		}
 
@@ -227,6 +229,9 @@ public class JSONLDDocument implements JSONLDValidator {
 		return mainJSON;
 	}
 
+	public ContextDefinition getActiveContext() {
+		return this.mainContext;
+	}
 
 
 }

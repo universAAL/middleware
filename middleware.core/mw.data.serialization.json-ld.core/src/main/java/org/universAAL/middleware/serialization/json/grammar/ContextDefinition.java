@@ -68,6 +68,7 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 	public boolean validate() {
 		
 		if(this.contextToMerge!=null) {
+			System.out.println("merging contexts");
 			this.jsonToValidate = mergeContexts(this.contextToMerge);
 		}
 		 
@@ -75,9 +76,9 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 							
 				if(jsonToValidate.isJsonObject()) {
 					//merge contexts them validate
-					System.out.println(this.jsonToValidate);
+					
 					for (Entry<String, JsonElement> element : this.jsonToValidate.entrySet()) {
-						System.out.println(element);
+						System.out.println("validating---> "+element);
 						//keyword control
 						//A context definition MUST be a JSON object whose keys MUST either be terms, compact IRIs, absolute IRIs, or the keywords @language, @base, and @vocab.
 						if( !this.keyControl(element) ) return false;
@@ -96,7 +97,6 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 
 
 	public boolean valueOfKeyControl(Entry<String, JsonElement> itemToControl) {
-		
 		
 			if(JsonLdKeyword.isKeyword(itemToControl.getValue().toString())) {
 				//keywords @language, @base, and @vocab.

@@ -42,9 +42,9 @@ public class IRI {
 	public static boolean isAbsolute(String candidateIRI) {
 		System.out.println("isAbsolute "+candidateIRI);
 		try {
-			URL url = new URL(candidateIRI);
+			URL url = new URL(candidateIRI.replaceAll("\"", ""));//TODO change the call 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			System.out.println("is absolute "+candidateIRI+"   "+e.getMessage());
 			return false;
 			
 		}
@@ -55,9 +55,10 @@ public class IRI {
 	
 	public static boolean isAbsolute(Entry<String, JsonElement> element) {
 		try {
-			URL url = new URL(element.getKey());
+			URL url = new URL(element.getKey().toString());
 		} catch (Exception e) {
-			LogUtils.logDebug(JSONLDSerialization.owner, IRI.class, "validate", e.toString());
+			//LogUtils.logDebug(JSONLDSerialization.owner, IRI.class, "validate", e.toString());
+			e.printStackTrace();
 			return false;
 			
 		}
@@ -73,8 +74,8 @@ public class IRI {
 	 * @return
 	 */
 	public static boolean isRelative(String baseIRI, String candidate) {
-		if (baseIRI == null) {
-			// TODO
+		if (baseIRI == null && candidate != null) {
+			//TODO test the relative IRI check
 			return false;
 		}
 		else {

@@ -72,12 +72,11 @@ public class NodeObject implements JSONLDValidator {
 		//if active context is null...exists another context and this context will not be analyzed
 		//if exist a context into this object...the jsonLD structure is bad
 		
-		//if(this.activeContext!=null) return false;
 		if(this.obj==null || !this.obj.isJsonObject()) return false;
 		//it does not contain the @value, @list, or @set keywords,
-		if(this.obj.getAsJsonObject().entrySet().contains(JsonLdKeyword.VALUE) ||
-				this.obj.getAsJsonObject().entrySet().contains(JsonLdKeyword.LIST) ||
-				this.obj.getAsJsonObject().entrySet().contains(JsonLdKeyword.SET))
+		if(this.obj.getAsJsonObject().has(JsonLdKeyword.VALUE.toString()) ||
+				this.obj.getAsJsonObject().has(JsonLdKeyword.LIST.toString()) ||
+				this.obj.getAsJsonObject().has(JsonLdKeyword.SET.toString()))
 			return false;
 		
 		
@@ -116,10 +115,10 @@ public class NodeObject implements JSONLDValidator {
 								IRI.isRelative(this.activeContext.getBaseIRI(), element.getValue().getAsString()))
 							)
 							return false;
-					}else {
-						//the value of context key is an object
-						//if it isn't primitive or array the context was incorrect structure
-						return false;
+					}else if(element.getValue().isJsonObject()){
+						//TODO object given...check if it is a valid context definition
+						if ( !new ContextDefinition(element.getValue()).validate());
+							return false;
 						}
 					
 				}
@@ -132,12 +131,12 @@ public class NodeObject implements JSONLDValidator {
 						if (!(IRI.isAbsolute(element.getValue().getAsString()) ||
 									IRI.isRelative(this.activeContext.getBaseIRI(), element.getValue().getAsString()) ||
 									IRI.isCompact(this.activeContext, element.getValue().getAsString()) || 
-									element.getValue().getAsString().equals(JsonLdKeyword.BLANK_NODE))
+									element.getValue().getAsString().equals(JsonLdKeyword.BLANK_NODE.toString()))
 									)
 							return false;
 			}
 			/*
-			 * 
+			 * TODO interpret annd implement correctly
 			 * If the node object contains the @graph key, its value MUST be a node object or an array of zero or more node objects. 
 			 * If the node object contains an @id keyword, its value is used as the label of a named graph.
 			 *  See section 6.13 Named Graphs for further discussion on @graph values. As a special case, 
@@ -235,7 +234,7 @@ public class NodeObject implements JSONLDValidator {
 							 *  a relative IRI, a compact IRI, a blank node identifier*/
 							if( !(IRI.isAbsolute(element.getValue().getAsString()) ||
 									IRI.isRelative(this.activeContext.getBaseIRI(), element.getValue().toString()) || 
-									IRI.isCompact(activeContext, element.getValue().getAsString()) ||
+									IRI.isCompact(this.activeContext, element.getValue().getAsString()) ||
 									element.getValue().equals(JsonLdKeyword.BLANK_NODE.toString()))
 									 ) return false;
 						}else {
@@ -245,8 +244,8 @@ public class NodeObject implements JSONLDValidator {
 						if(
 						  IRI.isAbsolute(item) || 
 						  IRI.isRelative(null, item.getKey()) ||
-						  IRI.isCompact(activeContext, item.getKey()) ||
-						  item.getKey().equals(JsonLdKeyword.BLANK_NODE)
+						  IRI.isCompact(this.activeContext, item.getKey()) ||
+						  item.getKey().equals(JsonLdKeyword.BLANK_NODE.toString())
 					      ) return false;
 					}
 					//TODO see https://json-ld.org/spec/latest/json-ld/#reverse-properties

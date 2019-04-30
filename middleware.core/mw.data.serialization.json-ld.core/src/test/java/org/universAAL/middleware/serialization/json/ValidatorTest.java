@@ -90,6 +90,38 @@ public class ValidatorTest {
 		}
 	}
 	
+	@Test
+	
+	public void mergeContextTest() {
+		try {
+			InputStream is = this.getClass().getClassLoader().getResource("multipleContext.json").openStream();
+			JSONLDDocument doc = new JSONLDDocument(is);
+			is.close();
+			assertTrue(doc.validate());
+			System.out.println(doc.getActiveContext().getJsonToValidate());
+		} catch (Exception e) {
+			assertFalse(Boolean.FALSE);
+			e.printStackTrace();
+		}
+	}
+	@Test
+	public void errorContext() {
+		try {
+			InputStream is = this.getClass().getClassLoader().getResource("errorContext.json").openStream();
+			JSONLDDocument doc = new JSONLDDocument(is);
+			is.close();
+			assertFalse(doc.validate());
+			System.out.println(doc.getActiveContext().getJsonToValidate());
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void generateResources() {
+		
+	}
 	
 //	@Test
 //	public void libTest() {

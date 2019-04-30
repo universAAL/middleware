@@ -15,7 +15,11 @@
  ******************************************************************************/
 package org.universAAL.middleware.serialization.json.grammar;
 
+import java.util.Map.Entry;
+
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
+
+import com.google.gson.JsonElement;
 
 /**
  * @author amedrano
@@ -44,14 +48,24 @@ public class Term {
 		return !(candidate.startsWith("@"));
 	}
 	
-	/**	
+	/**
 	 * test if the full tem (key and value) is valid
-	 * @param candidateKey key to be checked
-	 * @param candidateIRI value to check if is a valid URI
-	 * @return true if the term is valid, false if it is not valid
+	 * @param candidate
+	 * @return true if the element is a term, false if it is not valid term
 	 */
-	static public boolean isTerm(String candidateKey,String candidateURI) {
-		return ! ((JsonLdKeyword.isKeyword(candidateKey) || candidateKey.startsWith("@")) && IRI.isAbsolute(candidateURI));
+	static public boolean isTerm(Entry<String,JsonElement> candidate) {
+		
+		if(!candidate.getKey().toString().startsWith("@")) {
+			if( candidate.getValue().isJsonPrimitive()) {
+				if( !(candidate.getValue().getAsJsonPrimitive().toString().equals(JsonLdKeyword.BLANK_NODE) || IRI.isAbsolute(candidate.getValue().getAsJsonPrimitive().toString())) ) {
+					return false;
+				}
+			}
+			else
+				return false;
+		}else
+			return false;
+		return true;
 	}
  
 	//TODO add expand method with active context
