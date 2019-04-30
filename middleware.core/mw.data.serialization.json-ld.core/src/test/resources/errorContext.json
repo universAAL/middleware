@@ -1,0 +1,16 @@
+{
+
+  "@context": {
+    "name": "http://rdf.data-vocabulary.org/#name",
+    "@ingredient": "http://rdf.data-vocabulary.org/#ingredients",
+    "yield": "http://rdf.data-vocabulary.org/#yield",
+    "instructions": "http://rdf.data-vocabulary.org/#instructions",
+    "step": {
+      "@id": "http://rdf.data-vocabulary.org/#step",
+      "@type": "xsd:integer"
+    },
+    "description": "rdf.data-vocabulary.org/#description",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  }
+  
+  }
