@@ -212,15 +212,21 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 	public boolean hasTerm(String term) {
 		return this.jsonToValidate.has(term);
 	}
+	
+	
 
 	/**
 	 * method to get the value associates to given term
 	 * @param term
-	 * @return the value of term
+	 * @return the value of term, or null if the term not exists
 	 */
-	public String getTermValue(String term) {
-		return this.jsonToValidate.get(term).getAsString();
+	public JsonElement getTerm(String term) {
+		return this.jsonToValidate.get(term);
 	}
+	
+	public String getTermValue(String term) {
+		return this.jsonToValidate.get(term).getAsJsonObject().get(term).toString();
+	} 
 	
 	public JsonObject getJsonToValidate() {
 		return jsonToValidate;
