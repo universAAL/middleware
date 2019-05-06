@@ -3,8 +3,10 @@ package org.universAAL.middleware.serialization.json;
 import java.io.InputStream;
 
 import org.junit.Test;
-import org.universAAL.middleware.serialization.json.algorithms.Context;
-import org.universAAL.middleware.serialization.json.algorithms.ExpandJsonLD;
+import org.universAAL.middleware.serialization.json.grammar.ExpandJsonLD;
+
+import com.google.gson.JsonElement;
+
 
 public class ExpansionTest {
 
@@ -13,9 +15,9 @@ public class ExpansionTest {
 
 		try {
 			InputStream json =  this.getClass().getClassLoader().getResource("example.json").openStream();
-		
-			ExpandJsonLD expand = new ExpandJsonLD(json);
-			expand.expandJsonDocument();
+		ExpandJsonLD expansor = new ExpandJsonLD(json);
+			JsonElement jse = expansor.expand();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
