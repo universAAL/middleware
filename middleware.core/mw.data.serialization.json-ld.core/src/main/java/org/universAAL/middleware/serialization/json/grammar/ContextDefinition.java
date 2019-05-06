@@ -16,6 +16,7 @@
 package org.universAAL.middleware.serialization.json.grammar;
 
 import java.util.Map.Entry;
+import java.util.Map;
 import java.util.Set;
 
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
@@ -223,6 +224,8 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 	public JsonElement getTerm(String term) {
 		return this.jsonToValidate.get(term);
 	}
+	
+	
 	
 	public String getTermValue(String term) {
 		return this.jsonToValidate.get(term).getAsJsonObject().get(term).toString();

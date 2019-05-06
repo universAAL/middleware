@@ -61,10 +61,34 @@ public class ContextAnalyzer implements JSONLDValidator{
 				}
 				
 				if(aux.isJsonPrimitive()) {
-					//TODO chech the documentation
+					//if the context is a string, remote context will be processed
+					//TODO check the documentation
 					//https://www.w3.org/2018/jsonld-cg-reports/json-ld-api/#context-processing-algorithm 
 					this.activeContext = new JsonObject();
 				}
+				
+				if(aux.isJsonObject()) {
+					if( aux.getAsJsonObject().has(JsonLdKeyword.BASE.toString())) {
+						
+					}
+					
+					if( aux.getAsJsonObject().has("@version")) {
+						
+					}
+					
+					if( aux.getAsJsonObject().has(JsonLdKeyword.VOCAB.toString())) {
+						
+					} 
+					
+					if( aux.getAsJsonObject().has(JsonLdKeyword.LANG.toString())) {
+						
+					} 
+						
+						
+				}else{
+					//TODO throw invalid context definition error
+				}
+				
 				
 			}
 			
