@@ -125,14 +125,25 @@ public class ExpandJSONLD {
 			}
 			
 			if(toExpand.isJsonObject()) {
-				
+				System.out.println("-------------");
+				JsonObject result = new JsonObject();
+				JsonElement expanded_property =null;
+				for (Entry<String, JsonElement> item : toExpand.getAsJsonObject().entrySet()) {
+					
+					if(!item.getKey().equals(JsonLdKeyword.CONTEXT.toString())) {
+						expanded_property = this.iriExpansion(item.getValue().getAsJsonPrimitive(),true);//Only parse the key on item	
+					}
+					
+				}
 			}
 			if(toExpand.isJsonArray()) {
 				
 				JsonArray result = new JsonArray();
 				
 				for (int i = 0; i < toExpand.getAsJsonArray().size(); i++) {
+					System.out.println(" toExpand.getAsJsonArray().get(i) "+ toExpand.getAsJsonArray().get(i));
 					JsonElement expanded_item = this.valueExpansion(activePropertie, toExpand.getAsJsonArray().get(i));	
+					System.out.println("expanded_item "+expanded_item);
 					if(expanded_item.isJsonArray() || !expanded_item.isJsonNull()) {
 						result.add(expanded_item);
 					}
@@ -300,6 +311,7 @@ public class ExpandJSONLD {
 		
 		return null;
 	}
+	
 	
 
 
