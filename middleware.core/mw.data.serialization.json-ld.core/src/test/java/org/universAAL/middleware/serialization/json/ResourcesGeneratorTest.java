@@ -30,13 +30,5 @@ public class ResourcesGeneratorTest {
 	
 	@Test
 	public void generateResource() {
-		try {
-			JSONLDSerialization serialization = new JSONLDSerialization();
-			assertNotNull(serialization.deserialize(this.getClass().getClassLoader().getResource("expandedFullJson.json").openStream(), ""));
-			//assertTrue(this.toParse.validate());
-		} catch (Exception e) {
-			e.printStackTrace();
-			
-		}
 	}
 }

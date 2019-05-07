@@ -41,7 +41,18 @@ public class Context {
 		}
 		return null;
 	}
-
+	
+	public JsonElement hasTypeMapping(JsonElement activeProperty) {
+		
+		if(this.contextDefinition !=null) {
+			if(activeProperty.isJsonPrimitive()) {
+				if(contextDefinition.has(activeProperty.getAsJsonPrimitive().toString())) {
+					return contextDefinition.get(activeProperty.getAsJsonPrimitive().toString());
+				}
+			}
+		}
+		return null;
+	}
 	
 	private void initContext() {
 		if(this.parser.parse(jsonToParse).isJsonObject()) {
