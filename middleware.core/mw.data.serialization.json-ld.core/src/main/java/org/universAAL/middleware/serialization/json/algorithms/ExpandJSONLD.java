@@ -94,11 +94,12 @@ public class ExpandJSONLD {
 			JsonElement aux = this.context.getTermValue(key);
 			
 			if(aux.isJsonPrimitive()) {
-				result.add(JsonLdKeyword.VALUE.toString(), aux);
+				result.add(JsonLdKeyword.VALUE.toString(), toExpand);
 			}
 			
 			if(aux.isJsonObject()) {
-				//has a type mapping
+				System.out.println("has a type mapping");
+				
 				Entry<String, JsonElement> t = aux.getAsJsonObject().entrySet().iterator().next();
 				
 				if(t.getKey().equals(JsonLdKeyword.ID.toString())){
