@@ -16,7 +16,9 @@
 package org.universAAL.middleware.serialization.json.grammar;
 
 import java.util.Map.Entry;
+import java.io.InputStream;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
@@ -25,6 +27,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 /**
  * @author amedrano
@@ -61,6 +64,16 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 	public ContextDefinition(ContextDefinition ctx,JsonElement toValidate) {
 		this(toValidate);
 		this.lastContext = ctx;
+	}
+	
+	public ContextDefinition (InputStream context) {
+		String jsonString = "";
+		Scanner s = new Scanner(context);
+		s.useDelimiter("\\A");
+		jsonString = s.hasNext() ? s.next() : "";
+		s.close();
+		JsonParser jsp = new JsonParser();
+		this.jsonToValidate = jsp.parse(jsonString).getAsJsonObject();
 	}
 
 /**
@@ -194,9 +207,7 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 
 		return obj;
 	}
-	
 
-	
 	/**
 	 * 
 	 * @return the base IRI defined in this context
@@ -214,7 +225,10 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 		return this.jsonToValidate.has(term);
 	}
 	
-	
+	public boolean hasTerm(JsonElement term) {
+		String aux = term.getAsJsonPrimitive().toString();
+	 return this.jsonToValidate.has(aux);
+	}
 
 	/**
 	 * method to get the value associates to given term
@@ -227,8 +241,13 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 	
 	
 	
-	public String getTermValue(String term) {
-		return this.jsonToValidate.get(term).getAsJsonObject().get(term).toString();
+
+	
+	public void updateElement(String key, JsonElement value) {
+		this.jsonToValidate.add(key, value);
+	}
+	public JsonElement getTermValue(String term) {
+		return this.jsonToValidate.get(term);
 	} 
 	
 	public JsonObject getJsonToValidate() {
