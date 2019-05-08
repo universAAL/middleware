@@ -84,7 +84,7 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 
 	private ModuleContext context;
 	private SpaceModule spaceModule;
-	private ConfigurableCommunicationModule communicationModule;
+	private CommunicationModule communicationModule;
 	private SpaceEventHandler spaceEventHandler;
 	private SpaceManager spaceManager;
 	private DeployManager deployManager;
@@ -228,8 +228,9 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 		if (sharedObj instanceof CommunicationModule) {
 			LogUtils.logDebug(context, ControlBroker.class, "sharedObjectAdded",
 					new Object[] { "CommunicationModule registered..." }, null);
-			if (communicationModule instanceof ConfigurableCommunicationModule)
-				communicationModule = (ConfigurableCommunicationModule) sharedObj;
+			//if (communicationModule instanceof ConfigurableCommunicationModule)
+			//	communicationModule = (ConfigurableCommunicationModule) sharedObj;
+			communicationModule = (CommunicationModule) sharedObj;
 			communicationModule.addMessageListener(this, getBrokerName());
 		}
 		if (sharedObj instanceof SpaceManager) {
@@ -423,7 +424,12 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 			return;
 		}
 		communicationModule.addMessageListener(this, this.getBrokerName());
-		communicationModule.configureChannels(communicationChannels, peerName);
+		try {
+			((ConfigurableCommunicationModule) communicationModule).configureChannels(communicationChannels, peerName);
+		} catch (Exception e) {
+			LogUtils.logError(context, ControlBroker.class, "configureChannels",
+					new Object[] { "unable to configure Channels of Comunication Module." }, e);
+		}
 	}
 
 	/**
@@ -450,7 +456,11 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 					new Object[] { "ControlBroker not initialized." }, null);
 			return;
 		}
-		communicationModule.dispose(channels);
+		if (communicationModule instanceof ConfigurableCommunicationModule)
+			((ConfigurableCommunicationModule)communicationModule).dispose(channels);
+		else
+			LogUtils.logWarn(context, ControlBroker.class, "resetModule",
+					new Object[] { "Communication module is not configurable." }, null);
 	}
 
 	public void destroySpace(SpaceCard spaceCard) {
