@@ -91,7 +91,7 @@
 <th>Missing Classes</th></tr>
 <tr class="b">
 <td>6</td>
-<td>10</td>
+<td>9</td>
 <td>0</td>
 <td>0</td></tr></table></div>
 <div class="section">
@@ -102,7 +102,7 @@
 <th>Bugs</th></tr>
 <tr class="b">
 <td><a href="#org.universAAL.middleware.brokers.control.ControlBroker">org.universAAL.middleware.brokers.control.ControlBroker</a></td>
-<td>3</td></tr>
+<td>2</td></tr>
 <tr class="a">
 <td><a href="#org.universAAL.middleware.brokers.control.ControlBroker$Response">org.universAAL.middleware.brokers.control.ControlBroker$Response</a></td>
 <td>1</td></tr>
@@ -125,33 +125,27 @@
 <th>Line</th>
 <th>Priority</th></tr>
 <tr class="b">
-<td>instanceof will always return true for all non-null values in org.universAAL.middleware.brokers.control.ControlBroker.sharedObjectAdded(Object, Object), since all org.universAAL.middleware.modules.ConfigurableCommunicationModule are instances of org.universAAL.middleware.modules.ConfigurableCommunicationModule</td>
-<td>STYLE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#BC_VACUOUS_INSTANCEOF">BC_VACUOUS_INSTANCEOF</a></td>
-<td>231</td>
-<td>Medium</td></tr>
-<tr class="a">
 <td>Exceptional return value of java.io.File.delete() ignored in org.universAAL.middleware.brokers.control.ControlBroker.requestToInstallPart(byte[], PeerCard, UAPPCard)</td>
 <td>BAD_PRACTICE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RV_RETURN_VALUE_IGNORED_BAD_PRACTICE">RV_RETURN_VALUE_IGNORED_BAD_PRACTICE</a></td>
-<td>571</td>
+<td>581</td>
 <td>Medium</td></tr>
-<tr class="b">
+<tr class="a">
 <td>org.universAAL.middleware.brokers.control.ControlBroker.prepareMatchingResponse(String, Map) makes inefficient use of keySet iterator instead of entrySet iterator</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#WMI_WRONG_MAP_ITERATOR">WMI_WRONG_MAP_ITERATOR</a></td>
-<td>741</td>
+<td>751</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.brokers.control.ControlBrokerResponse"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.brokers.control.ControlBrokerResponse"></a>org.universAAL.middleware.brokers.control.ControlBroker$Response</h3>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="b">
+<tr class="a">
 <td>Should org.universAAL.middleware.brokers.control.ControlBroker$Response be a _static_ inner class?</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SIC_INNER_SHOULD_BE_STATIC">SIC_INNER_SHOULD_BE_STATIC</a></td>
@@ -160,19 +154,19 @@
 <div class="section">
 <h3><a name="org.universAAL.middleware.brokers.control.ExceptionUtils"></a>org.universAAL.middleware.brokers.control.ExceptionUtils</h3>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="b">
+<tr class="a">
 <td>Found reliance on default encoding in org.universAAL.middleware.brokers.control.ExceptionUtils.stackTraceAsString(Exception): java.io.ByteArrayOutputStream.toString()</td>
 <td>I18N</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_DEFAULT_ENCODING">DM_DEFAULT_ENCODING</a></td>
 <td>42</td>
 <td>High</td></tr>
-<tr class="a">
+<tr class="b">
 <td>Found reliance on default encoding in org.universAAL.middleware.brokers.control.ExceptionUtils.stackTraceAsString(Exception): new java.io.PrintStream(OutputStream)</td>
 <td>I18N</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_DEFAULT_ENCODING">DM_DEFAULT_ENCODING</a></td>
@@ -181,25 +175,25 @@
 <div class="section">
 <h3><a name="org.universAAL.middleware.brokers.control.FileUtils"></a>org.universAAL.middleware.brokers.control.FileUtils</h3>
 <table border="0" class="bodyTable">
-<tr class="b">
+<tr class="a">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="a">
+<tr class="b">
 <td>org.universAAL.middleware.brokers.control.FileUtils.createFileFromByte(ModuleContext, byte[], String, boolean) may fail to clean up java.io.OutputStream on checked exception</td>
 <td>EXPERIMENTAL</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE">OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE</a></td>
 <td>94</td>
 <td>Medium</td></tr>
-<tr class="b">
+<tr class="a">
 <td>Exception is caught when Exception is not thrown in org.universAAL.middleware.brokers.control.FileUtils.createFileFromByte(ModuleContext, byte[], String, boolean)</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#REC_CATCH_EXCEPTION">REC_CATCH_EXCEPTION</a></td>
 <td>98</td>
 <td>Medium</td></tr>
-<tr class="a">
+<tr class="b">
 <td>Exceptional return value of java.io.File.createNewFile() ignored in org.universAAL.middleware.brokers.control.FileUtils.createFileFromByte(ModuleContext, byte[], String, boolean)</td>
 <td>BAD_PRACTICE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RV_RETURN_VALUE_IGNORED_BAD_PRACTICE">RV_RETURN_VALUE_IGNORED_BAD_PRACTICE</a></td>
@@ -208,13 +202,13 @@
 <div class="section">
 <h3><a name="org.universAAL.middleware.brokers.control.WaitForResponse"></a>org.universAAL.middleware.brokers.control.WaitForResponse</h3>
 <table border="0" class="bodyTable">
-<tr class="b">
+<tr class="a">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="a">
+<tr class="b">
 <td>Unread field: org.universAAL.middleware.brokers.control.WaitForResponse.timeout</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#URF_UNREAD_FIELD">URF_UNREAD_FIELD</a></td>
