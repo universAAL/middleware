@@ -91,9 +91,12 @@ public class ExpandJSONLD {
 	}
 	
 	private JsonElement valueExpansion(String activePropertie,JsonElement toExpand) {
-		
+		System.out.println("valueExpansion to expand: prop->"+activePropertie +" to expand-> "+ toExpand);
+		System.out.println("this.context.hasTerm(activePropertie) "+this.context.hasTerm(activePropertie));
 		if(this.context.hasTerm(activePropertie)) {
-			
+		System.out.println("toExpand.isJsonPrimitive() "+toExpand.isJsonPrimitive());
+		System.out.println("toExpand.isJsonObject() "+toExpand.isJsonObject());
+		System.out.println("toExpand.isJsonArray() "+toExpand.isJsonArray());
 			
 			if(toExpand.isJsonPrimitive()) {
 				JsonElement aux = this.context.getTermValue(activePropertie);
@@ -108,24 +111,24 @@ public class ExpandJSONLD {
 					
 					JsonObject result = new JsonObject();
 
-					Entry<String, JsonElement> t = aux.getAsJsonObject().entrySet().iterator().next();
 					
-					if(t.getKey().equals(JsonLdKeyword.ID.toString())){
-						result.add(JsonLdKeyword.ID.toString(), this.iriExpansion(toExpand,false));
-						return result;
+					for (Entry<String, JsonElement> iterable_element : aux.getAsJsonObject().entrySet()) {
+						if(iterable_element.getKey().equals(JsonLdKeyword.ID.toString())){
+							result.add(JsonLdKeyword.ID.toString(), this.iriExpansion(toExpand,false));
+							
+						}else if(iterable_element.getKey().equals(JsonLdKeyword.VOCAB.toString())){
+							result.add(JsonLdKeyword.ID.toString(), this.iriExpansion(toExpand,true));
+						}else {
+							result.add(JsonLdKeyword.TYPE.toString(), iterable_element.getValue());
+						}
 					}
-					
-					if(t.getKey().equals(JsonLdKeyword.VOCAB.toString())){
-						result.add(JsonLdKeyword.ID.toString(), this.iriExpansion(toExpand,true));
-						return result;
-					}
-					result.add(JsonLdKeyword.TYPE.toString(), t.getValue());
+					System.out.println("result "+result);
 					return result;
 				}
 			}
 			
+			//at this point the context has a type mapping (object) with id an another keys
 			if(toExpand.isJsonObject()) {
-				System.out.println("-------------");
 				JsonObject result = new JsonObject();
 				JsonElement expanded_property =null;
 				for (Entry<String, JsonElement> item : toExpand.getAsJsonObject().entrySet()) {
@@ -155,7 +158,16 @@ public class ExpandJSONLD {
 	return null;
 	}
 	
-	private JsonElement iriExpansion(JsonElement toExpand,boolean vocanbState) {
+	private JsonElement iriExpansion(JsonElement toExpand,boolean vocabState) {
+		
+		if(vocabState){
+			if(this.context.hasTerm(toExpand)) {
+				//return the associated IRI mapping
+				return this.context.getTermValue(toExpand.getAsJsonPrimitive().toString());
+			}
+			//in this case toExpand is only a key to be mapped to an IRI
+			//return the IRI  mapping to the given key
+		}
 		
 		if(toExpand.isJsonPrimitive()) {
 				if(this.context.hasTerm(toExpand)) {
