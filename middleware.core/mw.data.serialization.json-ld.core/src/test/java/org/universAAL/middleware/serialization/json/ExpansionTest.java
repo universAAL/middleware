@@ -17,7 +17,7 @@ public class ExpansionTest {
 			InputStream json =  this.getClass().getClassLoader().getResource("example.json").openStream();
 		ExpandJSONLD expansor = new ExpandJSONLD(json);
 			expansor.expand();
-			//System.out.println(jse);
+			System.out.println(expansor.getExpandedJson());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

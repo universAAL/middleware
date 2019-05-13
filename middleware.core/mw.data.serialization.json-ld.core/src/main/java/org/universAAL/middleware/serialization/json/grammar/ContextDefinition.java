@@ -226,7 +226,7 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 	}
 	
 	public boolean hasTerm(JsonElement term) {
-		String aux = term.getAsJsonPrimitive().toString();
+		String aux = term.getAsJsonPrimitive().getAsString();
 	 return this.jsonToValidate.has(aux);
 	}
 
@@ -247,6 +247,7 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 		this.jsonToValidate.add(key, value);
 	}
 	public JsonElement getTermValue(String term) {
+		
 		return this.jsonToValidate.get(term);
 	} 
 	
