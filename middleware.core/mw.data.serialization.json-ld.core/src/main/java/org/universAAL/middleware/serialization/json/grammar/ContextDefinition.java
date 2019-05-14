@@ -251,6 +251,12 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 		return this.jsonToValidate.get(term);
 	} 
 	
+	public JsonElement getTermValue(JsonElement term) {
+		if(term.isJsonPrimitive()) {
+			return this.jsonToValidate.get(term.getAsJsonPrimitive().getAsString());	
+		}
+		return null;
+	} 
 	public JsonObject getJsonToValidate() {
 		return jsonToValidate;
 	}
