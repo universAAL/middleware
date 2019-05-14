@@ -66,7 +66,7 @@ public class ExpandJSONLD {
 		
 	}
 	
-		public void expand() {
+	public void expand() {
 		
 		if(this.context ==null) {
 			if(this.jsonToExpand.has(JsonLdKeyword.CONTEXT.toString())) {
@@ -76,7 +76,7 @@ public class ExpandJSONLD {
 		}
 		if(this.context !=null) {
 			for (Entry<String, JsonElement> element: this.jsonToExpand.entrySet()) {
-				System.out.println("next main item");
+
 				result.add(this.expandElement(element.getKey(), element.getValue()));
 			}
 		}else
@@ -139,7 +139,7 @@ public class ExpandJSONLD {
 	
 	private JsonElement iriExpansion(JsonElement key) {
 		
-		System.out.println("key="+key);
+		
 		JsonElement expanded=null;
 		if(key.isJsonPrimitive()) {
 			if(IRI.isCompact(context, key.getAsJsonPrimitive().getAsString())) {

@@ -9,6 +9,11 @@
       "@type": "xsd:integer"
     },
     "description": "http://rdf.data-vocabulary.org/#description",
+    "addition":"http://www.personName.com/humanName/",
+    "NAME": {
+      "@id": "http://rdf.data-vocabulary.org/#NAME",
+      "@type": "xsd:STRING"
+    },
     "xsd": "http://www.w3.org/2001/XMLSchema#"
   },
   "name": "Mojito",
@@ -42,5 +47,9 @@
       "step": 5,
       "description": "Garnish with a lime wedge."
     }
-  ]
+  ],
+  "addition":{
+  	"NAME":"eduardo"
+  }
+  
 }
