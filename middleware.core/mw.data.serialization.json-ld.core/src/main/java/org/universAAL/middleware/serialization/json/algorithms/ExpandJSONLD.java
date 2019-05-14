@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import javax.print.attribute.HashAttributeSet;
 
+import org.hamcrest.core.SubstringMatcher;
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
 import org.universAAL.middleware.serialization.json.grammar.ContextDefinition;
 import org.universAAL.middleware.serialization.json.grammar.IRI;
@@ -86,25 +87,25 @@ public class ExpandJSONLD {
 	private JsonElement expandElement(String key, JsonElement value) {
 		JsonObject expanded_element = new JsonObject();
 		if(value instanceof JsonPrimitive) {
-			JsonElement expandedKey =this.expandKey(key);
+			JsonElement expandedKey =this.iriExpansion(new JsonPrimitive(key));
 			if(expandedKey instanceof JsonPrimitive) {
 				expanded_element.add(JsonLdKeyword.VALUE.toString(), value);
 				return expanded_element ;
 			}
 			if(expandedKey instanceof JsonObject) {
-				expanded_element.add(JsonLdKeyword.TYPE.toString(), expandedKey.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()));//TODO control if value has :
+				expanded_element.add(JsonLdKeyword.TYPE.toString(), this.iriExpansion(expandedKey.getAsJsonObject().get(JsonLdKeyword.TYPE.toString())) );//TODO control if value has :
 				expanded_element.add(JsonLdKeyword.VALUE.toString(),value);//TODO control if value has :
 			}
 			return expanded_element;
 		}
 		if(value instanceof JsonObject) {
 				for (Entry<String, JsonElement> iterable_element : value.getAsJsonObject().entrySet()) {
-					JsonElement exp_key =this.expandKey(iterable_element.getKey());
+					JsonElement exp_key =this.iriExpansion(new JsonPrimitive(iterable_element.getKey()));
 					JsonArray aux_array = new JsonArray();
 					aux_array.add(this.expandElement(iterable_element.getKey(), iterable_element.getValue()));
 					
 					if(exp_key.isJsonPrimitive()) {
-						expanded_element.add(exp_key.getAsJsonPrimitive().toString(),aux_array);
+						expanded_element.add(exp_key.getAsJsonPrimitive().getAsString(),aux_array);
 					}
 					
 					if(exp_key.isJsonObject()){
@@ -120,7 +121,7 @@ public class ExpandJSONLD {
 		if(value instanceof JsonArray) {
 			
 			JsonArray res = new JsonArray();
-			JsonElement key_expanded = this.expandKey(key);
+			JsonElement key_expanded = this.iriExpansion(new JsonPrimitive(key));
 			
 			if(key_expanded instanceof JsonPrimitive) {
 				
@@ -129,21 +130,35 @@ public class ExpandJSONLD {
 					res.add(t);
 				}
 				
-				expanded_element.add(key_expanded.getAsJsonPrimitive().toString(), res);
+				expanded_element.add(key_expanded.getAsJsonPrimitive().getAsString(), res);
 			}
 		}
 		
 		return expanded_element;
 	}
 	
-	private JsonElement expandKey(String key) {
+	private JsonElement iriExpansion(JsonElement key) {
 		
+		System.out.println("key="+key);
 		JsonElement expanded=null;
-		//check if the key has :
-		if(this.context.hasTerm(key)) {
-			expanded = this.context.getTermValue(key);
-		}else
-		System.out.println("missink key...skipping");
+		if(key.isJsonPrimitive()) {
+			if(IRI.isCompact(context, key.getAsJsonPrimitive().getAsString())) {
+				String candidate = key.getAsJsonPrimitive().getAsString();
+				String aux = candidate.substring(0, candidate.lastIndexOf(":"));
+				if(this.context.hasTerm(aux)) {
+					String generatedIRI= this.iriExpansion(new JsonPrimitive(aux)).getAsString();
+					expanded = new JsonPrimitive(generatedIRI+candidate.substring(candidate.lastIndexOf(":")));
+					
+				}else {
+					//to the next key (?)
+				}
+				
+			}else {
+				expanded = this.context.getTermValue(key);
+			}
+		}else {
+			System.out.println("missink key...skipping");
+		}
 		
 		return expanded;
 	}
