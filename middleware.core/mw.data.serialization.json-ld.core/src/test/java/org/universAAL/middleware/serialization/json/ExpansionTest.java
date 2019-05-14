@@ -5,8 +5,6 @@ import java.io.InputStream;
 import org.junit.Test;
 import org.universAAL.middleware.serialization.json.algorithms.ExpandJSONLD;
 
-import com.google.gson.JsonElement;
-
 
 public class ExpansionTest {
 
@@ -15,13 +13,15 @@ public class ExpansionTest {
 
 		try {
 			InputStream json =  this.getClass().getClassLoader().getResource("example.json").openStream();
-		ExpandJSONLD expansor = new ExpandJSONLD(json);
+			ExpandJSONLD expansor = new ExpandJSONLD(json);
 			expansor.expand();
-			System.out.println(expansor.getExpandedJson());
+			System.out.println("result="+expansor.getExpandedJson());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		
 	}
+	
+
 }
