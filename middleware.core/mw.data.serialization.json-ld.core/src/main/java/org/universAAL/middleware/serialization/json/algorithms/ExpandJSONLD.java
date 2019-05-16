@@ -96,6 +96,7 @@ public class ExpandJSONLD {
 		JsonObject expanded_element = new JsonObject();
 		 //"name": "Mojito"
 		if(value instanceof JsonPrimitive) {
+			JsonElement elemet_id =null;
 			JsonElement expandedKey =this.iriExpansion(new JsonPrimitive(key));
 			//expandedKey = http://rdf.data-vocabulary.org/#name
 			if(expandedKey instanceof JsonPrimitive) {
@@ -148,19 +149,28 @@ public class ExpandJSONLD {
 		}
 		
 		if(value instanceof JsonArray) {
-			
+			JsonElement elementID;
 			JsonArray res = new JsonArray();
 			
 			JsonElement key_expanded = this.iriExpansion(new JsonPrimitive(key));
-			System.out.println("expanding array");
 			if(key_expanded instanceof JsonPrimitive) {
-				
+				JsonElement result_id = null ;
 				for (int i = 0; i < value.getAsJsonArray().size(); i++) {
-					JsonElement t = this.expandElement(key, value.getAsJsonArray().get(i),true);
-					System.out.println("t="+t);
-					res.add(t);
+					
+					if(value.getAsJsonArray().get(i).isJsonObject()) {
+						//attach id into result
+						result_id=value.getAsJsonArray().get(i).getAsJsonObject().get(JsonLdKeyword.ID.toString());
+					}
+					JsonObject aux =this.expandElement(key, value.getAsJsonArray().get(i),true).getAsJsonObject();
+					if(result_id!=null) {
+						aux.add(JsonLdKeyword.ID.toString(), result_id);
+					}
+					
+					//JsonElement t = this.expandElement(key, value.getAsJsonArray().get(i),true);
+					System.out.println("t="+aux);
+					res.add(aux);
 				}
-				
+
 				expanded_element.add(key_expanded.getAsJsonPrimitive().getAsString(), res);
 			}
 		}
@@ -170,15 +180,15 @@ public class ExpandJSONLD {
 	
 	private JsonElement iriExpansion(JsonElement key) {
 		
-		String prefix = key.getAsJsonPrimitive().getAsString().substring(0, key.getAsJsonPrimitive().getAsString().indexOf(":"));
-		String sufix = key.getAsJsonPrimitive().getAsString().substring(key.getAsJsonPrimitive().getAsString().indexOf(":"));
-		
-		if(prefix.contains("_")) {
-			return new JsonPrimitive("_:");
-		}
+//		String prefix = key.getAsJsonPrimitive().getAsString().substring(0, key.getAsJsonPrimitive().getAsString().indexOf(":"));
+//		String sufix = key.getAsJsonPrimitive().getAsString().substring(key.getAsJsonPrimitive().getAsString().indexOf(":"));
+//		
+//		if(prefix.contains("_")) {
+//			return new JsonPrimitive("_:");
+//		}
 		//BUG fix JsonLdKeyword.isKeyword(key.getAsJsonPrimitive().getAsString()); 
 		JsonLdKeyword.isKeyword(key.getAsJsonPrimitive().getAsString());
-		if(key.getAsJsonPrimitive().getAsString().startsWith("@")) {
+		if(key.getAsJsonPrimitive().getAsString().startsWith("@") || key.isJsonNull()) {
 			return key;	
 		}
 		
@@ -202,6 +212,11 @@ public class ExpandJSONLD {
 			System.out.println("missink key...skipping");
 		}
 		return expanded;
+	}
+
+	private JsonElement createTermDefinition() {
+		
+		return new JsonPrimitive("r");
 	}
 
 	public JsonArray getExpandedJson() {
