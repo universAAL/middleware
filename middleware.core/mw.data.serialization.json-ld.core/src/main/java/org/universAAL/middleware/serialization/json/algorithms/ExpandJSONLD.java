@@ -1,5 +1,6 @@
 package org.universAAL.middleware.serialization.json.algorithms;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +10,7 @@ import java.util.Map.Entry;
 
 import javax.print.attribute.HashAttributeSet;
 
-import org.hamcrest.core.SubstringMatcher;
+
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
 import org.universAAL.middleware.serialization.json.grammar.ContextDefinition;
 import org.universAAL.middleware.serialization.json.grammar.IRI;
@@ -75,21 +76,41 @@ public class ExpandJSONLD {
 			
 		}
 		if(this.context !=null) {
+			JsonObject aux_obj = new JsonObject();
 			for (Entry<String, JsonElement> element: this.jsonToExpand.entrySet()) {
-
-				result.add(this.expandElement(element.getKey(), element.getValue()));
+				System.out.println("element="+element);
+				Entry<String, JsonElement> entry = this.expandElement(element.getKey(), element.getValue(),false).getAsJsonObject().entrySet().iterator().next();
+				if(entry.getValue().isJsonPrimitive()) {
+					
+				}
+				aux_obj.add(entry.getKey(),entry.getValue());
 			}
+			result.add(aux_obj);
 		}else
 			System.out.println("missing context");
 		
 	}
 	
-	private JsonElement expandElement(String key, JsonElement value) {
+	private JsonElement expandElement(String key, JsonElement value, boolean array_state) {
+		
 		JsonObject expanded_element = new JsonObject();
+		 //"name": "Mojito"
 		if(value instanceof JsonPrimitive) {
 			JsonElement expandedKey =this.iriExpansion(new JsonPrimitive(key));
+			//expandedKey = http://rdf.data-vocabulary.org/#name
 			if(expandedKey instanceof JsonPrimitive) {
-				expanded_element.add(JsonLdKeyword.VALUE.toString(), value);
+				
+				if(!array_state) {
+					JsonObject aux_obj = new JsonObject();
+					JsonArray aux_array = new JsonArray();
+					aux_obj.add(JsonLdKeyword.VALUE.toString(), value);
+					aux_array.add(aux_obj);
+					expanded_element.add(expandedKey.getAsJsonPrimitive().getAsString(), aux_array);
+				}else{
+					expanded_element.add(JsonLdKeyword.VALUE.toString(), value);
+				}
+				
+				
 				return expanded_element ;
 			}
 			if(expandedKey instanceof JsonObject) {
@@ -99,10 +120,18 @@ public class ExpandJSONLD {
 			return expanded_element;
 		}
 		if(value instanceof JsonObject) {
+		
+			
+			if(!key.equals("@context")) {
+				JsonElement expanded_prop;
+				expanded_prop = this.iriExpansion(new JsonPrimitive(key));
+			}
+			
+		
 				for (Entry<String, JsonElement> iterable_element : value.getAsJsonObject().entrySet()) {
 					JsonElement exp_key =this.iriExpansion(new JsonPrimitive(iterable_element.getKey()));
 					JsonArray aux_array = new JsonArray();
-					aux_array.add(this.expandElement(iterable_element.getKey(), iterable_element.getValue()));
+					aux_array.add(this.expandElement(iterable_element.getKey(), iterable_element.getValue(),false));
 					
 					if(exp_key.isJsonPrimitive()) {
 						expanded_element.add(exp_key.getAsJsonPrimitive().getAsString(),aux_array);
@@ -121,12 +150,14 @@ public class ExpandJSONLD {
 		if(value instanceof JsonArray) {
 			
 			JsonArray res = new JsonArray();
-			JsonElement key_expanded = this.iriExpansion(new JsonPrimitive(key));
 			
+			JsonElement key_expanded = this.iriExpansion(new JsonPrimitive(key));
+			System.out.println("expanding array");
 			if(key_expanded instanceof JsonPrimitive) {
 				
 				for (int i = 0; i < value.getAsJsonArray().size(); i++) {
-					JsonElement t = this.expandElement(key, value.getAsJsonArray().get(i));
+					JsonElement t = this.expandElement(key, value.getAsJsonArray().get(i),true);
+					System.out.println("t="+t);
 					res.add(t);
 				}
 				
@@ -139,6 +170,17 @@ public class ExpandJSONLD {
 	
 	private JsonElement iriExpansion(JsonElement key) {
 		
+		String prefix = key.getAsJsonPrimitive().getAsString().substring(0, key.getAsJsonPrimitive().getAsString().indexOf(":"));
+		String sufix = key.getAsJsonPrimitive().getAsString().substring(key.getAsJsonPrimitive().getAsString().indexOf(":"));
+		
+		if(prefix.contains("_")) {
+			return new JsonPrimitive("_:");
+		}
+		//BUG fix JsonLdKeyword.isKeyword(key.getAsJsonPrimitive().getAsString()); 
+		JsonLdKeyword.isKeyword(key.getAsJsonPrimitive().getAsString());
+		if(key.getAsJsonPrimitive().getAsString().startsWith("@")) {
+			return key;	
+		}
 		
 		JsonElement expanded=null;
 		if(key.isJsonPrimitive()) {
@@ -159,7 +201,6 @@ public class ExpandJSONLD {
 		}else {
 			System.out.println("missink key...skipping");
 		}
-		
 		return expanded;
 	}
 
