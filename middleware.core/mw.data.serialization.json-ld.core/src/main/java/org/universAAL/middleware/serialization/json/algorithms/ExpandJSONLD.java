@@ -121,11 +121,84 @@ public class ExpandJSONLD {
 			return expanded_element;
 		}
 		if(value instanceof JsonObject) {
-		
+		//dictionary given
+			JsonElement expanded_value;
+			JsonElement expanded_property= this.iriExpansion(new JsonPrimitive(key));
 			
 			if(!key.equals("@context")) {
-				JsonElement expanded_prop;
-				expanded_prop = this.iriExpansion(new JsonPrimitive(key));
+				if(!expanded_property.isJsonNull() ) {
+					if(JsonLdKeyword.isKeyword(expanded_property.getAsString()) ) {
+						
+						if(key.equals(JsonLdKeyword.REVERSE.toString())) {
+							//TODO throw error
+						}
+						if(expanded_element.getAsString().equals(JsonLdKeyword.ID.toString()) && !value.isJsonPrimitive()) {
+							//TODO throw error
+						}else {
+							 expanded_value = this.iriExpansion(value);
+						}
+						if(expanded_element.getAsString().equals(JsonLdKeyword.TYPE.toString())) {
+							boolean state=true;
+							if(value.isJsonArray()) {
+								for (JsonElement jsonElement : value.getAsJsonArray()) {
+									if(!jsonElement.isJsonPrimitive()) {
+										state = false;	
+										break;
+									}
+								}
+							}else if(!value.isJsonPrimitive()) {
+								//TODO throw error
+							}else {
+								expanded_value = this.iriExpansion(value);
+							}
+						}
+						if(expanded_element.getAsString().equals(JsonLdKeyword.GRAPH.toString())) {
+							//expanded_value = this.expandElement(key, key, array_state);
+						}
+						if(expanded_element.getAsString().equals(JsonLdKeyword.VALUE.toString()) && value.isJsonPrimitive()) {
+							//TODO throw error (and abort process)
+						}else {
+							expanded_value = value;
+							if(expanded_value.isJsonNull()) {
+								//TODO interpret doc and implement
+							}
+						}
+						if(expanded_element.getAsString().equals(JsonLdKeyword.LANG.toString()) && !value.isJsonPrimitive()) {
+							//TODO throw error invalid language-tagged string
+						}
+						if(expanded_element.getAsString().equals(JsonLdKeyword.INDEX.toString())) {
+							if( value.isJsonPrimitive())
+								expanded_value = value;
+							else {
+								//TODO throw error
+							}
+						}
+						if(expanded_element.getAsString().equals(JsonLdKeyword.LIST.toString())) {
+							
+							if( key.equals(JsonLdKeyword.GRAPH.toString()) || new JsonPrimitive(key).isJsonNull()) {
+								//TODO continue with the next key
+							}else {
+								expanded_value = this.expandElement(key, value,false);
+								if(expanded_value.isJsonObject()) {
+									if(expanded_value.getAsJsonObject().has(JsonLdKeyword.LIST.toString())) {
+										//TODO throw list of list err
+									}
+								}
+							}
+						}
+						if(expanded_element.getAsString().equals(JsonLdKeyword.SET.toString())) {
+							expanded_value = this.expandElement(key,value, false);
+							
+						}
+						//9.4.11 item in doc
+						if(expanded_element.getAsString().equals(JsonLdKeyword.REVERSE.toString()) && !value.isJsonObject()) {
+							//TODO throw invalid @reverse
+						}else {
+							expanded_value = this.expandElement(key, value, array_state);
+							//if(expanded_value.)
+						}
+					}
+				}
 			}
 			
 		
@@ -180,8 +253,11 @@ public class ExpandJSONLD {
 	
 	private JsonElement iriExpansion(JsonElement key) {
 		
-//		String prefix = key.getAsJsonPrimitive().getAsString().substring(0, key.getAsJsonPrimitive().getAsString().indexOf(":"));
-//		String sufix = key.getAsJsonPrimitive().getAsString().substring(key.getAsJsonPrimitive().getAsString().indexOf(":"));
+		if(key.getAsJsonPrimitive().getAsString().contains(":")) {
+			String prefix = key.getAsJsonPrimitive().getAsString().substring(0, key.getAsJsonPrimitive().getAsString().indexOf(":"));
+			String sufix = key.getAsJsonPrimitive().getAsString().substring(key.getAsJsonPrimitive().getAsString().indexOf(":"));	
+		}
+		
 //		
 //		if(prefix.contains("_")) {
 //			return new JsonPrimitive("_:");
