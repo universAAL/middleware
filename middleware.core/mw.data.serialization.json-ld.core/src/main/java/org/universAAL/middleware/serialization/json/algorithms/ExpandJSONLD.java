@@ -10,7 +10,8 @@ import java.util.Map.Entry;
 
 import javax.print.attribute.HashAttributeSet;
 
-
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
 import org.universAAL.middleware.serialization.json.grammar.ContextDefinition;
 import org.universAAL.middleware.serialization.json.grammar.IRI;
@@ -22,12 +23,18 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 
+import org.apache.log4j.PropertyConfigurator;
+
+
 public class ExpandJSONLD {
 	private ContextDefinition context=null;
 	private JsonObject jsonToExpand= null; 
 	private Map<JsonElement, Boolean> defined = new HashMap<JsonElement, Boolean>(); 
 	JsonParser parser = new JsonParser();
 	JsonArray result = new JsonArray();
+	private final static Logger log = Logger.getLogger(ExpandJSONLD.class);
+	
+
 	public ExpandJSONLD(Object jsonToExpand) {
 		
 		if(jsonToExpand instanceof InputStream) {
@@ -68,7 +75,7 @@ public class ExpandJSONLD {
 	}
 	
 	public void expand() {
-		
+		log.debug("expanding");
 		if(this.context ==null) {
 			if(this.jsonToExpand.has(JsonLdKeyword.CONTEXT.toString())) {
 				this.context = new ContextDefinition(this.jsonToExpand.remove(JsonLdKeyword.CONTEXT.toString()));	
@@ -78,7 +85,7 @@ public class ExpandJSONLD {
 		if(this.context !=null) {
 			JsonObject aux_obj = new JsonObject();
 			for (Entry<String, JsonElement> element: this.jsonToExpand.entrySet()) {
-				System.out.println("element="+element);
+				
 				Entry<String, JsonElement> entry = this.expandElement(element.getKey(), element.getValue(),false).getAsJsonObject().entrySet().iterator().next();
 				if(entry.getValue().isJsonPrimitive()) {
 					
@@ -240,7 +247,6 @@ public class ExpandJSONLD {
 					}
 					
 					//JsonElement t = this.expandElement(key, value.getAsJsonArray().get(i),true);
-					System.out.println("t="+aux);
 					res.add(aux);
 				}
 

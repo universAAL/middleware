@@ -16,7 +16,7 @@ import com.google.gson.JsonParser;
 public class UAALResourcesGenerator {
 	private JsonObject jsonToExpand;
 	private JsonParser parser = new JsonParser();
-	private HashMap<String , Resource> generatedResources = new HashMap<>();
+	private HashMap<String , Resource> generatedResources = new HashMap<String, Resource>();
 	
 	public UAALResourcesGenerator(Object jsonToExpand) {
 		if(jsonToExpand instanceof InputStream) {
