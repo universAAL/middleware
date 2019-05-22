@@ -289,7 +289,7 @@ public class NodeObject implements JSONLDValidator {
 			if(!this.activeContext.hasTerm(element.getKey())) {
 				return false;
 			}else {
-				if(!IRI.isAbsolute(this.activeContext.getTermValue(element.getKey())))
+				if( !IRI.isAbsolute(this.activeContext.getTermValue(element.getKey()).getAsString())  )
 					return false;
 				
 				if(element.getValue().isJsonPrimitive()) {

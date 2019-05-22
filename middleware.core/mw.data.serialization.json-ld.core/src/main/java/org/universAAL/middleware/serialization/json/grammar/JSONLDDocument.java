@@ -131,6 +131,7 @@ public class JSONLDDocument implements JSONLDValidator {
 		if(this.mainJSON.isJsonObject()) {
 			//TODO check multiple contexts
 			if(this.mainJSON.getAsJsonObject().has(JsonLdKeyword.CONTEXT.toString())) {
+				
 				System.out.println("...validating context...");
 				this.mainContext = new ContextDefinition(this.mainJSON.getAsJsonObject().get(JsonLdKeyword.CONTEXT.toString()));
 				if(!this.mainContext.validate())

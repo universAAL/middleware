@@ -41,7 +41,7 @@ public class ExpandedTermDefinition implements JSONLDValidator {
 	 * @param jsonToValidate {@link JsonElement} to validate
 	 */
 	public ExpandedTermDefinition(ContextDefinition ctx,JsonObject jsonToValidate) {
-		System.out.println("expanded term definition given "+jsonToValidate.toString());
+		//System.out.println("expanded term definition given "+jsonToValidate.toString());
 		this.jsonToValidate=jsonToValidate;
 		this.ctx=ctx;
 	}
@@ -51,10 +51,10 @@ public class ExpandedTermDefinition implements JSONLDValidator {
 		//An expanded term definition SHOULD NOT contain any other keys
 				boolean hasID=false,hasContainer=false,generalState ;
 				for (Entry<String, JsonElement> element : this.jsonToValidate.getAsJsonObject().entrySet()) {
-					System.out.println(element.getKey());
+					//System.out.println(element.getKey());
 					//If the expanded term definition contains the @id keyword, its value MUST be null, an absolute IRI, a blank node identifier, a compact IRI, a term, or a keyword.
 					if (element.getKey().toString().equals(JsonLdKeyword.ID.toString())) {
-						System.out.println("JsonLdKeyword.ID");
+						//System.out.println("JsonLdKeyword.ID");
 						hasID=true;
 						//falso si todos los casos dan falso
 						return element.getValue().getAsString().equalsIgnoreCase("null") ||
@@ -71,7 +71,7 @@ public class ExpandedTermDefinition implements JSONLDValidator {
 					 *  
 					 * */	
 					if (element.getKey().equals(JsonLdKeyword.CONTAINER.toString())) {
-						System.out.println("Container");
+						//System.out.println("Container");
 						hasContainer = true;
 						if(element.getValue().getAsString().equals(JsonLdKeyword.LIST)) {
 							//TODO ...
@@ -94,7 +94,7 @@ public class ExpandedTermDefinition implements JSONLDValidator {
 					//If an expanded term definition has an @reverse member, it MUST NOT have an @id member at the same time. If an @container member exists, its value MUST be null, @set, or @index.
 
 					if (element.getKey().equals(JsonLdKeyword.REVERSE.toString())){
-						System.out.println("reverse");
+						//System.out.println("reverse");
 						if(hasID) {
 							return false;
 						}
@@ -105,7 +105,7 @@ public class ExpandedTermDefinition implements JSONLDValidator {
 					}
 					//If the expanded term definition contains the @type keyword, its value MUST be an absolute IRI, a compact IRI, a term, null, or the one of the keywords @id or @vocab.
 					if (element.getKey().equals(JsonLdKeyword.TYPE.toString())){
-						System.out.println("JsonLdKeyword.TYPE");
+						//System.out.println("JsonLdKeyword.TYPE");
 						return  IRI.isAbsolute(element.getValue().getAsString()) ||
 								IRI.isCompact(this.ctx,element.getValue().getAsString()) ||
 								Term.isTerm(element.getValue().getAsString()) || 
@@ -115,11 +115,11 @@ public class ExpandedTermDefinition implements JSONLDValidator {
 					
 					//If the expanded term definition contains the @language keyword, its value MUST have the lexical form described in [BCP47] or be null.
 					if (element.getKey().equals(JsonLdKeyword.LANG)) {
-						System.out.println("lang");
+						//System.out.println("lang");
 						generalState = element.getValue().getAsString().equalsIgnoreCase("null") || element.getValue().isJsonPrimitive();
 					}
 					
-					System.out.println("nothing");
+					//System.out.println("nothing");
 				}	
 			
 			return false;

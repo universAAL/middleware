@@ -46,7 +46,7 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
  */
 	//A context definition MUST be a JSON object whose keys MUST either be terms, compact IRIs, absolute IRIs, or the keywords @language, @base, and @vocab.
 	public ContextDefinition(JsonElement toValidate) {
-		System.out.println(toValidate);
+		//System.out.println(toValidate);
 		
 		if (toValidate.isJsonObject()) {
 			this.jsonToValidate = toValidate.getAsJsonObject();
@@ -92,7 +92,7 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 					//merge contexts them validate
 					
 					for (Entry<String, JsonElement> element : this.jsonToValidate.entrySet()) {
-						System.out.println("validating---> "+element);
+						//System.out.println("validating---> "+element);
 						//keyword control
 						//A context definition MUST be a JSON object whose keys MUST either be terms, compact IRIs, absolute IRIs, or the keywords @language, @base, and @vocab.
 						if( !this.keyControl(element) ) return false;
@@ -132,7 +132,7 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 				}
 				
 				if(itemToControl.getValue().isJsonObject()) {
-					System.out.println("to analize expanded term def "+itemToControl.getValue());
+				//	System.out.println("to analize expanded term def "+itemToControl.getValue());
 					return new ExpandedTermDefinition(this, itemToControl.getValue().getAsJsonObject()).validate();
 				}
 				
@@ -193,7 +193,7 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 	 * @return {@link JsonObject} representing the merged context
 	 */
 	public static  JsonObject mergeContexts(JsonArray ToMerge) {
-		System.out.println("merge context ... "+ToMerge);
+		//System.out.println("merge context ... "+ToMerge);
 		JsonObject obj = new JsonObject();
 		if(ToMerge ==null) return null;
 		for (JsonElement item : ToMerge) {

@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
+import org.apache.log4j.PropertyConfigurator;
 import org.junit.Before;
 import org.junit.Test;
 import org.universAAL.middleware.serialization.json.grammar.JSONLDDocument;
@@ -21,6 +22,8 @@ public class ResourcesGeneratorTest {
 	
 	@Before
 	public void init() {
+		PropertyConfigurator.configure("src/test/resources/logj4ConfigFile/log4j.properties");
+
 		try {
 			this.toParse = new JSONLDDocument(this.getClass().getClassLoader().getResource("expandedFullJson.json").openStream());
 		} catch (Exception e) {
