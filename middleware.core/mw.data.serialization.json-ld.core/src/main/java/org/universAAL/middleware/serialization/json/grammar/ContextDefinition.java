@@ -16,6 +16,9 @@
 package org.universAAL.middleware.serialization.json.grammar;
 
 import java.util.Map.Entry;
+import java.io.InputStream;
+import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
@@ -24,6 +27,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 /**
  * @author amedrano
@@ -42,7 +46,7 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
  */
 	//A context definition MUST be a JSON object whose keys MUST either be terms, compact IRIs, absolute IRIs, or the keywords @language, @base, and @vocab.
 	public ContextDefinition(JsonElement toValidate) {
-		System.out.println(toValidate);
+		//System.out.println(toValidate);
 		
 		if (toValidate.isJsonObject()) {
 			this.jsonToValidate = toValidate.getAsJsonObject();
@@ -61,6 +65,16 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 		this(toValidate);
 		this.lastContext = ctx;
 	}
+	
+	public ContextDefinition (InputStream context) {
+		String jsonString = "";
+		Scanner s = new Scanner(context);
+		s.useDelimiter("\\A");
+		jsonString = s.hasNext() ? s.next() : "";
+		s.close();
+		JsonParser jsp = new JsonParser();
+		this.jsonToValidate = jsp.parse(jsonString).getAsJsonObject();
+	}
 
 /**
  * method to validate the JsonElement given in {@link ContextDefinition} constructor
@@ -78,7 +92,7 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 					//merge contexts them validate
 					
 					for (Entry<String, JsonElement> element : this.jsonToValidate.entrySet()) {
-						System.out.println("validating---> "+element);
+						//System.out.println("validating---> "+element);
 						//keyword control
 						//A context definition MUST be a JSON object whose keys MUST either be terms, compact IRIs, absolute IRIs, or the keywords @language, @base, and @vocab.
 						if( !this.keyControl(element) ) return false;
@@ -118,7 +132,7 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 				}
 				
 				if(itemToControl.getValue().isJsonObject()) {
-					System.out.println("to analize expanded term def "+itemToControl.getValue());
+				//	System.out.println("to analize expanded term def "+itemToControl.getValue());
 					return new ExpandedTermDefinition(this, itemToControl.getValue().getAsJsonObject()).validate();
 				}
 				
@@ -179,7 +193,7 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 	 * @return {@link JsonObject} representing the merged context
 	 */
 	public static  JsonObject mergeContexts(JsonArray ToMerge) {
-		System.out.println("merge context ... "+ToMerge);
+		//System.out.println("merge context ... "+ToMerge);
 		JsonObject obj = new JsonObject();
 		if(ToMerge ==null) return null;
 		for (JsonElement item : ToMerge) {
@@ -193,9 +207,7 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 
 		return obj;
 	}
-	
 
-	
 	/**
 	 * 
 	 * @return the base IRI defined in this context
@@ -212,16 +224,39 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 	public boolean hasTerm(String term) {
 		return this.jsonToValidate.has(term);
 	}
+	
+	public boolean hasTerm(JsonElement term) {
+		String aux = term.getAsJsonPrimitive().getAsString();
+	 return this.jsonToValidate.has(aux);
+	}
 
 	/**
 	 * method to get the value associates to given term
 	 * @param term
-	 * @return the value of term
+	 * @return the value of term, or null if the term not exists
 	 */
-	public String getTermValue(String term) {
-		return this.jsonToValidate.get(term).getAsString();
+	public JsonElement getTerm(String term) {
+		return this.jsonToValidate.get(term);
 	}
 	
+	
+	
+
+	
+	public void updateElement(String key, JsonElement value) {
+		this.jsonToValidate.add(key, value);
+	}
+	public JsonElement getTermValue(String term) {
+		
+		return this.jsonToValidate.get(term);
+	} 
+	
+	public JsonElement getTermValue(JsonElement term) {
+		if(term.isJsonPrimitive()) {
+			return this.jsonToValidate.get(term.getAsJsonPrimitive().getAsString());	
+		}
+		return null;
+	} 
 	public JsonObject getJsonToValidate() {
 		return jsonToValidate;
 	}

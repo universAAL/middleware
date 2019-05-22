@@ -40,11 +40,11 @@ public class IRI {
 	 * @return
 	 */
 	public static boolean isAbsolute(String candidateIRI) {
-		System.out.println("isAbsolute "+candidateIRI);
+		
 		try {
 			URL url = new URL(candidateIRI.replaceAll("\"", ""));//TODO change the call 
 		} catch (Exception e) {
-			System.out.println("is absolute "+candidateIRI+"   "+e.getMessage());
+			//System.out.println("is absolute "+candidateIRI+"   "+e.getMessage());
 			return false;
 			
 		}

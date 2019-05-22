@@ -17,6 +17,7 @@ package org.universAAL.middleware.serialization.json;
 
 import junit.framework.TestCase;
 
+import org.apache.log4j.PropertyConfigurator;
 import org.junit.Ignore;
 import org.universAAL.middleware.serialization.json.analyzers.BlankNodeAnalyzer;
 
@@ -41,6 +42,7 @@ public class BNTest extends TestCase {
 
 	@Ignore
 	public void testformat() {
+		PropertyConfigurator.configure("src/test/resources/logj4ConfigFile/log4j.properties");
 
 		for (int i = 0; i < 1000; i += 7) {
 			int padding = 1 + BlankNodeAnalyzer.log10(i - 1);

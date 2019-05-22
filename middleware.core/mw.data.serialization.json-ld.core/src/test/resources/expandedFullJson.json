@@ -1,0 +1,37 @@
+[
+  {
+    "@id":"asd",
+    
+    "http://rdf.data-vocabulary.org/#instructions": [
+     
+      {
+        "http://rdf.data-vocabulary.org/#description": [
+          {
+            
+            "@value": "Crush lime juice, mint and sugar together in glass."
+          }
+        ],
+        "http://rdf.data-vocabulary.org/#step": [
+          {
+            
+            "@type": "http://www.w3.org/2001/XMLSchema#integer",
+            "@value": 1
+          }
+        ]
+      }
+  
+      
+  
+    ],
+    "http://rdf.data-vocabulary.org/#name": [
+      {
+        "@value": "Mojito"
+      }
+    ],
+    "http://rdf.data-vocabulary.org/#yield": [
+      {
+        "@value": "1 cocktail"
+      }
+    ]
+  }
+]
