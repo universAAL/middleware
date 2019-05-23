@@ -172,6 +172,7 @@ public class ExpandJSONLD {
 						}
 						if(expanded_element.getAsString().equals(JsonLdKeyword.LANG.toString()) && !value.isJsonPrimitive()) {
 							//TODO throw error invalid language-tagged string
+							log.fatal("invalid language-tagged string");
 						}
 						if(expanded_element.getAsString().equals(JsonLdKeyword.INDEX.toString())) {
 							if( value.isJsonPrimitive())
@@ -188,7 +189,7 @@ public class ExpandJSONLD {
 								expanded_value = this.expandElement(key, value,false);
 								if(expanded_value.isJsonObject()) {
 									if(expanded_value.getAsJsonObject().has(JsonLdKeyword.LIST.toString())) {
-										//TODO throw list of list err
+										log.fatal("list of lists");
 									}
 								}
 							}
@@ -200,6 +201,7 @@ public class ExpandJSONLD {
 						//9.4.11 item in doc
 						if(expanded_element.getAsString().equals(JsonLdKeyword.REVERSE.toString()) && !value.isJsonObject()) {
 							//TODO throw invalid @reverse
+							log.fatal("invalid @reverse");
 						}else {
 							expanded_value = this.expandElement(key, value, array_state);
 							//if(expanded_value.)
@@ -258,19 +260,36 @@ public class ExpandJSONLD {
 	}
 	
 	private JsonElement iriExpansion(JsonElement key) {
+		String prefix="",sufix="";
 		
-		if(key.getAsJsonPrimitive().getAsString().contains(":")) {
-			String prefix = key.getAsJsonPrimitive().getAsString().substring(0, key.getAsJsonPrimitive().getAsString().indexOf(":"));
-			String sufix = key.getAsJsonPrimitive().getAsString().substring(key.getAsJsonPrimitive().getAsString().indexOf(":"));	
+		if(this.context.hasTerm(key)) {
+			if(this.defined.containsValue( this.context.getTermValue(key)) ) {
+				if(this.defined.get(this.context.getTermValue(key)).booleanValue()!=true){
+					//this.createTermDefinition(key);
+				}
+			}else {
+				
+			}
+				
+			
 		}
 		
-//		
-//		if(prefix.contains("_")) {
-//			return new JsonPrimitive("_:");
-//		}
+		
+		if(key.getAsJsonPrimitive().getAsString().contains(":")) {
+			prefix = key.getAsJsonPrimitive().getAsString().substring(0, key.getAsJsonPrimitive().getAsString().indexOf(":"));
+			sufix = key.getAsJsonPrimitive().getAsString().substring(key.getAsJsonPrimitive().getAsString().indexOf(":")+1);
+			log.debug("prefix="+prefix);
+			log.debug("sufix="+sufix);
+			
+		}
+		
+		
+		if(prefix.contains("_") || sufix.startsWith("//")) {
+			return key;
+		}
 		//BUG fix JsonLdKeyword.isKeyword(key.getAsJsonPrimitive().getAsString()); 
-		JsonLdKeyword.isKeyword(key.getAsJsonPrimitive().getAsString());
-		if(key.getAsJsonPrimitive().getAsString().startsWith("@") || key.isJsonNull()) {
+		
+		if(JsonLdKeyword.isKeyword(key.getAsJsonPrimitive().getAsString())|| key.isJsonNull()) {
 			return key;	
 		}
 		
@@ -296,10 +315,110 @@ public class ExpandJSONLD {
 		return expanded;
 	}
 
-	private JsonElement createTermDefinition() {
-		
+	
+	
+	
+	private JsonElement createTermDefinition(JsonElement term) {
+		JsonElement value;
+		if(this.defined.containsKey(term)) {
+			if(this.defined.get(term).booleanValue()) {
+				//return
+			}else {
+				log.fatal("a cyclic IRI mapping");
+			}
+		}else{
+			this.defined.put(term, false);
+			//Initialize value to a copy of the value associated with the member term in local context.
+			value = this.context.getTermValue(term);
+			
+			if(value.isJsonNull()) {
+				this.defined.put(term, true);
+				//return
+			}else if(value.isJsonObject()) {
+				if( value.getAsJsonObject().has("@id") && value.getAsJsonObject().get(JsonLdKeyword.ID.toString()).isJsonNull()  ) {
+					this.defined.put(term, true);
+					//return
+				}else {
+					if(value.isJsonPrimitive()) {
+						JsonObject obj = new JsonObject();
+						obj.add(JsonLdKeyword.ID.toString(), value);
+						value = obj;
+					}else if(value.isJsonObject()){
+						JsonElement definition;
+						//is dictionary
+						if(value.getAsJsonObject().has(JsonLdKeyword.TYPE.toString())) {
+							JsonElement type= value.getAsJsonObject().get(JsonLdKeyword.TYPE.toString());
+							if(type.isJsonPrimitive()) {
+								type = this.iriExpansion(type);
+								if(type.isJsonPrimitive()) {
+									if(type.getAsJsonPrimitive().getAsString().equals(JsonLdKeyword.ID.toString()) || type.getAsJsonPrimitive().getAsString().equals(JsonLdKeyword.VOCAB.toString()) || IRI.isAbsolute(type.getAsJsonPrimitive().getAsString())){
+										definition = type;
+									}else {
+										log.fatal(" invalid type mapping ");
+									}
+								}
+							}else {
+								log.fatal(" invalid type mapping ");
+							}
+						}
+						
+						if(value.getAsJsonObject().has(JsonLdKeyword.REVERSE.toString())) {
+							if(value.getAsJsonObject().has(JsonLdKeyword.ID.toString() ) || value.getAsJsonObject().has("@nest")) {
+								log.fatal("invalid reverse property...abort process");
+							}
+							if(!value.getAsJsonObject().get(JsonLdKeyword.REVERSE.toString()).isJsonPrimitive()) {
+								log.fatal("invalid IRI mapping ...abort process");
+							}else {
+								definition = this.iriExpansion(value.getAsJsonObject().get(JsonLdKeyword.REVERSE.toString()));
+								
+								if(IRI.isAbsolute(definition.getAsJsonPrimitive().getAsString()) ||  definition.getAsJsonPrimitive().getAsString().equals(JsonLdKeyword.BLANK_NODE) ) {
+									log.fatal("invalid IRI mapping..abort process");
+								}
+							}
+							if(value.getAsJsonObject().has(JsonLdKeyword.CONTAINER.toString())) {
+								definition =value.getAsJsonObject().get(JsonLdKeyword.CONTAINER.toString());
+								if(!definition.getAsJsonPrimitive().isJsonNull() ) {
+									if(definition.getAsJsonPrimitive().getAsString().equals(JsonLdKeyword.SET.toString()) || definition.getAsJsonPrimitive().getAsString().equals(JsonLdKeyword.INDEX.toString()) ) {
+										log.fatal("invalid reverse property...processing is aborted");
+									}
+								}else {
+									log.fatal("invalid reverse property...processing is aborted");
+								}
+							}
+							
+							//TODO implement 14.5 and 14.6
+						}
+						
+						if(value.getAsJsonObject().has(JsonLdKeyword.ID.toString())) {
+							if(!value.getAsJsonObject().get(JsonLdKeyword.ID.toString()).equals(term)) {
+								if(!value.getAsJsonObject().get(JsonLdKeyword.ID.toString()).isJsonPrimitive()) {
+									log.fatal(" invalid IRI mapping error has been detected and processing is aborted");
+								}else {
+									definition = this.iriExpansion(value.getAsJsonObject().get(JsonLdKeyword.ID.toString()));
+									if(JsonLdKeyword.isKeyword(definition.getAsJsonPrimitive().getAsString()) || 
+											IRI.isAbsolute(definition.getAsJsonPrimitive().getAsString()) ||
+											value.getAsJsonPrimitive().getAsString().equals(JsonLdKeyword.BLANK_NODE)){
+										log.fatal("invalid IRI mapping error has been detected and processing is aborted.");
+									}
+								}
+							}
+						}
+						
+						if(term.getAsJsonPrimitive().getAsString().contains(":")) {
+							String prefix =term.getAsJsonPrimitive().getAsString().substring(0,term.getAsJsonPrimitive().getAsString().lastIndexOf(":"));
+							this.createTermDefinition(new JsonPrimitive(prefix));
+						}
+					}else {
+						log.fatal("error");
+					}
+				}
+			}
+			
+		}
 		return new JsonPrimitive("r");
 	}
+
+
 
 	public JsonArray getExpandedJson() {
 		return this.result;
