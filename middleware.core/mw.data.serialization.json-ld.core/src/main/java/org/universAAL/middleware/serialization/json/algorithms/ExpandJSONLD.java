@@ -99,7 +99,7 @@ public class ExpandJSONLD {
 	}
 	
 	private JsonElement expandElement(String key, JsonElement value, boolean array_state) {
-		
+		log.debug("expandElement key="+key+" value="+value);
 		JsonObject expanded_element = new JsonObject();
 		 //"name": "Mojito"
 		if(value instanceof JsonPrimitive) {
@@ -128,7 +128,7 @@ public class ExpandJSONLD {
 			return expanded_element;
 		}
 		if(value instanceof JsonObject) {
-		//dictionary given
+		log.debug("processing object");
 			JsonElement expanded_value;
 			JsonElement expanded_property= this.iriExpansion(new JsonPrimitive(key));
 			

@@ -17,7 +17,7 @@ public class ExpansionTest {
 		PropertyConfigurator.configure("src/test/resources/logj4ConfigFile/log4j.properties");
 
 		try {
-			InputStream json =  this.getClass().getClassLoader().getResource("./expand/simple.json").openStream();
+			InputStream json =  this.getClass().getClassLoader().getResource("./expand/complex.json").openStream();
 			ExpandJSONLD expansor = new ExpandJSONLD(json);
 			expansor.expand();
 			System.out.println(expansor.getExpandedJson());
