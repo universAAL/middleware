@@ -44,6 +44,10 @@
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.data.serialization.json-ld.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.bus.tracker.osgi</artifactId>
     </dependency>
     <dependency>
