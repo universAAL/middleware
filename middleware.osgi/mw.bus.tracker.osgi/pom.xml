@@ -62,7 +62,7 @@
             <Private-Package>org.universAAL.middleware.tracker.osgi,
             	org.universAAL.middleware.tracker.impl</Private-Package>
             <DynamicImport-Package>org.universAAL.middleware.context,
-            org.universAAL.middleware.service",
+            org.universAAL.middleware.service,
             org.universAAL.middleware.ui</DynamicImport-Package>
             <Import-Package>org.osgi.framework;version="[1,2)",*</Import-Package>
           </instructions>
