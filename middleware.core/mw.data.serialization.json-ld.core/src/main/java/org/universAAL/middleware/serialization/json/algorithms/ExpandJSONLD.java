@@ -96,7 +96,7 @@ public class ExpandJSONLD {
 	}
 	
 	private JsonElement expandElement(String key, JsonElement value, boolean array_state) {
-		
+		log.debug("expanding key="+key+" value="+value);
 
 		JsonElement aux_a =iriExpansion(new JsonPrimitive(key));
 		JsonObject expanded_element = new JsonObject();
@@ -105,24 +105,28 @@ public class ExpandJSONLD {
 					JsonElement expandedKey =this.iriExpansion(new JsonPrimitive(key));
 					
 					if(expandedKey instanceof JsonPrimitive) {
-
+						log.debug("primitive expandedKey "+expandedKey);
 						if(!array_state) {
 							
 							JsonObject aux_obj = new JsonObject();
 							JsonArray aux_array = new JsonArray();
 
 							if(expandedKey.getAsJsonPrimitive().getAsString().startsWith("@")) {// is a keyword
+								
 							//if(JsonLdKeyword.isKeyword(expandedKey.getAsJsonPrimitive().getAsString())) {
 								if(expandedKey.getAsJsonPrimitive().getAsString().equals(JsonLdKeyword.ID.toString())) {
-									expanded_element.add(JsonLdKeyword.ID.toString(), value);
+									
+									expanded_element.add(JsonLdKeyword.ID.toString(), value);//TODO may be need to be expanded as IRI
 								}
 								if(expandedKey.getAsJsonPrimitive().getAsString().equals(JsonLdKeyword.TYPE.toString())) {
-
+									
 									JsonArray local_aux = new JsonArray();
 										if(value.isJsonArray()) {
+											
 											for (JsonElement jsonElement : value.getAsJsonArray()) {
 												if(jsonElement.isJsonPrimitive()) {
-													aux_array.add(jsonElement);
+													//aux_array.add(jsonElement);
+													aux_array.add(this.iriExpansion(jsonElement));
 												}else {
 													log.debug("not primitive");
 													break;
@@ -131,7 +135,9 @@ public class ExpandJSONLD {
 											log.debug("aux_array_A "+local_aux);
 										}else if(value.isJsonPrimitive()) {
 											
-											local_aux.add(value);
+											local_aux.add(this.iriExpansion(value));
+											log.debug("local_aux="+ local_aux);
+											//local_aux.add(value);
 										}else {
 											//TODO throw error. only can be a string or empty object
 										}
@@ -157,14 +163,16 @@ public class ExpandJSONLD {
 						if(expandedKey.getAsJsonObject().has(JsonLdKeyword.TYPE.toString())) {
 
 							if(expandedKey.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive().getAsString().equals(JsonLdKeyword.ID.toString())) {
+								log.debug("value-----------"+value);
 								aux_obj.add(JsonLdKeyword.ID.toString(), value);
-
 							}else {
 								aux_obj.add(JsonLdKeyword.VALUE.toString(), value);
-								aux_obj.add(  JsonLdKeyword.TYPE.toString()  , expandedKey.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()));//expand TYPE member as IRI example xsd:string
+								//aux_obj.add(  JsonLdKeyword.TYPE.toString()  , expandedKey.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()));//expand TYPE member as IRI example xsd:string
+								aux_obj.add(  JsonLdKeyword.TYPE.toString()  , this.iriExpansion(expandedKey.getAsJsonObject().get(JsonLdKeyword.TYPE.toString())));//expand TYPE member as IRI example xsd:string
 							}
 						}
 						aux_array.add(aux_obj);
+						
 						expanded_element.add(key, aux_array);
 					
 					}else if(expandedKey instanceof JsonNull) {
@@ -307,49 +315,35 @@ public class ExpandJSONLD {
 		String prefix="",sufix="";
 		JsonElement expanded=null;
 
-
 		if(key.getAsJsonPrimitive().getAsString().startsWith("@") || key.isJsonNull()) {
-
 			return key;	
 		}
 		
 		if(key.isJsonPrimitive()) {
-
-
 			if(key.getAsJsonPrimitive().getAsString().contains(":")) {
-
-				log.debug(key+"has :");
 				String candidate = key.getAsJsonPrimitive().getAsString();
 				prefix = key.getAsJsonPrimitive().getAsString().substring(0, key.getAsJsonPrimitive().getAsString().indexOf(":"));
 				sufix = key.getAsJsonPrimitive().getAsString().substring(key.getAsJsonPrimitive().getAsString().indexOf(":")+1);
 				
 				if(prefix.contains("_") || sufix.startsWith("//")) {
-					//return key;
+					
 					log.debug("b_node");
+					return key;
 				}
-				log.debug("prefix="+prefix+" sufix="+sufix);
+
 				if(this.context.hasTerm(prefix)) {
-					log.debug("context gas the prefix "+prefix);
+
 					String generatedIRI= this.iriExpansion(new JsonPrimitive(prefix)).getAsString();
-					log.debug("generatedIRI "+generatedIRI+sufix);
+
 					expanded = new JsonPrimitive(generatedIRI+candidate.substring(candidate.lastIndexOf(":")+1));
-					log.debug("expanded "+expanded);
+					log.debug("prefix="+prefix+" sufix="+sufix+ "expanded "+expanded);
 				}else {
 					log.debug("prefix inexistent in context="+prefix);//to the next key (?)
 					expanded = null;
 				}
 			}else if(this.context.hasTerm(key)) {
 					if(this.context.getTermValue(key).isJsonObject()) {
-						/*
-						//{"@id":"http://schema.org/latitude","@type":"xsd:float"}
-						if(this.context.getTermValue(key).getAsJsonObject().has(JsonLdKeyword.ID.toString())) {
-							
-							expanded = this.context.getTermValue(key).getAsJsonObject().get(JsonLdKeyword.ID.toString());
 	
-						}else {
-							log.debug("missing id"); 
-						}
-						*/
 						expanded = this.context.getTermValue(key);
 					}else if(this.context.getTermValue(key).isJsonPrimitive()) {
 							expanded = this.context.getTermValue(key);
@@ -359,7 +353,7 @@ public class ExpandJSONLD {
 		}else {
 			System.out.println("missink key...skipping");
 		}
-		log.debug("returning "+expanded);
+
 		return expanded;
 	}
 
