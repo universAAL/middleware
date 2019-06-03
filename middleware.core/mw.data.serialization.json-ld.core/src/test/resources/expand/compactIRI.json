@@ -1,0 +1,11 @@
+{
+  "@context": {
+    "gr": "http://purl.org/goodrelations/v1#",
+    "gr:hasBusinessFunction": {
+      "@type": "@id"
+    }
+  },
+  "@id": "http://example.org/cars/for-sale#tesla",
+   "@type": "gr:Offering",
+  "gr:hasBusinessFunction": "gr:Sell"
+}
