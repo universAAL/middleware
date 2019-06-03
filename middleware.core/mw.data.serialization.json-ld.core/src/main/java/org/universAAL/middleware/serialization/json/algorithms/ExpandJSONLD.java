@@ -99,13 +99,14 @@ public class ExpandJSONLD {
 	}
 	
 	private JsonElement expandElement(String key, JsonElement value, boolean array_state) {
+		
+		
 		log.debug("expandElement key="+key+" value="+value);
 		JsonObject expanded_element = new JsonObject();
 		 //"name": "Mojito"
 		if(value instanceof JsonPrimitive) {
-			JsonElement elemet_id =null;
 			JsonElement expandedKey =this.iriExpansion(new JsonPrimitive(key));
-			//expandedKey = http://rdf.data-vocabulary.org/#name
+			log.debug("expanded key "+expandedKey);
 			if(expandedKey instanceof JsonPrimitive) {
 				
 				if(!array_state) {
@@ -120,6 +121,15 @@ public class ExpandJSONLD {
 				
 				
 				return expanded_element ;
+			}else if(expandedKey instanceof JsonObject) {
+				JsonObject aux_obj = new JsonObject();
+				JsonArray aux_array = new JsonArray();
+				aux_obj.add(JsonLdKeyword.ID.toString(), value);
+				aux_array.add(aux_obj);
+				
+				
+			}else if(expandedKey instanceof JsonNull) {
+				log.fatal("null expanded prop");
 			}
 			if(expandedKey instanceof JsonObject) {
 				expanded_element.add(JsonLdKeyword.TYPE.toString(), this.iriExpansion(expandedKey.getAsJsonObject().get(JsonLdKeyword.TYPE.toString())) );//TODO control if value has :
@@ -260,34 +270,20 @@ public class ExpandJSONLD {
 	}
 	
 	private JsonElement iriExpansion(JsonElement key) {
+		log.debug("IRI expansion");
 		String prefix="",sufix="";
-		
-		if(this.context.hasTerm(key)) {
-			if(this.defined.containsValue( this.context.getTermValue(key)) ) {
-				if(this.defined.get(this.context.getTermValue(key)).booleanValue()!=true){
-					//this.createTermDefinition(key);
-				}
-			}else {
-				
-			}
-				
-			
-		}
-		
 		
 		if(key.getAsJsonPrimitive().getAsString().contains(":")) {
 			prefix = key.getAsJsonPrimitive().getAsString().substring(0, key.getAsJsonPrimitive().getAsString().indexOf(":"));
 			sufix = key.getAsJsonPrimitive().getAsString().substring(key.getAsJsonPrimitive().getAsString().indexOf(":")+1);
 			log.debug("prefix="+prefix);
 			log.debug("sufix="+sufix);
+			if(prefix.contains("_") || sufix.startsWith("//")) {
+				return key;
+			}
 			
 		}
-		
-		
-		if(prefix.contains("_") || sufix.startsWith("//")) {
-			return key;
-		}
-		//BUG fix JsonLdKeyword.isKeyword(key.getAsJsonPrimitive().getAsString()); 
+	 
 		
 		if(JsonLdKeyword.isKeyword(key.getAsJsonPrimitive().getAsString())|| key.isJsonNull()) {
 			return key;	
@@ -295,6 +291,7 @@ public class ExpandJSONLD {
 		
 		JsonElement expanded=null;
 		if(key.isJsonPrimitive()) {
+			log.debug("primitive key="+key);
 			if(IRI.isCompact(context, key.getAsJsonPrimitive().getAsString())) {
 				String candidate = key.getAsJsonPrimitive().getAsString();
 				String aux = candidate.substring(0, candidate.lastIndexOf(":"));
@@ -306,7 +303,14 @@ public class ExpandJSONLD {
 					//to the next key (?)
 				}
 				
-			}else {
+			}else if(this.context.getTermValue(key).isJsonObject()) {
+				if(this.context.getTermValue(key).getAsJsonObject().has(JsonLdKeyword.ID.toString())) {
+					expanded = this.context.getTermValue(key).getAsJsonObject().get(JsonLdKeyword.ID.toString());	
+				}else {
+					log.debug("missing id"); 
+				}
+				
+			}else if(this.context.getTermValue(key).isJsonPrimitive()) {
 				expanded = this.context.getTermValue(key);
 			}
 		}else {
