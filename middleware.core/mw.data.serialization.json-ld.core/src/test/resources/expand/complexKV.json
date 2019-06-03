@@ -1,0 +1,19 @@
+{
+  "@context": {
+
+    "latitude": {
+      "@id": "http://schema.org/latitude",
+      "@type": "xsd:float"
+    },
+    "longitude": {
+      "@id": "http://schema.org/longitude",
+      "@type": "xsd:float"
+    },
+        "geo": "http://schema.org/geo"
+    
+  },
+  "geo": {
+    "latitude": "40.75",
+    "longitude": "73.98"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "@context": {
+    
+    "image": {
+      "@id": "http://schema.org/image",
+      "@type": "@id"
+    }
+  },
+  "image": "http://www.civil.usherbrooke.ca/cours/gci215a/empire-state-building.jpg"
+}
