@@ -10,8 +10,8 @@ import java.util.Map.Entry;
 
 import javax.print.attribute.HashAttributeSet;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
+import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.serialization.json.JSONLDSerialization;
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
 import org.universAAL.middleware.serialization.json.grammar.ContextDefinition;
 import org.universAAL.middleware.serialization.json.grammar.IRI;
@@ -23,7 +23,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 
-import org.apache.log4j.PropertyConfigurator;
+
 
 
 public class ExpandJSONLD {
@@ -32,7 +32,7 @@ public class ExpandJSONLD {
 	private Map<JsonElement, Boolean> defined = new HashMap<JsonElement, Boolean>(); 
 	JsonParser parser = new JsonParser();
 	JsonArray result = new JsonArray();
-	private final static Logger log = Logger.getLogger(ExpandJSONLD.class);
+//	private final static Logger log = Logger.getLogger(ExpandJSONLD.class);
 	
 
 	public ExpandJSONLD(Object jsonToExpand) {
@@ -75,7 +75,8 @@ public class ExpandJSONLD {
 	}
 	
 	public void expand() {
-		log.debug("expanding");
+//		log.debug("expanding");
+		LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","expanding");
 		if(this.context ==null) {
 			if(this.jsonToExpand.has(JsonLdKeyword.CONTEXT.toString())) {
 				this.context = new ContextDefinition(this.jsonToExpand.remove(JsonLdKeyword.CONTEXT.toString()));	
@@ -96,8 +97,8 @@ public class ExpandJSONLD {
 	}
 	
 	private JsonElement expandElement(String key, JsonElement value, boolean array_state) {
-		log.debug("expanding key="+key+" value="+value);
-
+		//log.debug("expanding key="+key+" value="+value);
+		LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","expanding");
 		JsonElement aux_a =iriExpansion(new JsonPrimitive(key));
 		JsonObject expanded_element = new JsonObject();
 		if(value instanceof JsonPrimitive) {
@@ -105,7 +106,8 @@ public class ExpandJSONLD {
 					JsonElement expandedKey =this.iriExpansion(new JsonPrimitive(key));
 					
 					if(expandedKey instanceof JsonPrimitive) {
-						log.debug("primitive expandedKey "+expandedKey);
+//						log.debug("primitive expandedKey "+expandedKey);
+						LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","expanding");
 						if(!array_state) {
 							
 							JsonObject aux_obj = new JsonObject();
@@ -128,15 +130,19 @@ public class ExpandJSONLD {
 													//aux_array.add(jsonElement);
 													aux_array.add(this.iriExpansion(jsonElement));
 												}else {
-													log.debug("not primitive");
+//													log.debug("not primitive");
+													LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","not primitive");
+
 													break;
 												}
 											}
-											log.debug("aux_array_A "+local_aux);
+											//log.debug("aux_array_A "+local_aux);
+											LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","local_aux");
 										}else if(value.isJsonPrimitive()) {
 											
 											local_aux.add(this.iriExpansion(value));
-											log.debug("local_aux="+ local_aux);
+											//log.debug("local_aux="+ local_aux);
+											LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","local_aux");
 											//local_aux.add(value);
 										}else {
 											//TODO throw error. only can be a string or empty object
@@ -155,22 +161,20 @@ public class ExpandJSONLD {
 						}				
 						return expanded_element ;
 					}else if(expandedKey instanceof JsonObject) {
-						log.debug("the expansion for ke "+key+" is object="+expandedKey);
-		
+//						log.debug("the expansion for ke "+key+" is object="+expandedKey);
+						LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","is object="+expandedKey);
+
 						JsonObject aux_obj = new JsonObject();
 						JsonArray aux_array = new JsonArray();
 						//aux_obj.add(JsonLdKeyword.VALUE.toString(), value);
 						if(expandedKey.getAsJsonObject().has(JsonLdKeyword.TYPE.toString())) {
-							log.debug("has type");
+							
 							JsonPrimitive js_p =expandedKey.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive();
-							log.debug("js_p="+js_p);
 							if(js_p.getAsString().equals(JsonLdKeyword.ID.toString())) {
-								log.debug("type=@id");
 								aux_obj.add(JsonLdKeyword.ID.toString(), value);
 							}else {
 								aux_obj.add(JsonLdKeyword.VALUE.toString(), value);
 								//aux_obj.add(  JsonLdKeyword.TYPE.toString()  , expandedKey.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()));//expand TYPE member as IRI example xsd:string
-								log.debug("expanding js_p");
 								aux_obj.add(  JsonLdKeyword.TYPE.toString()  , this.iriExpansion(js_p));//expand TYPE member as IRI example xsd:string
 							}
 						}
@@ -179,7 +183,8 @@ public class ExpandJSONLD {
 						expanded_element.add(key, aux_array);
 					
 					}else if(expandedKey instanceof JsonNull) {
-						log.fatal("null expanded prop");
+						//log.fatal("null expanded prop");
+						LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","null expanded prop");
 					}
 					return expanded_element;
 		}
@@ -268,8 +273,9 @@ public class ExpandJSONLD {
 			}
 			
 		*/
-		//{"latitude":"40.75","longitude":"73.98"}
-			log.debug("iterating over "+value);
+		
+//			log.debug("iterating over "+value);
+			LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","iterating over "+value);
 			JsonArray aux_array = new JsonArray();
 			JsonObject aux_obj = new JsonObject();
 				for (Entry<String, JsonElement> iterable_element : value.getAsJsonObject().entrySet()) {
@@ -330,7 +336,8 @@ public class ExpandJSONLD {
 				
 				if(prefix.contains("_") || sufix.startsWith("//")) {
 					
-					log.debug("b_node");
+					LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","b_node");
+
 					return key;
 				}
 
@@ -339,9 +346,11 @@ public class ExpandJSONLD {
 					String generatedIRI= this.iriExpansion(new JsonPrimitive(prefix)).getAsString();
 
 					expanded = new JsonPrimitive(generatedIRI+candidate.substring(candidate.lastIndexOf(":")+1));
-					log.debug("prefix="+prefix+" sufix="+sufix+ "expanded "+expanded);
+					LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","null expanded prop");
+
 				}else {
-					log.debug("prefix inexistent in context="+prefix);//to the next key (?)
+					LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","null expanded prop");
+
 					expanded = key.getAsJsonPrimitive();
 				}
 			}else if(this.context.hasTerm(key)) {
@@ -367,7 +376,9 @@ public class ExpandJSONLD {
 			if(this.defined.get(term).booleanValue()) {
 				//return
 			}else {
-				log.fatal("a cyclic IRI mapping");
+//				log.fatal("a cyclic IRI mapping");
+				LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","cyclic IRI mapping");
+
 			}
 		}else{
 			this.defined.put(term, false);
@@ -397,35 +408,43 @@ public class ExpandJSONLD {
 									if(type.getAsJsonPrimitive().getAsString().equals(JsonLdKeyword.ID.toString()) || type.getAsJsonPrimitive().getAsString().equals(JsonLdKeyword.VOCAB.toString()) || IRI.isAbsolute(type.getAsJsonPrimitive().getAsString())){
 										definition = type;
 									}else {
-										log.fatal(" invalid type mapping ");
+//										log.fatal(" invalid type mapping ");
+										LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","invalid type mapping ");
 									}
 								}
 							}else {
-								log.fatal(" invalid type mapping ");
+								LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","invalid type mapping ");
+								//log.fatal(" invalid type mapping ");
 							}
 						}
 						
 						if(value.getAsJsonObject().has(JsonLdKeyword.REVERSE.toString())) {
 							if(value.getAsJsonObject().has(JsonLdKeyword.ID.toString() ) || value.getAsJsonObject().has("@nest")) {
-								log.fatal("invalid reverse property...abort process");
+								LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","invalid reverse property");
+//								log.fatal("invalid reverse property...abort process");
 							}
 							if(!value.getAsJsonObject().get(JsonLdKeyword.REVERSE.toString()).isJsonPrimitive()) {
-								log.fatal("invalid IRI mapping ...abort process");
+								LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","invalid IRI mapping");
+//								log.fatal("invalid IRI mapping ...abort process");
+								
 							}else {
 								definition = this.iriExpansion(value.getAsJsonObject().get(JsonLdKeyword.REVERSE.toString()));
 								
 								if(IRI.isAbsolute(definition.getAsJsonPrimitive().getAsString()) ||  definition.getAsJsonPrimitive().getAsString().equals(JsonLdKeyword.BLANK_NODE) ) {
-									log.fatal("invalid IRI mapping..abort process");
+//									log.fatal("invalid IRI mapping..abort process");
+									LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","invalid IRI mapping");
 								}
 							}
 							if(value.getAsJsonObject().has(JsonLdKeyword.CONTAINER.toString())) {
 								definition =value.getAsJsonObject().get(JsonLdKeyword.CONTAINER.toString());
 								if(!definition.getAsJsonPrimitive().isJsonNull() ) {
 									if(definition.getAsJsonPrimitive().getAsString().equals(JsonLdKeyword.SET.toString()) || definition.getAsJsonPrimitive().getAsString().equals(JsonLdKeyword.INDEX.toString()) ) {
-										log.fatal("invalid reverse property...processing is aborted");
+//										log.fatal("invalid reverse property...processing is aborted");
+										LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","invalid reverse property");
 									}
 								}else {
-									log.fatal("invalid reverse property...processing is aborted");
+//									log.fatal("invalid reverse property...processing is aborted");
+									LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","invalid reverse property");
 								}
 							}
 							
@@ -435,13 +454,15 @@ public class ExpandJSONLD {
 						if(value.getAsJsonObject().has(JsonLdKeyword.ID.toString())) {
 							if(!value.getAsJsonObject().get(JsonLdKeyword.ID.toString()).equals(term)) {
 								if(!value.getAsJsonObject().get(JsonLdKeyword.ID.toString()).isJsonPrimitive()) {
-									log.fatal(" invalid IRI mapping error has been detected and processing is aborted");
+//									log.fatal(" invalid IRI mapping error has been detected and processing is aborted");
+									LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","invalid IRI mapping");
 								}else {
 									definition = this.iriExpansion(value.getAsJsonObject().get(JsonLdKeyword.ID.toString()));
 									if(JsonLdKeyword.isKeyword(definition.getAsJsonPrimitive().getAsString()) || 
 											IRI.isAbsolute(definition.getAsJsonPrimitive().getAsString()) ||
 											value.getAsJsonPrimitive().getAsString().equals(JsonLdKeyword.BLANK_NODE)){
-										log.fatal("invalid IRI mapping error has been detected and processing is aborted.");
+//										log.fatal("invalid IRI mapping error has been detected and processing is aborted.");
+										LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","invalid IRI mapping");
 									}
 								}
 							}
@@ -452,7 +473,8 @@ public class ExpandJSONLD {
 							this.createTermDefinition(new JsonPrimitive(prefix));
 						}
 					}else {
-						log.fatal("error");
+						//log.fatal("error");
+						LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","error");
 					}
 				}
 			}
