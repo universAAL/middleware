@@ -155,20 +155,23 @@ public class ExpandJSONLD {
 						}				
 						return expanded_element ;
 					}else if(expandedKey instanceof JsonObject) {
-
+						log.debug("the expansion for ke "+key+" is object="+expandedKey);
 		
 						JsonObject aux_obj = new JsonObject();
 						JsonArray aux_array = new JsonArray();
 						//aux_obj.add(JsonLdKeyword.VALUE.toString(), value);
 						if(expandedKey.getAsJsonObject().has(JsonLdKeyword.TYPE.toString())) {
-
-							if(expandedKey.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive().getAsString().equals(JsonLdKeyword.ID.toString())) {
-								log.debug("value-----------"+value);
+							log.debug("has type");
+							JsonPrimitive js_p =expandedKey.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive();
+							log.debug("js_p="+js_p);
+							if(js_p.getAsString().equals(JsonLdKeyword.ID.toString())) {
+								log.debug("type=@id");
 								aux_obj.add(JsonLdKeyword.ID.toString(), value);
 							}else {
 								aux_obj.add(JsonLdKeyword.VALUE.toString(), value);
 								//aux_obj.add(  JsonLdKeyword.TYPE.toString()  , expandedKey.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()));//expand TYPE member as IRI example xsd:string
-								aux_obj.add(  JsonLdKeyword.TYPE.toString()  , this.iriExpansion(expandedKey.getAsJsonObject().get(JsonLdKeyword.TYPE.toString())));//expand TYPE member as IRI example xsd:string
+								log.debug("expanding js_p");
+								aux_obj.add(  JsonLdKeyword.TYPE.toString()  , this.iriExpansion(js_p));//expand TYPE member as IRI example xsd:string
 							}
 						}
 						aux_array.add(aux_obj);
@@ -339,7 +342,7 @@ public class ExpandJSONLD {
 					log.debug("prefix="+prefix+" sufix="+sufix+ "expanded "+expanded);
 				}else {
 					log.debug("prefix inexistent in context="+prefix);//to the next key (?)
-					expanded = null;
+					expanded = key.getAsJsonPrimitive();
 				}
 			}else if(this.context.hasTerm(key)) {
 					if(this.context.getTermValue(key).isJsonObject()) {
