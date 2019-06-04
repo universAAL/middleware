@@ -72,25 +72,26 @@ public class UAALResourcesGenerator {
 			Resource local_res;
 			JsonObject aux =toAnalyze.getValue().getAsJsonObject();
 			
-			/*
-			if(aux.has(JsonLdKeyword.ID.toString())) {
-				local_res = new Resource( aux.get(JsonLdKeyword.ID.toString()).getAsJsonPrimitive().getAsString() );
-			}
-			*/
-			
 			for (Entry<String, JsonElement> iterable_element : toAnalyze.getValue().getAsJsonObject().entrySet()) {
 				if(iterable_element.getValue().isJsonObject()) {
 					local_res=this.walkGraph(iterable_element);
 				}else {
-					//may be here start to build the resource
+
 					if(iterable_element.getValue().isJsonPrimitive()) {
 						String primitive = iterable_element.getKey();
+						
 						if(primitive.equals(JsonLdKeyword.ID.toString())) {
 							local_res = new Resource(iterable_element.getValue().getAsJsonPrimitive().getAsString());
 						}
+						
 						if(primitive.equals(JsonLdKeyword.VALUE.toString())) {
-							//local_res.setProperty(propURI, value)
+
 						}
+						
+						if(primitive.equals(JsonLdKeyword.TYPE.toString())) {
+
+						}
+
 					}
 					
 				}
@@ -100,24 +101,23 @@ public class UAALResourcesGenerator {
 		
 		if(toAnalyze.getValue().isJsonArray()) {
 			//list detected
+			
 			if(toAnalyze.getKey().equals(JsonLdKeyword.TYPE.toString())) {
-				//add all types to local resources array
+				//add list to local Resource
 				for (JsonElement element : toAnalyze.getValue().getAsJsonArray()) {
-					//no need to control if is json element (should be)
 					resourceTypesArray.add(element.getAsJsonPrimitive().getAsString());
 				}
 			}else {
 				
 				for (JsonElement element : toAnalyze.getValue().getAsJsonArray()) {
 					for (Entry<String, JsonElement> item : element.getAsJsonObject().entrySet()) {
-						this.walkGraph(item);
+						Resource list_resource =this.walkGraph(item);
+						
 					}
 					
 				}
 				
-				
 			}
-			
 			
 		}
 		
