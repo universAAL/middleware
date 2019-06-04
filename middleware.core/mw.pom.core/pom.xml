@@ -35,6 +35,7 @@
     <module>../mw.bus.model.core</module>
     <module>../mw.data.representation.core</module>
     <module>../mw.data.serialization.turtle.core</module>
+    <module>../mw.data.serialization.json-ld.core</module>
     <module>../mw.bus.context.core</module>
     <module>../mw.bus.service.core</module>
     <module>../mw.bus.ui.core</module>
@@ -175,6 +176,11 @@
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.data.serialization.turtle.core</artifactId>
+        <version>3.4.2-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.data.serialization.json-ld.core</artifactId>
         <version>3.4.2-SNAPSHOT</version>
       </dependency>
       <dependency>

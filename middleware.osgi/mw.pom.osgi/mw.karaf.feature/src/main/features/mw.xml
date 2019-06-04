@@ -43,6 +43,7 @@
 		<!-- Busses -->
 		<bundle start-level='52' start='true'>mvn:org.universAAL.middleware/mw.data.representation.osgi/${mw.data.representation.osgi.version}</bundle>
 		<bundle start-level='53' start='true'>mvn:org.universAAL.middleware/mw.data.serialization.turtle.osgi/${mw.data.serialization.turtle.osgi.version}</bundle>
+		<bundle start-level='53' start='true'>mvn:org.universAAL.middleware/mw.data.serialization.json-ld.osgi/${mw.data.serialization.json-ld.osgi.version}</bundle>
 		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.bus.model.osgi/${mw.bus.model.osgi.version}</bundle>
 		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.bus.context.osgi/${mw.bus.context.osgi.version}</bundle>
 			

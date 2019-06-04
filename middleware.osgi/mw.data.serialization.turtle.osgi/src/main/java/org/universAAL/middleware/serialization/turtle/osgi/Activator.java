@@ -35,14 +35,35 @@ import org.universAAL.middleware.serialization.turtle.TurtleUtil;
  */
 public final class Activator implements BundleActivator {
 
+	private TurtleSerializer serializer = new TurtleSerializer();
+
 	public void start(BundleContext context) throws Exception {
 		TurtleUtil.moduleContext = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { context });
-		OSGiContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext, new TurtleSerializer(),
+
+		OSGiContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext, serializer,
 				new Object[] { MessageContentSerializer.class.getName() });
-		OSGiContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext, new TurtleSerializer(),
+
+		OSGiContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext, serializer,
 				new Object[] { MessageContentSerializerEx.class.getName() });
+
+		OSGiContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext, serializer,
+				new Object[] { MessageContentSerializer.class.getName(), "text/turtle" });
+
+		OSGiContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext, serializer,
+				new Object[] { MessageContentSerializerEx.class.getName(), "text/turtle" });
 	}
 
 	public void stop(BundleContext arg0) throws Exception {
+		OSGiContainer.THE_CONTAINER.removeSharedObject(TurtleUtil.moduleContext, serializer,
+				new Object[] { MessageContentSerializer.class.getName() });
+
+		OSGiContainer.THE_CONTAINER.removeSharedObject(TurtleUtil.moduleContext, serializer,
+				new Object[] { MessageContentSerializerEx.class.getName() });
+
+		OSGiContainer.THE_CONTAINER.removeSharedObject(TurtleUtil.moduleContext, serializer,
+				new Object[] { MessageContentSerializer.class.getName(), "text/turtle" });
+
+		OSGiContainer.THE_CONTAINER.removeSharedObject(TurtleUtil.moduleContext, serializer,
+				new Object[] { MessageContentSerializerEx.class.getName(), "text/turtle" });
 	}
 }
