@@ -23,6 +23,7 @@ import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.member.Publisher;
 import org.universAAL.middleware.bus.permission.AccessControl;
 import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.impl.ContextBusImpl;
 import org.universAAL.middleware.context.owl.ContextProvider;
 
@@ -89,8 +90,11 @@ public abstract class ContextPublisher extends Publisher {
 				e.setProvider(providerInfo);
 			else if (providerInfo != e.getProvider())
 				return;
-			if (AccessControl.INSTANCE.checkPermission(owner, getURI(), e))
+			if (AccessControl.INSTANCE.checkPermission(owner, getURI(), e)) {
+				LogUtils.logInfo(owner, ContextPublisher.class, "publish",
+						new Object[] { busResourceURI, " sending context event:\n", e.toString() }, null);
 				((ContextBus) theBus).brokerContextEvent(busResourceURI, e);
+			}
 		}
 	}
 

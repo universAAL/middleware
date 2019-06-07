@@ -306,7 +306,106 @@ public abstract class LengthRestriction extends TypeRestriction {
 
 		throw new IllegalArgumentException("Cannot set max for: " + max);
 	}
+	
+	/**
+	 * Inline Method.
+	 * @param min
+	 * @return
+	 * @see LengthRestriction#setMin(int)
+	 */
+	public LengthRestriction minLength(int min) {
+		setMin(Integer.valueOf(min));
+		return this;
+	}
 
+	/**
+	 * Inline Method.
+	 * @param min
+	 * @return
+	 * @see LengthRestriction#setMin(Integer)
+	 */
+	public LengthRestriction minLength(Integer min) {
+		setMin(min);
+		return this;
+	}
+
+	/**
+	 * Inline Method.
+	 * @param min
+	 * @return
+	 * @see LengthRestriction#setMin(Resource)
+	 */
+	public LengthRestriction minLength(Resource min) {
+		setMin(min);
+		return this;
+	}
+	
+	/**
+	 * Inline Method.
+	 * @param min
+	 * @return
+	 * @see LengthRestriction#setMax(int)
+	 */
+	public LengthRestriction maxLength(int max) {
+		setMax(Integer.valueOf(max));
+		return this;
+	}
+	
+	/**
+	 * Inline Method.
+	 * @param min
+	 * @return
+	 * @see LengthRestriction#setMax(Integer)
+	 */
+	public LengthRestriction maxLength(Integer max) {
+		setMax(max);
+		return this;
+	}
+
+	/**
+	 * Inline Method.
+	 * @param min
+	 * @return
+	 * @see LengthRestriction#setMax(Resource)
+	 */
+	public LengthRestriction maxLength(Resource max) {
+		setMax(max);
+		return this;
+	}
+
+	/**
+	 * Inline Method.
+	 * @param min
+	 * @return
+	 * @see LengthRestriction#setLen(int)
+	 */
+	public LengthRestriction length(int len) {
+		setLen(Integer.valueOf(len));
+		return this;
+	}
+
+	/**
+	 * Inline Method.
+	 * @param min
+	 * @return
+	 * @see LengthRestriction#setLen(Integer)
+	 */
+	public LengthRestriction length(Integer len) {
+		setLen(len);
+		return this;
+	}
+
+	/**
+	 * Inline Method.
+	 * @param min
+	 * @return
+	 * @see LengthRestriction#setLen(Resource)
+	 */
+	public LengthRestriction length(Resource len) {
+		setLen(len);
+		return this;
+	}
+	
 	/**
 	 * Get the length.
 	 *

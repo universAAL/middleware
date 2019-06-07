@@ -548,6 +548,12 @@ public class Resource {
 						.areEqual(this, (Resource) other))
 						: false;
 	}
+	
+	public String getCompactRepresentationAsString() {
+		return uri.startsWith(ANON_URI_PREFIX)? "anon"
+				: (ns_delim_index >= 0)? uri.substring(ns_delim_index + 1)
+						: this.uri;
+	}
 
 	/**
 	 * Get the Resource comment. Convenient method to retrieve rdfs:comment.
@@ -1136,6 +1142,82 @@ public class Resource {
 			return false;
 		}
 	}
+	
+	/**
+	 * Utility method to get a property always as a list
+	 * @param propURI the property URI.
+	 * @return Always a {@link List}.
+	 */
+	public List propertyAsList(String propURI){
+		Object propList = props.get(propURI);
+		if (propList instanceof List) {
+			return (List) propList;
+		} else {
+			List returnList = new ArrayList();
+			if (propList != null)
+				returnList.add(propList);
+			return returnList;
+		}
+	}
+
+	/**
+	 * Utility method to add a value to a property,
+	 * Checking for universAAL multivalue conventions.
+	 * @param propURI The property's URI to which to add the value.
+	 * @param value The value to be added.
+	 * @return Whether the value was correctly added.
+	 */
+	public boolean addToProperty(String propURI, Object value) {
+        if (value == null) {
+            return false;
+        }
+		Object propList = props.get(propURI);
+		if (propList instanceof List) {
+			List list = (List) propList;
+			boolean r = list.add(value);
+			props.put(propURI, list);
+			return r;
+		} else if (propList == null) {
+			props.put(propURI, value);
+			return true;
+		} else {
+			List list = new ArrayList();
+			boolean r = list.add(propList) && 
+			list.add(value);
+			if (r) {
+				props.put(propURI, list);
+			}
+			return r;
+		}
+	}
+	
+	/**
+	 * Utility method to remove a value from a property,
+	 * Checking for universAAL multivalue conventions.
+	 * @param propURI The property's URI from which to remove the value.
+	 * @param value The value to be removed.
+	 * @see Comparable
+	 * @return whether the value was removed or not.
+	 */
+	public boolean removeFromProperty(String propURI, Object value) {
+		Object propList = props.get(propURI);
+		if (propList instanceof List){
+			List list = (List) propList;
+			boolean r = list.remove(value);
+			if (list.size() == 0)
+				props.remove(propURI);
+			else if (list.size() == 1)
+				props.put(propURI, list.get(0));
+			else
+				props.put(propURI, list);
+			return r;
+		} else if (propList == value) {
+			props.remove(propURI);
+			return true;
+		}
+		return false;
+	}
+	
 
 	/** Get a String representation of this Resource; returns the URI. */
 	public String toString() {

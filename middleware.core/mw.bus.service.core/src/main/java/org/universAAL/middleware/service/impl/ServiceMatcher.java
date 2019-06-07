@@ -22,6 +22,7 @@ package org.universAAL.middleware.service.impl;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.Intersection;
@@ -43,6 +44,8 @@ import org.universAAL.middleware.service.owls.process.ProcessResult;
 public class ServiceMatcher {
 
 	public boolean matches(ServiceWrapper superset, ServiceWrapper subset, HashMap context, Long logID) {
+		List mandatoryInputs = subset.getService().getProfile().getMandatoryInputs();
+		
 		// special case for UI
 		if (subset.getService() instanceof InitialServiceDialog)
 			return matchInitialServiceDialog(superset, subset);
@@ -68,6 +71,19 @@ public class ServiceMatcher {
 				Object key = i.next();
 				if (!context.containsKey(key))
 					context.put(key, cloned.get(key));
+			}
+
+		for (Object o : mandatoryInputs)
+			if (!context.containsKey(o)) {
+				LogUtils.logTrace(ServiceBusImpl.getModuleContext(), ServiceRealization.class, "matches",
+						new Object[] { ServiceBus.LOG_MATCHING_MISMATCH, "required input in offer not provided by request",
+								ServiceBus.LOG_MATCHING_MISMATCH_CODE, Integer.valueOf(1023),
+								ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
+								o.toString() 
+								+ " is required in the offer as input, but the service request does not provide any info that can be used as its value.",
+								logID },
+						null);
+				return false;
 			}
 
 		processNonSemanticInput(superset, context);
@@ -155,14 +171,14 @@ public class ServiceMatcher {
 		// filtered by specifying a chain of restrictions (in addition to simple
 		// output bindings that
 		// only specify the corresponding property path)
-		int expectedSize = context.size();
-		if (subsetService.getProfile() != null) {
-			int i = subsetService.getNumberOfValueRestrictions();
-			int j = subsetService.getProfile().getNumberOfMandatoryInputs();
-			if (i < j)
-				j = i;
-			expectedSize += j;
-		}
+//		int expectedSize = context.size();
+//		if (subsetService.getProfile() != null) {
+//			int i = subsetService.getNumberOfValueRestrictions();
+//			int j = subsetService.getProfile().getNumberOfMandatoryInputs();
+//			if (i < j)
+//				j = i;
+//			expectedSize += j;
+//		}
 
 		String[] restrProps = supersetService.getRestrictedPropsOnInstanceLevel();
 		if (restrProps != null && restrProps.length > 0) {
@@ -261,19 +277,6 @@ public class ServiceMatcher {
 					}
 				}
 			}
-		}
-
-		if (context.size() < expectedSize) {
-			LogUtils.logTrace(ServiceBusImpl.getModuleContext(), ServiceRealization.class, "matches",
-					new Object[] { ServiceBus.LOG_MATCHING_MISMATCH, "input in offer not defined in request",
-							ServiceBus.LOG_MATCHING_MISMATCH_CODE, Integer.valueOf(1023),
-							ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
-							" An input parameter is given in the offer, e.g. a filtering value, but the service request"
-									+ " does not provide this input parameter. The exact parameter is not determined, only"
-									+ " the number of parameters has been found to be problematic.",
-							logID },
-					null);
-			return false;
 		}
 
 		return true;

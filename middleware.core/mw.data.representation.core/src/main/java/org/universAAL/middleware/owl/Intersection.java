@@ -104,6 +104,17 @@ public class Intersection extends TypeExpression {
 		return true;
 	}
 
+	/**
+	 * Add a new Child {@link TypeExpression}, same as {@link Intersection#addType(TypeExpression)}, 
+	 * but returns the intersection it self, for convenient inline definition.
+	 * @param type
+	 * @return This intersection.
+	 */
+	public Intersection of(TypeExpression type) {
+		addType(type);
+		return this;
+	}
+	
 	@Override
 	public TypeExpression copy() {
 		Intersection result = new Intersection();

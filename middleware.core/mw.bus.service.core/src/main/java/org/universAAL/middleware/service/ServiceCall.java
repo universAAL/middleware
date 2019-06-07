@@ -30,6 +30,7 @@ import org.universAAL.middleware.rdf.ScopedResource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.service.owls.process.OutputBinding;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
+import org.universAAL.middleware.util.ResourceUtil;
 
 /**
  * Operations of {@link ServiceCallee}s will be called by passing an instance of
@@ -192,6 +193,30 @@ public class ServiceCall extends ScopedResource implements UtilityCall {
 		}
 		return returnValue;
 	}
+	
+	private Hashtable<String, Object> getInputs() {
+		Hashtable<String, Object> returnValue = (nonSemanticInput == null)?
+				new Hashtable<String, Object>() : (Hashtable<String, Object>) nonSemanticInput.clone();
+				
+		List<?> inputs = (List<?>) props.get(PROP_OWLS_PERFORM_HAS_DATA_FROM);
+		if (inputs != null)
+			for (Iterator<?> i = inputs.iterator(); i.hasNext();) {
+				Resource binding = (Resource) i.next(),
+						in = (Resource) binding.getProperty(OutputBinding.PROP_OWLS_BINDING_TO_PARAM);
+				if (in != null) {
+					Object o = binding.getProperty(PROP_OWLS_BINDING_VALUE_DATA);
+					if (o instanceof Resource) {
+						List<?> aux = ((Resource) o).asList();
+						if (aux != null)
+							o = aux;
+					}
+					if (o != null)
+						returnValue.put(in.getURI(), o);
+				}
+			}
+
+		return returnValue;
+	}
 
 	/**
 	 * Retrieves the user involved in the call, if there is such.
@@ -317,5 +342,23 @@ public class ServiceCall extends ScopedResource implements UtilityCall {
 			}
 		}
 		return false;
+	}
+	
+	public String toString() {
+		StringBuffer sb = new StringBuffer(1024);
+		sb.append("\n>>>>>>>>>>>>>>>>> operation: ");
+		ResourceUtil.addURI2SB(getProcessURI(), sb);
+		sb.append("\n>>>>>>>>>>>>>>>>> inputs: ");
+		Hashtable<String, Object> inputs = getInputs();
+		if (inputs == null  ||  inputs.isEmpty())
+			sb.append("none");
+		else for (String s : inputs.keySet()) {
+			sb.append("\n    >>>>>>>>>>>>>>>>> ");
+			ResourceUtil.addURI2SB(s, sb);
+			sb.append(" = ");
+			ResourceUtil.addObject2SB(inputs.get(s), sb);
+		}
+		sb.append("\n");
+		return sb.toString();
 	}
 }

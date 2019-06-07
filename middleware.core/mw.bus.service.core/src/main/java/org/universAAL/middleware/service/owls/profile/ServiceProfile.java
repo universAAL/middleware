@@ -404,6 +404,17 @@ public class ServiceProfile extends FinalizedResource implements UtilityAdvertis
 		List answer = (List) props.get(PROP_OWLS_PROFILE_HAS_INPUT);
 		return answer == null ? new ArrayList(0).iterator() : answer.iterator();
 	}
+	
+	public List getMandatoryInputs() {
+		ArrayList al = new ArrayList();
+		Iterator i = getInputs();
+		while (i.hasNext()) {
+			Object o = i.next();
+			if (o instanceof ProcessInput && ((ProcessInput) o).getMinCardinality() > 0)
+				al.add(((ProcessInput) o).getURI());
+		}
+		return al;
+	}
 
 	public int getNumberOfInputs() {
 		List answer = (List) props.get(PROP_OWLS_PROFILE_HAS_INPUT);

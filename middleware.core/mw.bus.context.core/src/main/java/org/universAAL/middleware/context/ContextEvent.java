@@ -26,6 +26,7 @@ import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ScopedResource;
+import org.universAAL.middleware.util.ResourceUtil;
 
 /**
  * Instances of this class can be used to exchange info about the state of
@@ -125,15 +126,49 @@ public class ContextEvent extends ScopedResource implements Event {
 
 	/**
 	 * A timestamp, as a Long value to be interpreted as the number of
-	 * milliseconds from 01.01.1970, will be set automatically as soon as a
+	 * milliseconds from 01.01.1970, that will be set automatically as soon as a
 	 * context provider builds an instance of ContextEvent using the
-	 * {@link #ContextEvent(Resource, String)} constructor. However, when the
-	 * middleware constructs a context event in the course of deserializing a
-	 * context event using the constructors inherited from Resource, then it can
-	 * set the timestamp 'manually'.
+	 * {@link #ContextEvent(Resource, String)} constructor. Therefore, this
+	 * timestamp can be interpreted as the reporting timestamp as opposed to
+	 * {@link #PROP_CONTEXT_OCCURRENCE_TIMESTAMP}, which can be set in order to
+	 * indicate that the actual time of occurrence for this event has been different 
+	 * from its reporting time.
 	 */
 	public static final String LOCAL_NAME_TIMESTAMP = "hasTimestamp";
 	public static final String PROP_CONTEXT_TIMESTAMP = CONTEXT_NAMESPACE + LOCAL_NAME_TIMESTAMP;
+	
+	/**
+	 * Helpful for 'controllers' that have just made a change effect requested from them through 
+	 * a service call received from the universAAL environment and now want to reflect this same change
+	 * to the universAAL environment as a context event. In such a case, they can set this flag when
+	 * creating a context event in order for the receivers of the context event to be able to 
+	 * differentiate between external causes not in control of the universAAL environment and those
+	 * caused in control of the universAAL environment.
+	 */
+	public static final String PROP_CONTEXT_REFLECTS_CHANGE_REQUEST = CONTEXT_NAMESPACE + "reflectsChangeRequest";
+	
+	/**
+	 * As opposed to {@link #PROP_CONTEXT_TIMESTAMP} that is set automatically equal to the time of
+	 * creating a certain instance of ContextEvent, this timestamp can be set by providing an additional
+	 * parameter to the constructor to indicate that the change reported by this context event actually
+	 * happened earlier at the specified time. Therefore, this parameter may remain unset; but if set,
+	 * then it has to have a positive value smaller than the current time used for 
+	 * {@link #PROP_CONTEXT_TIMESTAMP}. 
+	 */
+	public static final String PROP_CONTEXT_OCCURRENCE_TIMESTAMP = CONTEXT_NAMESPACE + "occurrenceTimestamp";
+	
+	/**
+	 * When the occurrence time cannot be determined in "real time" (e.g., when the occurrence is detected
+	 * by periodic check to see if a value has changed), this property can be used to indicate that the exact 
+	 * occurrence time is not known but this is the best estimated occurrence time.
+	 * <p><b><u>Recommendations:</u></b></p>
+	 * <ul><li>When creating a context event is triggered based on "periodic check", this prop should be set
+	 * equal to the average of the previous and current check times.</li>
+	 * <li>When during the same "check" several changes are detected (e.g., when five motion sensors are checked
+	 * among which two had a value change since the last check), all reported changes should have the same mean
+	 * occurrence time in order to indicate that the precedence among them cannot be determined.</li></ul>
+	 */
+	public static final String PROP_CONTEXT_MEAN_OCCURRENCE_TIME = CONTEXT_NAMESPACE + "meanOccurrentTime";
 
 	/**
 	 * Constructs a CHe stub ContextEvent according to the parameters passed
@@ -202,6 +237,44 @@ public class ContextEvent extends ScopedResource implements Event {
 		setRDFPredicate(predicate);
 		setRDFObject(eventObject);
 		setTimestamp(new Long(System.currentTimeMillis()));
+	}
+	
+	/**
+	 * Similar to {@link #ContextEvent(Resource, String)} with the effect to set also one of
+	 * {@link #PROP_CONTEXT_OCCURRENCE_TIMESTAMP} or {@link #PROP_CONTEXT_MEAN_OCCURRENCE_TIME}.
+	 * These two properties may not exist simultaneously; therefore the constructor first checks
+	 * `actualOccurrenceTime´ to see if it is a positive number less than the current time; if yes,
+	 * it will set {@link #PROP_CONTEXT_OCCURRENCE_TIMESTAMP} with that value and will ignore
+	 * `meanOccurrenceTime´. Otherwise `actualOccurrenceTime´  will be ignored and {@link 
+	 * #PROP_CONTEXT_MEAN_OCCURRENCE_TIME} is set equal to `meanOccurrenceTime´
+	 * if this parameters has a positive number less than the current time as value.
+	 */
+	public ContextEvent(Resource subject, String predicate, long actualOccurrenceTime, long meanOccurrenceTime) {
+		this(subject, predicate);
+		if (actualOccurrenceTime > 0  &&  actualOccurrenceTime < getTimestamp())
+			props.put(PROP_CONTEXT_OCCURRENCE_TIMESTAMP, new Long(actualOccurrenceTime));
+		else if (meanOccurrenceTime > 0  &&  meanOccurrenceTime < getTimestamp())
+			props.put(PROP_CONTEXT_MEAN_OCCURRENCE_TIME, new Long(meanOccurrenceTime));
+	}
+	
+	/**
+	 * Similar to {@link #ContextEvent(Resource, String)} with the effect to set also
+	 * {@link #PROP_CONTEXT_REFLECTS_CHANGE_REQUEST} to true.
+	 */
+	public ContextEvent(Resource subject, String predicate, boolean reflectsChangeRequest) {
+		this(subject, predicate);
+		if (reflectsChangeRequest)
+			props.put(PROP_CONTEXT_REFLECTS_CHANGE_REQUEST, Boolean.TRUE);
+	}
+	
+	/**
+	 * Combines {@link #ContextEvent(Resource, String, boolean)} and {@link #ContextEvent(Resource, String, long, long)
+	 * in one constructor..
+	 */
+	public ContextEvent(Resource subject, String predicate, boolean reflectsChangeRequest, long actualOccurrenceTime, long meanOccurrenceTime) {
+		this(subject, predicate, actualOccurrenceTime, meanOccurrenceTime);
+		if (reflectsChangeRequest)
+			props.put(PROP_CONTEXT_REFLECTS_CHANGE_REQUEST, Boolean.TRUE);
 	}
 
 	/**
@@ -321,12 +394,48 @@ public class ContextEvent extends ScopedResource implements Event {
 	}
 
 	/**
-	 * Get the timestamp of the event
+	 * Get the construction timestamp of the event.
 	 *
-	 * @return The timestamp, in UNIX format, associated to the event
+	 * @return The timestamp, in UNIX format, associated with the event
 	 */
 	public Long getTimestamp() {
 		return (Long) getProperty(PROP_CONTEXT_TIMESTAMP);
+	}
+	
+	/**
+	 * Returns the value set at the construction time for {@link #PROP_CONTEXT_OCCURRENCE_TIMESTAMP}
+	 * or null if it was not set.
+	 */
+	public Long getActualOccurrenceTime() {
+		return (Long) getProperty(PROP_CONTEXT_OCCURRENCE_TIMESTAMP);
+	}
+	
+	/**
+	 * Returns the value set at the construction time for {@link #PROP_CONTEXT_MEAN_OCCURRENCE_TIME}
+	 * or null if it was not set.
+	 */
+	public Long getMeanOccurrenceTime() {
+		return (Long) getProperty(PROP_CONTEXT_MEAN_OCCURRENCE_TIME);
+	}
+	
+	public long getBestEstimatedOccurrenceTime() {
+    Long l = getActualOccurrenceTime();
+    if (l != null  &&  l.longValue() > 0)
+      return l.longValue();
+    
+    l = getMeanOccurrenceTime();
+    if (l != null  &&  l.longValue() > 0)
+      return l.longValue();
+      
+    return getTimestamp().longValue();
+	}
+	
+	/**
+	 * Returns true iff the property {@link #PROP_CONTEXT_REFLECTS_CHANGE_REQUEST} has been set to true,
+	 * otherwise false.
+	 */
+	public boolean reflectsChangeRequest() {
+		return Boolean.TRUE == props.get(PROP_CONTEXT_REFLECTS_CHANGE_REQUEST);
 	}
 
 	public boolean isWellFormed() {
@@ -425,14 +534,46 @@ public class ContextEvent extends ScopedResource implements Event {
 	}
 
 	/**
-	 * Set the timestamp
+	 * Sets {@link #PROP_CONTEXT_TIMESTAMP the original construction timestamp}.
 	 *
 	 * @param timestamp
 	 *            The timestamp in UNIX format
 	 */
 	public boolean setTimestamp(Long timestamp) {
 		if (timestamp != null && timestamp.longValue() > 0 && !props.containsKey(PROP_CONTEXT_TIMESTAMP)) {
-			props.put(PROP_CONTEXT_TIMESTAMP, timestamp);
+			Long ots = getActualOccurrenceTime();
+			if (ots == null  ||  ots.longValue() < timestamp.longValue()) {
+				props.put(PROP_CONTEXT_TIMESTAMP, timestamp);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Sets {@link #PROP_CONTEXT_OCCURRENCE_TIMESTAMP the original occurrence timestamp}.
+	 */
+	public boolean setActualOccurrenceTime(Long ots) {
+		if (ots != null && ots.longValue() > 0 
+				&& !props.containsKey(PROP_CONTEXT_OCCURRENCE_TIMESTAMP)
+				&& !props.containsKey(PROP_CONTEXT_MEAN_OCCURRENCE_TIME)) {
+			Long ts = getTimestamp();
+			if (ts == null  ||  ots.longValue() < ts.longValue()) {
+				props.put(PROP_CONTEXT_OCCURRENCE_TIMESTAMP, ots);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Sets {@link #PROP_CONTEXT_MEAN_OCCURRENCE_TIME} with the provided value.
+	 */
+	public boolean setMeanOccurrenceTime(Long eot) {
+		if (eot != null && eot.longValue() > 0 
+				&& !props.containsKey(PROP_CONTEXT_OCCURRENCE_TIMESTAMP)
+				&& !props.containsKey(PROP_CONTEXT_MEAN_OCCURRENCE_TIME)) {
+			props.put(PROP_CONTEXT_MEAN_OCCURRENCE_TIME, eot);
 			return true;
 		}
 		return false;
@@ -471,9 +612,6 @@ public class ContextEvent extends ScopedResource implements Event {
 			 * (propURI.equals(PROP_CONTEXT_ACCURACY)) setAccuracy((Rating)
 			 * value);
 			 */
-		} else if (propURI.equals(PROP_INVOLVED_HUMAN_USER)) {
-			if (value instanceof Resource)
-				return setInvolvedUser((Resource) value);
 		} else if (value instanceof ContextProvider) {
 			if (propURI.equals(PROP_CONTEXT_PROVIDER))
 				return setProvider((ContextProvider) value);
@@ -488,8 +626,20 @@ public class ContextEvent extends ScopedResource implements Event {
 		} else if (value instanceof Long) {
 			if (propURI.equals(PROP_CONTEXT_TIMESTAMP))
 				return setTimestamp((Long) value);
+			else if (propURI.equals(PROP_CONTEXT_OCCURRENCE_TIMESTAMP))
+				return setActualOccurrenceTime((Long) value);
+			else if (propURI.equals(PROP_CONTEXT_MEAN_OCCURRENCE_TIME))
+				return setMeanOccurrenceTime((Long) value);
 			else if (propURI.equals(PROP_CONTEXT_EXPIRATION_TIME))
 				return setExpirationTime((Long) value);
+		} else if (value == Boolean.TRUE
+				&&  PROP_CONTEXT_REFLECTS_CHANGE_REQUEST.equals(propURI)
+				&&  !props.containsKey(propURI)) {
+			props.put(PROP_CONTEXT_REFLECTS_CHANGE_REQUEST, Boolean.TRUE);
+			return true;
+		} else if (propURI.equals(PROP_INVOLVED_HUMAN_USER)) {
+			if (value instanceof Resource)
+				return setInvolvedUser((Resource) value);
 		} else if (value instanceof Integer) {
 			if (propURI.equals(PROP_CONTEXT_CONFIDENCE))
 				return setConfidence((Integer) value);
@@ -504,5 +654,17 @@ public class ContextEvent extends ScopedResource implements Event {
 	 */
 	public boolean matches(Matchable subset) {
 		return false;
+	}
+	
+	public String toString() {
+		StringBuffer sb = new StringBuffer(1024);
+		sb.append("\n>>>>>>>>>>>>>>>>> ");
+		ResourceUtil.addResource2SB(getRDFSubject(), sb);
+		sb.append("->");
+		ResourceUtil.addURI2SB(getRDFPredicate(), sb);
+		sb.append(" = ");
+		ResourceUtil.addObject2SB(getRDFObject(), sb);
+		sb.append("\n");
+		return sb.toString();
 	}
 }
