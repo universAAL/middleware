@@ -46,11 +46,10 @@ import org.universAAL.middleware.managers.api.MatchingResult;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.modules.exception.CommunicationModuleException;
 import org.universAAL.middleware.modules.listener.MessageListener;
-import org.universAAL.middleware.owl.DataRepOntology;
-import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
 import org.universAAL.middleware.serialization.MessageContentSerializerEx;
+import org.universAAL.middleware.serialization.json.JSONLDSerialization;
 import org.universAAL.middleware.serialization.turtle.TurtleSerializer;
 import org.universAAL.middleware.serialization.turtle.TurtleUtil;
 import org.universAAL.middleware.service.ServiceBus;
@@ -70,8 +69,12 @@ import junit.framework.TestCase;
 public class BusTestCase extends TestCase {
 
 	protected static ModuleContext mc;
-	protected static MessageContentSerializer mcs;
+	protected static HashMap<String, MessageContentSerializer> mcs = new HashMap<String, MessageContentSerializer>();
 	private static boolean isInitialized = false;
+	public static final String SERIALIZATIONTYPE_TURTLE = "text/turtle";
+	public static final String SERIALIZATIONTYPE_JSONLD = "application/ld+json";
+
+	protected static String serializationTypeDefault = SERIALIZATIONTYPE_TURTLE;
 
 	@Override
 	protected void setUp() throws Exception {
@@ -102,9 +105,15 @@ public class BusTestCase extends TestCase {
 		TurtleSerializer turtleS = new TurtleSerializer();
 		mc.getContainer().shareObject(mc, turtleS, new Object[] { MessageContentSerializer.class.getName() });
 		mc.getContainer().shareObject(mc, turtleS, new Object[] { MessageContentSerializerEx.class.getName() });
-		mcs = (MessageContentSerializer) mc.getContainer().fetchSharedObject(mc,
-				new Object[] { MessageContentSerializer.class.getName() });
+		mc.getContainer().shareObject(mc, turtleS, new Object[] { MessageContentSerializer.class.getName(), SERIALIZATIONTYPE_TURTLE });
+		mc.getContainer().shareObject(mc, turtleS, new Object[] { MessageContentSerializerEx.class.getName(),SERIALIZATIONTYPE_TURTLE });
+		mcs.put("text/turtle", turtleS);
 		TurtleUtil.moduleContext = mc;
+
+		JSONLDSerialization jsonS = new JSONLDSerialization();
+		mc.getContainer().shareObject(mc, jsonS, new Object[] { MessageContentSerializer.class.getName(), SERIALIZATIONTYPE_JSONLD });
+		mc.getContainer().shareObject(mc, jsonS, new Object[] { MessageContentSerializerEx.class.getName(),SERIALIZATIONTYPE_JSONLD });
+		mcs.put("application/ld+json", jsonS);
 
 		// init bus model
 		final PeerCard myCard = new PeerCard(PeerRole.COORDINATOR, "", "");
@@ -288,10 +297,17 @@ public class BusTestCase extends TestCase {
 	 */
 
 	public String serialize(Resource r) {
-		return mcs.serialize(r);
+		return serialize(r, serializationTypeDefault);
 	}
 
 	public Resource deserialize(String s) {
-		return (Resource) mcs.deserialize(s);
+		return deserialize(s, serializationTypeDefault);
+	}
+	public String serialize(Resource r, String serializationType) {
+		return mcs.get(serializationType).serialize(r);
+	}
+
+	public Resource deserialize(String s, String serializationType) {
+		return (Resource) mcs.get(serializationType).deserialize(s);
 	}
 }
