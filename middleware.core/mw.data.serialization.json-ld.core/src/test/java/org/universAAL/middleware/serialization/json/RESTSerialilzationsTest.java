@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.universAAL.middleware.serialization.json;
 
@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import org.junit.Test;
+import org.universAAL.middleware.bus.junit.OntTestCase;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.owl.ContextProvider;
@@ -21,39 +22,39 @@ import org.universAAL.ontology.lighting.LightSource;
  * @author edu
  *
  */
-public class RESTSerialilzations {
+public class RESTSerialilzationsTest extends OntTestCase{
 
 	JSONLDSerialization ser = new JSONLDSerialization();
 	@Test
-	public void createContextEvent() {
+	public void testCreateContextEvent() {
 		 // Create an instance of the subject
-		
+
 		 LightSource light = new LightSource("LightSource");
 		 // Set the property to be used as predicate to a valid value
 		 light.setBrightness(100);
 		 // Create event with subject and predicate. Object is auto-set
 		 ContextEvent ev = new ContextEvent(light, LightSource.PROP_SOURCE_BRIGHTNESS);
-		
+
 		String res = ser.serialize(ev);
 		System.out.println(res);
-		
+
 //		Resource r = (Resource) ser.deserialize(res);
 //		compare(ev,r);
 	}
-	
+
 //	java.lang.RuntimeException: Class not registered: http://ontology.universaal.org/Lighting.owl#LightSource
-		
-	
+
+
 	public void createContextProvider() {
 		 ContextProvider myprov = new ContextProvider("");
 		 // Set to type Gauge
 		 myprov.setType(ContextProviderType.gauge);
 		 // Set the provided events to “Unknown” with an empty Pattern
 		 myprov.setProvidedEvents(new ContextEventPattern[] { new ContextEventPattern() });
-		 
+
 		 System.out.println(ser.serialize(myprov));
 	}
-	
+
 	public void createContextEventPattern() {
 		ContextEventPattern[] cep = new ContextEventPattern[2];
 		 // This first pattern is for events about Lights from Gauge Providers. Notice how ContextEvent is the root for Restrictions
@@ -65,16 +66,16 @@ public class RESTSerialilzations {
 		 // The second pattern is for events about any brightness change
 		 cep[1].addRestriction(MergedRestriction.getAllValuesRestriction(ContextEvent.PROP_RDF_PREDICATE, LightSource.PROP_SOURCE_BRIGHTNESS));
 		 // Create (and register) the Context Subscriber
-		 
+
 		 System.out.println(ser.serialize(cep[0]));
 	}
-	
+
 	public void createServiceProfile() {
-		
+
 	}
-	
+
 	public void createServiceRequest() {
-		
+
 	}
 	/*
 	public static void compare(Resource r1, Resource r2) {
