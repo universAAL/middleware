@@ -47,6 +47,16 @@ public class URICompactor {
 		String fullPrefix=null;
 		int references;
 
+		public URIPrefix() {
+			super();
+		}
+
+		public URIPrefix(String compactedPrefix, String fullPrefix) {
+			this.compactedPrefix = compactedPrefix;
+			this.fullPrefix = fullPrefix;
+			references = 0;
+		}
+
 		/**
 		 * @return
 		 */
@@ -116,6 +126,29 @@ public class URICompactor {
 	private Collection<URIPrefix> prefixes = new TreeSet<URICompactor.URIPrefix>();
 	private Map<String, URIItem> prefixedItems = new HashMap<String, URICompactor.URIItem>();
 	private Collection<URIItem> nonPrefixedItems = new TreeSet<URICompactor.URIItem>();
+
+	public URICompactor() {
+		super();
+		addDefaultPrefixes();
+	}
+
+	private void addDefaultPrefixes() {
+		prefixes.add(new URIPrefix("geo", "http://www.w3.org/2003/01/geo/wgs84_pos#"));
+		prefixes.add(new URIPrefix("math", "http://www.w3.org/2000/10/swap/math#"));
+		prefixes.add(new URIPrefix("owl", "http://www.w3.org/2002/07/owl#"));
+		prefixes.add(new URIPrefix("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
+		prefixes.add(new URIPrefix("rdfa", "http://www.w3.org/ns/rdfa#"));
+		prefixes.add(new URIPrefix("rdfs", "http://www.w3.org/2000/01/rdf-schema#"));
+		prefixes.add(new URIPrefix("skos", "http://www.w3.org/2004/02/skos/core#"));
+		prefixes.add(new URIPrefix("vcard", "http://www.w3.org/2001/vcard-rdf/3.0#"));
+		prefixes.add(new URIPrefix("xf", "http://www.w3.org/2004/07/xpath-functions"));
+		prefixes.add(new URIPrefix("xml", "http://www.w3.org/XML/1998/namespace"));
+		prefixes.add(new URIPrefix("xsd", "http://www.w3.org/2001/XMLSchema#"));
+		prefixes.add(new URIPrefix("xsd99", "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
+		prefixes.add(new URIPrefix("xsl10", "http://www.w3.org/XSL/Transform/1.0"));
+		prefixes.add(new URIPrefix("xsl1999", "http://www.w3.org/1999/XSL/Transform"));
+		prefixes.add(new URIPrefix("xslwd", "http://www.w3.org/TR/WD-xsl"));
+	}
 
 	/**
 	 *

@@ -23,7 +23,7 @@ import org.universAAL.middleware.rdf.Resource;
 
 /**
  * @author amedrano
- * 
+ *
  */
 public class SerializationTypeAnalysis implements TripleAnalyzer {
 
@@ -42,7 +42,9 @@ public class SerializationTypeAnalysis implements TripleAnalyzer {
 	Map<Object, SerialziationTypeRefs> serTypes = new HashMap<Object, SerialziationTypeRefs>();
 
 	public void analyseRoot(Resource root) {
-		// do nothing.
+		// register root
+		//TODO should root have references?
+		serTypes.put(root, new SerialziationTypeRefs());
 	}
 
 	public void analyseTriple(Resource r, String p, Object obj) {
@@ -65,7 +67,11 @@ public class SerializationTypeAnalysis implements TripleAnalyzer {
 	}
 
 	public boolean isSerialized(Resource subject, String predicate) {
-		return isSerialized(subject, predicate, subject.getProperty(predicate));
+		Object o = subject.getProperty(predicate);
+		if (serTypes.containsKey(o))
+			return isSerialized(subject, predicate,o );
+		else
+			return false;
 	}
 
 	public boolean isSerialized(Resource subject, String predicate,
@@ -85,7 +91,7 @@ public class SerializationTypeAnalysis implements TripleAnalyzer {
 	/**
 	 * Get the number of references of the given type; multiple types can be
 	 * added by bitwise ORing.
-	 * 
+	 *
 	 * @param r
 	 * @param ref_types
 	 *            {@link SerializationTypeAnalysis#REF_TYPE_FULL},
@@ -113,7 +119,7 @@ public class SerializationTypeAnalysis implements TripleAnalyzer {
 	/**
 	 * Check if the graph is a tree. For a tree graph, all Resource nodes need
 	 * to have 1 reference.
-	 * 
+	 *
 	 * @return
 	 */
 	public boolean isTree() {

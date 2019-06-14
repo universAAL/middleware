@@ -78,7 +78,7 @@ public class JSONLDWriter {
 			root.add(JsonLdKeyword.GRAPH.toString(), graph);
 
 		}
-		return root.getAsString();
+		return root.toString();
 	}
 
 	/**
