@@ -48,6 +48,10 @@
       <artifactId>mw.data.serialization.turtle.core</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.data.serialization.json-ld.core</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.semanticweb</groupId>
       <artifactId>owlapi</artifactId>
       <version>3.4</version>

@@ -27,38 +27,29 @@ import org.universAAL.middleware.serialization.turtle.TurtleUtil;
  * @author amedrano
  *
  */
-public class TurtleSerialization implements ModuleActivator {
+public class JSONLDSerialization implements ModuleActivator {
 
-	private TurtleSerializer turtleS;
-
-	private static final String SERIALIZATIONTYPE_TURTLE = "text/turtle";
+	private org.universAAL.middleware.serialization.json.JSONLDSerialization jsonldS;
+	private static final String SERIALIZATIONTYPE_JSONLD = "application/ld+json";
 
 	/** {@ inheritDoc} */
 	public void start(ModuleContext mc) throws Exception {
-		turtleS = new TurtleSerializer();
-		mc.getContainer().shareObject(mc, turtleS,
-				new Object[] { MessageContentSerializer.class.getName() });
-		mc.getContainer().shareObject(mc, turtleS,
-				new Object[] { MessageContentSerializerEx.class.getName() });
-		mc.getContainer().shareObject(mc, turtleS,
-				new Object[] { MessageContentSerializer.class.getName(),SERIALIZATIONTYPE_TURTLE });
-		mc.getContainer().shareObject(mc, turtleS,
-				new Object[] { MessageContentSerializerEx.class.getName(),SERIALIZATIONTYPE_TURTLE });
+		jsonldS = new org.universAAL.middleware.serialization.json.JSONLDSerialization();
+		mc.getContainer().shareObject(mc, jsonldS,
+				new Object[] { MessageContentSerializer.class.getName(),SERIALIZATIONTYPE_JSONLD });
+		mc.getContainer().shareObject(mc, jsonldS,
+				new Object[] { MessageContentSerializerEx.class.getName(),SERIALIZATIONTYPE_JSONLD });
 
 		TurtleUtil.moduleContext = mc;
 	}
 
 	/** {@ inheritDoc} */
 	public void stop(ModuleContext mc) throws Exception {
-		mc.getContainer().removeSharedObject(mc, turtleS,
-				new Object[] { MessageContentSerializerEx.class.getName() });
-		mc.getContainer().removeSharedObject(mc, turtleS,
-				new Object[] { MessageContentSerializer.class.getName() });
-		mc.getContainer().removeSharedObject(mc, turtleS,
-				new Object[] { MessageContentSerializerEx.class.getName(),SERIALIZATIONTYPE_TURTLE });
-		mc.getContainer().removeSharedObject(mc, turtleS,
-				new Object[] { MessageContentSerializer.class.getName(),SERIALIZATIONTYPE_TURTLE });
-		turtleS = null;
+		mc.getContainer().removeSharedObject(mc, jsonldS,
+				new Object[] { MessageContentSerializerEx.class.getName(),SERIALIZATIONTYPE_JSONLD });
+		mc.getContainer().removeSharedObject(mc, jsonldS,
+				new Object[] { MessageContentSerializer.class.getName(),SERIALIZATIONTYPE_JSONLD });
+		jsonldS = null;
 
 	}
 

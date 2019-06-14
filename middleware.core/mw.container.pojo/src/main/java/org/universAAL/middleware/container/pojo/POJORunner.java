@@ -24,11 +24,12 @@ import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.pojo.layers.AbstractBusLayer;
 import org.universAAL.middleware.container.pojo.layers.BusesLayer;
 import org.universAAL.middleware.container.pojo.layers.DataRepresentation;
+import org.universAAL.middleware.container.pojo.layers.JSONLDSerialization;
 import org.universAAL.middleware.container.pojo.layers.TurtleSerialization;
 
 /**
  * A Helper class to run universAAL on plain java.
- * 
+ *
  * @author Carsten Stockloew
  *
  */
@@ -40,13 +41,14 @@ public class POJORunner {
 		theContainer = new POJOContainer();
 		startModule(new DataRepresentation());
 		startModule(new TurtleSerialization());
+		startModule(new JSONLDSerialization());
 		startModule(new AbstractBusLayer(false));
 		startModule(new BusesLayer());
 	}
 
 	/**
 	 * @throws Exception
-	 * 
+	 *
 	 */
 	protected void startModule(ModuleActivator ma) throws Exception {
 		ModuleContext mc = theContainer.registerModule(new Object[] { ma });
