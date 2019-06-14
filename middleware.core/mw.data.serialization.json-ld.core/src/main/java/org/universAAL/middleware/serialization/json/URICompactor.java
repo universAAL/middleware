@@ -27,7 +27,7 @@ import java.util.TreeSet;
 
 /**
  * @author amedrano
- * 
+ *
  */
 public class URICompactor {
 
@@ -52,7 +52,7 @@ public class URICompactor {
 		 */
 		public String getCompactedPrefix() {
 			if (compactedPrefix != null) {
-				return compactedPrefix;// returns null 
+				return compactedPrefix;// returns null
 			} else {
 				// find a suitable compacted prefix
 				Set<String> existingPrefixes = new HashSet<String>();
@@ -61,7 +61,7 @@ public class URICompactor {
 				}
 				String[] lexem = this.fullPrefix.split("[^\\pL\\p{Pc}]+");
 				for (int i = lexem.length - 1; i >= 0; i--) {
-					for (int j = Math.min(3, lexem[i].length()); j < lexem.length; j++) {
+					for (int j = Math.min(3, lexem[i].length()); j < lexem[i].length(); j++) {
 						String candidate = lexem[i].substring(0, j)
 								.toLowerCase();
 						if (!existingPrefixes.contains(candidate)
@@ -118,7 +118,7 @@ public class URICompactor {
 	private Collection<URIItem> nonPrefixedItems = new TreeSet<URICompactor.URIItem>();
 
 	/**
-	 * 
+	 *
 	 * @param prefix
 	 * @param refs
 	 */
@@ -224,7 +224,7 @@ public class URICompactor {
 
 	/**
 	 * Compact a given URI with the stored state.
-	 * 
+	 *
 	 * @param uri
 	 * @return the attempt of compacting, prefix null if not compacted.
 	 */
@@ -258,7 +258,7 @@ public class URICompactor {
 	/**
 	 * Finds the last index where it, and all previous, chars are equal; and it
 	 * is not an alphanumeric value.
-	 * 
+	 *
 	 * @param a
 	 * @param b
 	 * @return
