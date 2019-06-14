@@ -22,9 +22,9 @@ import org.universAAL.middleware.rdf.Resource;
 
 /**
  * Counts and manages blank nodes.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class BlankNodeAnalyzer implements TripleAnalyzer {
 
@@ -59,6 +59,9 @@ public class BlankNodeAnalyzer implements TripleAnalyzer {
 	}
 
 	public static int log10(int i) {
+		if (i <= 0) {
+			return 0;
+		}
 		return (int) (Math.log(i) / Math.log(10));
 	}
 }

@@ -81,6 +81,12 @@ public class JSONLDWriter {
 		return root.getAsString();
 	}
 
+	/**
+	 * Create the {@link JsonObject} representing the {@link Resource} r.
+	 * @param r
+	 * @param usethis The {@link JsonElement} to be updated with resources information, may be null to initialize.
+	 * @return
+	 */
 	private JsonObject getObject(Resource r, JsonElement usethis) {
 		// TODO: process Resources marked as literals
 
@@ -193,7 +199,7 @@ public class JSONLDWriter {
 	 * @return
 	 */
 	private boolean isEmbedded(Resource r) {
-		serTypeAn.countRefs(r, SerializationTypeAnalysis.REF_TYPE_ALL);
+		//int refs = serTypeAn.countRefs(r, SerializationTypeAnalysis.REF_TYPE_ALL);
 		return !forceFlat
 				&& (!r.representsQualifiedURI()
 						|| serTypeAn.countRefs(r,
