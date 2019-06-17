@@ -177,6 +177,7 @@ public class URICompactor {
 	}
 
 	public void addURI(String uri) {
+		System.out.println("uri 2 compact "+uri);
 		URIItem item = new URIItem();
 		Iterator<URIPrefix> pit = prefixes.iterator();
 		// check existing prefixes for coincidences.
@@ -200,6 +201,11 @@ public class URICompactor {
 		Iterator<URIItem> npit = nonPrefixedItems.iterator();
 		URICompactor.URIItem test = null;
 		// Itereate over non-prefixed Items
+		if(npit.hasNext()) {
+			System.out.println("empty non prefixed items");
+		}else
+			System.out.println("non empty prefixed items");
+	/*	
 		while (npit.hasNext()) {
 			test = npit.next();
 			int comp = coincidenceIndex(test.suffix, uri);
@@ -226,15 +232,64 @@ public class URICompactor {
 				break;
 			}
 		}
-		if (test != null && test.prefix != null) {
+*/
+		
+		//preparing  all URIS in order to extract prefixes
+		
+		if(!npit.hasNext()) {
+			//build namespace
+			//TODO seach criteria to do it
+			URIPrefix p = new URIPrefix();
+			int separator_index = uri.lastIndexOf("#");
+			String prefix =uri.substring(0, separator_index+1);
+			String sufix =uri.substring(separator_index+1);
+			String compacted_sufix = sufix.substring(0,3).toLowerCase();//maybe replace 3 with variable
+			p.fullPrefix=prefix;
+			p.references= 2;
+			prefixes.add(p);
+			System.out.println("prefix "+prefix);
+			System.out.println("sufix "+sufix);
+			System.out.println("compacted sufix "+compacted_sufix);
+			
+		}else {
+			while (npit.hasNext()) {
+				test = npit.next();
+				int comp = coincidenceIndex(test.suffix, uri);
+				String prefix = uri.substring(0, comp + 1);
+				String testSuffix = test.suffix.substring(comp + 1);
+				String uriSuffix = uri.substring(comp + 1);
+				if (isPrefix(prefix, testSuffix) && isPrefix(prefix, uriSuffix)) {
+					// create prefix
+					URIPrefix p = new URIPrefix();
+					p.fullPrefix = prefix;
+					p.references = 2;
+					prefixes.add(p);
+					// prefix test
+					test.prefix = p;
+					test.suffix = testSuffix;
+					// prefix item
+					item.prefix = p;
+					item.suffix = uriSuffix;
+					prefixedItems.put(uri, item);
+					break;
+				}
+				if (test.suffix.compareTo(uri) > 0) {
+					// Stop, you will not find it any further.
+					break;
+				}
+			}
+		}
+		
+		if (test != null ) {
 			// remove test from non-prefixed, this could not be done within
 			// while loop.
+			System.out.println("removing nonPrefixedItems");
 			nonPrefixedItems.remove(test);
 			return;
 		}
-
+		 
 		// URI without existing prefix and without a companion
-		item.suffix = uri;
+		item.suffix = uri; //and the prefix?
 		nonPrefixedItems.add(item);
 	}
 
@@ -297,6 +352,9 @@ public class URICompactor {
 	 * @return
 	 */
 	public static int coincidenceIndex(String a, String b) {
+		System.out.println("coincident index");
+		System.out.println("coincident index "+a);
+		System.out.println("coincident index "+b);
 		int i = 0;
 		int last = 0;
 		while (i < (Math.min(a.length(), b.length() - 1))

@@ -29,7 +29,8 @@ public class RESTSerialilzationsTest extends OntTestCase{
 	public void testCreateContextEvent() {
 		 // Create an instance of the subject
 
-		 LightSource light = new LightSource("LightSource");
+		 LightSource light = new LightSource("https://www.w3.org/TR/rdf-primer/#rdfmodel");
+		 //LightSource light = new LightSource("LightSource");
 		 // Set the property to be used as predicate to a valid value
 		 light.setBrightness(100);
 		 // Create event with subject and predicate. Object is auto-set
