@@ -66,7 +66,7 @@ public class URICompactor {
 			} else {
 				// find a suitable compacted prefix
 				Set<String> existingPrefixes = new HashSet<String>();
-				for (URIPrefix pr : prefixes) {
+				for (URIPrefix pr : defaultPrefixes) {
 					existingPrefixes.add(pr.compactedPrefix); // compacted prefix is not null
 				}
 				String[] lexem = this.fullPrefix.split("[^\\pL\\p{Pc}]+");
@@ -81,7 +81,7 @@ public class URICompactor {
 						}
 					}
 				}
-				compactedPrefix = String.format("ns\\:%02d", prefixes.size());
+				compactedPrefix = String.format("ns\\:%02d", defaultPrefixes.size());
 				return compactedPrefix;
 			}
 		}
@@ -123,7 +123,7 @@ public class URICompactor {
 		}
 	}
 
-	private Collection<URIPrefix> prefixes = new TreeSet<URICompactor.URIPrefix>();
+	private Collection<URIPrefix> defaultPrefixes = new TreeSet<URICompactor.URIPrefix>();
 	private Map<String, URIItem> prefixedItems = new HashMap<String, URICompactor.URIItem>();
 	private Collection<URIItem> nonPrefixedItems = new TreeSet<URICompactor.URIItem>();
 
@@ -133,21 +133,21 @@ public class URICompactor {
 	}
 
 	private void addDefaultPrefixes() {
-		prefixes.add(new URIPrefix("geo", "http://www.w3.org/2003/01/geo/wgs84_pos#"));
-		prefixes.add(new URIPrefix("math", "http://www.w3.org/2000/10/swap/math#"));
-		prefixes.add(new URIPrefix("owl", "http://www.w3.org/2002/07/owl#"));
-		prefixes.add(new URIPrefix("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
-		prefixes.add(new URIPrefix("rdfa", "http://www.w3.org/ns/rdfa#"));
-		prefixes.add(new URIPrefix("rdfs", "http://www.w3.org/2000/01/rdf-schema#"));
-		prefixes.add(new URIPrefix("skos", "http://www.w3.org/2004/02/skos/core#"));
-		prefixes.add(new URIPrefix("vcard", "http://www.w3.org/2001/vcard-rdf/3.0#"));
-		prefixes.add(new URIPrefix("xf", "http://www.w3.org/2004/07/xpath-functions"));
-		prefixes.add(new URIPrefix("xml", "http://www.w3.org/XML/1998/namespace"));
-		prefixes.add(new URIPrefix("xsd", "http://www.w3.org/2001/XMLSchema#"));
-		prefixes.add(new URIPrefix("xsd99", "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
-		prefixes.add(new URIPrefix("xsl10", "http://www.w3.org/XSL/Transform/1.0"));
-		prefixes.add(new URIPrefix("xsl1999", "http://www.w3.org/1999/XSL/Transform"));
-		prefixes.add(new URIPrefix("xslwd", "http://www.w3.org/TR/WD-xsl"));
+		defaultPrefixes.add(new URIPrefix("geo", "http://www.w3.org/2003/01/geo/wgs84_pos#"));
+		defaultPrefixes.add(new URIPrefix("math", "http://www.w3.org/2000/10/swap/math#"));
+		defaultPrefixes.add(new URIPrefix("owl", "http://www.w3.org/2002/07/owl#"));
+		defaultPrefixes.add(new URIPrefix("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
+		defaultPrefixes.add(new URIPrefix("rdfa", "http://www.w3.org/ns/rdfa#"));
+		defaultPrefixes.add(new URIPrefix("rdfs", "http://www.w3.org/2000/01/rdf-schema#"));
+		defaultPrefixes.add(new URIPrefix("skos", "http://www.w3.org/2004/02/skos/core#"));
+		defaultPrefixes.add(new URIPrefix("vcard", "http://www.w3.org/2001/vcard-rdf/3.0#"));
+		defaultPrefixes.add(new URIPrefix("xf", "http://www.w3.org/2004/07/xpath-functions"));
+		defaultPrefixes.add(new URIPrefix("xml", "http://www.w3.org/XML/1998/namespace"));
+		defaultPrefixes.add(new URIPrefix("xsd", "http://www.w3.org/2001/XMLSchema#"));
+		defaultPrefixes.add(new URIPrefix("xsd99", "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
+		defaultPrefixes.add(new URIPrefix("xsl10", "http://www.w3.org/XSL/Transform/1.0"));
+		defaultPrefixes.add(new URIPrefix("xsl1999", "http://www.w3.org/1999/XSL/Transform"));
+		defaultPrefixes.add(new URIPrefix("xslwd", "http://www.w3.org/TR/WD-xsl"));
 	}
 
 	/**
@@ -156,7 +156,7 @@ public class URICompactor {
 	 * @param refs
 	 */
 	public void forcePrefix(String prefix, int refs) {
-		Iterator<URIPrefix> pit = prefixes.iterator();
+		Iterator<URIPrefix> pit = defaultPrefixes.iterator();
 		// check existing prefixes for coincidences.
 		while (pit.hasNext()) {
 			URIPrefix test = pit.next();
@@ -173,87 +173,42 @@ public class URICompactor {
 		URIPrefix p = new URIPrefix();
 		p.fullPrefix = prefix;
 		p.references = refs;
-		prefixes.add(p);
+		defaultPrefixes.add(p);
 	}
 
 	public void addURI(String uri) {
 		System.out.println("uri 2 compact "+uri);
 		URIItem item = new URIItem();
-		Iterator<URIPrefix> pit = prefixes.iterator();
+		Iterator<URIPrefix> pit = defaultPrefixes.iterator();
 		// check existing prefixes for coincidences.
 		while (pit.hasNext()) {
 			URIPrefix test = pit.next();
-			int comp = coincidenceIndex(test.fullPrefix, uri);
-			if (comp == test.fullPrefix.length()) {
-				// prefix fully coincides.
+			//urn:org.universAAL.middleware.context.rdf:ContextEvent#_:7f00010134849504:385
+			if(uri.startsWith(test.fullPrefix)) {
 				item.prefix = test;
-				item.suffix = uri.substring(comp + 1);
+				item.suffix = uri.substring(test.fullPrefix.length());
 				test.references++;
 				prefixedItems.put(uri, item);
 				return;
 			}
-			if (test.fullPrefix.compareTo(uri) > 0) {
+			//TODO add 2 more cases
+			if (test.fullPrefix.compareTo(uri) > 0) {//full prefix grather than uri
 				// don't bother continuing, prefixes are sorted
 				break;
 			}
 		}
-
 		Iterator<URIItem> npit = nonPrefixedItems.iterator();
 		URICompactor.URIItem test = null;
 		// Itereate over non-prefixed Items
-		if(npit.hasNext()) {
-			System.out.println("empty non prefixed items");
-		}else
-			System.out.println("non empty prefixed items");
-	/*	
-		while (npit.hasNext()) {
-			test = npit.next();
-			int comp = coincidenceIndex(test.suffix, uri);
-			String prefix = uri.substring(0, comp + 1);
-			String testSuffix = test.suffix.substring(comp + 1);
-			String uriSuffix = uri.substring(comp + 1);
-			if (isPrefix(prefix, testSuffix) && isPrefix(prefix, uriSuffix)) {
-				// create prefix
-				URIPrefix p = new URIPrefix();
-				p.fullPrefix = prefix;
-				p.references = 2;
-				prefixes.add(p);
-				// prefix test
-				test.prefix = p;
-				test.suffix = testSuffix;
-				// prefix item
-				item.prefix = p;
-				item.suffix = uriSuffix;
-				prefixedItems.put(uri, item);
-				break;
-			}
-			if (test.suffix.compareTo(uri) > 0) {
-				// Stop, you will not find it any further.
-				break;
-			}
-		}
-*/
-		
-		//preparing  all URIS in order to extract prefixes
-		
-		if(!npit.hasNext()) {
-			//build namespace
-			//TODO seach criteria to do it
-			URIPrefix p = new URIPrefix();
-			int separator_index = uri.lastIndexOf("#");
-			String prefix =uri.substring(0, separator_index+1);
-			String sufix =uri.substring(separator_index+1);
-			String compacted_sufix = sufix.substring(0,3).toLowerCase();//maybe replace 3 with variable
-			p.fullPrefix=prefix;
-			p.references= 2;
-			prefixes.add(p);
-			System.out.println("prefix "+prefix);
-			System.out.println("sufix "+sufix);
-			System.out.println("compacted sufix "+compacted_sufix);
-			
-		}else {
 			while (npit.hasNext()) {
 				test = npit.next();
+				URIItem candidate = this.compactURI(uri);
+				if(test.compareTo(candidate)==0) {
+					//uri item already created
+				}else {
+					
+				}
+				
 				int comp = coincidenceIndex(test.suffix, uri);
 				String prefix = uri.substring(0, comp + 1);
 				String testSuffix = test.suffix.substring(comp + 1);
@@ -263,7 +218,7 @@ public class URICompactor {
 					URIPrefix p = new URIPrefix();
 					p.fullPrefix = prefix;
 					p.references = 2;
-					prefixes.add(p);
+					defaultPrefixes.add(p);
 					// prefix test
 					test.prefix = p;
 					test.suffix = testSuffix;
@@ -278,24 +233,26 @@ public class URICompactor {
 					break;
 				}
 			}
-		}
+		
 		
 		if (test != null ) {
 			// remove test from non-prefixed, this could not be done within
 			// while loop.
-			System.out.println("removing nonPrefixedItems");
+			System.out.println("removing nonPrefixedItems "+test.prefix.fullPrefix);
 			nonPrefixedItems.remove(test);
 			return;
 		}
 		 
 		// URI without existing prefix and without a companion
-		item.suffix = uri; //and the prefix?
-		nonPrefixedItems.add(item);
+		//System.out.println("URI without existing prefix and without a companion "+uri);
+		URIItem gen_uri=this.compactURI(uri);
+		System.out.println("adding "+gen_uri.prefix.fullPrefix+" sufix "+gen_uri.suffix+" pref "+gen_uri.prefix.compactedPrefix);
+		nonPrefixedItems.add(gen_uri);
 	}
 
 	public List<URIPrefix> getPrefixes() {
 		List<URIPrefix> l = new ArrayList<URICompactor.URIPrefix>();
-		for (URIPrefix uriPrefix : prefixes) {
+		for (URIPrefix uriPrefix : defaultPrefixes) {
 			if (uriPrefix.references > 0) {
 				l.add(uriPrefix);
 			}
@@ -317,12 +274,13 @@ public class URICompactor {
 	 * @return the attempt of compacting, prefix null if not compacted.
 	 */
 	public URIItem compact(String uri) {
+		
 		if (prefixedItems.containsKey(uri)) {
 			return prefixedItems.get(uri);
 		}
 
 		URIItem item = new URIItem();
-		Iterator<URIPrefix> pit = prefixes.iterator();
+		Iterator<URIPrefix> pit = defaultPrefixes.iterator();
 		// check existing prefixes for coincidences.
 		while (pit.hasNext()) {
 			URIPrefix test = pit.next();
@@ -342,7 +300,44 @@ public class URICompactor {
 		item.suffix = uri;
 		return item;
 	}
-
+	
+	private URIItem compactURI(String uri) {
+		URIPrefix prefix = new URIPrefix();
+		URIItem item = new URIItem();
+		final char delimiter ='#'; 
+		String pref,fullPrefix,sufix;
+		int delim_index = uri.indexOf(delimiter);
+		fullPrefix = uri.substring(0,delim_index+1);
+		sufix = uri.substring(delim_index+1);
+		String to_cut = fullPrefix.replaceAll("[^A-Za-z]", "");
+		pref= this.generatePrefix(to_cut,2);
+		prefix.compactedPrefix = pref;
+		prefix.fullPrefix = fullPrefix;
+		prefix.references++;
+		item.prefix = prefix;
+		item.suffix = sufix;
+		return item;
+	}
+	
+	private String generatePrefix(String candidate, int lenght) {
+		String pref="";
+		int size = lenght;
+		//TODO define criteria to generate this  
+		candidate=candidate.substring(candidate.length()-size).toLowerCase();
+		//System.out.println("candidate "+candidate);
+		Iterator<URIPrefix> pit = defaultPrefixes.iterator();
+		while(pit.hasNext()) {
+			URIPrefix test = pit.next();
+			if(test.compactedPrefix.equals(candidate)) {
+				this.generatePrefix(candidate, size+1);
+			}else {
+				return candidate;
+			}
+		}
+		return pref;
+	} 
+	
+	
 	/**
 	 * Finds the last index where it, and all previous, chars are equal; and it
 	 * is not an alphanumeric value.
@@ -352,13 +347,11 @@ public class URICompactor {
 	 * @return
 	 */
 	public static int coincidenceIndex(String a, String b) {
-		System.out.println("coincident index");
-		System.out.println("coincident index "+a);
-		System.out.println("coincident index "+b);
+		//System.out.println("full pref "+a);
+		//System.out.println("uri "+b);
 		int i = 0;
 		int last = 0;
-		while (i < (Math.min(a.length(), b.length() - 1))
-				&& a.charAt(i) == b.charAt(i)) {
+		while (i < (Math.min(a.length(), b.length() - 1)) && a.charAt(i) == b.charAt(i)) {
 			if (!Character.isAlphabetic(a.charAt(i))
 					&& !Character.isDigit(a.charAt(i))) {
 				last = i;
