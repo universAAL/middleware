@@ -61,6 +61,7 @@ public class PrefixAnalyzer implements TripleAnalyzer {
 		cmpr.addURI(root.getURI());
 		String[] ts = root.getTypes();
 		for (int i = 0; i < ts.length; i++) {
+			System.out.println("root analizer "+ts[i]);
 			cmpr.addURI(ts[i]);
 		}
 

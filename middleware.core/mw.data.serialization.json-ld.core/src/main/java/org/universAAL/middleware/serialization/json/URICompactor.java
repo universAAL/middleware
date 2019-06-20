@@ -177,7 +177,6 @@ public class URICompactor {
 	}
 
 	public void addURI(String uri) {
-		System.out.println("uri 2 compact "+uri);
 		URIItem item = new URIItem();
 		Iterator<URIPrefix> pit = defaultPrefixes.iterator();
 		// check existing prefixes for coincidences.
@@ -191,63 +190,18 @@ public class URICompactor {
 				prefixedItems.put(uri, item);
 				return;
 			}
-			//TODO add 2 more cases
-			if (test.fullPrefix.compareTo(uri) > 0) {//full prefix grather than uri
-				// don't bother continuing, prefixes are sorted
-				break;
-			}
+
 		}
-		Iterator<URIItem> npit = nonPrefixedItems.iterator();
 		URICompactor.URIItem test = null;
-		// Itereate over non-prefixed Items
-			while (npit.hasNext()) {
-				test = npit.next();
-				URIItem candidate = this.compactURI(uri);
-				if(test.compareTo(candidate)==0) {
-					//uri item already created
-				}else {
-					
-				}
-				
-				int comp = coincidenceIndex(test.suffix, uri);
-				String prefix = uri.substring(0, comp + 1);
-				String testSuffix = test.suffix.substring(comp + 1);
-				String uriSuffix = uri.substring(comp + 1);
-				if (isPrefix(prefix, testSuffix) && isPrefix(prefix, uriSuffix)) {
-					// create prefix
-					URIPrefix p = new URIPrefix();
-					p.fullPrefix = prefix;
-					p.references = 2;
-					defaultPrefixes.add(p);
-					// prefix test
-					test.prefix = p;
-					test.suffix = testSuffix;
-					// prefix item
-					item.prefix = p;
-					item.suffix = uriSuffix;
-					prefixedItems.put(uri, item);
-					break;
-				}
-				if (test.suffix.compareTo(uri) > 0) {
-					// Stop, you will not find it any further.
-					break;
-				}
+		if(!prefixedItems.containsKey(uri)) {
+			//uri not prefixed yet
+			URIItem candidate = this.compactURI(uri);
+			if(candidate !=null) {
+				prefixedItems.put(uri, candidate);
+				return;
 			}
-		
-		
-		if (test != null ) {
-			// remove test from non-prefixed, this could not be done within
-			// while loop.
-			System.out.println("removing nonPrefixedItems "+test.prefix.fullPrefix);
-			nonPrefixedItems.remove(test);
-			return;
-		}
-		 
-		// URI without existing prefix and without a companion
-		//System.out.println("URI without existing prefix and without a companion "+uri);
-		URIItem gen_uri=this.compactURI(uri);
-		System.out.println("adding "+gen_uri.prefix.fullPrefix+" sufix "+gen_uri.suffix+" pref "+gen_uri.prefix.compactedPrefix);
-		nonPrefixedItems.add(gen_uri);
+		}	
+
 	}
 
 	public List<URIPrefix> getPrefixes() {
@@ -256,6 +210,11 @@ public class URICompactor {
 			if (uriPrefix.references > 0) {
 				l.add(uriPrefix);
 			}
+		}
+		
+		for ( String uriPrefix : prefixedItems.keySet()) {
+			l.add(prefixedItems.get(uriPrefix).prefix);
+			
 		}
 		return l;
 	}
@@ -302,29 +261,41 @@ public class URICompactor {
 	}
 	
 	private URIItem compactURI(String uri) {
-		URIPrefix prefix = new URIPrefix();
 		URIItem item = new URIItem();
-		final char delimiter ='#'; 
-		String pref,fullPrefix,sufix;
-		int delim_index = uri.indexOf(delimiter);
-		fullPrefix = uri.substring(0,delim_index+1);
-		sufix = uri.substring(delim_index+1);
-		String to_cut = fullPrefix.replaceAll("[^A-Za-z]", "");
-		pref= this.generatePrefix(to_cut,2);
-		prefix.compactedPrefix = pref;
-		prefix.fullPrefix = fullPrefix;
-		prefix.references++;
-		item.prefix = prefix;
-		item.suffix = sufix;
+		try {
+			URIPrefix prefix = new URIPrefix();
+			final char delimiter ='#'; 
+			String pref,fullPrefix,sufix;
+			int delim_index = uri.indexOf(delimiter);
+			fullPrefix = uri.substring(0,delim_index+1);
+			sufix = uri.substring(delim_index+1);
+			String to_cut = fullPrefix.replaceAll("[^A-Za-z]", "");
+			pref= this.generatePrefix(to_cut,2);
+			prefix.compactedPrefix = pref;
+			prefix.fullPrefix = fullPrefix;
+			prefix.references++;
+			item.prefix = prefix;
+			item.suffix = sufix;	
+		} catch (Exception e) {
+			e.printStackTrace();
+			item=null;
+		}
+		
 		return item;
 	}
 	
 	private String generatePrefix(String candidate, int lenght) {
+		
+		//remove all non-alphanumeric characters
+		//walk the resultant string from end, and get the N first characters (given in lenght variable)
+		//if the resultant prefix is aleady taken, then increment length variable and call recursively this function
+		//TODO what if the resultant prefix has a lot of characters
+		//TODO build a meaningful prefix using the start N character of last string before the last character
+		//TODO define criteria to generate prefixes  
+		
 		String pref="";
 		int size = lenght;
-		//TODO define criteria to generate this  
 		candidate=candidate.substring(candidate.length()-size).toLowerCase();
-		//System.out.println("candidate "+candidate);
 		Iterator<URIPrefix> pit = defaultPrefixes.iterator();
 		while(pit.hasNext()) {
 			URIPrefix test = pit.next();
