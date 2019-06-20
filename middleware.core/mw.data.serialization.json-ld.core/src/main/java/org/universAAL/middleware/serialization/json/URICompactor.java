@@ -291,8 +291,13 @@ public class URICompactor {
 		//if the resultant prefix is aleady taken, then increment length variable and call recursively this function
 		//TODO what if the resultant prefix has a lot of characters
 		//TODO build a meaningful prefix using the start N character of last string before the last character
-		//TODO define criteria to generate prefixes  
+		//TODO define criteria to generate prefixes
+		//FIXME when candidate is empty..throw IndexOutofBoundException
 		
+		//hotfix also this exists to test cases
+		if(candidate.isEmpty()) {
+			return "xxx";
+		}
 		String pref="";
 		int size = lenght;
 		candidate=candidate.substring(candidate.length()-size).toLowerCase();

@@ -35,7 +35,6 @@ public class RESTSerialilzationsTest extends OntTestCase{
 		 light.setBrightness(100);
 		 // Create event with subject and predicate. Object is auto-set
 		 ContextEvent ev = new ContextEvent(light, LightSource.PROP_SOURCE_BRIGHTNESS);
-
 		String res = ser.serialize(ev);
 		System.out.println(res);
 
@@ -43,20 +42,16 @@ public class RESTSerialilzationsTest extends OntTestCase{
 //		compare(ev,r);
 	}
 
-//	java.lang.RuntimeException: Class not registered: http://ontology.universaal.org/Lighting.owl#LightSource
-
-
-	public void createContextProvider() {
-		 ContextProvider myprov = new ContextProvider("");
+	public void testCreateContextProvider() {
+		 ContextProvider myprov = new ContextProvider("https://www.w3.org/TR/rdf-primer/#rdfmodel");
 		 // Set to type Gauge
 		 myprov.setType(ContextProviderType.gauge);
 		 // Set the provided events to “Unknown” with an empty Pattern
 		 myprov.setProvidedEvents(new ContextEventPattern[] { new ContextEventPattern() });
-
 		 System.out.println(ser.serialize(myprov));
 	}
-
-	public void createContextEventPattern() {
+	
+	public void testCreateContextEventPattern() {
 		ContextEventPattern[] cep = new ContextEventPattern[2];
 		 // This first pattern is for events about Lights from Gauge Providers. Notice how ContextEvent is the root for Restrictions
 		 cep[0] = new ContextEventPattern();
@@ -71,7 +66,7 @@ public class RESTSerialilzationsTest extends OntTestCase{
 		 System.out.println(ser.serialize(cep[0]));
 	}
 
-	public void createServiceProfile() {
+	public void testcreateServiceProfile() {
 
 	}
 
