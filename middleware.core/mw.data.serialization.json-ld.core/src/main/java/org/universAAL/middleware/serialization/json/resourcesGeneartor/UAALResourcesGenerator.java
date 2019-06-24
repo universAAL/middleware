@@ -3,6 +3,7 @@ package org.universAAL.middleware.serialization.json.resourcesGeneartor;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Scanner;
 
@@ -40,8 +41,7 @@ public class UAALResourcesGenerator {
 		}
 		
 		if(jsonToExpand instanceof JsonArray) {
-			//this.mainjJson = (JsonObject) jsonToExpand;
-			//TODO implement
+			
 		}
 		
 		if(jsonToExpand instanceof String) {
@@ -52,21 +52,37 @@ public class UAALResourcesGenerator {
 	public void generateResources() {
 		this.expandedJson=this.expandJson(mainjJson);
 		for (Entry<String, JsonElement> element : expandedJson.iterator().next().getAsJsonObject().entrySet()) {
-			
-			this.walkGraph(element);
+			Resource r =this.walkGraph(element);
 			
 		}
 		
 	}
 	
 	private Resource walkGraph(Entry<String, JsonElement> toAnalyze) {
+		ArrayList<String> resourceTypesArray = new ArrayList<String>();	
+		String resourceID="";
+		
+		if(toAnalyze.getValue().isJsonArray()) {
+			JsonArray jsa = new JsonArray();
+			for (JsonElement item : jsa) {
+				//if this array has more than 1 element, it is a resource list
+				//view 	public static final Resource asRDFList(List members, boolean isXMLLiteral) {} Resource class
+
+				walkGraph(item.getAsJsonObject().entrySet().iterator().next());
+			}
+		}
+		if(toAnalyze.getValue().isJsonObject()) {
+			resourceID = toAnalyze.getKey();
+			JsonObject aux =toAnalyze.getValue().getAsJsonObject();
+			Resource res = new Resource();
+			
+			//"@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+			//"@value": "2011-04-09T20:00:00Z"
+			
+		}
+		
+		
 		String resource_id=null;
-		ArrayList<String> resourceTypesArray = new ArrayList<String>();
-		
-		
-		
-		
-		
 		if(toAnalyze.getValue().isJsonObject()) {
 			JsonElement resource_uri;
 			Resource local_res;
@@ -132,10 +148,14 @@ public class UAALResourcesGenerator {
 	return null;	
 	}
 
-	
 	private JsonArray expandJson(JsonObject toExpand) {
 		ExpandJSONLD jsonExpansor = new ExpandJSONLD(toExpand);
 		jsonExpansor.expand();
 		return jsonExpansor.getExpandedJson();
+	}
+
+	public Resource getSpecificResource (String resourceURI) {
+		return null;
+		
 	}
 }
