@@ -177,6 +177,8 @@ public class URICompactor {
 	}
 
 	public void addURI(String uri) {
+		System.out.println("uri->"+uri);
+		
 		URIItem item = new URIItem();
 		Iterator<URIPrefix> pit = defaultPrefixes.iterator();
 		// check existing prefixes for coincidences.
@@ -190,18 +192,17 @@ public class URICompactor {
 				prefixedItems.put(uri, item);
 				return;
 			}
-
 		}
-		URICompactor.URIItem test = null;
+		
 		if(!prefixedItems.containsKey(uri)) {
-			//uri not prefixed yet
+			//
+			System.out.println("uri not prefixed yet=>"+uri);
 			URIItem candidate = this.compactURI(uri);
 			if(candidate !=null) {
 				prefixedItems.put(uri, candidate);
 				return;
 			}
 		}	
-
 	}
 
 	public List<URIPrefix> getPrefixes() {
@@ -264,7 +265,8 @@ public class URICompactor {
 		URIItem item = new URIItem();
 		try {
 			URIPrefix prefix = new URIPrefix();
-			final char delimiter ='#'; 
+			final char delimiter ='#';
+			//FIXME what if the delimiter # not exist and is a / or another character?
 			String pref,fullPrefix,sufix;
 			int delim_index = uri.indexOf(delimiter);
 			fullPrefix = uri.substring(0,delim_index+1);
@@ -293,11 +295,12 @@ public class URICompactor {
 		//TODO build a meaningful prefix using the start N character of last string before the last character
 		//TODO define criteria to generate prefixes
 		//FIXME when candidate is empty..throw IndexOutofBoundException
+		//FIXME also this exists to test cases
 		
-		//hotfix also this exists to test cases
 		if(candidate.isEmpty()) {
-			return "xxx";
+			//TODO throw exception..however never is null
 		}
+		
 		String pref="";
 		int size = lenght;
 		candidate=candidate.substring(candidate.length()-size).toLowerCase();
