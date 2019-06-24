@@ -193,39 +193,7 @@ public class JSONLDDocument implements JSONLDValidator {
 		}
 	}
 	
-//	private  String processJsonLDFormat(String out)  {
-//		try {
-//			// Open a valid json(-ld) input file
-//			//InputStream inputStream = new FileInputStream("input.json");
-//			// Read the file into an Object (The type of this object will be a List, Map, String, Boolean,
-//			// Number or null depending on the root object in the file).
-//			Object jsonObject = JsonUtils.fromString(this.mainJsonString);
-//			// Create a context JSON map containing prefixes and definitions
-//			//Map context = new HashMap();
-//			// Customise context...
-//			// Create an instance of JsonLdOptions with the standard JSON-LD options
-//			JsonLdOptions options = new JsonLdOptions();
-//			// Customise options...
-//			// Call whichever JSONLD function you want! (e.g. compact)
-//			Object compact=null; 
-//			switch (out) {
-//				case "expand":
-//					compact = JsonLdProcessor.expand(jsonObject, options);
-//					break;
-//				case "compact":
-//					compact = JsonLdProcessor.compact(jsonObject, new HashMap(), options);
-//					break;
-//			}
-//			
-//			// Print out the result (or don't, it's your call!)
-//			System.out.println("algorithm result  " +out+" --> "+JsonUtils.toString(compact));
-//			return JsonUtils.toString(compact);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null;
-//		} 
-//	}
-	
+
 	public JsonElement getMainJSON() {
 		return mainJSON;
 	}
