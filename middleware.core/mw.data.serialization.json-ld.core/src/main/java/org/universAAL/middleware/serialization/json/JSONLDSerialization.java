@@ -21,7 +21,12 @@ import java.io.InputStream;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.serialization.MessageContentSerializerEx;
+import org.universAAL.middleware.serialization.json.algorithms.ExpandJSONLD;
 import org.universAAL.middleware.serialization.json.grammar.JSONLDDocument;
+import org.universAAL.middleware.serialization.json.resourcesGeneartor.UAALResourcesGenerator;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 /**
  * @author amedrano
@@ -54,17 +59,20 @@ public class JSONLDSerialization implements MessageContentSerializerEx {
 		else return null;
 	}
 
-	/* (non-Javadoc)
+	/* 
+	 * (non-Javadoc)
 	 * @see org.universAAL.middleware.serialization.MessageContentSerializerEx#deserialize(java.lang.String, java.lang.String)
 	 */
 	public Object deserialize(String serialized, String resourceURI) {
-		
 		InputStream is = new ByteArrayInputStream(serialized.getBytes());
 		JSONLDDocument jd = new JSONLDDocument(is);
-		//TODO jd.interpret
-		jd.getResource(resourceURI);
-		//TODO find object with resourceURI
-		return null;
+		jd.validate();
+		JsonElement jse =jd.getMainJSON();
+		ExpandJSONLD expand = new ExpandJSONLD(jse);
+		expand.expand();
+		UAALResourcesGenerator res_gen = new UAALResourcesGenerator(expand.getExpandedJson());
+		res_gen.generateResources();
+		Resource r =res_gen.getSpecificResource(resourceURI);
+		return r;
 	}
-
 }
