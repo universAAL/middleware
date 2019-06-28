@@ -1,0 +1,11 @@
+{
+"@context":{
+    "gr": "http://purl.org/goodrelations/v1#",
+    "pto": "http://www.productontology.org/id/"
+},
+  "gr:includes": {
+    "@type": [
+      "gr:Individual",
+      "pto:Vehicle"
+    ]}
+}
