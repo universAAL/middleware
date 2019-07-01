@@ -97,7 +97,7 @@ public class ExpandJSONLD {
 	}
 	
 	private JsonElement expandElement(String key, JsonElement value, boolean array_state) {
-		//log.debug("expanding key="+key+" value="+value);
+		System.out.println("key "+key+" value "+value);
 		LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","expanding");
 		JsonElement aux_a =iriExpansion(new JsonPrimitive(key));
 		JsonObject expanded_element = new JsonObject();
@@ -190,91 +190,6 @@ public class ExpandJSONLD {
 		}
 		if(value instanceof JsonObject) {
 
-			
-			/*
-			 * JsonElement expanded_value;
-			JsonElement expanded_property= this.iriExpansion(new JsonPrimitive(key));
-			if(!key.equals("@context")) {
-				if(!expanded_property.isJsonNull() ) {
-					if(JsonLdKeyword.isKeyword(expanded_property.getAsString()) ) {
-						
-						if(key.equals(JsonLdKeyword.REVERSE.toString())) {
-							//TODO throw error
-						}
-						if(expanded_element.getAsString().equals(JsonLdKeyword.ID.toString()) && !value.isJsonPrimitive()) {
-							//TODO throw error
-						}else {
-							 expanded_value = this.iriExpansion(value);
-						}
-						if(expanded_element.getAsString().equals(JsonLdKeyword.TYPE.toString())) {
-							boolean state=true;
-							if(value.isJsonArray()) {
-								for (JsonElement jsonElement : value.getAsJsonArray()) {
-									if(!jsonElement.isJsonPrimitive()) {
-										state = false;	
-										break;
-									}
-								}
-							}else if(!value.isJsonPrimitive()) {
-								//TODO throw error
-							}else {
-								expanded_value = this.iriExpansion(value);
-							}
-						}
-						if(expanded_element.getAsString().equals(JsonLdKeyword.GRAPH.toString())) {
-							//expanded_value = this.expandElement(key, key, array_state);
-						}
-						if(expanded_element.getAsString().equals(JsonLdKeyword.VALUE.toString()) && value.isJsonPrimitive()) {
-							//TODO throw error (and abort process)
-						}else {
-							expanded_value = value;
-							if(expanded_value.isJsonNull()) {
-								//TODO interpret doc and implement
-							}
-						}
-						if(expanded_element.getAsString().equals(JsonLdKeyword.LANG.toString()) && !value.isJsonPrimitive()) {
-							//TODO throw error invalid language-tagged string
-							log.fatal("invalid language-tagged string");
-						}
-						if(expanded_element.getAsString().equals(JsonLdKeyword.INDEX.toString())) {
-							if( value.isJsonPrimitive())
-								expanded_value = value;
-							else {
-								//TODO throw error
-							}
-						}
-						if(expanded_element.getAsString().equals(JsonLdKeyword.LIST.toString())) {
-							
-							if( key.equals(JsonLdKeyword.GRAPH.toString()) || new JsonPrimitive(key).isJsonNull()) {
-								//TODO continue with the next key
-							}else {
-								expanded_value = this.expandElement(key, value,false);
-								if(expanded_value.isJsonObject()) {
-									if(expanded_value.getAsJsonObject().has(JsonLdKeyword.LIST.toString())) {
-										log.fatal("list of lists");
-									}
-								}
-							}
-						}
-						if(expanded_element.getAsString().equals(JsonLdKeyword.SET.toString())) {
-							expanded_value = this.expandElement(key,value, false);
-							
-						}
-						//9.4.11 item in doc
-						if(expanded_element.getAsString().equals(JsonLdKeyword.REVERSE.toString()) && !value.isJsonObject()) {
-							//TODO throw invalid @reverse
-							log.fatal("invalid @reverse");
-						}else {
-							expanded_value = this.expandElement(key, value, array_state);
-							//if(expanded_value.)
-						}
-					}
-				}
-			}
-			
-		*/
-		
-//			log.debug("iterating over "+value);
 			LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","iterating over "+value);
 			JsonArray aux_array = new JsonArray();
 			JsonObject aux_obj = new JsonObject();
@@ -291,25 +206,29 @@ public class ExpandJSONLD {
 		}
 		
 		if(value instanceof JsonArray) {
+			System.out.println("array");
 			JsonElement elementID;
 			JsonArray res = new JsonArray();
-			
 			JsonElement key_expanded = this.iriExpansion(new JsonPrimitive(key));
+			//in type case , key_expanded is the same key...and it is evaluated as primitive (string)
 			if(key_expanded instanceof JsonPrimitive) {
 				JsonElement result_id = null ;
 				for (int i = 0; i < value.getAsJsonArray().size(); i++) {
 					
 					if(value.getAsJsonArray().get(i).isJsonObject()) {
-						//attach id into result
 						result_id=value.getAsJsonArray().get(i).getAsJsonObject().get(JsonLdKeyword.ID.toString());
-					}
-					JsonObject aux =this.expandElement(key, value.getAsJsonArray().get(i),true).getAsJsonObject();
-					if(result_id!=null) {
-						aux.add(JsonLdKeyword.ID.toString(), result_id);
+						JsonObject aux =this.expandElement(key, value.getAsJsonArray().get(i),true).getAsJsonObject();
+						if(result_id!=null) {
+							aux.add(JsonLdKeyword.ID.toString(), result_id);
+						}
+						res.add(aux);
+
+					}else if(value.getAsJsonArray().get(i).isJsonPrimitive()) {
+						res.add(this.iriExpansion(value.getAsJsonArray().get(i)));						
+						//result_id=value.getAsJsonArray().get(i).getAsJsonObject().get(JsonLdKeyword.ID.toString());
 					}
 					
-					//JsonElement t = this.expandElement(key, value.getAsJsonArray().get(i),true);
-					res.add(aux);
+
 				}
 
 				expanded_element.add(key_expanded.getAsJsonPrimitive().getAsString(), res);
