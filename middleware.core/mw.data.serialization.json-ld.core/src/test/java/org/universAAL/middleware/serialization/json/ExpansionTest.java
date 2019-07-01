@@ -37,7 +37,7 @@ public class ExpansionTest {
 	
 	@Test
 	public void complexMapping() {
-		//testing "key":{....} in contex
+
 		
 
 		try {
@@ -81,6 +81,20 @@ public class ExpansionTest {
 	public void compactIRITest() {
 		try {
 			InputStream json =  this.getClass().getClassLoader().getResource("./expand/compactIRI.json").openStream();
+			ExpandJSONLD expansor = new ExpandJSONLD(json);
+			expansor.expand();
+			System.out.println(expansor.getExpandedJson());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+
+	@Test
+	public void multipleTypesTest() {
+		try {
+			InputStream json =  this.getClass().getClassLoader().getResource("./expand/multipleType.json").openStream();
 			ExpandJSONLD expansor = new ExpandJSONLD(json);
 			expansor.expand();
 			System.out.println(expansor.getExpandedJson());
