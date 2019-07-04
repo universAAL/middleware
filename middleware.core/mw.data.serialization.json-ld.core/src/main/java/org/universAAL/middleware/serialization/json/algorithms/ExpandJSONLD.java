@@ -175,7 +175,7 @@ public class ExpandJSONLD {
 						}
 						aux_array.add(aux_obj);
 						System.out.println("key "+key);
-						expanded_element.add(key, aux_array);
+						expanded_element.add(expandedKey.getAsJsonObject().get("expanded_key").getAsJsonPrimitive().getAsString(), aux_array);
 						
 					}else if(expandedKey instanceof JsonNull) {
 						//log.fatal("null expanded prop");
@@ -241,9 +241,7 @@ public class ExpandJSONLD {
 		}
 		
 		if(key.isJsonPrimitive()) {
-				
 			if(key.getAsJsonPrimitive().getAsString().contains(":")) {
-				System.out.println("contiene :" +key);
 				String candidate = key.getAsJsonPrimitive().getAsString();
 				prefix = key.getAsJsonPrimitive().getAsString().substring(0, key.getAsJsonPrimitive().getAsString().indexOf(":"));
 				sufix = key.getAsJsonPrimitive().getAsString().substring(key.getAsJsonPrimitive().getAsString().indexOf(":")+1);
@@ -255,10 +253,14 @@ public class ExpandJSONLD {
 					return key;
 				}
 				if(this.context.hasTerm(key) && this.context.getTermValue(key).isJsonObject()) {
-			
-						JsonObject aux = this.context.getTermValue(key).getAsJsonObject();
-						//aux.add("full_exp_key", value);
-						return this.context.getTermValue(key); 
+					JsonObject auxiliar = this.context.getTermValue(key).getAsJsonObject();
+					 JsonElement y = this.iriExpansion(new JsonPrimitive(prefix));
+					 String generated = y.getAsString()+sufix;
+					auxiliar.add("expanded_key",new JsonPrimitive(generated));
+					
+					System.out.println("heheh boy "+auxiliar);	
+					//return this.context.getTermValue(key);
+					return auxiliar;
 					
 					
 				}
