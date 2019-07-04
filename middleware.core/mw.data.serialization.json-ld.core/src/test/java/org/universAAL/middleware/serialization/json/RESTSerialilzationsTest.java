@@ -17,6 +17,9 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.util.GraphIterator;
 import org.universAAL.middleware.util.GraphIteratorElement;
 import org.universAAL.ontology.lighting.LightSource;
+import org.universAAL.ontology.measurement.Measurement;
+import org.universAAL.ontology.unit.MeasurableDimension;
+import org.universAAL.ontology.unit.Unit;
 
 /**
  * @author edu
@@ -43,6 +46,26 @@ public class RESTSerialilzationsTest extends OntTestCase{
 //		compare(ev,r);
 	}
 
+	
+	public void testMeasurements() {
+	
+		Measurement m = new Measurement("https://github.com/soad03/middleware/tree#URIcompactor_update");
+		m.setValue("2");
+		ContextEvent ev = new ContextEvent(m,Measurement.PROP_VALUE);
+		String res = ser.serialize(ev);
+		System.out.println(res);
+	}
+	
+	
+	public void testUnits() {
+	
+		Unit u = new Unit("URI-postfix","name","Symbol",MeasurableDimension.Color);
+		ContextEvent ev = new ContextEvent(u,Unit.PROP_NAME);
+		String res = ser.serialize(ev);
+		System.out.println(res);
+	}
+	
+	
 	public void testCreateContextProvider() {
 		 ContextProvider myprov = new ContextProvider("https://www.w3.org/TR/rdf-primer/#rdfmodel");
 		 // Set to type Gauge
