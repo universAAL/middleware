@@ -97,14 +97,13 @@ public class ExpandJSONLD {
 	}
 	
 	private JsonElement expandElement(String key, JsonElement value, boolean array_state) {
-		System.out.println("key "+key+" value "+value);
+		//System.out.println("key "+key+" value "+value);
 		LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","expanding");
 		JsonElement aux_a =iriExpansion(new JsonPrimitive(key));
 		JsonObject expanded_element = new JsonObject();
 		if(value instanceof JsonPrimitive) {
 
 					JsonElement expandedKey =this.iriExpansion(new JsonPrimitive(key));
-					
 					if(expandedKey instanceof JsonPrimitive) {
 //						log.debug("primitive expandedKey "+expandedKey);
 						LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","expanding");
@@ -149,7 +148,6 @@ public class ExpandJSONLD {
 										}
 										
 										expanded_element.add(JsonLdKeyword.TYPE.toString(), local_aux);
-										
 								}
 							}else {
 								aux_obj.add(JsonLdKeyword.VALUE.toString(), value);
@@ -161,35 +159,32 @@ public class ExpandJSONLD {
 						}				
 						return expanded_element ;
 					}else if(expandedKey instanceof JsonObject) {
-//						log.debug("the expansion for ke "+key+" is object="+expandedKey);
+						
 						LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","is object="+expandedKey);
-
 						JsonObject aux_obj = new JsonObject();
 						JsonArray aux_array = new JsonArray();
-						//aux_obj.add(JsonLdKeyword.VALUE.toString(), value);
 						if(expandedKey.getAsJsonObject().has(JsonLdKeyword.TYPE.toString())) {
-							
 							JsonPrimitive js_p =expandedKey.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive();
 							if(js_p.getAsString().equals(JsonLdKeyword.ID.toString())) {
-								aux_obj.add(JsonLdKeyword.ID.toString(), value);
+								aux_obj.add(JsonLdKeyword.ID.toString(), this.iriExpansion(value));//IRIExpansion only can return an JsonPrimitive at this point
 							}else {
-								aux_obj.add(JsonLdKeyword.VALUE.toString(), value);
+								aux_obj.add(JsonLdKeyword.VALUE.toString(), this.iriExpansion(value));
 								//aux_obj.add(  JsonLdKeyword.TYPE.toString()  , expandedKey.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()));//expand TYPE member as IRI example xsd:string
 								aux_obj.add(  JsonLdKeyword.TYPE.toString()  , this.iriExpansion(js_p));//expand TYPE member as IRI example xsd:string
 							}
 						}
 						aux_array.add(aux_obj);
-						
+						System.out.println("key "+key);
 						expanded_element.add(key, aux_array);
-					
+						
 					}else if(expandedKey instanceof JsonNull) {
 						//log.fatal("null expanded prop");
 						LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","null expanded prop");
 					}
+					
 					return expanded_element;
 		}
 		if(value instanceof JsonObject) {
-
 			LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","iterating over "+value);
 			JsonArray aux_array = new JsonArray();
 			JsonObject aux_obj = new JsonObject();
@@ -202,7 +197,6 @@ public class ExpandJSONLD {
 				expanded_element.add(aux_a.getAsString(), aux_array);
 				
 				//return expanded_element;
-						 
 		}
 		
 		if(value instanceof JsonArray) {
@@ -239,7 +233,6 @@ public class ExpandJSONLD {
 	}
 	
 	private JsonElement iriExpansion(JsonElement key) {
-
 		String prefix="",sufix="";
 		JsonElement expanded=null;
 
@@ -248,7 +241,9 @@ public class ExpandJSONLD {
 		}
 		
 		if(key.isJsonPrimitive()) {
+				
 			if(key.getAsJsonPrimitive().getAsString().contains(":")) {
+				System.out.println("contiene :" +key);
 				String candidate = key.getAsJsonPrimitive().getAsString();
 				prefix = key.getAsJsonPrimitive().getAsString().substring(0, key.getAsJsonPrimitive().getAsString().indexOf(":"));
 				sufix = key.getAsJsonPrimitive().getAsString().substring(key.getAsJsonPrimitive().getAsString().indexOf(":")+1);
@@ -259,7 +254,14 @@ public class ExpandJSONLD {
 
 					return key;
 				}
-
+				if(this.context.hasTerm(key) && this.context.getTermValue(key).isJsonObject()) {
+			
+						JsonObject aux = this.context.getTermValue(key).getAsJsonObject();
+						//aux.add("full_exp_key", value);
+						return this.context.getTermValue(key); 
+					
+					
+				}
 				if(this.context.hasTerm(prefix)) {
 
 					String generatedIRI= this.iriExpansion(new JsonPrimitive(prefix)).getAsString();
