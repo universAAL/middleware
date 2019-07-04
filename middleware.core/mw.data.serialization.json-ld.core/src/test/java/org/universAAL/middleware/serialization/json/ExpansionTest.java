@@ -90,6 +90,19 @@ public class ExpansionTest {
 		
 	}
 	
+	@Test
+	public void UAALMessajeExpandTest() {
+		try {
+			InputStream json =  this.getClass().getClassLoader().getResource("./expand/UAALmessageExample1.json").openStream();
+			ExpandJSONLD expansor = new ExpandJSONLD(json);
+			expansor.expand();
+			System.out.println(expansor.getExpandedJson());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 
 	@Test
 	public void multipleTypesTest() {
