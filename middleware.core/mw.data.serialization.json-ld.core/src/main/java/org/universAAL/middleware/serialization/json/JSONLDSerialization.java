@@ -44,8 +44,10 @@ public class JSONLDSerialization implements MessageContentSerializerEx {
 		InputStream is = new ByteArrayInputStream(serialized.getBytes());
 		JSONLDDocument jd = new JSONLDDocument(is);
 		jd.validate();
-		//TODO jd.interpret
-		return null;
+		JsonElement jse =jd.getMainJSON();
+		ExpandJSONLD expand = new ExpandJSONLD(jse);
+		expand.expand();
+		return expand.getExpandedJson();
 	}
 
 	/* (non-Javadoc)
@@ -56,7 +58,8 @@ public class JSONLDSerialization implements MessageContentSerializerEx {
 		if (messageContent instanceof Resource) {
 			return jw.serialize((Resource) messageContent);
 		}
-		else return null;
+		else
+			return null;
 	}
 
 	/* 
@@ -66,12 +69,12 @@ public class JSONLDSerialization implements MessageContentSerializerEx {
 	public Object deserialize(String serialized, String resourceURI) {
 		InputStream is = new ByteArrayInputStream(serialized.getBytes());
 		JSONLDDocument jd = new JSONLDDocument(is);
-		jd.validate();
+		jd.validate();//validating if the jsonLD is well formed
 		JsonElement jse =jd.getMainJSON();
 		ExpandJSONLD expand = new ExpandJSONLD(jse);
-		expand.expand();
+		expand.expand();//merge context with the rest of the json.
 		UAALResourcesGenerator res_gen = new UAALResourcesGenerator(expand.getExpandedJson());
-		res_gen.generateResources();
+		res_gen.generateResources();//walk over expanded json and generate Resources from the graph
 		Resource r =res_gen.getSpecificResource(resourceURI);
 		return r;
 	}
