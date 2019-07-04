@@ -1,0 +1,12 @@
+{
+  "@context": {
+    
+    "foaf": "http://xmlns.com/foaf/0.1/",
+     "foaf:page": {
+      "@type": "@id"
+    }
+
+  },
+    "foaf:page": "http://www.teslamotors.com/roadster"
+
+}
