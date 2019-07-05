@@ -14,6 +14,7 @@ import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.context.owl.ContextProviderType;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.serialization.turtle.TurtleParser;
 import org.universAAL.middleware.util.GraphIterator;
 import org.universAAL.middleware.util.GraphIteratorElement;
 import org.universAAL.ontology.lighting.LightSource;
@@ -42,6 +43,7 @@ public class RESTSerialilzationsTest extends OntTestCase{
 		String res = ser.serialize(ev);
 		System.out.println(res);
 
+
 //		Resource r = (Resource) ser.deserialize(res);
 //		compare(ev,r);
 	}
@@ -53,6 +55,8 @@ public class RESTSerialilzationsTest extends OntTestCase{
 		m.setValue("2");
 		ContextEvent ev = new ContextEvent(m,Measurement.PROP_VALUE);
 		String res = ser.serialize(ev);
+		String ser_turtle = serialize(ev);
+		System.out.println(ser_turtle);
 		System.out.println(res);
 	}
 	
