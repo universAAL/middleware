@@ -23,7 +23,7 @@ import org.universAAL.middleware.serialization.json.URICompactor.URIPrefix;
 
 /**
  * @author amedrano
- * 
+ *
  */
 public class URICompactorTest extends TestCase {
 
@@ -58,7 +58,7 @@ public class URICompactorTest extends TestCase {
 		c.addURI("http://a.b.c/h#i");
 		c.addURI("http://j.k.l/d#f");
 		List<URIPrefix> prx = c.getPrefixes();
-		assertEquals(3, prx.size());
+		assertEquals(8, prx.size());
 		for (URIPrefix p : prx) {
 			p.getCompactedPrefix();
 		}

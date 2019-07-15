@@ -44,33 +44,6 @@
       <artifactId>mw.bus.service.core</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.universAAL.ontology</groupId>
-      <artifactId>ont.lighting</artifactId>
-      <version>3.4.0</version>
-      <scope>test</scope>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.universAAL.ontology</groupId>
-      <artifactId>ont.measurement</artifactId>
-      <version>3.4.2-SNAPSHOT</version>
-      <scope>test</scope>
-    </dependency>
-    
-       <dependency>
-      <groupId>org.universAAL.ontology</groupId>
-      <artifactId>ont.unit</artifactId>
-      <version>3.4.2-SNAPSHOT</version>
-      <scope>test</scope>
-    </dependency>
-    
-    
-    <dependency>
-      <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.bus.junit</artifactId>
-      <scope>test</scope>
-    </dependency>
    	<dependency>
 		<groupId>com.github.jsonld-java</groupId>
 		<artifactId>jsonld-java</artifactId>
