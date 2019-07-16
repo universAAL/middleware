@@ -16,6 +16,9 @@
 package org.universAAL.middleware.container.JUnit;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Dictionary;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -35,15 +38,15 @@ public final class JUnitContainer implements Container {
 
 	private static JUnitContainer instance = null;
 
-	private List<SharedObjectListener> listeners;
-	private List<LogListener> logListeners;
+	private Collection<SharedObjectListener> listeners;
+	private Collection<LogListener> logListeners;
 
 	private Map<String, Object> sharedObjectMap;
 
 	// private Map<String, POJOModuleContext> modules;
 
 	private JUnitContainer() {
-		listeners = new ArrayList<SharedObjectListener>();
+		listeners = new HashSet<SharedObjectListener>();
 		logListeners = new ArrayList<LogListener>();
 		sharedObjectMap = new Hashtable<String, Object>();
 	};
@@ -57,7 +60,14 @@ public final class JUnitContainer implements Container {
 
 	/** {@inheritDoc} */
 	public Object fetchSharedObject(ModuleContext requester, Object[] fetchParams) {
-		return sharedObjectMap.get(fetchParams[0]);
+		for (int i = 0; i < fetchParams.length; i++) {
+			Object stored = sharedObjectMap.get(fetchParams[i]);
+			if (stored instanceof List) {
+				return ((List<Object>) stored).get(0);
+			} else if (stored != null)
+				return stored;
+		}
+		return null;
 	}
 
 	/** {@inheritDoc} */
@@ -65,7 +75,17 @@ public final class JUnitContainer implements Container {
 		synchronized (listeners) {
 			listeners.add(listener);
 		}
-		return new Object[] { fetchSharedObject(requester, fetchParams) };
+
+		HashSet<Object> result = new HashSet<Object>();
+		for (int i = 0; i < fetchParams.length; i++) {
+			Object stored = sharedObjectMap.get(fetchParams[i]);
+			if (stored instanceof List) {
+				result.addAll((List<Object>) stored);
+			} else if (stored != null)
+				result.add(stored);
+		}
+
+		return result.toArray(new Object[result.size()]);
 	}
 
 	/** {@inheritDoc} */
@@ -110,11 +130,51 @@ public final class JUnitContainer implements Container {
 
 	/** {@inheritDoc} */
 	public void shareObject(ModuleContext requester, Object objToShare, Object[] shareParams) {
-		sharedObjectMap.put((String) shareParams[0], objToShare);
+		int lastXface = shareParams.length - 1;
+		if (shareParams[lastXface] instanceof Dictionary) {
+			lastXface--;
+		}
+		for (int i = 0; i <= lastXface; i++) {
+			if (!sharedObjectMap.containsKey(shareParams[i])) {
+				sharedObjectMap.put((String) shareParams[i], objToShare);
+			} else {
+				//there is already an object => create list
+				Object existing = sharedObjectMap.get(shareParams[i]);
+				ArrayList<Object> list = new ArrayList<Object>();
+				list.add(existing);
+				list.add(objToShare);
+				sharedObjectMap.put((String) shareParams[i], list);
+			}
+		}
+		//notify listeners
+		for (SharedObjectListener sharedObjectListener : listeners) {
+			sharedObjectListener.sharedObjectAdded(objToShare, objToShare);
+		}
 	}
 
 	public void removeSharedObject(ModuleContext requester, Object objToRemove, Object[] shareParams) {
-		sharedObjectMap.remove((String) shareParams[0]);
+		int lastXface = shareParams.length - 1;
+		if (shareParams[lastXface] instanceof Dictionary) {
+			lastXface--;
+		}
+		for (int i = 0; i <= lastXface; i++) {
+			Object stored=sharedObjectMap.get((String) shareParams[i]);
+			if (stored == null) {
+				continue;
+			}
+			if (stored.equals(objToRemove)) {
+				sharedObjectMap.remove((String) shareParams[i]);
+				continue;
+			}
+			if (stored instanceof List) {
+				((List<Object>)stored).remove(objToRemove);
+			}
+		}
+
+		//notify listeners
+		for (SharedObjectListener sharedObjectListener : listeners) {
+			sharedObjectListener.sharedObjectRemoved(objToRemove);
+		}
 	}
 
 	public void removeAllSharedObjects() {

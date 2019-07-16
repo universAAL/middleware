@@ -251,42 +251,33 @@ public final class OSGiContainer implements Container, ServiceListener {
 			return;
 		}
 
-		int n = shareParams.length - 1;
-		if (n == 0)
-			if (shareParams[0] instanceof String)
-				((OSGiModuleContext) requester).shareObject((String) shareParams[0], objToShare, null);
-			else if (shareParams[0] instanceof Dictionary)
-				((OSGiModuleContext) requester).shareObject((String) null, objToShare,
-						(Dictionary<?, ?>) shareParams[0]);
-			else
-				requester.logWarn(this.getClass().getName() + "shareObject",
-						"'shareParams' passed to 'shareObject' do not satisfy the requirements of mw.container.osgi!",
-						null);
-		else {
-			for (int i = 0; i < n; i++)
+		int lastXface = shareParams.length - 1;
+
+		Dictionary<?, ?> dic = null;
+
+		if (shareParams[lastXface] instanceof Dictionary) {
+			// the last parameter is a Dictionary
+			dic = (Dictionary<?, ?>) shareParams[lastXface];
+			//TODO check the keys of the dictionary are strings
+			lastXface--;
+		}
+
+		String[] xfaces = null;
+		if (lastXface >= 0) {
+			xfaces = new String[lastXface+1];
+			for (int i = 0; i < xfaces.length; i++) {
 				if (!(shareParams[i] instanceof String)) {
+					//TODO it should also be an interface!
 					requester.logWarn(this.getClass().getName() + "shareObject",
 							"'shareParams' passed to 'shareObject' do not satisfy the requirements of mw.container.osgi!",
 							null);
 					return;
 				}
-			if (shareParams[n] instanceof String)
-				((OSGiModuleContext) requester).shareObject((String[]) shareParams, objToShare, null);
-			else if (shareParams[n] instanceof Dictionary)
-				if (n == 1)
-					((OSGiModuleContext) requester).shareObject((String) shareParams[0], objToShare,
-							(Dictionary<?, ?>) shareParams[1]);
-				else {
-					String[] xfaces = new String[n];
-					for (int i = 0; i < n; i++)
-						xfaces[i] = (String) shareParams[i];
-					((OSGiModuleContext) requester).shareObject(xfaces, objToShare, (Dictionary<?, ?>) shareParams[n]);
-				}
-			else
-				requester.logWarn(this.getClass().getName() + "shareObject",
-						"'shareParams' passed to 'shareObject' do not satisfy the requirements of mw.container.osgi!",
-						null);
+				xfaces[i] = (String) shareParams[i];
+			}
 		}
+		((OSGiModuleContext) requester).shareObject(xfaces, objToShare, dic);
+
 	}
 
 	public void removeSharedObject(ModuleContext requester, Object objToRemove, Object[] shareParams) {
@@ -298,43 +289,33 @@ public final class OSGiContainer implements Container, ServiceListener {
 			return;
 		}
 
-		int n = shareParams.length - 1;
-		if (n == 0)
-			if (shareParams[0] instanceof String)
-				((OSGiModuleContext) requester).removeSharedObject((String) shareParams[0], objToRemove, null);
-			else if (shareParams[0] instanceof Dictionary)
-				((OSGiModuleContext) requester).removeSharedObject((String) null, objToRemove,
-						(Dictionary<?, ?>) shareParams[0]);
-			else
-				requester.logWarn(this.getClass().getName() + "removeSharedObject",
-						"'shareParams' passed to 'removeSharedObject' do not satisfy the requirements of mw.container.osgi!",
-						null);
-		else {
-			for (int i = 0; i < n; i++)
+		int lastXface = shareParams.length - 1;
+
+		Dictionary<?, ?> dic = null;
+
+		if (shareParams[lastXface] instanceof Dictionary) {
+			// the last parameter is a Dictionary
+			dic = (Dictionary<?, ?>) shareParams[lastXface];
+			//TODO check the keys of the dictionary are strings
+			lastXface--;
+		}
+
+		String[] xfaces = null;
+		if (lastXface >= 0) {
+			xfaces = new String[lastXface+1];
+			for (int i = 0; i < xfaces.length; i++) {
 				if (!(shareParams[i] instanceof String)) {
-					requester.logWarn(this.getClass().getName() + "removeSharedObject",
-							"'shareParams' passed to 'removeSharedObject' do not satisfy the requirements of mw.container.osgi!",
+					//TODO it should also be an interface!
+					requester.logWarn(this.getClass().getName() + "shareObject",
+							"'shareParams' passed to 'shareObject' do not satisfy the requirements of mw.container.osgi!",
 							null);
 					return;
 				}
-			if (shareParams[n] instanceof String)
-				((OSGiModuleContext) requester).removeSharedObject((String[]) shareParams, objToRemove, null);
-			else if (shareParams[n] instanceof Dictionary)
-				if (n == 1)
-					((OSGiModuleContext) requester).removeSharedObject((String) shareParams[0], objToRemove,
-							(Dictionary<?, ?>) shareParams[1]);
-				else {
-					String[] xfaces = new String[n];
-					for (int i = 0; i < n; i++)
-						xfaces[i] = (String) shareParams[i];
-					((OSGiModuleContext) requester).removeSharedObject(xfaces, objToRemove,
-							(Dictionary<?, ?>) shareParams[n]);
-				}
-			else
-				requester.logWarn(this.getClass().getName() + "removeSharedObject",
-						"'shareParams' passed to 'removeSharedObject' do not satisfy the requirements of mw.container.osgi!",
-						null);
+				xfaces[i] = (String) shareParams[i];
+			}
 		}
+		((OSGiModuleContext) requester).removeSharedObject(xfaces, objToRemove,
+				(Dictionary<?, ?>) dic);
 	}
 
 	public void removeSharedObjectListener(SharedObjectListener listener) {
