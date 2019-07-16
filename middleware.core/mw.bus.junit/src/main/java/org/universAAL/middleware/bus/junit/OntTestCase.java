@@ -63,7 +63,6 @@ import org.universAAL.middleware.serialization.MessageContentSerializer;
 public class OntTestCase extends BusTestCase {
 
 	private static final File owlDir = new File("target/ontologies/");
-	private MessageContentSerializer contentSerializer;
 	private String folder = "target";
 
 	private class LogEntry {
@@ -400,14 +399,7 @@ public class OntTestCase extends BusTestCase {
 	 * @return the serializer.
 	 */
 	protected MessageContentSerializer getContentserializer() {
-		if (contentSerializer == null) {
-			contentSerializer = (MessageContentSerializer) mc.getContainer().fetchSharedObject(mc,
-					new Object[] { MessageContentSerializer.class.getName() });
-			if (contentSerializer == null) {
-				System.out.println("ERROR: no serializer found for serializing the ontology");
-			}
-		}
-		return contentSerializer;
+		return mcs.get(serializationTypeDefault);
 	}
 
 	/**
