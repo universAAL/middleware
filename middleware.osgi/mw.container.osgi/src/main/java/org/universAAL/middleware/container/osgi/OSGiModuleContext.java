@@ -68,6 +68,39 @@ public class OSGiModuleContext implements ModuleContext {
 					CONF_ROOT_PROP,
 					System.getProperty(CONF_KARAF_PROP,
 							System.getProperty("user.dir"))), "services");
+	private static Properties attributeMap = new Properties() {{
+
+		put(Attributes.CONTAINER_PLATFORM_VERSION,
+				"java.specification.version");
+		
+		boolean isKaraf = null != System.getProperty("karaf.home");
+		if (isKaraf) {
+			put(Attributes.CONTAINER_VERSION,
+					System.getProperty("karaf.version"));
+		} else {
+			put(Attributes.CONTAINER_VERSION,
+					Constants.FRAMEWORK_VERSION);
+		}
+		
+		put(Attributes.CONTAINER_OS_NAME,
+				Constants.FRAMEWORK_OS_NAME);
+		put(Attributes.CONTAINER_OS_VERSION,
+				Constants.FRAMEWORK_OS_VERSION);
+		put(Attributes.CONTAINER_OS_ARCHITECTURE,
+				Constants.FRAMEWORK_PROCESSOR);
+		put(Attributes.CONTAINER_EE_NAME,
+				Constants.FRAMEWORK_VENDOR);
+		put(OSGiAttributes.OSGI_NAME,
+				Constants.FRAMEWORK_VENDOR);
+		put(Attributes.CONTAINER_EE_VERSION,
+				Constants.FRAMEWORK_VERSION);
+		put(OSGiAttributes.OSGI_VERSION,
+				Constants.FRAMEWORK_VERSION);
+		put(Attributes.CONTAINER_EE_ARCHITECTURE,
+				Constants.FRAMEWORK_PROCESSOR);
+		put(OSGiAttributes.OSGI_ARCHITECTURE,
+				Constants.FRAMEWORK_PROCESSOR);
+	}};
 	private ArrayList confFiles = new ArrayList(2);
 	private Hashtable<String, ServiceRegistration> sharedObjects = new Hashtable<String, ServiceRegistration>();
 
@@ -75,74 +108,21 @@ public class OSGiModuleContext implements ModuleContext {
 		bundle = bc;
 		logger = LoggerFactory.getLogger("org.universAAL."
 				+ bc.getBundle().getSymbolicName());
-		loadUniversAALAttribute();
+		loadPlatformAttributes();
 	}
 
-	private void loadUniversAALAttribute() {
+	private void loadPlatformAttributes() {
 		Properties props = new Properties();
 		try {
 			props.load(this.getClass().getResourceAsStream(
 					"attributes.properties"));
-			setAttribute(Attributes.MIDDLEWARE_VERSION, props.getProperty(
-					Attributes.MIDDLEWARE_VERSION, System.getProperty(
-							Attributes.MIDDLEWARE_VERSION, "2.0.1-SNAPSHOT")));
 		} catch (IOException e) {
 			logger.error("Unable to load default attributes set");
-			setAttribute(Attributes.MIDDLEWARE_VERSION, "2.0.0");
+			setAttribute(Attributes.MIDDLEWARE_VERSION, "2.0.0+");
 		}
-		boolean isKaraf = null != System.getProperty("karaf.home");
-		if (isKaraf) {
-			setAttribute(Attributes.CONTAINER_NAME, "karaf");
-		} else {
-			setAttribute(Attributes.CONTAINER_NAME, "osgi");
-		}
-		if (isKaraf) {
-			setAttribute(Attributes.CONTAINER_VERSION,
-					System.getProperty("karaf.version"));
-		} else {
-			setAttribute(Attributes.CONTAINER_VERSION,
-					bundle.getProperty(Constants.FRAMEWORK_VERSION));
-		}
-
-		loadOSGiAttributes();
-
-		loadOSAttributes();
-
-		loadPlatformAttributes();
-
-	}
-
-	private void loadPlatformAttributes() {
 		setAttribute(Attributes.CONTAINER_PLATFORM_NAME, "java");
-		setAttribute(Attributes.CONTAINER_PLATFORM_VERSION,
-				System.getProperty("java.specification.version"));
 	}
 
-	private void loadOSAttributes() {
-		setAttribute(Attributes.CONTAINER_OS_NAME,
-				bundle.getProperty(Constants.FRAMEWORK_OS_NAME));
-		setAttribute(Attributes.CONTAINER_OS_VERSION,
-				bundle.getProperty(Constants.FRAMEWORK_OS_VERSION));
-		setAttribute(Attributes.CONTAINER_OS_ARCHITECTURE,
-				bundle.getProperty(Constants.FRAMEWORK_PROCESSOR));
-	}
-
-	private void loadOSGiAttributes() {
-		setAttribute(Attributes.CONTAINER_EE_NAME,
-				bundle.getProperty(Constants.FRAMEWORK_VENDOR));
-		setAttribute(OSGiAttributes.OSGI_NAME,
-				bundle.getProperty(Constants.FRAMEWORK_VENDOR));
-
-		setAttribute(Attributes.CONTAINER_EE_VERSION,
-				bundle.getProperty(Constants.FRAMEWORK_VERSION));
-		setAttribute(OSGiAttributes.OSGI_VERSION,
-				bundle.getProperty(Constants.FRAMEWORK_VERSION));
-
-		setAttribute(Attributes.CONTAINER_EE_ARCHITECTURE,
-				bundle.getProperty(Constants.FRAMEWORK_PROCESSOR));
-		setAttribute(OSGiAttributes.OSGI_ARCHITECTURE,
-				bundle.getProperty(Constants.FRAMEWORK_PROCESSOR));
-	}
 
 	/**
 	 * @see org.universAAL.middleware.container.ModuleContext#canBeStarted(org.universAAL.middleware.container.ModuleContext)
@@ -194,7 +174,22 @@ public class OSGiModuleContext implements ModuleContext {
 	 * @see org.universAAL.middleware.container.ModuleContext#getAttribute(java.lang.String)
 	 */
 	public Object getAttribute(String attrName) {
-		return (attrName == null) ? null : extension.get(attrName);
+		if (attrName == null)
+			return null;
+		
+		if (attributeMap.contains(attrName)) {
+			attrName = attributeMap.getProperty(attrName);
+		}
+		boolean isKaraf = null != System.getProperty("karaf.home");
+		if (attrName == Attributes.CONTAINER_NAME )
+			if(null != System.getProperty("karaf.home")) {
+				return "karaf";
+			} else {
+				return "osgi";
+			}
+		
+		
+		return (extension.contains(attrName)) ? extension.get(attrName):bundle.getProperty(attrName);
 	}
 
 	/**
