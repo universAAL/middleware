@@ -187,9 +187,9 @@ public final class OSGiContainer implements Container, ServiceListener {
 			bContext = (BundleContext) regParams[0];
 			// register me as ServiceListener
 			bContext.addServiceListener(THE_CONTAINER);
+			return new OSGiModuleContext(bContext) ;
 		}
-		return (regParams != null && regParams.length > 0 && regParams[0] instanceof BundleContext)
-				? new OSGiModuleContext((BundleContext) regParams[0]) : null;
+		return null;
 	}
 
 	/**
