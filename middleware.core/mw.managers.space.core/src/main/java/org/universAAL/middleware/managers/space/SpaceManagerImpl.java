@@ -228,16 +228,16 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager,
 				peerId = props.getProperty("default");
 			} catch (Exception e) {
 				LogUtils.logInfo(context, SpaceManagerImpl.class, METHOD,
-						new Object[] { "Failed to loead peerId from file: ",
+						new Object[] { "Failed to load peerId from file: ",
 								PEER_ID_FILE, " in folder ",
-								context.getConfigHome().getAbsoluteFile() }, e);
+								context.getConfigHome().getAbsoluteFile() }, null);
 			}
 		}
 		// create PeerCard
 		synchronized (this) {
 			if (peerId == null) {
-				LogUtils.logDebug(context, SpaceManagerImpl.class, METHOD,
-						new Object[] { "Creating the PeerCard..." }, null);
+				LogUtils.logInfo(context, SpaceManagerImpl.class, METHOD,
+						new Object[] { "Creating a new PeerCard..." }, null);
 				myPeerCard = new PeerCard(peerRole, "", "");
 				LogUtils.logInfo(
 						context,
