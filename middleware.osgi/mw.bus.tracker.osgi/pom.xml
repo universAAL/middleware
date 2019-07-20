@@ -61,10 +61,24 @@
             <Export-Package>org.universAAL.middleware.tracker</Export-Package>
             <Private-Package>org.universAAL.middleware.tracker.osgi,
             	org.universAAL.middleware.tracker.impl</Private-Package>
-            <DynamicImport-Package>org.universAAL.middleware.context,
+  <!--        <DynamicImport-Package>org.universAAL.middleware.context,
             org.universAAL.middleware.service,
-            org.universAAL.middleware.ui</DynamicImport-Package>
-            <Import-Package>org.osgi.framework;version="[1,2)",*</Import-Package>
+			org.universAAL.middleware.service.aapi,
+			org.universAAL.middleware.service.owl,
+			org.universAAL.middleware.service.owls.process,
+			org.universAAL.middleware.service.owls.profile,
+            org.universAAL.middleware.ui</DynamicImport-Package> -->
+            <Import-Package>org.osgi.framework;version="[1,2)",
+            org.universAAL.middleware.context,
+            org.universAAL.middleware.context.owl,
+            org.universAAL.middleware.service,
+			org.universAAL.middleware.service.aapi,
+			org.universAAL.middleware.service.owl,
+			org.universAAL.middleware.service.owls.process,
+			org.universAAL.middleware.service.owls.profile,
+            org.universAAL.middleware.ui,
+            org.universAAL.middleware.ui.owl,
+			org.universAAL.middleware.ui.rdf,*</Import-Package>
           </instructions>
         </configuration>
       </plugin>
