@@ -60,7 +60,12 @@ public final class JUnitContainer implements Container {
 
 	/** {@inheritDoc} */
 	public Object fetchSharedObject(ModuleContext requester, Object[] fetchParams) {
-		for (int i = 0; i < fetchParams.length; i++) {
+		int lastXface = fetchParams.length;
+//		if (fetchParams[lastXface] instanceof Filter) {
+//			//TODO manage filter
+//			lastXface--;
+//		}
+		for (int i = 0; i < lastXface; i++) {
 			Object stored = sharedObjectMap.get(fetchParams[i]);
 			if (stored instanceof List) {
 				return ((List<Object>) stored).get(0);
@@ -76,8 +81,14 @@ public final class JUnitContainer implements Container {
 			listeners.add(listener);
 		}
 
+		int lastXface = fetchParams.length;
+//		if (fetchParams[lastXface] instanceof Filter) {
+//			//TODO manage filter
+//			lastXface--;
+//		}
+		
 		HashSet<Object> result = new HashSet<Object>();
-		for (int i = 0; i < fetchParams.length; i++) {
+		for (int i = 0; i < lastXface; i++) {
 			Object stored = sharedObjectMap.get(fetchParams[i]);
 			if (stored instanceof List) {
 				result.addAll((List<Object>) stored);
@@ -146,6 +157,8 @@ public final class JUnitContainer implements Container {
 				sharedObjectMap.put((String) shareParams[i], list);
 			}
 		}
+		//TODO Manage Dictionary
+		
 		//notify listeners
 		for (SharedObjectListener sharedObjectListener : listeners) {
 			sharedObjectListener.sharedObjectAdded(objToShare, objToShare);
