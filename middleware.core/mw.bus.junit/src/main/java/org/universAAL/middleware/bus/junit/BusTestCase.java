@@ -22,6 +22,7 @@ package org.universAAL.middleware.bus.junit;
 import java.io.Serializable;
 import java.util.Dictionary;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -71,10 +72,8 @@ public class BusTestCase extends TestCase {
 	protected static ModuleContext mc;
 	protected static HashMap<String, MessageContentSerializer> mcs = new HashMap<String, MessageContentSerializer>();
 	private static boolean isInitialized = false;
-	public static final String SERIALIZATIONTYPE_TURTLE = "text/turtle";
-	public static final String SERIALIZATIONTYPE_JSONLD = "application/ld+json";
 
-	protected static String serializationTypeDefault = SERIALIZATIONTYPE_TURTLE;
+	protected static String serializationTypeDefault;
 
 	@Override
 	protected void setUp() throws Exception {
@@ -103,17 +102,21 @@ public class BusTestCase extends TestCase {
 		//SharedResources.loadReasoningEngine(); already registers dataRepOntology
 		//OntologyManagement.getInstance().register(mc, new DataRepOntology());
 		TurtleSerializer turtleS = new TurtleSerializer();
-		mc.getContainer().shareObject(mc, turtleS, new Object[] { MessageContentSerializer.class.getName() });
-		mc.getContainer().shareObject(mc, turtleS, new Object[] { MessageContentSerializerEx.class.getName() });
-		mc.getContainer().shareObject(mc, turtleS, new Object[] { MessageContentSerializer.class.getName(), SERIALIZATIONTYPE_TURTLE });
-		mc.getContainer().shareObject(mc, turtleS, new Object[] { MessageContentSerializerEx.class.getName(),SERIALIZATIONTYPE_TURTLE });
-		mcs.put("text/turtle", turtleS);
+        Dictionary< String, Object> dic = new Hashtable<String, Object>();
+        dic.put(MessageContentSerializer.CONTENT_TYPE, turtleS.getContentType());
+		mc.getContainer().shareObject(mc, turtleS, new Object[] { MessageContentSerializer.class.getName(), MessageContentSerializerEx.class.getName(),dic });
+		mcs.put(turtleS.getContentType(), turtleS);
 		TurtleUtil.moduleContext = mc;
+		
+		//make it default
+		serializationTypeDefault = turtleS.getContentType();
 
 		JSONLDSerialization jsonS = new JSONLDSerialization();
-		mc.getContainer().shareObject(mc, jsonS, new Object[] { MessageContentSerializer.class.getName(), SERIALIZATIONTYPE_JSONLD });
-		mc.getContainer().shareObject(mc, jsonS, new Object[] { MessageContentSerializerEx.class.getName(),SERIALIZATIONTYPE_JSONLD });
-		mcs.put("application/ld+json", jsonS);
+        dic = new Hashtable<String, Object>();
+        dic.put(MessageContentSerializer.CONTENT_TYPE, jsonS.getContentType());
+		mc.getContainer().shareObject(mc, jsonS, new Object[] { MessageContentSerializer.class.getName(),  MessageContentSerializerEx.class.getName(), dic});
+		mcs.put(jsonS.getContentType(), jsonS);
+		JSONLDSerialization.owner = mc;
 
 		// init bus model
 		final PeerCard myCard = new PeerCard(PeerRole.COORDINATOR, "", "");

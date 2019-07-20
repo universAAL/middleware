@@ -19,12 +19,16 @@
  */
 package org.universAAL.middleware.serialization.turtle.osgi;
 
+import java.util.Dictionary;
+import java.util.Hashtable;
+
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
 import org.universAAL.middleware.serialization.MessageContentSerializerEx;
 import org.universAAL.middleware.serialization.json.JSONLDSerialization;
+import org.universAAL.middleware.serialization.turtle.TurtleUtil;
 
 /**
  *
@@ -39,17 +43,21 @@ public final class Activator implements BundleActivator {
 	public void start(BundleContext context) throws Exception {
 		JSONLDSerialization.owner = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { context });
 
-		OSGiContainer.THE_CONTAINER.shareObject(JSONLDSerialization.owner, serializer,
-				new Object[] { MessageContentSerializer.class.getName(), "application/ld+json"});
 
-		OSGiContainer.THE_CONTAINER.shareObject(JSONLDSerialization.owner, serializer,
-				new Object[] { MessageContentSerializerEx.class.getName(), "application/ld+json" });
+        Dictionary< String, Object> dic = new Hashtable<String, Object>();
+        
+        dic.put(MessageContentSerializer.CONTENT_TYPE, serializer.getContentType());
+       
+        OSGiContainer.THE_CONTAINER.shareObject(JSONLDSerialization.moduleContext, serializer,
+                new Object[] {MessageContentSerializer.class.getName(), MessageContentSerializerEx.class.getName(),  dic});
 	}
 
 	public void stop(BundleContext arg0) throws Exception {
-		OSGiContainer.THE_CONTAINER.removeSharedObject(JSONLDSerialization.owner, serializer,
-				new Object[] { MessageContentSerializer.class.getName(), "application/ld+json"});
-		OSGiContainer.THE_CONTAINER.removeSharedObject(JSONLDSerialization.owner, serializer,
-				new Object[] { MessageContentSerializerEx.class.getName(), "application/ld+json" });
+
+		 Dictionary< String, Object> dic = new Hashtable<String, Object>();
+	        
+	        dic.put(MessageContentSerializer.CONTENT_TYPE, serializer.getContentType());
+		OSGiContainer.THE_CONTAINER.removeSharedObject(JSONLDSerialization.moduleContext, serializer,
+               new Object[] {MessageContentSerializer.class.getName(), MessageContentSerializerEx.class.getName(),  dic});
 	}
 }

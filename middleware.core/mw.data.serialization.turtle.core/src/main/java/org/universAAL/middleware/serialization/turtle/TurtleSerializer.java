@@ -24,6 +24,8 @@ import org.universAAL.middleware.serialization.MessageContentSerializerEx;
 
 public class TurtleSerializer implements MessageContentSerializerEx {
 
+	private static String MIME_TURTLE = "text/turtle";
+	
 	public TurtleSerializer() {
 	}
 
@@ -49,5 +51,9 @@ public class TurtleSerializer implements MessageContentSerializerEx {
 	/** @see org.universAAL.middleware.serialization.MessageContentSerializer#serialize(Object) */
 	public String serialize(Object messageContent) {
 		return TurtleWriter.serialize(messageContent, 0);
+	}
+
+	public String getContentType() {
+		return MIME_TURTLE;
 	}
 }

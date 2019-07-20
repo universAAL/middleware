@@ -19,6 +19,9 @@
  */
 package org.universAAL.middleware.serialization.turtle.osgi;
 
+import java.util.Dictionary;
+import java.util.Hashtable;
+
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.universAAL.middleware.container.osgi.OSGiContainer;
@@ -38,32 +41,22 @@ public final class Activator implements BundleActivator {
 	private TurtleSerializer serializer = new TurtleSerializer();
 
 	public void start(BundleContext context) throws Exception {
+		
 		TurtleUtil.moduleContext = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { context });
-
-		OSGiContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext, serializer,
-				new Object[] { MessageContentSerializer.class.getName() });
-
-		OSGiContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext, serializer,
-				new Object[] { MessageContentSerializerEx.class.getName() });
-
-		OSGiContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext, serializer,
-				new Object[] { MessageContentSerializer.class.getName(), "text/turtle" });
-
-		OSGiContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext, serializer,
-				new Object[] { MessageContentSerializerEx.class.getName(), "text/turtle" });
+		
+        Dictionary< String, Object> dic = new Hashtable<String, Object>();
+        
+        dic.put(MessageContentSerializer.CONTENT_TYPE, serializer.getContentType());
+       
+        OSGiContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext, serializer,
+                new Object[] {MessageContentSerializer.class.getName(), MessageContentSerializerEx.class.getName(),  dic});
 	}
 
 	public void stop(BundleContext arg0) throws Exception {
+		 Dictionary< String, Object> dic = new Hashtable<String, Object>();
+	        
+	        dic.put(MessageContentSerializer.CONTENT_TYPE, serializer.getContentType());
 		OSGiContainer.THE_CONTAINER.removeSharedObject(TurtleUtil.moduleContext, serializer,
-				new Object[] { MessageContentSerializer.class.getName() });
-
-		OSGiContainer.THE_CONTAINER.removeSharedObject(TurtleUtil.moduleContext, serializer,
-				new Object[] { MessageContentSerializerEx.class.getName() });
-
-		OSGiContainer.THE_CONTAINER.removeSharedObject(TurtleUtil.moduleContext, serializer,
-				new Object[] { MessageContentSerializer.class.getName(), "text/turtle" });
-
-		OSGiContainer.THE_CONTAINER.removeSharedObject(TurtleUtil.moduleContext, serializer,
-				new Object[] { MessageContentSerializerEx.class.getName(), "text/turtle" });
+                new Object[] {MessageContentSerializer.class.getName(), MessageContentSerializerEx.class.getName(),  dic});
 	}
 }

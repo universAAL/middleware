@@ -36,6 +36,7 @@ public class JSONLDSerialization implements MessageContentSerializerEx {
 
 	static public ModuleContext owner;
 
+	static private String MIME_TYPE = "application/ld+json";
 
 	/* (non-Javadoc)
 	 * @see org.universAAL.middleware.serialization.MessageContentSerializer#deserialize(java.lang.String)
@@ -77,5 +78,9 @@ public class JSONLDSerialization implements MessageContentSerializerEx {
 		res_gen.generateResources();//walk over expanded json and generate Resources from the graph
 		Resource r =res_gen.getSpecificResource(resourceURI);
 		return r;
+	}
+
+	public String getContentType() {
+		return MIME_TYPE;
 	}
 }
