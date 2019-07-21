@@ -33,6 +33,7 @@
     <module>../mw.managers.tenant.osgi</module>
     <module>../mw.managers.deploy.osgi</module>
     <module>../mw.data.serialization.turtle.osgi</module>
+    <module>../mw.data.serialization.json-ld.osgi</module>
     <module>../mw.managers.configuration.osgi</module>
     <module>../mw.connectors.deploy.karaf.osgi</module>
     <module>../mw.karaf.shell.universAAL.osgi</module>

@@ -17,7 +17,7 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universAAL.middleware.serialization.turtle.osgi;
+package org.universAAL.middleware.serialization.json.osgi;
 
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -28,7 +28,6 @@ import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
 import org.universAAL.middleware.serialization.MessageContentSerializerEx;
 import org.universAAL.middleware.serialization.json.JSONLDSerialization;
-import org.universAAL.middleware.serialization.turtle.TurtleUtil;
 
 /**
  *
@@ -48,7 +47,7 @@ public final class Activator implements BundleActivator {
         
         dic.put(MessageContentSerializer.CONTENT_TYPE, serializer.getContentType());
        
-        OSGiContainer.THE_CONTAINER.shareObject(JSONLDSerialization.moduleContext, serializer,
+        OSGiContainer.THE_CONTAINER.shareObject(JSONLDSerialization.owner, serializer,
                 new Object[] {MessageContentSerializer.class.getName(), MessageContentSerializerEx.class.getName(),  dic});
 	}
 
@@ -57,7 +56,7 @@ public final class Activator implements BundleActivator {
 		 Dictionary< String, Object> dic = new Hashtable<String, Object>();
 	        
 	        dic.put(MessageContentSerializer.CONTENT_TYPE, serializer.getContentType());
-		OSGiContainer.THE_CONTAINER.removeSharedObject(JSONLDSerialization.moduleContext, serializer,
+		OSGiContainer.THE_CONTAINER.removeSharedObject(JSONLDSerialization.owner, serializer,
                new Object[] {MessageContentSerializer.class.getName(), MessageContentSerializerEx.class.getName(),  dic});
 	}
 }
