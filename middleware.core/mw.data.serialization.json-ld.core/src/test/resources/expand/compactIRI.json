@@ -1,6 +1,6 @@
 {
   "@context": {
-    "gr": "http://purl.org/goodrelations/v1#",
+    "gr": "http://purl.org/goodrelations/v1/",
     "gr:hasBusinessFunction": {
       "@type": "@id"
     }

@@ -16,32 +16,13 @@
  ******************************************************************************/
 package org.universAAL.middleware.serialization.json.grammar;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
-
-import javax.swing.SortingFocusTraversalPolicy;
-
 import java.util.Scanner;
 
-import org.universAAL.middleware.container.utils.LogUtils;
-import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.serialization.json.JSONLDSerialization;
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
 
-//import com.fasterxml.jackson.core.JsonGenerationException;
-//import com.github.jsonldjava.core.JsonLdError;
-//import com.github.jsonldjava.core.JsonLdOptions;
-//import com.github.jsonldjava.core.JsonLdProcessor;
-//import com.github.jsonldjava.utils.JsonUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -61,13 +42,9 @@ public class JSONLDDocument implements JSONLDValidator {
 	private ArrayList<ContextDefinition> contexts = new ArrayList<ContextDefinition>(2) ; 
 	private ContextDefinition mainContext=null;
 	private JsonElement mainJSON = null;
-
-
-	private List<Resource> resourcesList=null; 
-	private Resource subject=null,predicate=null,object=null;
 	private String mainJsonString;
 	private JsonParser jp = null;
-	private Hashtable resources = new Hashtable();
+	
 
 	/**	
 	 * 
@@ -77,7 +54,7 @@ public class JSONLDDocument implements JSONLDValidator {
 	 */
 	public JSONLDDocument(InputStream jsonToBeProcessed) throws JsonParseException, JsonSyntaxException,ClassCastException,NullPointerException,JsonSyntaxException{
 		//maybe its necesary to use jsonld library to expand the json to process it 
-		this.resourcesList = new ArrayList<Resource>();
+
 		
 		String jsonString = "";
 		Scanner s = new Scanner(jsonToBeProcessed);
@@ -105,6 +82,7 @@ public class JSONLDDocument implements JSONLDValidator {
 	 */
 
 	public boolean validate() {
+		NodeObject nodeObject=null;
 		//datamodel especification	https://www.w3.org/TR/2014/REC-json-ld-20140116/#data-model
 		/*
 		A JSON-LD document serializes a generalized RDF Dataset [RDF11-CONCEPTS], 
@@ -112,92 +90,61 @@ public class JSONLDDocument implements JSONLDValidator {
 		A JSON-LD document MUST be a single node object or an array whose elements are each node objects at the top level.
 		*/
 		//add the default graph as resource 
-		
-		if(this.mainJSON.isJsonArray()){
-			System.out.println("validating json array..."+this.mainJSON);
-			for (Entry<String, JsonElement> namedGraph: this.mainJSON .getAsJsonArray().iterator().next().getAsJsonObject().entrySet()) {
-				//each entry element represents a named graph
-				System.err.println("graph name----->"+namedGraph.getKey());
-				if(namedGraph.getValue().isJsonArray()) {
-					this.processGraph(namedGraph.getValue().getAsJsonArray());
-				}else {
-					System.out.println("not array");
-				}
-
-			}
-						
-				}
-		
-		if(this.mainJSON.isJsonObject()) {
-			//TODO check multiple contexts
+		if(this.mainJSON instanceof JsonObject) {
 			if(this.mainJSON.getAsJsonObject().has(JsonLdKeyword.CONTEXT.toString())) {
-				
-				System.out.println("...validating context...");
-				this.mainContext = new ContextDefinition(this.mainJSON.getAsJsonObject().get(JsonLdKeyword.CONTEXT.toString()));
+				this.mainContext = new ContextDefinition(this.mainJSON.getAsJsonObject().remove(JsonLdKeyword.CONTEXT.toString()));
 				if(!this.mainContext.validate())
 					return false;
-			}else {
-				//validate the rest of jsonLD...maybe is expanded and we need to check it with actual context
-			}
-		}
+				for (Entry<String, JsonElement> element : this.mainJSON.getAsJsonObject().entrySet()) {
+					
+					if(element.getKey().equals(JsonLdKeyword.CONTEXT.toString())) {
+						//merge contexts
+					}
+					
+					if(element.getKey().startsWith("@")) {
+						if(!JsonLdKeyword.isKeyword(element.getKey())) 
+							return false;
+					}else{
+						if(element.getKey().isEmpty())
+							return false;
+					}
+					
+					if(element.getValue() instanceof JsonObject) {
+						nodeObject = new NodeObject(this.mainContext, element.getValue());
+						if(!nodeObject.validate()) return false;
+					}
 
-//		else if(this.mainJSON .isJsonObject()) {
-//			//TODO interpret this case
-//		}else if(this.mainJSON .isJsonPrimitive()) {
-//			//TODO interpret this case			
-//		} else
-//			//TODO check documentation
-//			return false;
+				}
+			}else {
+				//not JsonLD or JsonLD expanded
+			}
+		}else 
+			return false;
 
 		return true;
-}
+	}
+	
+	
 	/**
-	 * after get the resource, the method check if the Json is valid 
-	 * @param resourceURI
+	 * Return {@link JsonElement} main Json 
+	 * 
 	 */
-	public Resource getResource(String resourceURI){
-		return (Resource) resources.get(resourceURI);
-	}
-	
-	public Enumeration<Resource> getAllResources() {
-		return this.resources.elements();
-	}
-	
-	private void processGraph(JsonArray graph) {
-		Resource resource=null;
-		System.out.println("\n processing graph..."+graph.toString());
-		
-		for(int z =0; z<graph.size();z++) {
-			if(graph.get(z).isJsonArray()) {
-				processGraph(graph.get(z).getAsJsonArray());
-			}
-			if(graph.get(z).isJsonObject()) {
-				processCollection(graph.get(z).getAsJsonObject());
-			}
-		}
-		
-	}
-	
-	private void processCollection(JsonObject list) {
-		Resource r;
-		System.out.println("processing collection..."+list);
-		for (Entry<String, JsonElement> item : list.entrySet()) {
-			if(item.getValue().isJsonArray()) {
-				this.processGraph(item.getValue().getAsJsonArray());
-			}else {
-				System.err.println("build resource heare using resprop="+item.getKey()+" and resobj="+item.getValue());
-				r= new Resource();
-				this.resources.put(r.getURI(), r);
-				r.setProperty(item.getKey(), item.getValue());
-			}
-		}
-	}
-	
-
 	public JsonElement getMainJSON() {
 		return mainJSON;
 	}
 
+	/**
+	 * Return {@link String} main Json 
+	 * 
+	 */
+	public String getFullJsonAsString() {
+		return this.mainJsonString;
+	}
+	
+	/**
+	 * Return a Java representation of JsonLD Context into given Json
+	 * @return {@link ContextDefinition} 
+	 */
 	public ContextDefinition getActiveContext() {
 		return this.mainContext;
 	}

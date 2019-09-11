@@ -25,9 +25,6 @@ import org.universAAL.middleware.serialization.json.algorithms.ExpandJSONLD;
 import org.universAAL.middleware.serialization.json.grammar.JSONLDDocument;
 import org.universAAL.middleware.serialization.json.resourcesGeneartor.UAALResourcesGenerator;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
 /**
  * @author amedrano
  *
@@ -36,20 +33,36 @@ public class JSONLDSerialization implements MessageContentSerializerEx {
 
 	static public ModuleContext owner;
 
-	static private String MIME_TYPE = "application/ld+json";
+	static private String MIME_TYPE = "application/json";
 
+	
+	public Object deserialize(InputStream serialized) {
+		JSONLDDocument jd = new JSONLDDocument(serialized);
+		System.out.println("deserializing "+jd.getFullJsonAsString());
+		
+		if(!jd.validate()) {
+			//ExpandJSONLD expand = new ExpandJSONLD(serialized);
+			ExpandJSONLD expand = new ExpandJSONLD(jd.getFullJsonAsString());//TODO check why with inputstream not work
+			expand.expand();
+			UAALResourcesGenerator resFactory = new UAALResourcesGenerator(expand.getExpandedJson());
+			resFactory.generateResources();
+			return resFactory.getAllResources();
+			//return expand.getExpandedJson();
+		}else
+			return null;
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.universAAL.middleware.serialization.MessageContentSerializer#deserialize(java.lang.String)
 	 */
 	public Object deserialize(String serialized) {
 		InputStream is = new ByteArrayInputStream(serialized.getBytes());
-		JSONLDDocument jd = new JSONLDDocument(is);
-		jd.validate();
-		JsonElement jse =jd.getMainJSON();
-		ExpandJSONLD expand = new ExpandJSONLD(jse);
-		expand.expand();
-		return expand.getExpandedJson();
+		return this.deserialize(is);
+				
 	}
+	
+
+
 
 	/* (non-Javadoc)
 	 * @see org.universAAL.middleware.serialization.MessageContentSerializer#serialize(java.lang.Object)
@@ -68,16 +81,17 @@ public class JSONLDSerialization implements MessageContentSerializerEx {
 	 * @see org.universAAL.middleware.serialization.MessageContentSerializerEx#deserialize(java.lang.String, java.lang.String)
 	 */
 	public Object deserialize(String serialized, String resourceURI) {
+		System.out.println("deserializing");
 		InputStream is = new ByteArrayInputStream(serialized.getBytes());
 		JSONLDDocument jd = new JSONLDDocument(is);
-		jd.validate();//validating if the jsonLD is well formed
-		JsonElement jse =jd.getMainJSON();
-		ExpandJSONLD expand = new ExpandJSONLD(jse);
+		//jd.validate();//validating if the jsonLD is well formed
+		//JsonElement jse =;
+		//ExpandLD expand = new ExpandLD(jd.getMainJSON());
+		ExpandJSONLD expand = new ExpandJSONLD(is);
 		expand.expand();//merge context with the rest of the json.
 		UAALResourcesGenerator res_gen = new UAALResourcesGenerator(expand.getExpandedJson());
 		res_gen.generateResources();//walk over expanded json and generate Resources from the graph
-		Resource r =res_gen.getSpecificResource(resourceURI);
-		return r;
+		return new Resource();
 	}
 
 	public String getContentType() {

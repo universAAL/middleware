@@ -77,7 +77,8 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 	}
 
 /**
- * method to validate the JsonElement given in {@link ContextDefinition} constructor
+ * method to validate the JsonElement given in {@link ContextDefinition} constructor.
+ * Return <code>true</code> if the context is valid, otherwise return <code>false</code>
  */
 	public boolean validate() {
 		

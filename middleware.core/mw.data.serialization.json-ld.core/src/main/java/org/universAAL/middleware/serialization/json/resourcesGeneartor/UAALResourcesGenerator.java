@@ -1,9 +1,23 @@
+/*******************************************************************************
+ * Copyright 2018 Universidad Politécnica de Madrid UPM
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
 package org.universAAL.middleware.serialization.json.resourcesGeneartor;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map.Entry;
 import java.util.Scanner;
 
@@ -15,16 +29,27 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
+
+/**
+ * Class to generate universAAl {@link Resource}s from given Json. 
+ * After any process, the given Json need to be expanded from JsonLD to Json using expansion agorithms.
+ * see {@link ExpandJSONLD}   
+ * @author Eduardo Buhid
+ *
+ */
 
 public class UAALResourcesGenerator {
-	private JsonObject mainjJson;
+	private JsonArray mainjJson;
 	private JsonArray expandedJson;
 	private JsonParser parser = new JsonParser();
 	private HashMap<String , Resource> generatedResources = new HashMap<String, Resource>();
+	private Resource mainResource=null;
 	/**
 	 * get {@link InputStream} or {@link JsonObject} or {@link String} input json to extract {@link Resource} objects
 	 * @param jsonToExpand
 	 */
+	
 	public UAALResourcesGenerator(Object jsonToExpand) {
 		
 		if(jsonToExpand instanceof InputStream) {
@@ -33,119 +58,56 @@ public class UAALResourcesGenerator {
 			s.useDelimiter("\\A");
 			jsonString = s.hasNext() ? s.next() : "";
 			s.close();
-			this.mainjJson = parser.parse(jsonString).getAsJsonObject();
+			this.mainjJson = parser.parse(jsonString).getAsJsonArray();
 		}
 		
-		if(jsonToExpand instanceof JsonObject) {
-			this.mainjJson = (JsonObject) jsonToExpand;
-		}
+		
 		
 		if(jsonToExpand instanceof JsonArray) {
-			
+			this.mainjJson = (JsonArray)jsonToExpand;
 		}
 		
-		if(jsonToExpand instanceof String) {
-			this.mainjJson = parser.parse((String)jsonToExpand).getAsJsonObject();
-		}
+		
 	}
 	
+	
+	/**
+	 * method to generate {@link Resource} from loaded expanded JsonLD
+	 */
 	public void generateResources() {
-		this.expandedJson=this.expandJson(mainjJson);
-		for (Entry<String, JsonElement> element : expandedJson.iterator().next().getAsJsonObject().entrySet()) {
-			Resource r =this.walkGraph(element);
+		//this.expandedJson=this.expandJson(mainjJson);
+		for (JsonElement element : mainjJson) {
+			this.mainResource =this.genResource(element);
 			
 		}
 		
 	}
 	
-	private Resource walkGraph(Entry<String, JsonElement> toAnalyze) {
-		ArrayList<String> resourceTypesArray = new ArrayList<String>();	
-		String resourceID="";
+	private Resource genResource(JsonElement candidate) {	
+		String resourceID=null;
+		ArrayList<String> resourceTypes=new ArrayList<String>();
+		Resource r=null;
 		
-		if(toAnalyze.getValue().isJsonArray()) {
-			JsonArray jsa = new JsonArray();
-			for (JsonElement item : jsa) {
-				//if this array has more than 1 element, it is a resource list
-				//view 	public static final Resource asRDFList(List members, boolean isXMLLiteral) {} Resource class
-
-				walkGraph(item.getAsJsonObject().entrySet().iterator().next());
-			}
-		}
-		if(toAnalyze.getValue().isJsonObject()) {
-			resourceID = toAnalyze.getKey();
-			JsonObject aux =toAnalyze.getValue().getAsJsonObject();
-			Resource res = new Resource();
-			
-			//"@type": "http://www.w3.org/2001/XMLSchema#dateTime",
-			//"@value": "2011-04-09T20:00:00Z"
-			
-		}
-		
-		
-		String resource_id=null;
-		if(toAnalyze.getValue().isJsonObject()) {
-			JsonElement resource_uri;
-			Resource local_res;
-			JsonObject aux =toAnalyze.getValue().getAsJsonObject();
-			
-			for (Entry<String, JsonElement> iterable_element : toAnalyze.getValue().getAsJsonObject().entrySet()) {
-				if(iterable_element.getValue().isJsonObject()) {
-					local_res=this.walkGraph(iterable_element);
-				}else {
-
-					if(iterable_element.getValue().isJsonPrimitive()) {
-						String primitive = iterable_element.getKey();
-						
-						if(primitive.equals(JsonLdKeyword.ID.toString())) {
-							local_res = new Resource(iterable_element.getValue().getAsJsonPrimitive().getAsString());
-						}
-						
-						if(primitive.equals(JsonLdKeyword.VALUE.toString())) {
-
-						}
-						
-						if(primitive.equals(JsonLdKeyword.TYPE.toString())) {
-
-						}
-
-					}
-					
-				}
+		for (Entry<String, JsonElement> item : candidate.getAsJsonObject().entrySet()) {
+			if(item.getKey().equals(JsonLdKeyword.ID.toString()) && item.getValue() instanceof JsonPrimitive){
+				//resource ID given
+				resourceID = item.getValue().getAsJsonPrimitive().getAsString();
+				r = new Resource(resourceID);
 			}
 			
-		}
-		
-		if(toAnalyze.getValue().isJsonArray()) {
-			//list detected
-			
-			if(toAnalyze.getKey().equals(JsonLdKeyword.TYPE.toString())) {
-				//add list to local Resource
-				for (JsonElement element : toAnalyze.getValue().getAsJsonArray()) {
-					resourceTypesArray.add(element.getAsJsonPrimitive().getAsString());
-				}
-			}else {
-				
-				for (JsonElement element : toAnalyze.getValue().getAsJsonArray()) {
-					for (Entry<String, JsonElement> item : element.getAsJsonObject().entrySet()) {
-						Resource list_resource =this.walkGraph(item);
-						
+			if(item.getKey().equals(JsonLdKeyword.TYPE.toString()) && item.getValue() instanceof JsonArray){
+				//resource TYPE/S given
+				for (JsonElement element : item.getValue().getAsJsonArray()) {
+					if(element instanceof JsonPrimitive) {
+						resourceTypes.add(element.getAsJsonPrimitive().getAsString());
+						r.addType(element.getAsJsonPrimitive().getAsString(), false);
 					}
-					
 				}
 				
 			}
-			
-		}
-		
-		if(toAnalyze.getValue().isJsonPrimitive()) {
 
-			if(toAnalyze.getKey().equals(JsonLdKeyword.ID.toString())) {
-				//element ID detected
-				resource_id = toAnalyze.getValue().getAsJsonPrimitive().getAsString();
-			}
-		
 		}
-	return null;	
+	return r;	
 	}
 
 	private JsonArray expandJson(JsonObject toExpand) {
@@ -154,8 +116,14 @@ public class UAALResourcesGenerator {
 		return jsonExpansor.getExpandedJson();
 	}
 
-	public Resource getSpecificResource (String resourceURI) {
-		return null;
+	public Resource getSpecificResource (String resourceClass,String resourceURI) {
+		if(this.mainResource ==null) {
+			this.generateResources();
+		}
+		return this.mainResource.getResource(resourceClass, resourceURI);
 		
+	}
+	public Resource getAllResources() {
+		return this.mainResource;
 	}
 }

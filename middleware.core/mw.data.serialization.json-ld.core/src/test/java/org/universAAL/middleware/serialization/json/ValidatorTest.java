@@ -27,22 +27,7 @@ import com.google.gson.stream.MalformedJsonException;
 
 public class ValidatorTest {
 
-	@Test
-	public void CompleteValidationTest() throws IOException {
-		InputStream is = this.getClass().getClassLoader().getResource("example.json").openStream();
-		JSONLDDocument doc = new JSONLDDocument(is);
-		is.close();
-		doc.validate();
-		//System.out.println(doc.getResource("http://rdf.data-vocabulary.org/#ingredients"));
-		Enumeration<Resource> t = doc.getAllResources();
-		
-		while(t.hasMoreElements()) {
-			Resource k =t.nextElement();
-			System.out.println(k.getURI());
-		}
-		
-		//assertNotNull(doc.getResource("http://rdf.data-vocabulary.org/#ingredients"));
-	}
+
 	
 	/**
 	 * to test if the json has not a correct structure (missing close bracket)
