@@ -123,7 +123,7 @@ public class UAALResourcesGenerator {
 		return this.mainResource.getResource(resourceClass, resourceURI);
 		
 	}
-	public Resource getAllResources() {
+	public Resource getMainResource() {
 		return this.mainResource;
 	}
 }
