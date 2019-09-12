@@ -28,6 +28,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSyntaxException;
 
 
@@ -115,16 +116,49 @@ public class JSONLDDocument implements JSONLDValidator {
 					}
 
 				}
-			}else {
-				//not JsonLD or JsonLD expanded
+			}else
+				return false;
+		}else {
+			//Json array of expanded JsonLD
+			for (JsonElement item: this.mainJSON.getAsJsonArray()) {
+				if(item instanceof JsonPrimitive) {
+					
+				}
+				
+				if(item instanceof JsonObject) {
+					for (Entry<String, JsonElement> element : item.getAsJsonObject().entrySet()) {
+						if(!analyze(element))
+							return false;
+					}
+				}
+				
+				if(item instanceof JsonArray) {
+					
+				}
 			}
-		}else 
-			return false;
-
+		} 
 		return true;
 	}
 	
-	
+	private boolean analyze(Entry<String, JsonElement> candidate) {
+		if(candidate.getKey().equals(JsonLdKeyword.CONTEXT.toString())) {
+			//merge contexts
+		}
+		
+		if(candidate.getKey().startsWith("@")) {
+			if(!JsonLdKeyword.isKeyword(candidate.getKey())) 
+				return false;
+		}else{
+			if(candidate.getKey().isEmpty())
+				return false;
+		}
+		
+		if(candidate.getValue() instanceof JsonObject) {
+			NodeObject nodeObject = new NodeObject(this.mainContext, candidate.getValue());
+			if(!nodeObject.validate()) return false;
+		}
+		return true;
+	}
 	/**
 	 * Return {@link JsonElement} main Json 
 	 * 
