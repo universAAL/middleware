@@ -91,7 +91,7 @@ public class JSONLDSerialization implements MessageContentSerializerEx {
 		expand.expand();//merge context with the rest of the json.
 		UAALResourcesGenerator res_gen = new UAALResourcesGenerator(expand.getExpandedJson());
 		res_gen.generateResources();//walk over expanded json and generate Resources from the graph
-		return new Resource();
+		return res_gen.getAllResources();
 	}
 
 	public String getContentType() {
