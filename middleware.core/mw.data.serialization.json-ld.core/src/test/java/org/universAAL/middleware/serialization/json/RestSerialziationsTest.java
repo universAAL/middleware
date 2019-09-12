@@ -21,6 +21,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.InputStream;
 
 import org.junit.Test;
+import org.universAAL.middleware.rdf.Resource;
 
 import com.google.gson.JsonArray;
 /**
@@ -37,7 +38,7 @@ public class RestSerialziationsTest {
 //			JSONLDDocument doc = new JSONLDDocument(json);
 			JSONLDSerialization ser = new JSONLDSerialization();
 			Object serialized = ser.deserialize(json);
-			System.out.println((JsonArray)serialized);
+			System.out.println((Resource)serialized);
 			assertNotNull(serialized);
 		} catch (Exception e) {
 			e.printStackTrace();
