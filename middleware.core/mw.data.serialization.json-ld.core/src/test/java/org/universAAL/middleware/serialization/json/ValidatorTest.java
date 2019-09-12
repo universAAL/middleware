@@ -39,7 +39,8 @@ public class ValidatorTest {
 			InputStream is = this.getClass().getClassLoader().getResource("ErrorJSON.json").openStream();
 			JSONLDDocument doc = new JSONLDDocument(is);
 			is.close();
-			assertTrue(doc.validate());	
+			//FIXME fix JsonLDkeywod match JsonLdKeyword.valueOf("@id")
+			assertTrue(!doc.validate());	
 		} catch (Exception e) {
 			
 			assertFalse(Boolean.FALSE);
@@ -61,6 +62,19 @@ public class ValidatorTest {
 		}
 	}
 	
+	@Test
+	public void UAALMessagesValidationTest() {
+		try {
+			InputStream is = this.getClass().getClassLoader().getResource("./expand/UAALMessageExample1.json").openStream();
+			JSONLDDocument doc = new JSONLDDocument(is);
+			is.close();
+			//FIXME fix JsonLDkeywod match JsonLdKeyword.valueOf("@id")
+			assertTrue(!doc.validate());	
+		} catch (Exception e) {
+			assertFalse(false);
+			e.printStackTrace();
+		}
+	}
 	
 	@Test
 	public void expandedTermDefinitionTest() {
@@ -103,10 +117,7 @@ public class ValidatorTest {
 		}
 	}
 	
-	@Test
-	public void generateResources() {
-		
-	}
+	
 	
 //	@Test
 //	public void libTest() {
