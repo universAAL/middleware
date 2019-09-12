@@ -39,14 +39,14 @@ public class JSONLDSerialization implements MessageContentSerializerEx {
 	public Object deserialize(InputStream serialized) {
 		JSONLDDocument jd = new JSONLDDocument(serialized);
 		System.out.println("deserializing "+jd.getFullJsonAsString());
-		
 		if(!jd.validate()) {
 			//ExpandJSONLD expand = new ExpandJSONLD(serialized);
 			ExpandJSONLD expand = new ExpandJSONLD(jd.getFullJsonAsString());//TODO check why with inputstream not work
 			expand.expand();
 			UAALResourcesGenerator resFactory = new UAALResourcesGenerator(expand.getExpandedJson());
 			resFactory.generateResources();
-			return resFactory.getAllResources();
+			Resource r = resFactory.getMainResource();
+			return r;
 			//return expand.getExpandedJson();
 		}else
 			return null;
@@ -91,7 +91,7 @@ public class JSONLDSerialization implements MessageContentSerializerEx {
 		expand.expand();//merge context with the rest of the json.
 		UAALResourcesGenerator res_gen = new UAALResourcesGenerator(expand.getExpandedJson());
 		res_gen.generateResources();//walk over expanded json and generate Resources from the graph
-		return res_gen.getAllResources();
+		return res_gen.getMainResource();
 	}
 
 	public String getContentType() {
