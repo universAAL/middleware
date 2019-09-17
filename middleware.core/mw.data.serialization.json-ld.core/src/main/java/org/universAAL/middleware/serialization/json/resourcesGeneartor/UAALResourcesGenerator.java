@@ -18,6 +18,7 @@ package org.universAAL.middleware.serialization.json.resourcesGeneartor;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Scanner;
 
@@ -85,26 +86,24 @@ public class UAALResourcesGenerator {
 	
 	private Resource genResource(JsonElement candidate) {	
 		String resourceID=null;
-		ArrayList<String> resourceTypes=new ArrayList<String>();
+		System.out.println("candidate "+candidate);
+		//ArrayList<String> resourceTypes=new ArrayList<String>();
 		Resource r=null;
-		
 		for (Entry<String, JsonElement> item : candidate.getAsJsonObject().entrySet()) {
 			if(item.getKey().equals(JsonLdKeyword.ID.toString()) && item.getValue() instanceof JsonPrimitive){
 				//resource ID given
 				resourceID = item.getValue().getAsJsonPrimitive().getAsString();
 				r = new Resource(resourceID);
+			}else {
+				Iterator<JsonElement> i = item.getValue().getAsJsonArray().iterator();
+				
+				while (i.hasNext()) {
+					JsonElement t = i.next();
+					boolean v = i.hasNext();
+					r.addType(t.getAsJsonPrimitive().getAsString(), !v);
+				}	
 			}
 			
-			if(item.getKey().equals(JsonLdKeyword.TYPE.toString()) && item.getValue() instanceof JsonArray){
-				//resource TYPE/S given
-				for (JsonElement element : item.getValue().getAsJsonArray()) {
-					if(element instanceof JsonPrimitive) {
-						resourceTypes.add(element.getAsJsonPrimitive().getAsString());
-						r.addType(element.getAsJsonPrimitive().getAsString(), false);
-					}
-				}
-				
-			}
 
 		}
 	return r;	
