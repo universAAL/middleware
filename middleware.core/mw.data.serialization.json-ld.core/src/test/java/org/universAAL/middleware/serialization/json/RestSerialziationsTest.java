@@ -19,11 +19,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.InputStream;
+import java.util.Enumeration;
 
 import org.junit.Test;
 import org.universAAL.middleware.rdf.Resource;
-
-import com.google.gson.JsonArray;
+import org.universAAL.middleware.service.owls.profile.ServiceProfile;
+import org.universAAL.middleware.util.Specializer;
 /**
  * 
  * @author Eduardo Buhid
@@ -33,17 +34,31 @@ public class RestSerialziationsTest {
 	
 	@Test
 	public void SerializationWorkFlowTest() {
+		String resourcePath="./expand/UAALMessageExample1.json";
+		//String resourcePath="./expand/simple.json";
 		try {
-			InputStream json =  this.getClass().getClassLoader().getResource("./expand/UAALMessageExample1.json").openStream();
-//			JSONLDDocument doc = new JSONLDDocument(json);
+			InputStream json =  this.getClass().getClassLoader().getResource(resourcePath).openStream();
 			JSONLDSerialization ser = new JSONLDSerialization();
 			Object serialized = ser.deserialize(json);
-			System.out.println((Resource)serialized);
-			assertNotNull(serialized);
+			Resource m = (Resource)serialized;
+			//m = m.copy(true);
+			m = new Specializer().specialize(m);
+			//ServiceProfile sp = (ServiceProfile) m;
+			System.out.println(m);
+			assertNotNull(m);
 		} catch (Exception e) {
 			e.printStackTrace();
 			assertTrue(false);
 		}
+	}
+	
+	@Test
+	public void SimpleTest() {
+		Resource r = new Resource("http://ontology.universAAL.org/Device.owl#"); 
+		r.setProperty("http://ontology.universAAL.org/Device.owl#hasValue", "123");
+		r = new Specializer().specialize(r);
+		//ServiceProfile sp = (ServiceProfile) r;
+
 	}
 
 }

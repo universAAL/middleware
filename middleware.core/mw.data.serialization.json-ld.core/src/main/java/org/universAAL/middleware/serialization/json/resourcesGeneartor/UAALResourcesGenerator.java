@@ -94,7 +94,7 @@ public class UAALResourcesGenerator {
 				//resource ID given
 				resourceID = item.getValue().getAsJsonPrimitive().getAsString();
 				r = new Resource(resourceID);
-			}else {
+			}else if (item.getKey().equals(JsonLdKeyword.TYPE.toString()) && item.getValue() instanceof JsonArray) {
 				Iterator<JsonElement> i = item.getValue().getAsJsonArray().iterator();
 				
 				while (i.hasNext()) {
@@ -103,7 +103,8 @@ public class UAALResourcesGenerator {
 					r.addType(t.getAsJsonPrimitive().getAsString(), !v);
 				}	
 			}
-			
+			else
+				r.setProperty(item.getKey(), item.getValue());
 
 		}
 	return r;	
