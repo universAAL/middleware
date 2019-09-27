@@ -19,7 +19,6 @@ import java.io.InputStream;
 import java.util.Enumeration;
 
 import org.universAAL.middleware.bus.junit.BusTestCase;
-import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 import org.universAAL.middleware.util.Specializer;
@@ -39,17 +38,15 @@ public class RestSerialziationsTest extends BusTestCase {
 			JSONLDSerialization ser = new JSONLDSerialization();
 			Object serialized = ser.deserialize(json);
 			Resource m = (Resource)serialized;
-			//m.addType(ServiceProfile.MY_URI,true);
+			m.addType(ServiceProfile.MY_URI,true);
 			Resource specialized = new Specializer().specialize(m);
-			
-			//ServiceProfile sp = (ServiceProfile) specialized;
 			for (Enumeration e = m.getPropertyURIs(); e.hasMoreElements();) {
 				String propURI = (String) e.nextElement();
 				System.out.println("propURI "+propURI+" prop val "+m.getProperty(propURI));
 				
 			}
 			System.err.println(specialized.toStringRecursive());
-
+			//ServiceProfile sp = (ServiceProfile) specialized;
 			assertNotNull(m);
 		} catch (Exception e) {
 			e.printStackTrace();

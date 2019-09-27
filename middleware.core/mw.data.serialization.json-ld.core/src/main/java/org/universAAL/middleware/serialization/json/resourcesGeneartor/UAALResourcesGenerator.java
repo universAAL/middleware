@@ -114,7 +114,8 @@ public class UAALResourcesGenerator {
 			aux.addType(Resource.TYPE_RDF_LIST, true);
 			aux.setProperty(Resource.PROP_RDF_FIRST, l.remove(0));
 			aux.setProperty(Resource.PROP_RDF_REST, l);
-			r.setProperty(propURI, aux);
+			r.setProperty(propURI, aux.asList());
+		
 		}
 	return r;	
 	}
