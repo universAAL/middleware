@@ -46,6 +46,7 @@ public class RestSerialziationsTest extends BusTestCase {
 				
 			}
 			System.err.println(specialized.toStringRecursive());
+			//resource cant be casted becose m is closed to addFurtherTypes and ServiceProfile.MY_URI cant be added 
 			//ServiceProfile sp = (ServiceProfile) specialized;
 			assertNotNull(m);
 		} catch (Exception e) {
