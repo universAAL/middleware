@@ -38,7 +38,6 @@ public class JSONLDSerialization implements MessageContentSerializerEx {
 	
 	public Object deserialize(InputStream serialized) {
 		JSONLDDocument jd = new JSONLDDocument(serialized);
-		System.out.println("deserializing "+jd.getFullJsonAsString());
 		if(!jd.validate()) {
 			//ExpandJSONLD expand = new ExpandJSONLD(serialized);
 			ExpandJSONLD expand = new ExpandJSONLD(jd.getFullJsonAsString());//TODO check why with inputstream not work
@@ -81,7 +80,6 @@ public class JSONLDSerialization implements MessageContentSerializerEx {
 	 * @see org.universAAL.middleware.serialization.MessageContentSerializerEx#deserialize(java.lang.String, java.lang.String)
 	 */
 	public Object deserialize(String serialized, String resourceURI) {
-		System.out.println("deserializing");
 		InputStream is = new ByteArrayInputStream(serialized.getBytes());
 		JSONLDDocument jd = new JSONLDDocument(is);
 		//jd.validate();//validating if the jsonLD is well formed
