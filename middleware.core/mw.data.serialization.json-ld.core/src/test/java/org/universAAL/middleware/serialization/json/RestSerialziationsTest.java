@@ -16,11 +16,10 @@
 package org.universAAL.middleware.serialization.json;
 
 import java.io.InputStream;
-import java.util.Enumeration;
 
 import org.universAAL.middleware.bus.junit.BusTestCase;
+import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 import org.universAAL.middleware.util.Specializer;
 /**
  * 
@@ -34,20 +33,22 @@ public class RestSerialziationsTest extends BusTestCase {
 		String resourcePath="./expand/UAALMessageExample1.json";
 		//String resourcePath="./expand/simple.json";
 		try {
+			System.out.println(ContextProvider.MY_URI);
 			InputStream json =  this.getClass().getClassLoader().getResource(resourcePath).openStream();
 			JSONLDSerialization ser = new JSONLDSerialization();
 			Object serialized = ser.deserialize(json);
 			Resource m = (Resource)serialized;
-			m.addType(ServiceProfile.MY_URI,true);
+			System.out.println("not specialized ");
+			System.out.println(m.toStringRecursive());
 			Resource specialized = new Specializer().specialize(m);
-			for (Enumeration e = m.getPropertyURIs(); e.hasMoreElements();) {
-				String propURI = (String) e.nextElement();
-				System.out.println("propURI "+propURI+" prop val "+m.getProperty(propURI));
-				
-			}
-			System.err.println(specialized.toStringRecursive());
-			//resource cant be casted becose m is closed to addFurtherTypes and ServiceProfile.MY_URI cant be added 
-			//ServiceProfile sp = (ServiceProfile) specialized;
+			System.out.println("specialized ");
+			System.out.println(specialized.toStringRecursive());
+//			for (Enumeration e = m.getPropertyURIs(); e.hasMoreElements();) {
+//				String propURI = (String) e.nextElement();
+//				System.out.println("propURI "+propURI+" prop val "+m.getProperty(propURI));
+//				
+//			}
+			ContextProvider sp = (ContextProvider)specialized;
 			assertNotNull(m);
 		} catch (Exception e) {
 			e.printStackTrace();
