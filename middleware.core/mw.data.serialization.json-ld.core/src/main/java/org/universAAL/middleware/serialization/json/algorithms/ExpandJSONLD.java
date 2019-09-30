@@ -186,10 +186,8 @@ public class ExpandJSONLD {
 					expanded_items.add(expanded_array_item);
 				}
 				expanded_result.add(expandedKey.getAsJsonPrimitive().getAsString(), expanded_items);
-			}
-			
+			}	
 		}
-		
 		return expanded_result;
 	
 	}
@@ -233,15 +231,9 @@ public class ExpandJSONLD {
 					}
 				}
 				if(this.context.hasTerm(prefix)) {
-
 					String generatedIRI= this.iriExpansion(new JsonPrimitive(prefix)).getAsString();
-					
 					expanded = new JsonPrimitive(generatedIRI+candidate.substring(candidate.indexOf(":")+1));
-					LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","null expanded prop");
-
 				}else {
-					LogUtils.logDebug(JSONLDSerialization.owner,this.getClass(),"expand","null expanded prop");
-
 					expanded = key.getAsJsonPrimitive();
 				}
 			}else if(this.context.hasTerm(key)) {
