@@ -31,6 +31,7 @@ public class RestSerialziationsTest extends BusTestCase {
 	
 	public void testSerializationWorkFlow() {
 		String resourcePath="./expand/UAALMessageExample1.json";
+		ContextProvider sp=null;
 		//String resourcePath="./expand/simple.json";
 		try {
 			System.out.println(ContextProvider.MY_URI);
@@ -48,8 +49,9 @@ public class RestSerialziationsTest extends BusTestCase {
 //				System.out.println("propURI "+propURI+" prop val "+m.getProperty(propURI));
 //				
 //			}
-			ContextProvider sp = (ContextProvider)specialized;
+			sp = (ContextProvider)specialized;
 			assertNotNull(m);
+			assertNotNull(sp);
 		} catch (Exception e) {
 			e.printStackTrace();
 			assertTrue(false);
