@@ -106,8 +106,7 @@ public class ExpandJSONLD {
 				result_array.add(aux_obj);
 			}
 		}else {
-			System.err.println("already expanded");
-			LogUtils.logDebug(JSONLDSerialization.owner, ExpandJSONLD.class, "expand", "missing context, jsonalready expanded");
+			LogUtils.logDebug(JSONLDSerialization.owner, ExpandJSONLD.class, "expand", "missing context, json already expanded");
 		}
 			
 				
