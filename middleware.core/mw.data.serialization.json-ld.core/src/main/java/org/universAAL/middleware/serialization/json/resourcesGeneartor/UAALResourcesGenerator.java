@@ -53,7 +53,7 @@ public class UAALResourcesGenerator {
 	private Hashtable blankNodes = new Hashtable();
 
 	/**
-	 * get {@link InputStream} or {@link JsonObject} or {@link String} input json to extract {@link Resource} objects
+	 * gets {@link InputStream} or {@link JsonArray} input json to extract {@link Resource} objects
 	 * @param jsonToExpand
 	 */
 	
@@ -66,11 +66,7 @@ public class UAALResourcesGenerator {
 			jsonString = s.hasNext() ? s.next() : "";
 			s.close();
 			this.mainjJson = parser.parse(jsonString).getAsJsonArray();
-		}
-		
-		
-		
-		if(jsonToExpand instanceof JsonArray) {
+		}else if(jsonToExpand instanceof JsonArray) {
 			this.mainjJson = (JsonArray)jsonToExpand;
 		}
 		
@@ -85,7 +81,6 @@ public class UAALResourcesGenerator {
 		//this.expandedJson=this.expandJson(mainjJson);
 		for (JsonElement element : mainjJson) {
 			this.mainResource =this.genResource(element.getAsJsonObject());
-			
 		}
 		
 	}
