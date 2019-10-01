@@ -45,7 +45,7 @@ public class ExpandJSONLD {
 	private ContextDefinition context=null;
 	private JsonObject jsonToExpand= null;
 	JsonParser parser = new JsonParser();
-	JsonArray result_array = new JsonArray();
+	JsonArray result_array = null;
 
 	public ExpandJSONLD(Object jsonToExpand) {
 		
@@ -56,14 +56,13 @@ public class ExpandJSONLD {
 			jsonString = s.hasNext() ? s.next() : "";
 			s.close();
 			this.jsonToExpand = parser.parse(jsonString).getAsJsonObject();
-		}
-		
-		if(jsonToExpand instanceof JsonObject) {
+			JsonElement element = parser.parse(jsonString);
+			this.setJsonType(element);
+		}else if(jsonToExpand instanceof JsonObject) {
 			this.jsonToExpand = (JsonObject) jsonToExpand;
-		}
-		
-		if(jsonToExpand instanceof String) {
-			this.jsonToExpand = parser.parse((String)jsonToExpand).getAsJsonObject();
+		}else if(jsonToExpand instanceof String) {
+			JsonElement e =parser.parse((String)jsonToExpand); 
+			this.setJsonType(e);
 		}
 		
 	}
@@ -88,12 +87,14 @@ public class ExpandJSONLD {
 
 	
 	public void expand() {
+		if(result_array==null) {
+			this.result_array = new  JsonArray();
 			if(this.context ==null) {
 				if(this.jsonToExpand.has(JsonLdKeyword.CONTEXT.toString())) {
 					this.context = new ContextDefinition(this.jsonToExpand.remove(JsonLdKeyword.CONTEXT.toString()));	
 				}	
 			}
-			if(this.context !=null) {
+			if(this.context != null) {
 				JsonObject aux_obj = new JsonObject();
 				for (Entry<String, JsonElement> element: this.jsonToExpand.entrySet()) {
 					JsonElement e = this.expandElement(element.getKey(), element.getValue());
@@ -103,8 +104,13 @@ public class ExpandJSONLD {
 					}
 				}
 				result_array.add(aux_obj);
-			}else
-				System.out.println("missing context");
+			}
+		}else {
+			System.err.println("already expanded");
+			LogUtils.logDebug(JSONLDSerialization.owner, ExpandJSONLD.class, "expand", "missing context, jsonalready expanded");
+		}
+			
+				
 	}
 	
 	private JsonElement expandElement(String key, JsonElement value) {
@@ -250,8 +256,15 @@ public class ExpandJSONLD {
 	public void setJsonToExpand(Object jsonToExpand) {
 	}
 
-
 	public JsonArray getExpandedJson() {
 		return this.result_array;
 	}
+
+	private void setJsonType(JsonElement e) {
+		if(e instanceof JsonArray )
+			this.result_array = e.getAsJsonArray();
+		if(e instanceof JsonObject)
+			this.jsonToExpand = e.getAsJsonObject();
+	}
+
 }
