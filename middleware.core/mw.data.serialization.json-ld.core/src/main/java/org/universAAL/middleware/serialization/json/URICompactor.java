@@ -196,7 +196,7 @@ public class URICompactor {
 		
 		if(!prefixedItems.containsKey(uri)) {
 			//
-			System.out.println("uri not prefixed yet=>"+uri);
+			//System.out.println("uri not prefixed yet=>"+uri);
 			URIItem candidate = this.compactURI(uri);
 			if(candidate !=null) {
 				prefixedItems.put(uri, candidate);
@@ -263,14 +263,19 @@ public class URICompactor {
 	
 	private URIItem compactURI(String uri) {
 		URIItem item = new URIItem();
+		String pref,fullPrefix,sufix;
+		int delim_index;
 		try {
 			URIPrefix prefix = new URIPrefix();
 			final char delimiter ='#';
 			//FIXME what if the delimiter # not exist and is a / or another character?
-			String pref,fullPrefix,sufix;
-			int delim_index = uri.indexOf(delimiter);
+			if(uri.contains("_:")) {
+				delim_index = uri.indexOf("_")+1;
+			}else
+				delim_index = uri.indexOf(delimiter);
 			fullPrefix = uri.substring(0,delim_index+1);
 			sufix = uri.substring(delim_index+1);
+			System.out.println("full prefix "+fullPrefix+" sufix "+sufix);
 			String to_cut = fullPrefix.replaceAll("[^A-Za-z]", "");
 			pref= this.generatePrefix(to_cut,2);
 			prefix.compactedPrefix = pref;
@@ -287,7 +292,6 @@ public class URICompactor {
 	}
 	
 	private String generatePrefix(String candidate, int lenght) {
-		
 		//remove all non-alphanumeric characters
 		//walk the resultant string from end, and get the N first characters (given in lenght variable)
 		//if the resultant prefix is aleady taken, then increment length variable and call recursively this function
