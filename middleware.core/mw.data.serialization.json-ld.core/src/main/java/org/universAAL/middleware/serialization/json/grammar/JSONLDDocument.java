@@ -17,14 +17,20 @@
 package org.universAAL.middleware.serialization.json.grammar;
 
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Scanner;
 
+import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.serialization.json.JSONLDSerialization;
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
+import org.universAAL.middleware.serialization.json.algorithms.ExpandJSONLD;
+import org.universAAL.middleware.serialization.json.analyzers.ExpandedJsonAnalyzer;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
@@ -45,7 +51,10 @@ public class JSONLDDocument implements JSONLDValidator {
 	private JsonElement mainJSON = null;
 	private String mainJsonString;
 	private JsonParser jp = null;
-	
+	private boolean isAlreadyExpanded = false,isValid=false;
+	private ExpandJSONLD expand=null;
+	private JsonArray expandedJson=null;
+
 
 	/**	
 	 * 
@@ -53,10 +62,9 @@ public class JSONLDDocument implements JSONLDValidator {
 	 * @throws JsonParseException
 	 * @throws JsonSyntaxException
 	 */
-	public JSONLDDocument(InputStream jsonToBeProcessed) throws JsonParseException, JsonSyntaxException,ClassCastException,NullPointerException,JsonSyntaxException{
-		//maybe its necesary to use jsonld library to expand the json to process it 
+	public JSONLDDocument(InputStream jsonToBeProcessed) {
+ 
 
-		
 		String jsonString = "";
 		Scanner s = new Scanner(jsonToBeProcessed);
 		s.useDelimiter("\\A");
@@ -83,7 +91,7 @@ public class JSONLDDocument implements JSONLDValidator {
 	 */
 
 	public boolean validate() {
-		NodeObject nodeObject=null;
+		LogUtils.logDebug(JSONLDSerialization.owner, JSONLDDocument.class, "expand", "validating json");
 		//datamodel especification	https://www.w3.org/TR/2014/REC-json-ld-20140116/#data-model
 		/*
 		A JSON-LD document serializes a generalized RDF Dataset [RDF11-CONCEPTS], 
@@ -93,71 +101,58 @@ public class JSONLDDocument implements JSONLDValidator {
 		//add the default graph as resource 
 		if(this.mainJSON instanceof JsonObject) {
 			if(this.mainJSON.getAsJsonObject().has(JsonLdKeyword.CONTEXT.toString())) {
-				this.mainContext = new ContextDefinition(this.mainJSON.getAsJsonObject().remove(JsonLdKeyword.CONTEXT.toString()));
-				if(!this.mainContext.validate())
-					return false;
-				for (Entry<String, JsonElement> element : this.mainJSON.getAsJsonObject().entrySet()) {
-					
-					if(element.getKey().equals(JsonLdKeyword.CONTEXT.toString())) {
-						//merge contexts
+				if(!this.mainJSON.getAsJsonObject().get(JsonLdKeyword.CONTEXT.toString()).isJsonNull()) {
+					JsonElement ctx = this.mainJSON.getAsJsonObject().remove(JsonLdKeyword.CONTEXT.toString());
+					if(ctx instanceof JsonPrimitive) {
+						try {
+							URL contextURL = new URL(ctx.getAsJsonPrimitive().getAsString());
+							this.mainContext = new ContextDefinition(contextURL);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}else if(ctx instanceof JsonObject) {
+						this.mainContext = new ContextDefinition(ctx.getAsJsonObject());
 					}
-					
-					if(element.getKey().startsWith("@")) {
-						if(!JsonLdKeyword.isKeyword(element.getKey())) 
-							return false;
-					}else{
-						if(element.getKey().isEmpty())
-							return false;
-					}
-					
-					if(element.getValue() instanceof JsonObject) {
-						nodeObject = new NodeObject(this.mainContext, element.getValue());
-						if(!nodeObject.validate()) return false;
-					}
-
-				}
-			}else
-				return false;
-		}else {
-			//Json array of expanded JsonLD
-			for (JsonElement item: this.mainJSON.getAsJsonArray()) {
-				if(item instanceof JsonPrimitive) {
-					
+					this.isValid=this.mainContext.validate();
+					this.mainJSON.getAsJsonObject().add(JsonLdKeyword.CONTEXT.toString(), this.mainContext.getJsonToValidate());
 				}
 				
-				if(item instanceof JsonObject) {
-					for (Entry<String, JsonElement> element : item.getAsJsonObject().entrySet()) {
-						if(!analyze(element))
-							return false;
-					}
-				}
-				
-				if(item instanceof JsonArray) {
-					
-				}
+			}else {
+				LogUtils.logDebug(JSONLDSerialization.owner, ExpandJSONLD.class, "validate", "invaid JsonLD format. Missing JsonLD context");
 			}
-		} 
-		return true;
+				
+		}else if(this.mainJSON instanceof JsonArray) {
+			//if a expanded jsonLD is given
+			ExpandedJsonAnalyzer expanded = new ExpandedJsonAnalyzer(this.mainJSON);
+			this.isValid=expanded.validate();
+			this.isAlreadyExpanded = true;
+
+		}else {
+			LogUtils.logDebug(JSONLDSerialization.owner, ExpandJSONLD.class, "validate", "invaid json format. Expected JsonObject or JsonArray (expanded JsonLD)");
+		}
+		
+		LogUtils.logDebug(JSONLDSerialization.owner, JSONLDDocument.class,"validate","is valid? "+isValid);
+		return this.isValid;
 	}
 	
-	private boolean analyze(Entry<String, JsonElement> candidate) {
-		if(candidate.getKey().equals(JsonLdKeyword.CONTEXT.toString())) {
-			//merge contexts
+	public void expand() {
+		LogUtils.logDebug(JSONLDSerialization.owner, JSONLDDocument.class, "expand", "expanding json");
+
+		if(this.isValid) {
+			if(this.isAlreadyExpanded) {
+				this.expandedJson = this.mainJSON.getAsJsonArray();
+				LogUtils.logDebug(JSONLDSerialization.owner, JSONLDDocument.class, "expand", "already expanded json");
+
+			}else {
+				this.expand = new ExpandJSONLD(this.mainJSON);
+				this.expand.expand();
+				this.expandedJson=this.expand.getExpandedJson();
+			}	
+		}else {
+			LogUtils.logDebug(JSONLDSerialization.owner, ExpandJSONLD.class, "validate", "JsonLD is invalid");
+			
 		}
 		
-		if(candidate.getKey().startsWith("@")) {
-			if(!JsonLdKeyword.isKeyword(candidate.getKey())) 
-				return false;
-		}else{
-			if(candidate.getKey().isEmpty())
-				return false;
-		}
-		
-		if(candidate.getValue() instanceof JsonObject) {
-			NodeObject nodeObject = new NodeObject(this.mainContext, candidate.getValue());
-			if(!nodeObject.validate()) return false;
-		}
-		return true;
 	}
 	/**
 	 * Return {@link JsonElement} main Json 
@@ -183,5 +178,10 @@ public class JSONLDDocument implements JSONLDValidator {
 		return this.mainContext;
 	}
 
+	
+	public JsonArray getExpandedJson() {
+		return this.expandedJson;
+	}
 
+	
 }
