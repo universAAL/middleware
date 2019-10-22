@@ -88,6 +88,21 @@ public class ExpansionTest {
 	}
 	
 	@Test
+	public void arrayTest() {
+		expected = "[ { \"@type\": [ \"http://ontology.universAAL.org/Context.owl#ContextProvider\" ], \"http://rdf.data-vocabulary.org/#ingredients\": [ { \"@value\": \"12 fresh mint leaves\" }, { \"@value\": \"1/2 lime, juiced with pulp\" }, { \"@value\": \"1 tablespoons white sugar\" }, { \"@value\": \"1 cup ice cubes\" }, { \"@value\": \"2 fluid ounces white rum\" }, { \"@value\": \"1/2 cup club soda\" } ], \"http://rdf.data-vocabulary.org/#instructions\": [ { \"http://rdf.data-vocabulary.org/#description\": [ { \"@value\": \"Crush lime juice, mint and sugar together in glass.\" } ], \"http://rdf.data-vocabulary.org/#step\": [ { \"@type\": \"http://www.w3.org/2001/XMLSchema#integer\", \"@value\": 1 } ] }, { \"http://rdf.data-vocabulary.org/#description\": [ { \"@value\": \"Fill glass to top with ice cubes.\" } ], \"http://rdf.data-vocabulary.org/#step\": [ { \"@type\": \"http://www.w3.org/2001/XMLSchema#integer\", \"@value\": 2 } ] }, { \"http://rdf.data-vocabulary.org/#description\": [ { \"@value\": \"Pour white rum over ice.\" } ], \"http://rdf.data-vocabulary.org/#step\": [ { \"@type\": \"http://www.w3.org/2001/XMLSchema#integer\", \"@value\": 3 } ] }, { \"http://rdf.data-vocabulary.org/#description\": [ { \"@value\": \"Fill the rest of glass with club soda, stir.\" } ], \"http://rdf.data-vocabulary.org/#step\": [ { \"@type\": \"http://www.w3.org/2001/XMLSchema#integer\", \"@value\": 4 } ] }, { \"http://rdf.data-vocabulary.org/#description\": [ { \"@value\": \"Garnish with a lime wedge.\" } ], \"http://rdf.data-vocabulary.org/#step\": [ { \"@type\": \"http://www.w3.org/2001/XMLSchema#integer\", \"@value\": 5 } ] } ], \"http://rdf.data-vocabulary.org/#name\": [ { \"@value\": \"Mojito\" } ], \"http://rdf.data-vocabulary.org/#yield\": [ { \"@value\": \"1 cocktail\" } ] } ] ";
+	try {
+		InputStream json =  this.getClass().getClassLoader().getResource("./example.json").openStream();
+		ExpandJSONLD expansor = new ExpandJSONLD(json);
+		expansor.expand();
+		assertTrue(compareJsons(parser.parse(expected).getAsJsonArray(),expansor.getExpandedJson()));
+		System.out.println(expansor.getExpandedJson());
+	} catch (Exception e) {
+		e.printStackTrace();
+		assertTrue(false);
+	}
+	}
+	
+	@Test
 	public void compactIRITest() {
 		expected="[ { \"@id\": \"http://example.org/cars/for-sale#tesla\", \"@type\": [ \"http://purl.org/goodrelations/v1/Offering\" ], \"http://purl.org/goodrelations/v1/hasBusinessFunction\": [ { \"@id\": \"http://purl.org/goodrelations/v1/Sell\" } ] } ]";
 		try {
@@ -137,20 +152,7 @@ public class ExpansionTest {
 		
 	}
 	
-	@Test
-	public void expandedJsonTest() {
-		 String jsonFromturtle ="[{\"@id\":\"_:b0\",\"@type\":[\"http://ontology.universAAL.org/Context.owl#ContextEventPattern\"],\"http://www.w3.org/2000/01/rdf-schema#subClassOf\":[{\"@id\":\"_:b1\"},{\"@id\":\"_:b2\"}]},{\"@id\":\"_:b1\",\"@type\":[\"http://www.w3.org/2002/07/owl#Restriction\"],\"http://www.w3.org/2002/07/owl#allValuesFrom\":[{\"@id\":\"http://ontology.universAAL.org/Profile.owl#User\"}],\"http://www.w3.org/2002/07/owl#onProperty\":[{\"@id\":\"http://www.w3.org/1999/02/22-rdf-syntax-ns#subject\"}]},{\"@id\":\"_:b2\",\"@type\":[\"http://www.w3.org/2002/07/owl#Restriction\"],\"http://www.w3.org/2002/07/owl#allValuesFrom\":[{\"@id\":\"http://ontology.universaal.org/Health.owl#PerformedSession\"}],\"http://www.w3.org/2002/07/owl#onProperty\":[{\"@id\":\"http://www.w3.org/1999/02/22-rdf-syntax-ns#object\"}]},{\"@id\":\"_:b3\",\"http://www.w3.org/1999/02/22-rdf-syntax-ns#first\":[{\"@id\":\"_:b0\"}],\"http://www.w3.org/1999/02/22-rdf-syntax-ns#rest\":[{\"@id\":\"http://www.w3.org/1999/02/22-rdf-syntax-ns#nil\"}]},{\"@id\":\"http://ontology.universAAL.org/Context.owl#ContextEventPattern\"},{\"@id\":\"http://ontology.universAAL.org/Context.owl#ContextProvider\"},{\"@id\":\"http://ontology.universAAL.org/Context.owl#ContextProviderType\"},{\"@id\":\"http://ontology.universAAL.org/Context.owl#gauge\",\"@type\":[\"http://ontology.universAAL.org/Context.owl#ContextProviderType\"]},{\"@id\":\"http://ontology.universAAL.org/Profile.owl#User\",\"@type\":[\"http://www.w3.org/2002/07/owl#Class\"]},{\"@id\":\"http://ontology.universaal.org/Health.owl#PerformedSession\",\"@type\":[\"http://www.w3.org/2002/07/owl#Class\"]},{\"@id\":\"http://www.w3.org/1999/02/22-rdf-syntax-ns#nil\"},{\"@id\":\"http://www.w3.org/1999/02/22-rdf-syntax-ns#object\"},{\"@id\":\"http://www.w3.org/1999/02/22-rdf-syntax-ns#subject\"},{\"@id\":\"http://www.w3.org/2002/07/owl#Class\"},{\"@id\":\"http://www.w3.org/2002/07/owl#Restriction\"},{\"@id\":\"https://rest.activage.lst.tfo.upm.es/uaal/spaces/equimetrix/context/publishers/backup\",\"http://ontology.universAAL.org/Context.owl#myClassesOfEvents\":[{\"@id\":\"_:b3\"}],\"@type\":[\"http://ontology.universAAL.org/Context.owl#ContextProvider\"],\"http://ontology.universAAL.org/Context.owl#hasType\":[{\"@id\":\"http://ontology.universAAL.org/Context.owl#gauge\"}]}]";
-			try {
-				//InputStream json =  this.getClass().getClassLoader().getResource("./expand/multipleType.json").openStream();
-				ExpandJSONLD expansor = new ExpandJSONLD(jsonFromturtle);
-				expansor.expand();
-				System.out.println(expansor.getExpandedJson());
-			} catch (Exception e) {
-				e.printStackTrace();
-				assertTrue(false);
 
-			}
-	}
 	private boolean compareJsons(JsonArray expected,JsonArray given) {
 		if(!expected.equals(given)) {
 			System.out.println("expected \n"+expected);
