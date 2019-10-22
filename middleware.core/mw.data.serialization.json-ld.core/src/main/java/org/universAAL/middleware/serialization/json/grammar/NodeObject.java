@@ -93,7 +93,7 @@ public class NodeObject implements JSONLDValidator {
 							if(item.isJsonObject()) {
 								//context definition case
 								//if (! (new ContextDefinition(this.activeContext,item).validate()) )
-								if (! (new ContextDefinition(item).validate()) )
+								if (! (new ContextDefinition(item.getAsJsonObject()).validate()) )
 									//TODO if exists a main context, this should be merged with it?
 									return false;
 							}
@@ -117,7 +117,7 @@ public class NodeObject implements JSONLDValidator {
 							return false;
 					}else if(element.getValue().isJsonObject()){
 						//TODO object given...check if it is a valid context definition
-						if ( !new ContextDefinition(element.getValue()).validate());
+						if ( !new ContextDefinition(element.getValue().getAsJsonObject()).validate());
 							return false;
 						}
 					
