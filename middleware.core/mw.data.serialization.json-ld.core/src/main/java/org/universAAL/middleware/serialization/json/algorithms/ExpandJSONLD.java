@@ -80,33 +80,34 @@ public class ExpandJSONLD {
 		}
 		
 		if(context instanceof String) {
-			this.context = new ContextDefinition(parser.parse((String)context));		
+			this.context = new ContextDefinition(parser.parse((String)context).getAsJsonObject());		
 		}
 		
 	}
 
-	
+	/**
+	 * method to start expansion process
+	 */
 	public void expand() {
 		if(result_array==null) {
 			this.result_array = new  JsonArray();
-			if(this.context ==null) {
+			if(this.context == null) {
 				if(this.jsonToExpand.has(JsonLdKeyword.CONTEXT.toString())) {
-					this.context = new ContextDefinition(this.jsonToExpand.remove(JsonLdKeyword.CONTEXT.toString()));	
+					this.context = new ContextDefinition(this.jsonToExpand.remove(JsonLdKeyword.CONTEXT.toString()).getAsJsonObject());
+					JsonObject aux_obj = new JsonObject();
+					for (Entry<String, JsonElement> element: this.jsonToExpand.entrySet()) {
+						JsonElement e = this.expandElement(element.getKey(), element.getValue());
+						if(e!=null) {
+							Entry<String, JsonElement> entry = e.getAsJsonObject().entrySet().iterator().next();
+							aux_obj.add(entry.getKey(),entry.getValue());	
+						}
+					}
+					result_array.add(aux_obj);
 				}	
 			}
-			if(this.context != null) {
-				JsonObject aux_obj = new JsonObject();
-				for (Entry<String, JsonElement> element: this.jsonToExpand.entrySet()) {
-					JsonElement e = this.expandElement(element.getKey(), element.getValue());
-					if(e!=null) {
-						Entry<String, JsonElement> entry = e.getAsJsonObject().entrySet().iterator().next();
-						aux_obj.add(entry.getKey(),entry.getValue());	
-					}
-				}
-				result_array.add(aux_obj);
-			}
+			
 		}else {
-			LogUtils.logDebug(JSONLDSerialization.owner, ExpandJSONLD.class, "expand", "missing context, json already expanded");
+			LogUtils.logDebug(JSONLDSerialization.owner, ExpandJSONLD.class, "expand", "missing context, json already expanded?");
 		}
 			
 				
@@ -115,10 +116,8 @@ public class ExpandJSONLD {
 	private JsonElement expandElement(String key, JsonElement value) {
 		JsonObject expanded_result = new JsonObject();
 		JsonElement expandedKey = this.iriExpansion(new JsonPrimitive(key));
-		
 		JsonElement result = null;
 		JsonObject aux = null ;
-		
 		if(expandedKey == null) 
 			return null;
 		if(value instanceof JsonPrimitive ) {
@@ -152,6 +151,7 @@ public class ExpandJSONLD {
 					((JsonArray)result).add(aux);
 				}
 			}else if(expandedKey instanceof JsonObject ) {
+				
 				result = new JsonArray(); 
 					if(((JsonObject) expandedKey).has(JsonLdKeyword.TYPE.toString())) {
 						JsonPrimitive type_value =((JsonObject) expandedKey).get(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive();
@@ -191,6 +191,21 @@ public class ExpandJSONLD {
 					expanded_items.add(expanded_array_item);
 				}
 				expanded_result.add(expandedKey.getAsJsonPrimitive().getAsString(), expanded_items);
+			}else{
+				for (JsonElement array_item : ((JsonArray)value)) {
+					if(array_item instanceof JsonObject) {
+						JsonArray a =this.expandObject(array_item).getAsJsonArray();
+						if(a.iterator().hasNext()) {
+							expanded_items.add(a.iterator().next());	
+						}
+						
+					}else if (array_item instanceof JsonPrimitive) {
+						aux = new JsonObject();
+						aux.add("@value", array_item);
+						expanded_items.add(aux);	
+					}
+				}
+				expanded_result.add(expandedKey.getAsJsonPrimitive().getAsString(), expanded_items);
 			}	
 		}
 		return expanded_result;
@@ -198,15 +213,19 @@ public class ExpandJSONLD {
 	}
 
 	private JsonElement expandObject(JsonElement value) {
+
 		JsonObject result_obj = new JsonObject();
 		JsonArray result_array = new JsonArray();
 		for (Entry<String, JsonElement> item :((JsonObject)value).entrySet()) {
 			JsonElement expanded_item = this.expandElement(item.getKey(), item.getValue());
-			if(expanded_item instanceof JsonObject) {	
+			if(expanded_item instanceof JsonObject) {
 					result_obj.add(((JsonObject)expanded_item).entrySet().iterator().next().getKey(), ((JsonObject)expanded_item).entrySet().iterator().next().getValue());
 			}
 		}
-		result_array.add(result_obj);
+	
+		if(result_obj.entrySet().size()>0) {
+			result_array.add(result_obj);
+		}
 		return result_array;
 	}
 	
