@@ -1,26 +1,16 @@
-{
-
-  "@context":[
-   {
-    "name": "http://rdf.data-vocabulary.org/#name",
-    "ingredient": "http://rdf.data-vocabulary.org/#ingredients",
-    "yield": "http://rdf.data-vocabulary.org/#yield",
-    "instructions": "http://rdf.data-vocabulary.org/#instructions",
-    "step": {
-      "@id": "http://rdf.data-vocabulary.org/#step",
-      "@type": "xsd:integer"
-    },
-    "description": "http://rdf.data-vocabulary.org/#description",
-    "xsd": "http://www.w3.org/2001/XMLSchema#"
-  },
- {
-    "space":"http://nospace.or",
-    "step": {
-      "@id": "http://rdf.data-vocabulary.org/#step/mergeContext",
-      "@type": "xsd:integer"
-    },
-    "xsd": "http://www.w3.org/2001/XMLSchema#"
+[
+  {
+    "@context": "https://json-ld.org/contexts/person.jsonld",
+    "name": "Manu Sporny",
+    "homepage": "http://manu.sporny.org/",
+    "depiction": "http://twitter.com/account/profile_image/manusporny"
+  }, {
+    "@context": "https://json-ld.org/contexts/place.jsonld",
+    "name": "The Empire State Building",
+    "description": "The Empire State Building is a 102-story landmark in New York City.",
+    "geo": {
+      "latitude": "40.75",
+      "longitude": "73.98"
+    }
   }
-
-  ]  
-  }
+]
