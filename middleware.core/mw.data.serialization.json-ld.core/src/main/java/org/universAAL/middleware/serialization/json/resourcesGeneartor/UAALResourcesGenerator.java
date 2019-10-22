@@ -24,8 +24,10 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Scanner;
 
+import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.serialization.json.JSONLDSerialization;
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
 import org.universAAL.middleware.serialization.json.algorithms.ExpandJSONLD;
 
@@ -68,6 +70,8 @@ public class UAALResourcesGenerator {
 			this.mainjJson = parser.parse(jsonString).getAsJsonArray();
 		}else if(jsonToExpand instanceof JsonArray) {
 			this.mainjJson = (JsonArray)jsonToExpand;
+		}else if( jsonToExpand == null) {
+			LogUtils.logDebug(JSONLDSerialization.owner, ExpandJSONLD.class, "UAALResourcesGenerator constructor", "Given Null Json");
 		}
 		
 		
@@ -78,14 +82,18 @@ public class UAALResourcesGenerator {
 	 * method to generate {@link Resource} from loaded expanded JsonLD
 	 */
 	public void generateResources() {
-		//this.expandedJson=this.expandJson(mainjJson);
-		for (JsonElement element : mainjJson) {
-			this.mainResource =this.genResource(element.getAsJsonObject());
+		if(this.mainjJson!=null) {
+			for (JsonElement element : mainjJson) {
+				this.mainResource =this.genResource(element.getAsJsonObject());
+			}	
+		}else {
+			LogUtils.logDebug(JSONLDSerialization.owner, ExpandJSONLD.class, "generateResources", "Given Null Json");
 		}
+		
 		
 	}
 	
-	private Resource genResource(JsonObject candidate) {	
+	private Resource genResource(JsonObject candidate) {
 		String resourceID=null;
 		Resource r=null;
 		if(candidate.has(JsonLdKeyword.ID.toString()) ){
@@ -93,23 +101,51 @@ public class UAALResourcesGenerator {
 			r = this.getResource(resourceID);
 		}else 
 			r = this.getResource(null);
-		
 		if (candidate.has(JsonLdKeyword.TYPE.toString())) {
-			Iterator<JsonElement> i = candidate.remove(JsonLdKeyword.TYPE.toString()).getAsJsonArray().iterator();
-			while (i.hasNext()) {
-				JsonElement t = i.next();
-				boolean v = i.hasNext();
-				r.addType(t.getAsJsonPrimitive().getAsString(), !v);
-			}	
+						
+			if(candidate.get(JsonLdKeyword.TYPE.toString()).isJsonArray()) {
+				Iterator<JsonElement> i = candidate.remove(JsonLdKeyword.TYPE.toString()).getAsJsonArray().iterator();
+				while (i.hasNext()) {
+					JsonElement t = i.next();
+					boolean v = i.hasNext();
+					r.addType(t.getAsJsonPrimitive().getAsString(), !v);
+				}
+			}else {
+				r.addType(candidate.remove(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive().getAsString(), true);
+			}
+			
+			
+			
+			
+//			Iterator<JsonElement> i = candidate.remove(JsonLdKeyword.TYPE.toString()).getAsJsonArray().iterator();
+//			while (i.hasNext()) {
+//				JsonElement t = i.next();
+//				boolean v = i.hasNext();
+//				r.addType(t.getAsJsonPrimitive().getAsString(), !v);
+//			}	
 		}
 		for (Entry<String, JsonElement> item : candidate.entrySet()) {
 			String propURI = item.getKey();
 			Resource aux = this.getResource(null);
-			List l = parseCollection(item.getValue().getAsJsonArray(), false);
-			aux.addType(Resource.TYPE_RDF_LIST, true);
-			aux.setProperty(Resource.PROP_RDF_FIRST, l.remove(0));
-			aux.setProperty(Resource.PROP_RDF_REST, l);
-			r.setProperty(propURI, aux.asList());
+			if(item.getValue().isJsonArray()) {
+				List l = parseCollection(item.getValue().getAsJsonArray(), false);
+				aux.addType(Resource.TYPE_RDF_LIST, true);
+				aux.setProperty(Resource.PROP_RDF_FIRST, l.remove(0));
+				aux.setProperty(Resource.PROP_RDF_REST, l);
+				r.setProperty(propURI, aux.asList());
+			}else {
+				
+				r.setProperty(propURI, item.getValue().getAsJsonPrimitive().getAsString());
+			}
+			
+			
+			
+			
+//			List l = parseCollection(item.getValue().getAsJsonArray(), false);
+//			aux.addType(Resource.TYPE_RDF_LIST, true);
+//			aux.setProperty(Resource.PROP_RDF_FIRST, l.remove(0));
+//			aux.setProperty(Resource.PROP_RDF_REST, l);
+//			r.setProperty(propURI, aux.asList());
 		
 		}
 	return r;	
