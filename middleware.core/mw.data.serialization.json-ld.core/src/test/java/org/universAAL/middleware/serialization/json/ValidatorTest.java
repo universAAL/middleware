@@ -91,7 +91,7 @@ public class ValidatorTest {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void mergeContextTest() {
 		try {
 			InputStream is = this.getClass().getClassLoader().getResource("multipleContext.json").openStream();
