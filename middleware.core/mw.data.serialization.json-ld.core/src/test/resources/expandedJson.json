@@ -1,0 +1,104 @@
+[
+  {
+    "@type": [
+      "http://ontology.universAAL.org/Context.owl#ContextProvider"
+    ],
+    "http://rdf.data-vocabulary.org/#ingredients": [
+      {
+        "@value": "12 fresh mint leaves"
+      },
+      {
+        "@value": "1/2 lime, juiced with pulp"
+      },
+      {
+        "@value": "1 tablespoons white sugar"
+      },
+      {
+        "@value": "1 cup ice cubes"
+      },
+      {
+        "@value": "2 fluid ounces white rum"
+      },
+      {
+        "@value": "1/2 cup club soda"
+      }
+    ],
+    "http://rdf.data-vocabulary.org/#instructions": [
+      {
+        "http://rdf.data-vocabulary.org/#description": [
+          {
+            "@value": "Crush lime juice, mint and sugar together in glass."
+          }
+        ],
+        "http://rdf.data-vocabulary.org/#step": [
+          {
+            "@type": "http://www.w3.org/2001/XMLSchema#integer",
+            "@value": 1
+          }
+        ]
+      },
+      {
+        "http://rdf.data-vocabulary.org/#description": [
+          {
+            "@value": "Fill glass to top with ice cubes."
+          }
+        ],
+        "http://rdf.data-vocabulary.org/#step": [
+          {
+            "@type": "http://www.w3.org/2001/XMLSchema#integer",
+            "@value": 2
+          }
+        ]
+      },
+      {
+        "http://rdf.data-vocabulary.org/#description": [
+          {
+            "@value": "Pour white rum over ice."
+          }
+        ],
+        "http://rdf.data-vocabulary.org/#step": [
+          {
+            "@type": "http://www.w3.org/2001/XMLSchema#integer",
+            "@value": 3
+          }
+        ]
+      },
+      {
+        "http://rdf.data-vocabulary.org/#description": [
+          {
+            "@value": "Fill the rest of glass with club soda, stir."
+          }
+        ],
+        "http://rdf.data-vocabulary.org/#step": [
+          {
+            "@type": "http://www.w3.org/2001/XMLSchema#integer",
+            "@value": 4
+          }
+        ]
+      },
+      {
+        "http://rdf.data-vocabulary.org/#description": [
+          {
+            "@value": "Garnish with a lime wedge."
+          }
+        ],
+        "http://rdf.data-vocabulary.org/#step": [
+          {
+            "@type": "http://www.w3.org/2001/XMLSchema#integer",
+            "@value": 5
+          }
+        ]
+      }
+    ],
+    "http://rdf.data-vocabulary.org/#name": [
+      {
+        "@value": "Mojito"
+      }
+    ],
+    "http://rdf.data-vocabulary.org/#yield": [
+      {
+        "@value": "1 cocktail"
+      }
+    ]
+  }
+]
