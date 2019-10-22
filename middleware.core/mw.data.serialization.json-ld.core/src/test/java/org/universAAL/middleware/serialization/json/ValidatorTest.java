@@ -13,6 +13,7 @@ import java.util.Map.Entry;
 
 import org.junit.Test;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.serialization.json.analyzers.ExpandedJsonAnalyzer;
 import org.universAAL.middleware.serialization.json.grammar.ContextDefinition;
 import org.universAAL.middleware.serialization.json.grammar.JSONLDDocument;
 
@@ -42,9 +43,8 @@ public class ValidatorTest {
 			//FIXME fix JsonLDkeywod match JsonLdKeyword.valueOf("@id")
 			assertTrue(!doc.validate());	
 		} catch (Exception e) {
-			
-			assertFalse(Boolean.FALSE);
 			e.printStackTrace();
+			assertFalse(true);
 		}
 		
 	}
@@ -59,6 +59,7 @@ public class ValidatorTest {
 			assertTrue(doc.validate());	
 		} catch (Exception e) {
 			e.printStackTrace();
+			assertFalse(true);
 		}
 	}
 	
@@ -69,10 +70,10 @@ public class ValidatorTest {
 			JSONLDDocument doc = new JSONLDDocument(is);
 			is.close();
 			//FIXME fix JsonLDkeywod match JsonLdKeyword.valueOf("@id")
-			assertTrue(!doc.validate());	
+			assertTrue(doc.validate());	
 		} catch (Exception e) {
-			assertFalse(false);
 			e.printStackTrace();
+			assertFalse(false);
 		}
 	}
 	
@@ -84,13 +85,13 @@ public class ValidatorTest {
 			is.close();
 			assertTrue(doc.validate());	
 		} catch (Exception e) {
-			assertFalse(Boolean.FALSE);
-			e.printStackTrace();
+ 			e.printStackTrace();
+			assertFalse(false);
+
 		}
 	}
 	
 	@Test
-	
 	public void mergeContextTest() {
 		try {
 			InputStream is = this.getClass().getClassLoader().getResource("multipleContext.json").openStream();
@@ -99,10 +100,11 @@ public class ValidatorTest {
 			assertTrue(doc.validate());
 			System.out.println(doc.getActiveContext().getJsonToValidate());
 		} catch (Exception e) {
-			assertFalse(Boolean.FALSE);
 			e.printStackTrace();
+			assertFalse(true);
 		}
 	}
+	
 	@Test
 	public void errorContext() {
 		try {
@@ -112,40 +114,38 @@ public class ValidatorTest {
 			assertFalse(doc.validate());
 			System.out.println(doc.getActiveContext().getJsonToValidate());
 		} catch (Exception e) {
-			
 			e.printStackTrace();
+			assertFalse(true);
 		}
 	}
 	
 	
+	@Test
+	public void remoteContextTest() {
+		try {
+			InputStream is = this.getClass().getClassLoader().getResource("remoteContext.json").openStream();
+			JSONLDDocument doc = new JSONLDDocument(is);
+			is.close();
+			assertTrue(doc.validate());
+			System.out.println(doc.getMainJSON());
+		} catch (Exception e) {
+			e.printStackTrace();
+			assertFalse(true);
+		}
+	}
 	
-//	@Test
-//	public void libTest() {
-//		try {
-//			
-//				// Open a valid json(-ld) input file
-//				//InputStream inputStream = new FileInputStream("input.json");
-//				// Read the file into an Object (The type of this object will be a List, Map, String, Boolean,
-//				// Number or null depending on the root object in the file).
-//				Object jsonObject = JsonUtils.fromInputStream(this.getClass().getClassLoader().getResource("example.json").openStream());
-//				// Create a context JSON map containing prefixes and definitions
-//				//Map context = new HashMap();
-//				// Customise context...
-//				// Create an instance of JsonLdOptions with the standard JSON-LD options
-//				JsonLdOptions options = new JsonLdOptions();
-//				// Customise options...
-//				// Call whichever JSONLD function you want! (e.g. compact)
-//				Object compact = JsonLdProcessor.compact(jsonObject,new HashMap(),options);
-//				Object expand = JsonLdProcessor.expand(jsonObject, options);
-//				// Print out the result (or don't, it's your call!)
-//				//System.out.println("algorithm result compacted --> "+JsonUtils.toString(compact));
-//				System.out.println("algorithm result expanded --> "+JsonUtils.toString(expand));
-//				System.out.println("algorithm result compact --> "+JsonUtils.toString(compact));
-//			
-//		
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
 
+	@Test
+	public void expandedJsonValidationTest() {
+		try {
+			InputStream is = this.getClass().getClassLoader().getResource("./expandedJson.json").openStream();
+			JSONLDDocument doc = new JSONLDDocument(is);
+			is.close();
+			ExpandedJsonAnalyzer exp = new ExpandedJsonAnalyzer(doc.getMainJSON());
+			assertTrue(exp.validate());
+		} catch (Exception e) {
+			e.printStackTrace();
+			assertFalse(true);
+		}
+	}
 }
