@@ -132,19 +132,10 @@ public class RestSerialziationsTest extends BusTestCase {
 		}
 	}
 	
-	public void testTurtleSerializer() {
-		ContextProvider sp=null;
-		System.err.println(pattern2);
-		TurtleParser parser = new TurtleParser();
-		Resource r = (Resource)parser.deserialize(pattern2, null);
-		System.out.println(r.toStringRecursive());
-		sp = (ContextProvider)r;
-		System.out.println(this.jw.serialize(r));
-		System.out.println("is well formed "+sp.isWellFormed());
-
-	}
+	
 
 	public void testCompareSerializersResult() throws Exception{
+		ContextProvider sp=null;
 		TurtleParser turtle_parser = new TurtleParser();
 		JSONLDSerialization json_parser = new JSONLDSerialization();
 		Resource fromTurtle,fromJson;
@@ -155,8 +146,13 @@ public class RestSerialziationsTest extends BusTestCase {
 		System.out.println(fromTurtle.toStringRecursive());
 		System.out.println("----------json----------");
 		System.out.println(fromJson.toStringRecursive());
-		fromJson.equals(fromTurtle);
-		
+		assertTrue(fromJson.equals(fromTurtle));
+		sp = (ContextProvider)fromTurtle;
+		assertNotNull(sp);
+		assertTrue(sp.isWellFormed());
+		sp = (ContextProvider)fromJson;
+		assertNotNull(sp);
+		assertTrue(sp.isWellFormed());
 	}	
 
 }
