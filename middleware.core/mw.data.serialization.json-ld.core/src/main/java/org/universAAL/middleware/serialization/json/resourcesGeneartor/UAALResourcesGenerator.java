@@ -125,27 +125,25 @@ public class UAALResourcesGenerator {
 			System.out.println("item "+item);
 			String propURI = item.getKey();
 			Resource aux = this.getResource(null);
-			if(item.getValue().getAsJsonArray().size()>1) {
-				List l = parseCollection(item.getValue().getAsJsonArray(), false);
-				aux.addType(Resource.TYPE_RDF_LIST, true);
-				aux.setProperty(Resource.PROP_RDF_FIRST, l.remove(0));
-				aux.setProperty(Resource.PROP_RDF_REST, l);
-				r.setProperty(propURI, aux.asList());
-			}else {
-				if(item.getValue().getAsJsonArray().iterator().next() instanceof JsonPrimitive) {
-					r.setProperty(propURI, item.getValue().getAsJsonArray().iterator().next().getAsJsonPrimitive().getAsString());	
-				}else if(item.getValue().getAsJsonArray().iterator().next() instanceof JsonObject) {
-					System.out.println("JSO"+item.getValue().getAsJsonArray().iterator().next());
-					aux =this.genResource(item.getValue().getAsJsonArray().iterator().next().getAsJsonObject());
-					r.setProperty(propURI, aux);
-				}else if(item.getValue().getAsJsonArray().iterator().next() instanceof JsonArray) {
-					System.out.println("JSA");
+			if(item.getValue() instanceof JsonArray ) {
+				if(item.getValue().getAsJsonArray().size()>1) {
+					List l = parseCollection(item.getValue().getAsJsonArray(), false);
+					aux.addType(Resource.TYPE_RDF_LIST, true);
+					aux.setProperty(Resource.PROP_RDF_FIRST, l.remove(0));
+					aux.setProperty(Resource.PROP_RDF_REST, l);
+					r.setProperty(propURI, aux.asList());	
+				}else {
+					if(item.getValue().getAsJsonArray().iterator().next() instanceof JsonPrimitive) {
+						r.setProperty(propURI, item.getValue().getAsJsonArray().iterator().next().getAsJsonPrimitive().getAsString());	
+					}else if(item.getValue().getAsJsonArray().iterator().next() instanceof JsonObject) {
+						System.out.println("JSO"+item.getValue().getAsJsonArray().iterator().next());
+						aux =this.genResource(item.getValue().getAsJsonArray().iterator().next().getAsJsonObject());
+						r.setProperty(propURI, aux);
+					}else if(item.getValue().getAsJsonArray().iterator().next() instanceof JsonArray) {
+						System.out.println("JSA");
+					}
 				}
-				
 			}
-			
-			
-		
 		}
 	return r;	
 	}
