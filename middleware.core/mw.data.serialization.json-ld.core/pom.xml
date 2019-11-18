@@ -45,12 +45,6 @@
       <scope>test</scope>
     </dependency>
     
- 	<dependency>
-		<groupId>org.universAAL.middleware</groupId>
-		<artifactId>mw.bus.junit</artifactId>
-		<scope>test</scope>
-	</dependency>
-    
    	<dependency>
 		<groupId>com.github.jsonld-java</groupId>
 		<artifactId>jsonld-java</artifactId>

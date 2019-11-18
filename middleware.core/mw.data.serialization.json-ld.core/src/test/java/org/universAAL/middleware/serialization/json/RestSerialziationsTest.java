@@ -17,19 +17,16 @@ package org.universAAL.middleware.serialization.json;
 
 import java.io.InputStream;
 
-import org.universAAL.middleware.bus.junit.BusTestCase;
-import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.service.ServiceRequest;
-import org.universAAL.middleware.service.ServiceResponse;
-import org.universAAL.middleware.service.owls.profile.ServiceProfile;
+
+import junit.framework.TestCase;
 /**
  * 
  * @author Eduardo Buhid
  *
  */
-public class RestSerialziationsTest extends BusTestCase {
+public class RestSerialziationsTest extends TestCase {
 
 	public void testSerializationWorkFlow() {
 		String resourcePath="./expand/UAALMessageExample1.json";
