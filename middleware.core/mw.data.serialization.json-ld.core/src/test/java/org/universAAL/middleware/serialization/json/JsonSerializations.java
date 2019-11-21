@@ -1,13 +1,12 @@
 package org.universAAL.middleware.serialization.json;
 
-import org.universAAL.middleware.bus.junit.OntTestCase;
-import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.context.owl.ContextProviderType;
-import org.universAAL.middleware.owl.MergedRestriction;
 
-public class JsonSerializations extends OntTestCase {
+import junit.framework.TestCase;
+
+public class JsonSerializations extends TestCase {
 	JSONLDSerialization ser = new JSONLDSerialization();
 	
 	public void testCreateContextProvider() {

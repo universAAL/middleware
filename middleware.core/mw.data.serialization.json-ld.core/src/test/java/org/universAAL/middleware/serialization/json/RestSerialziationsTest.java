@@ -17,17 +17,17 @@ package org.universAAL.middleware.serialization.json;
 
 import java.io.InputStream;
 
-import org.universAAL.middleware.bus.junit.BusTestCase;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.serialization.turtle.TurtleParser;
+
+import junit.framework.TestCase;
 /**
  * 
  * @author Eduardo Buhid
  *
  */
-public class RestSerialziationsTest extends BusTestCase {
-	JSONLDWriter jw = new JSONLDWriter();
+public class RestSerialziationsTest extends TestCase {
 
 
 	
@@ -88,7 +88,7 @@ public class RestSerialziationsTest extends BusTestCase {
 		JSONLDSerialization json_parser = new JSONLDSerialization();
 		Resource fromTurtle,fromJson;
 		fromTurtle = (Resource)turtle_parser.deserialize(pattern2 , null);
-		String JsonFromTurtle = jw.serialize(fromTurtle);
+		String JsonFromTurtle = json_parser.serialize(fromTurtle);
 		fromJson = (Resource)json_parser.deserialize(JsonFromTurtle);
 		System.out.println("----------turtle----------");
 		System.out.println(fromTurtle.toStringRecursive());
