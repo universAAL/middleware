@@ -101,52 +101,49 @@ public class UAALResourcesGenerator {
 			r = this.getResource(resourceID);
 		}else 
 			r = this.getResource(null);
+		
+		
 		if (candidate.has(JsonLdKeyword.TYPE.toString())) {
-						
-			if(candidate.get(JsonLdKeyword.TYPE.toString()).isJsonArray()) {
+			if(candidate.get(JsonLdKeyword.TYPE.toString()) instanceof JsonArray) {
 				Iterator<JsonElement> i = candidate.remove(JsonLdKeyword.TYPE.toString()).getAsJsonArray().iterator();
 				while (i.hasNext()) {
 					JsonElement t = i.next();
 					boolean v = i.hasNext();
-					r.addType(t.getAsJsonPrimitive().getAsString(), !v);
-				}
-			}else {
+					System.out.println("adding type t.getAsJsonPrimitive().getAsString() " +r.addType(t.getAsJsonPrimitive().getAsString(), !v) + t.getAsJsonPrimitive().getAsString() );
+					
+				}	
+			}else if(candidate.get(JsonLdKeyword.TYPE.toString()) instanceof JsonPrimitive){
 				r.addType(candidate.remove(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive().getAsString(), true);
 			}
-			
-			
-			
-			
-//			Iterator<JsonElement> i = candidate.remove(JsonLdKeyword.TYPE.toString()).getAsJsonArray().iterator();
-//			while (i.hasNext()) {
-//				JsonElement t = i.next();
-//				boolean v = i.hasNext();
-//				r.addType(t.getAsJsonPrimitive().getAsString(), !v);
-//			}	
+				
 		}
+		
+		
+		
+		
 		for (Entry<String, JsonElement> item : candidate.entrySet()) {
+			System.out.println("item "+item);
 			String propURI = item.getKey();
 			Resource aux = this.getResource(null);
-			if(item.getValue().isJsonArray()) {
-				List l = parseCollection(item.getValue().getAsJsonArray(), false);
-				aux.addType(Resource.TYPE_RDF_LIST, true);
-				aux.setProperty(Resource.PROP_RDF_FIRST, l.remove(0));
-				aux.setProperty(Resource.PROP_RDF_REST, l);
-				r.setProperty(propURI, aux.asList());
-			}else {
-				
-				r.setProperty(propURI, item.getValue().getAsJsonPrimitive().getAsString());
+			if(item.getValue() instanceof JsonArray ) {
+				if(item.getValue().getAsJsonArray().size()>1) {
+					List l = parseCollection(item.getValue().getAsJsonArray(), false);
+					aux.addType(Resource.TYPE_RDF_LIST, true);
+					aux.setProperty(Resource.PROP_RDF_FIRST, l.remove(0));
+					aux.setProperty(Resource.PROP_RDF_REST, l);
+					r.setProperty(propURI, aux.asList());	
+				}else {
+					if(item.getValue().getAsJsonArray().iterator().next() instanceof JsonPrimitive) {
+						r.setProperty(propURI, item.getValue().getAsJsonArray().iterator().next().getAsJsonPrimitive().getAsString());	
+					}else if(item.getValue().getAsJsonArray().iterator().next() instanceof JsonObject) {
+						System.out.println("JSO"+item.getValue().getAsJsonArray().iterator().next());
+						aux =this.genResource(item.getValue().getAsJsonArray().iterator().next().getAsJsonObject());
+						r.setProperty(propURI, aux);
+					}else if(item.getValue().getAsJsonArray().iterator().next() instanceof JsonArray) {
+						System.out.println("JSA");
+					}
+				}
 			}
-			
-			
-			
-			
-//			List l = parseCollection(item.getValue().getAsJsonArray(), false);
-//			aux.addType(Resource.TYPE_RDF_LIST, true);
-//			aux.setProperty(Resource.PROP_RDF_FIRST, l.remove(0));
-//			aux.setProperty(Resource.PROP_RDF_REST, l);
-//			r.setProperty(propURI, aux.asList());
-		
 		}
 	return r;	
 	}

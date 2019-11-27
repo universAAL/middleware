@@ -121,7 +121,7 @@ public class ExpansionTest {
 	
 	@Test
 	public void UAALMessajeExpandTest() {
-		expected="[ { \"@id\": \"urn:org.universAAL.middleware.context.rdf:ContextEvent#_:c0a8012ac02c0b4c:58d\", \"@type\": [ \"http://ontology.universAAL.org/Context.owl#ContextProvider\" ], \"http://www.w3.org/1999/02/22-rdf-syntax-ns#object\": [ { \"@value\": \"2\" } ], \"http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate\": [ { \"@id\": \"http://ontology.universAAL.org/Context.owl#value\" } ], \"http://www.w3.org/1999/02/22-rdf-syntax-ns#subject\": [ { \"@id\": \"https://github.com/soad03/middleware/tree#URIcompactor_update\", \"@type\": [ \"http://ontology.universAAL.org/Context.owl#Measurement\" ], \"http://ontology.universAAL.org/Context.owl#value\": [ { \"@value\": \"2\" } ] } ], \"http://ontology.universAAL.org/Context.owl#hasTimestamp\": [ { \"@value\": \"1562249774498\" } ] } ] ";
+		expected="[ { \"@id\": \"urn:org.universAAL.middleware.context.rdf:ContextEvent#_:c0a8012ac02c0b4c:58d\", \"@type\": [ \"http://ontology.universAAL.org/Context.owl#ContextProvider\" ], \"http://ontology.universAAL.org/Context.owl#hasType\": [ { \"@id\": \"http://ontology.universAAL.org/Context.owl#gauge\", \"@type\": [ \"http://ontology.universAAL.org/Context.owl#ContextProviderType\" ] } ] } ] ";
 		try {
 			InputStream json =  this.getClass().getClassLoader().getResource("./expand/UAALmessageExample1.json").openStream();
 			ExpandJSONLD expansor = new ExpandJSONLD(json);
