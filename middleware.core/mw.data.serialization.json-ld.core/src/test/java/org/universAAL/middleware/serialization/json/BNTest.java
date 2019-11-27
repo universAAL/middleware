@@ -17,16 +17,12 @@ package org.universAAL.middleware.serialization.json;
 
 import junit.framework.TestCase;
 
-import org.apache.log4j.PropertyConfigurator;
-import org.junit.Ignore;
-import org.universAAL.middleware.serialization.json.analyzers.BlankNodeAnalyzer;
-
 /**
  * @author amedrano
  * 
  */
 public class BNTest extends TestCase {
-
+/*
 	public void testlog() {
 		for (int i = 1; i < 9; i++) {
 			assertEquals(0, BlankNodeAnalyzer.log10(i));
@@ -50,4 +46,5 @@ public class BNTest extends TestCase {
 			System.out.println(Integer.toString(i) + "\t>\t" + format);
 		}
 	}
+	*/
 }

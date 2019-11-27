@@ -1,31 +1,5 @@
 package org.universAAL.middleware.serialization.json;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map.Entry;
-
-import org.junit.Test;
-import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.serialization.json.analyzers.ExpandedJsonAnalyzer;
-import org.universAAL.middleware.serialization.json.grammar.ContextDefinition;
-import org.universAAL.middleware.serialization.json.grammar.JSONLDDocument;
-
-import com.github.jsonldjava.core.JsonLdOptions;
-import com.github.jsonldjava.core.JsonLdProcessor;
-import com.github.jsonldjava.utils.JsonUtils;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.stream.MalformedJsonException;
-
 public class ValidatorTest {
 
 
@@ -34,6 +8,7 @@ public class ValidatorTest {
 	 * to test if the json has not a correct structure (missing close bracket)
 	 * @throws IOException
 	 */
+	/*
 	@Test 
 	public void InvalidJSONTest() throws IOException {
 		try {
@@ -148,4 +123,5 @@ public class ValidatorTest {
 			assertFalse(true);
 		}
 	}
+	*/
 }

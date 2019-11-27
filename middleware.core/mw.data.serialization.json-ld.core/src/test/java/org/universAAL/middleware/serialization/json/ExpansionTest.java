@@ -1,18 +1,7 @@
 package org.universAAL.middleware.serialization.json;
 
-import static org.junit.Assert.assertTrue;
-
-import java.io.InputStream;
-
-import org.apache.log4j.PropertyConfigurator;
-import org.junit.Before;
-import org.junit.Test;
-import org.universAAL.middleware.serialization.json.algorithms.ExpandJSONLD;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
-
 public class ExpansionTest {
+	/*
 	JsonParser parser;
 	JsonArray expected_json;
 	String expected;
@@ -160,4 +149,6 @@ public class ExpansionTest {
 		}
 		return expected.equals(given);
 	}
+	
+	*/
 }

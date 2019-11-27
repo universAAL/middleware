@@ -17,11 +17,8 @@ package org.universAAL.middleware.serialization.json;
 
 import java.io.InputStream;
 
-==== BASE ====
-import org.universAAL.middleware.bus.junit.BusTestCase;
-import org.universAAL.middleware.context.ContextEventPattern;
-==== BASE ====
-import org.universAAL.middleware.context.owl.ContextProvider;
+
+//import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.rdf.Resource;
 
 import junit.framework.TestCase;
@@ -32,7 +29,7 @@ import junit.framework.TestCase;
  */
 public class RestSerialziationsTest extends TestCase {
 
-
+/*
 	
 	String pattern2="@prefix ns: <http://ontology.universaal.org/Health.owl#> .\r\n" + 
 			"@prefix ns1: <http://ontology.universAAL.org/Profile.owl#> .\r\n" + 
@@ -105,5 +102,5 @@ public class RestSerialziationsTest extends TestCase {
 		assertNotNull(sp);
 		assertTrue(sp.isWellFormed());
 	}	
-
+*/
 }

@@ -122,7 +122,6 @@ public class UAALResourcesGenerator {
 		
 		
 		for (Entry<String, JsonElement> item : candidate.entrySet()) {
-			System.out.println("item "+item);
 			String propURI = item.getKey();
 			Resource aux = this.getResource(null);
 			if(item.getValue() instanceof JsonArray ) {
