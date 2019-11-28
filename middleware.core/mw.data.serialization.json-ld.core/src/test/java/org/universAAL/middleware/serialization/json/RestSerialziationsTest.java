@@ -17,9 +17,9 @@ package org.universAAL.middleware.serialization.json;
 
 import java.io.InputStream;
 
-
 //import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.serialization.turtle.TurtleParser;
 
 import junit.framework.TestCase;
 /**
@@ -29,7 +29,7 @@ import junit.framework.TestCase;
  */
 public class RestSerialziationsTest extends TestCase {
 
-/*
+
 	
 	String pattern2="@prefix ns: <http://ontology.universaal.org/Health.owl#> .\r\n" + 
 			"@prefix ns1: <http://ontology.universAAL.org/Profile.owl#> .\r\n" + 
@@ -44,7 +44,6 @@ public class RestSerialziationsTest extends TestCase {
 	//method to "test" the workflow of REST api 
 	public void testSerializationWorkFlow() {
 		String resourcePath="./expand/UAALMessageExample1.json";
-		ContextProvider sp=null;
 		
 		try {
 			InputStream json =  this.getClass().getClassLoader().getResource(resourcePath).openStream();
@@ -52,9 +51,7 @@ public class RestSerialziationsTest extends TestCase {
 			Object serialized = ser.deserialize(json);
 			Resource m = (Resource)serialized;
 			assertNotNull(m);
-			sp = (ContextProvider)m;
-			assertNotNull(sp);
-			assertTrue(sp.isWellFormed());
+			assertTrue(m.isWellFormed());
 		} catch (Exception e) {
 			e.printStackTrace();
 			assertTrue(false);
@@ -64,7 +61,6 @@ public class RestSerialziationsTest extends TestCase {
 	//TODO check this case...maybe the resource generated with this json is wrong
 	public void TestExpandedJson() {
 		String resourcePath="./expandedJson.json";
-		ContextProvider sp=null;
 		try {
 			InputStream json =  this.getClass().getClassLoader().getResource(resourcePath).openStream();
 			JSONLDSerialization ser = new JSONLDSerialization();
@@ -72,8 +68,6 @@ public class RestSerialziationsTest extends TestCase {
 			Resource m = (Resource)serialized;
 			System.out.println(m.toStringRecursive());
 			assertNotNull(m);
-			sp = (ContextProvider)m;
-			assertNotNull(sp);
 		} catch (Exception e) {
 			e.printStackTrace();
 			assertTrue(false);
@@ -83,24 +77,21 @@ public class RestSerialziationsTest extends TestCase {
 	
 	//test to compare the generated resource with both serializers, taking as example a Turtle resource
 	public void testCompareSerializersResult() throws Exception{
-		ContextProvider sp=null;
 		TurtleParser turtle_parser = new TurtleParser();
 		JSONLDSerialization json_parser = new JSONLDSerialization();
 		Resource fromTurtle,fromJson;
 		fromTurtle = (Resource)turtle_parser.deserialize(pattern2 , null);
-		String JsonFromTurtle = jw.serialize(fromTurtle);
+		String JsonFromTurtle = json_parser.serialize(fromTurtle);
 		fromJson = (Resource)json_parser.deserialize(JsonFromTurtle);
+		assertNotNull(fromTurtle);
+		assertTrue(fromTurtle.isWellFormed());
+		assertNotNull(fromJson);
+		assertTrue(fromJson.isWellFormed());
+		assertTrue(fromJson.equals(fromTurtle));
 		System.out.println("----------turtle----------");
 		System.out.println(fromTurtle.toStringRecursive());
 		System.out.println("----------json----------");
 		System.out.println(fromJson.toStringRecursive());
-		assertTrue(fromJson.equals(fromTurtle));
-		sp = (ContextProvider)fromTurtle;
-		assertNotNull(sp);
-		assertTrue(sp.isWellFormed());
-		sp = (ContextProvider)fromJson;
-		assertNotNull(sp);
-		assertTrue(sp.isWellFormed());
 	}	
-*/
+
 }

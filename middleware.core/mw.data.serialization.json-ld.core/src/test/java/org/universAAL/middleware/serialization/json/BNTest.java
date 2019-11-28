@@ -15,6 +15,9 @@
  ******************************************************************************/
 package org.universAAL.middleware.serialization.json;
 
+import org.junit.Ignore;
+import org.universAAL.middleware.serialization.json.analyzers.BlankNodeAnalyzer;
+
 import junit.framework.TestCase;
 
 /**
@@ -22,7 +25,6 @@ import junit.framework.TestCase;
  * 
  */
 public class BNTest extends TestCase {
-/*
 	public void testlog() {
 		for (int i = 1; i < 9; i++) {
 			assertEquals(0, BlankNodeAnalyzer.log10(i));
@@ -38,7 +40,7 @@ public class BNTest extends TestCase {
 
 	@Ignore
 	public void testformat() {
-		PropertyConfigurator.configure("src/test/resources/logj4ConfigFile/log4j.properties");
+		//PropertyConfigurator.configure("src/test/resources/logj4ConfigFile/log4j.properties");
 
 		for (int i = 0; i < 1000; i += 7) {
 			int padding = 1 + BlankNodeAnalyzer.log10(i - 1);
@@ -46,5 +48,4 @@ public class BNTest extends TestCase {
 			System.out.println(Integer.toString(i) + "\t>\t" + format);
 		}
 	}
-	*/
 }
