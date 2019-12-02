@@ -49,6 +49,7 @@ public class ExpandJSONLD {
 
 	public ExpandJSONLD(Object jsonToExpand) {
 		
+		
 		if(jsonToExpand instanceof InputStream) {
 			String jsonString = "";
 			Scanner s = new Scanner((InputStream)jsonToExpand);

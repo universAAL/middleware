@@ -109,7 +109,7 @@ public class UAALResourcesGenerator {
 				while (i.hasNext()) {
 					JsonElement t = i.next();
 					boolean v = i.hasNext();
-					System.out.println("adding type t.getAsJsonPrimitive().getAsString() " +r.addType(t.getAsJsonPrimitive().getAsString(), !v) + t.getAsJsonPrimitive().getAsString() );
+					r.addType(t.getAsJsonPrimitive().getAsString(), !v);
 					
 				}	
 			}else if(candidate.get(JsonLdKeyword.TYPE.toString()) instanceof JsonPrimitive){
@@ -135,11 +135,10 @@ public class UAALResourcesGenerator {
 					if(item.getValue().getAsJsonArray().iterator().next() instanceof JsonPrimitive) {
 						r.setProperty(propURI, item.getValue().getAsJsonArray().iterator().next().getAsJsonPrimitive().getAsString());	
 					}else if(item.getValue().getAsJsonArray().iterator().next() instanceof JsonObject) {
-						System.out.println("JSO"+item.getValue().getAsJsonArray().iterator().next());
 						aux =this.genResource(item.getValue().getAsJsonArray().iterator().next().getAsJsonObject());
 						r.setProperty(propURI, aux);
 					}else if(item.getValue().getAsJsonArray().iterator().next() instanceof JsonArray) {
-						System.out.println("JSA");
+						//TODO array of array?
 					}
 				}
 			}
