@@ -41,7 +41,6 @@ public class JSONLDSerialization implements MessageContentSerializerEx {
 		JSONLDDocument jd = new JSONLDDocument(serialized);
 		if(jd.validate()) {
 			jd.expand();
-			System.out.println(jd.getExpandedJson());
 			UAALResourcesGenerator resFactory = new UAALResourcesGenerator(jd.getExpandedJson());
 			resFactory.generateResources();
 			Resource r = resFactory.getMainResource();
