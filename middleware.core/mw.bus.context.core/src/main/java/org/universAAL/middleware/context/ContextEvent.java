@@ -620,6 +620,8 @@ public class ContextEvent extends ScopedResource implements Event {
 				return setRDFSubject((Resource) value);
 			else if (propURI.equals(PROP_RDF_PREDICATE))
 				return setRDFPredicate(((Resource) value).getURI());
+			else if (propURI.equals(PROP_INVOLVED_HUMAN_USER))
+				return setInvolvedUser((Resource) value);
 		} else if (value instanceof String) {
 			if (propURI.equals(PROP_RDF_PREDICATE))
 				return setRDFPredicate((String) value);
@@ -637,9 +639,6 @@ public class ContextEvent extends ScopedResource implements Event {
 				&&  !props.containsKey(propURI)) {
 			props.put(PROP_CONTEXT_REFLECTS_CHANGE_REQUEST, Boolean.TRUE);
 			return true;
-		} else if (propURI.equals(PROP_INVOLVED_HUMAN_USER)) {
-			if (value instanceof Resource)
-				return setInvolvedUser((Resource) value);
 		} else if (value instanceof Integer) {
 			if (propURI.equals(PROP_CONTEXT_CONFIDENCE))
 				return setConfidence((Integer) value);
