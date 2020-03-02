@@ -72,11 +72,12 @@ public class JSONLDDocument implements JSONLDValidator {
 		s.close();
 		this.mainJsonString=jsonString;
 		this.jp = new JsonParser();
-		//throws MalformedJsonException if the json is mal formed
 		try {
 			this.mainJSON = jp.parse(this.mainJsonString);
 		}catch (JsonSyntaxException e) {
 			e.printStackTrace();
+			LogUtils.logDebug(JSONLDSerialization.owner, JSONLDDocument.class, "constructor", "cant parse Json from InputStream"+e.getLocalizedMessage());
+
 		}
 		
 
@@ -91,7 +92,7 @@ public class JSONLDDocument implements JSONLDValidator {
 	 */
 
 	public boolean validate() {
-		LogUtils.logDebug(JSONLDSerialization.owner, JSONLDDocument.class, "expand", "validating json");
+		LogUtils.logDebug(JSONLDSerialization.owner, JSONLDDocument.class, "validate", "validating json");
 		//datamodel especification	https://www.w3.org/TR/2014/REC-json-ld-20140116/#data-model
 		/*
 		A JSON-LD document serializes a generalized RDF Dataset [RDF11-CONCEPTS], 
