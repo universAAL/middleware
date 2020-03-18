@@ -153,6 +153,22 @@ public class ExpansionTest {
 		
 	}
 	
+	@Test
+	public void objectReferencesTest() {
+		this.expected="";
+		try {
+			json =  this.loadJson("./expand/multipleType.json");
+			expansor = new ExpandJSONLD(json);
+			expansor.expand();
+			assertTrue(compareJsons(parser.parse(expected).getAsJsonArray(),expansor.getExpandedJson()));
+			System.out.println(expansor.getExpandedJson());
+		} catch (Exception e) {
+			e.printStackTrace();
+			assertTrue(false);
+
+		}
+	}
+	
 	private InputStream loadJson(String path) throws Exception {
 		return this.getClass().getClassLoader().getResource(path).openStream();
 	}
