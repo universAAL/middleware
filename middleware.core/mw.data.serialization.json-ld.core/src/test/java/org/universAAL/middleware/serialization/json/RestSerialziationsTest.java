@@ -44,8 +44,8 @@ public class RestSerialziationsTest extends TestCase {
 	//method to "test" the workflow of REST api 
 	public void testSerializationWorkFlow() {
 		String resourcePath="./expand/UAALMessageExample1.json";
-		String contextEventPath="./expand/ContextEvent.json";
-		try {
+		String contextEventPath="./expand/ce.json";
+		try { 
 			InputStream json =  this.getClass().getClassLoader().getResource(contextEventPath).openStream();
 			JSONLDSerialization ser = new JSONLDSerialization();
 			Object serialized = ser.deserialize(json);

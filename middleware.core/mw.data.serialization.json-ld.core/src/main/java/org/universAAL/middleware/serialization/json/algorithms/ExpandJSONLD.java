@@ -187,7 +187,7 @@ public class ExpandJSONLD {
 							}
 						}
 					}
-					((JsonArray)result).add(aux);
+					((JsonArray)result).add(aux); 
 				}
 				
 
@@ -240,6 +240,7 @@ public class ExpandJSONLD {
 		for (Entry<String, JsonElement> item :((JsonObject)value).entrySet()) {
 			JsonElement expanded_item = this.expandElement(item.getKey(), item.getValue());
 			if(expanded_item instanceof JsonObject) {
+				if(expanded_item.getAsJsonObject().entrySet().size()!=0)
 					result_obj.add(((JsonObject)expanded_item).entrySet().iterator().next().getKey(), ((JsonObject)expanded_item).entrySet().iterator().next().getValue());
 			}
 		}
