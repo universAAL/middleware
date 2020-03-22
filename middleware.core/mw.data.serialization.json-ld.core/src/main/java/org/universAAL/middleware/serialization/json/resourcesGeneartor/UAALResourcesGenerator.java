@@ -101,8 +101,6 @@ public class UAALResourcesGenerator {
 			r = this.getResource(resourceID);
 		}else 
 			r = this.getResource(null);
-		
-		
 		if (candidate.has(JsonLdKeyword.TYPE.toString())) {
 			if(candidate.get(JsonLdKeyword.TYPE.toString()) instanceof JsonArray) {
 				Iterator<JsonElement> i = candidate.remove(JsonLdKeyword.TYPE.toString()).getAsJsonArray().iterator();
@@ -116,15 +114,12 @@ public class UAALResourcesGenerator {
 				r.addType(candidate.remove(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive().getAsString(), true);
 			}
 				
-		}
-		
-		
-		
-		
+		} 
 		for (Entry<String, JsonElement> item : candidate.entrySet()) {
-			String propURI = item.getKey();
 			Resource aux = this.getResource(null);
+			
 			if(item.getValue() instanceof JsonArray ) {
+				String propURI = item.getKey();
 				if(item.getValue().getAsJsonArray().size()>1) {
 					List l = parseCollection(item.getValue().getAsJsonArray(), false);
 					aux.addType(Resource.TYPE_RDF_LIST, true);
@@ -138,8 +133,12 @@ public class UAALResourcesGenerator {
 						aux =this.genResource(item.getValue().getAsJsonArray().iterator().next().getAsJsonObject());
 						r.setProperty(propURI, aux);
 					}else if(item.getValue().getAsJsonArray().iterator().next() instanceof JsonArray) {
-						//TODO array of array?
+						System.out.println("array of arrays");
 					}
+				}
+			}else if(item.getValue() instanceof JsonPrimitive) {
+				if(item.getKey().equals(JsonLdKeyword.VALUE.toString())) {
+					r.setProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#value", item.getValue().getAsJsonPrimitive().getAsString());
 				}
 			}
 		}
@@ -208,7 +207,6 @@ public class UAALResourcesGenerator {
 			}				
 		}
 		return l;
-		
 	}
 
 }

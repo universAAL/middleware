@@ -44,14 +44,15 @@ public class RestSerialziationsTest extends TestCase {
 	//method to "test" the workflow of REST api 
 	public void testSerializationWorkFlow() {
 		String resourcePath="./expand/UAALMessageExample1.json";
-		
+		String contextEventPath="./expand/ContextEvent.json";
 		try {
-			InputStream json =  this.getClass().getClassLoader().getResource(resourcePath).openStream();
+			InputStream json =  this.getClass().getClassLoader().getResource(contextEventPath).openStream();
 			JSONLDSerialization ser = new JSONLDSerialization();
 			Object serialized = ser.deserialize(json);
 			Resource m = (Resource)serialized;
 			assertNotNull(m);
 			assertTrue(m.isWellFormed());
+			System.out.println(m.toStringRecursive());
 		} catch (Exception e) {
 			e.printStackTrace();
 			assertTrue(false);
@@ -59,7 +60,7 @@ public class RestSerialziationsTest extends TestCase {
 	}
 
 	//TODO check this case...maybe the resource generated with this json is wrong
-	public void TestExpandedJson() {
+	public void testExpandedJson() {
 		String resourcePath="./expandedJson.json";
 		try {
 			InputStream json =  this.getClass().getClassLoader().getResource(resourcePath).openStream();

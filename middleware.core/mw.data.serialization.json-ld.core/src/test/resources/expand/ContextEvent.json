@@ -1,0 +1,48 @@
+{
+  "@context": {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "wl": "http://ontology.universAAL.org/Context.owl#",
+    "nt": "urn:org.universAAL.middleware.context.rdf:ContextEvent#_:",
+    "aha":"http://aha-ontology.activageproject.eu/games.owl#",
+    "vcard":"http://www.w3.org/2006/vcard/ns/Name#",
+    "usr":"http://www.w3.org/2006/vcard/ns/User#",
+    "start": {
+      "@id": "aha:start",
+      "@type": "xsd:dateTime"
+    },
+	 "max_rt": {
+       "@id": "aha:max_rt",
+      "@type": "xsd:float"
+    },
+	 "min_rt": {
+       "@id": "aha:min_rt",
+      "@type": "xsd:float"
+    },
+	    "solved": {
+          "@id": "aha:solved",
+      "@type": "xsd:boolean"
+    }
+  },
+  "@id": "nt:9e2aa729ac420ba3:182a",
+  "@type": "wl:ContextEvent",
+ "rdf:subject": {
+	   "wl:hasValue": {
+      "@id": "http://www.some.example.id.com",
+      "@type": "wl:gameSession",
+      "start": 1543956968,
+      "max_rt": 963,
+      "min_rt": 593,
+      "solved": true
+    }
+  },
+  "rdf:object":{
+    "@id":"http://www.some.example.id.com"
+  },
+  "rdf:predicate":{
+	"@id":"wl:hasValue"
+  }
+  
+  
+
+}

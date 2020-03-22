@@ -17,6 +17,7 @@
 package org.universAAL.middleware.serialization.json.algorithms;
 
 import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -140,11 +141,10 @@ public class ExpandJSONLD {
 						is_id = true;
 						((JsonArray)result).add(expanded_value);
 					}
-				
 				}else {
 					result = new JsonArray();
 					aux = new JsonObject();
-					if(is_id) {
+					if(is_id) {						
 						aux.add("@id", expanded_value);
 					}else {
 						aux.add("@value", expanded_value);
@@ -152,29 +152,49 @@ public class ExpandJSONLD {
 					((JsonArray)result).add(aux);
 				}
 			}else if(expandedKey instanceof JsonObject ) {
-				
+				JsonObject auxObj=(JsonObject) expandedKey; 
 				result = new JsonArray(); 
-					if(((JsonObject) expandedKey).has(JsonLdKeyword.TYPE.toString())) {
-						JsonPrimitive type_value =((JsonObject) expandedKey).get(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive();
-						if(type_value.getAsString().equals(JsonLdKeyword.ID.toString())) {
-							aux = new JsonObject();
-							aux.add(JsonLdKeyword.ID.toString(), this.iriExpansion(value));
-							((JsonArray)result).add(aux);
+				JsonElement id_value;
+				if(auxObj.has(JsonLdKeyword.ID.toString())) {
+					 id_value= auxObj.get(JsonLdKeyword.ID.toString());
+					 aux = new JsonObject();
+					if(auxObj.has(JsonLdKeyword.TYPE.toString())) {
+						JsonPrimitive type_value =auxObj.get(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive();
+						if(type_value.getAsJsonPrimitive().getAsString().equals(JsonLdKeyword.ID.toString())) {
+							aux.add(JsonLdKeyword.ID.toString(), value);
 						}else {
-							aux = new JsonObject();
-							aux.add(JsonLdKeyword.VALUE.toString(), value);
-							aux.add(JsonLdKeyword.TYPE.toString()  , this.iriExpansion(type_value));
-							((JsonArray)result).add(aux);
+
+							aux.add(JsonLdKeyword.TYPE.toString(), this.iriExpansion(type_value));
+							aux.add(JsonLdKeyword.VALUE.toString(), value);	
 						}
+						((JsonArray)result).add(aux);
 					}else {
 						aux = new JsonObject();
-						aux.add(JsonLdKeyword.ID.toString(), value);
+						aux.add(JsonLdKeyword.VALUE.toString(), value);
 						((JsonArray)result).add(aux);
 					}
+				}else {
+					if(auxObj.has(JsonLdKeyword.TYPE.toString())) {
+						if(auxObj.get(JsonLdKeyword.TYPE.toString()) instanceof JsonPrimitive){
+							if(auxObj.get(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive().getAsString().equals(JsonLdKeyword.ID.toString())) {
+								aux = new JsonObject();
+								aux.add(JsonLdKeyword.ID.toString(), this.iriExpansion(value));
+							}else {
+								JsonElement expanded = this.iriExpansion(auxObj.get(JsonLdKeyword.TYPE.toString()));
+								aux = new JsonObject();
+								aux.add(JsonLdKeyword.TYPE.toString(), expanded);
+								aux.add(JsonLdKeyword.VALUE.toString(), value);
+							}
+						}
+					}
+					((JsonArray)result).add(aux);
+				}
+				
+
 			String ID=null;
 				
 			if(((JsonObject) expandedKey).has(JsonLdKeyword.ID.toString())) {
-				ID = ((JsonObject) expandedKey).get(JsonLdKeyword.ID.toString()).getAsJsonPrimitive().getAsString();
+				ID = this.iriExpansion(((JsonObject) expandedKey).get(JsonLdKeyword.ID.toString())).getAsJsonPrimitive().getAsString();
 			}else{
 				ID = ((JsonObject) expandedKey).get("expanded_key").getAsJsonPrimitive().getAsString();
 			}
@@ -232,6 +252,7 @@ public class ExpandJSONLD {
 	
 
 	private JsonElement iriExpansion(JsonElement key) {
+		URL url=null;
 		String prefix="",sufix="";
 		JsonElement expanded=null;
 		if(key.getAsJsonPrimitive().getAsString().startsWith("@") || key.isJsonNull()) {
@@ -239,35 +260,44 @@ public class ExpandJSONLD {
 		}
 		
 		if(key.isJsonPrimitive()) {
-			if(key.getAsJsonPrimitive().getAsString().contains(":")) {
-				String candidate = key.getAsJsonPrimitive().getAsString();
-				prefix = key.getAsJsonPrimitive().getAsString().substring(0, key.getAsJsonPrimitive().getAsString().indexOf(":"));
-				sufix = key.getAsJsonPrimitive().getAsString().substring(key.getAsJsonPrimitive().getAsString().indexOf(":")+1);
-				if(prefix.contains("_") || sufix.startsWith("//")) {
-					return key;
-				}
-				if(this.context.hasTerm(key) ) {
-					if(this.context.getTermValue(key).isJsonObject()) {
-						JsonObject auxiliar = this.context.getTermValue(key).getAsJsonObject();
-						 JsonElement y = this.iriExpansion(new JsonPrimitive(prefix));
-						 String generated = y.getAsString()+sufix;
-						auxiliar.add("expanded_key",new JsonPrimitive(generated));
-						return auxiliar;	
-					}
-				}
-				if(this.context.hasTerm(prefix)) {
-					String generatedIRI= this.iriExpansion(new JsonPrimitive(prefix)).getAsString();
-					expanded = new JsonPrimitive(generatedIRI+candidate.substring(candidate.indexOf(":")+1));
-				}else {
-					expanded = key.getAsJsonPrimitive();
-				}
-			}else if(this.context.hasTerm(key)) {
-					if(this.context.getTermValue(key).isJsonObject()) {
-						expanded = this.context.getTermValue(key);
-					}else if(this.context.getTermValue(key).isJsonPrimitive()) {
-							expanded = this.context.getTermValue(key);
-						}
+			try {
+				url = new URL(key.getAsJsonPrimitive().getAsString());
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
+			
+			if(url==null) {
+				if(key.getAsJsonPrimitive().getAsString().contains(":")) {
+					String candidate = key.getAsJsonPrimitive().getAsString();
+					prefix = key.getAsJsonPrimitive().getAsString().substring(0, key.getAsJsonPrimitive().getAsString().indexOf(":"));
+					sufix = key.getAsJsonPrimitive().getAsString().substring(key.getAsJsonPrimitive().getAsString().indexOf(":")+1);
+					if(prefix.contains("_") || sufix.startsWith("//")) {
+						return key;
+					}
+					if(this.context.hasTerm(key) ) {
+						if(this.context.getTermValue(key).isJsonObject()) {
+							JsonObject auxiliar = this.context.getTermValue(key).getAsJsonObject();
+							 JsonElement y = this.iriExpansion(new JsonPrimitive(prefix));
+							 String generated = y.getAsString()+sufix;
+							auxiliar.add("expanded_key",new JsonPrimitive(generated));
+							return auxiliar;	
+						}
+					}
+					if(this.context.hasTerm(prefix)) {
+						String generatedIRI= this.iriExpansion(new JsonPrimitive(prefix)).getAsString();
+						expanded = new JsonPrimitive(generatedIRI+candidate.substring(candidate.indexOf(":")+1));
+					}else {
+						expanded = key.getAsJsonPrimitive();
+					}
+				}else if(this.context.hasTerm(key)) {
+					expanded = this.context.getTermValue(key);
+				}else {
+					expanded =key;
+				}
+			}else {
+				expanded = new JsonPrimitive(key.getAsJsonPrimitive().getAsString());
+			}
+			
 		}
 		return expanded;
 	}

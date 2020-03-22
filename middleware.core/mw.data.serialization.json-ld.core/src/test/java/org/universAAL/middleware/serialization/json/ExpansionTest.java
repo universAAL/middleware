@@ -155,9 +155,9 @@ public class ExpansionTest {
 	
 	@Test
 	public void objectReferencesTest() {
-		this.expected="";
+		this.expected="[{\"@id\": \"urn:org.universAAL.middleware.context.rdf:ContextEvent#_:9e2aa729ac420ba3:182a\",\"@type\": [\"http://ontology.universAAL.org/Context.owl#ContextEvent\"],\"http://www.w3.org/1999/02/22-rdf-syntax-ns#object\": [{\"@id\": \"http://www.some.example.id.com\"}],\"http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate\": [{\"@id\": \"http://ontology.universAAL.org/Context.owl#hasValue\"}],\"http://www.w3.org/1999/02/22-rdf-syntax-ns#subject\": [{\"http://ontology.universAAL.org/Context.owl#hasValue\": [{\"@id\": \"http://www.some.example.id.com\",\"@type\": [\"http://ontology.universAAL.org/Context.owl#gameSession\"],\"http://aha-ontology.activageproject.eu/games.owl#max_rt\": [{\"@type\": \"http://www.w3.org/2001/XMLSchema#float\",\"@value\": 963}],\"http://aha-ontology.activageproject.eu/games.owl#min_rt\": [{\"@type\": \"http://www.w3.org/2001/XMLSchema#float\",\"@value\": 593}],\"http://aha-ontology.activageproject.eu/games.owl#solved\": [{\"@type\": \"http://www.w3.org/2001/XMLSchema#boolean\",\"@value\": true}],\"http://aha-ontology.activageproject.eu/games.owl#start\": [{\"@type\": \"http://www.w3.org/2001/XMLSchema#dateTime\",\"@value\": 1543956968}]}]}]}]";
 		try {
-			json =  this.loadJson("./expand/multipleType.json");
+			json =  this.loadJson("./expand/ContextEVent.json");
 			expansor = new ExpandJSONLD(json);
 			expansor.expand();
 			assertTrue(compareJsons(parser.parse(expected).getAsJsonArray(),expansor.getExpandedJson()));
