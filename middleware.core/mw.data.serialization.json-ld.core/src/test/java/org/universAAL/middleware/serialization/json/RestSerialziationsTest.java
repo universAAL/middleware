@@ -43,20 +43,22 @@ public class RestSerialziationsTest extends TestCase {
 
 	//method to "test" the workflow of REST api 
 	public void testSerializationWorkFlow() {
-		String resourcePath="./expand/UAALMessageExample1.json";
-		String contextEventPath="./expand/ce.json";
-		try { 
-			InputStream json =  this.getClass().getClassLoader().getResource(contextEventPath).openStream();
-			JSONLDSerialization ser = new JSONLDSerialization();
-			Object serialized = ser.deserialize(json);
-			Resource m = (Resource)serialized;
-			assertNotNull(m);
-			assertTrue(m.isWellFormed());
-			System.out.println(m.toStringRecursive());
-		} catch (Exception e) {
-			e.printStackTrace();
-			assertTrue(false);
+		String paths[] = {"./expand/subscriber.json", "./expand/ce.json"};
+		for (String resource : paths) {
+			try { 
+				InputStream json =  this.getClass().getClassLoader().getResource(resource).openStream();
+				JSONLDSerialization ser = new JSONLDSerialization();
+				Object serialized = ser.deserialize(json);
+				Resource m = (Resource)serialized;
+				assertNotNull(m);
+				assertTrue(m.isWellFormed());
+				System.out.println(m.toStringRecursive());
+			} catch (Exception e) {
+				e.printStackTrace();
+				assertTrue(false);
+			}
 		}
+	
 	}
 
 	//TODO check this case...maybe the resource generated with this json is wrong
@@ -75,7 +77,7 @@ public class RestSerialziationsTest extends TestCase {
 		}
 	}
 	
-	
+	 
 	//test to compare the generated resource with both serializers, taking as example a Turtle resource
 	public void testCompareSerializersResult() throws Exception{
 		TurtleParser turtle_parser = new TurtleParser();
@@ -96,3 +98,4 @@ public class RestSerialziationsTest extends TestCase {
 	}	
 
 }
+
