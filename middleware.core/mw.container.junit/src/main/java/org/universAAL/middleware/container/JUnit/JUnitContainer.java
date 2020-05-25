@@ -82,20 +82,20 @@ public final class JUnitContainer implements Container {
 		}
 
 		int lastXface = fetchParams.length;
-//		if (fetchParams[lastXface] instanceof Filter) {
-//			//TODO manage filter
-//			lastXface--;
-//		}
-		
-		HashSet<Object> result = new HashSet<Object>();
+		//		if (fetchParams[lastXface] instanceof String) {
+		//			//TODO manage filter
+		//			lastXface--;
+		//		}
+
+		ArrayList<Object> result = new ArrayList<Object>();
 		for (int i = 0; i < lastXface; i++) {
 			Object stored = sharedObjectMap.get(fetchParams[i]);
 			if (stored instanceof List) {
 				result.addAll((List<Object>) stored);
-			} else if (stored != null)
+			} else if (stored != null) {
 				result.add(stored);
+			}
 		}
-
 		return result.toArray(new Object[result.size()]);
 	}
 
@@ -149,12 +149,21 @@ public final class JUnitContainer implements Container {
 			if (!sharedObjectMap.containsKey(shareParams[i])) {
 				sharedObjectMap.put((String) shareParams[i], objToShare);
 			} else {
-				//there is already an object => create list
+				//there is already an object
 				Object existing = sharedObjectMap.get(shareParams[i]);
+				if (existing instanceof List) {
+					//add to existing list
+					((List) existing).add(objToShare);
+				}else {
+					// create list
 				ArrayList<Object> list = new ArrayList<Object>();
 				list.add(existing);
 				list.add(objToShare);
+				for (Object object : list) {
+					System.out.println(object.getClass());
+				}
 				sharedObjectMap.put((String) shareParams[i], list);
+				}
 			}
 		}
 		//TODO Manage Dictionary
@@ -168,6 +177,7 @@ public final class JUnitContainer implements Container {
 	public void removeSharedObject(ModuleContext requester, Object objToRemove, Object[] shareParams) {
 		int lastXface = shareParams.length - 1;
 		if (shareParams[lastXface] instanceof Dictionary) {
+			//TODO find correct object, from filters and remove
 			lastXface--;
 		}
 		for (int i = 0; i <= lastXface; i++) {
