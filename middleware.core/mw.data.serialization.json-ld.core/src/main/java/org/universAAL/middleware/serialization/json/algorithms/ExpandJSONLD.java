@@ -18,8 +18,6 @@ package org.universAAL.middleware.serialization.json.algorithms;
 
 import java.io.InputStream;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Scanner;
 
@@ -256,11 +254,16 @@ public class ExpandJSONLD {
 		URL url=null;
 		String prefix="",sufix="";
 		JsonElement expanded=null;
+		/*
 		if(key.getAsJsonPrimitive().getAsString().startsWith("@") || key.isJsonNull()) {
 			return key;	
 		}
+		*/
 		
 		if(key.isJsonPrimitive()) {
+			if(key.getAsJsonPrimitive().getAsString().startsWith("@") || key.isJsonNull()) {
+				return key;	
+			}
 			try {
 				url = new URL(key.getAsJsonPrimitive().getAsString());
 			} catch (Exception e) {
@@ -291,14 +294,18 @@ public class ExpandJSONLD {
 						expanded = key.getAsJsonPrimitive();
 					}
 				}else if(this.context.hasTerm(key)) {
-					expanded = this.context.getTermValue(key);
+					JsonElement t = this.context.getTermValue(key);
+					expanded = this.iriExpansion(t);
 				}else {
-					expanded =key;
+					expanded =null;
 				}
 			}else {
 				expanded = new JsonPrimitive(key.getAsJsonPrimitive().getAsString());
 			}
 			
+		}
+		if(key instanceof JsonObject) {
+			expanded = key;
 		}
 		return expanded;
 	}
