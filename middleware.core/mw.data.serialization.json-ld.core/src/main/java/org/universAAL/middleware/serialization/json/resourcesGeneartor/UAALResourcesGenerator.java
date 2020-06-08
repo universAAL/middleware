@@ -16,12 +16,16 @@
 package org.universAAL.middleware.serialization.json.resourcesGeneartor;
 
 import java.io.InputStream;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+
+import javax.swing.Popup;
+
 import java.util.Scanner;
 
 import org.universAAL.middleware.container.utils.LogUtils;
@@ -101,7 +105,9 @@ public class UAALResourcesGenerator {
 			r = this.getResource(resourceID);
 		}else 
 			r = this.getResource(null);
+		
 		if (candidate.has(JsonLdKeyword.TYPE.toString())) {
+		
 			if(candidate.get(JsonLdKeyword.TYPE.toString()) instanceof JsonArray) {
 				Iterator<JsonElement> i = candidate.remove(JsonLdKeyword.TYPE.toString()).getAsJsonArray().iterator();
 				while (i.hasNext()) {
@@ -114,31 +120,40 @@ public class UAALResourcesGenerator {
 				r.addType(candidate.remove(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive().getAsString(), true);
 			}
 				
-		} 
+		}
+		
 		for (Entry<String, JsonElement> item : candidate.entrySet()) {
+			String propURI = item.getKey();
 			Resource aux = this.getResource(null);
-			
 			if(item.getValue() instanceof JsonArray ) {
-				String propURI = item.getKey();
-				if(item.getValue().getAsJsonArray().size()>1) {
+				if(item.getValue().getAsJsonArray().size() > 1) {
 					List l = parseCollection(item.getValue().getAsJsonArray(), false);
 					aux.addType(Resource.TYPE_RDF_LIST, true);
 					aux.setProperty(Resource.PROP_RDF_FIRST, l.remove(0));
 					aux.setProperty(Resource.PROP_RDF_REST, l);
 					r.setProperty(propURI, aux.asList());	
 				}else {
-					if(item.getValue().getAsJsonArray().iterator().next() instanceof JsonPrimitive) {
+					JsonElement array_item  =item.getValue().getAsJsonArray().iterator().next();
+					if( array_item instanceof JsonPrimitive) {
 						r.setProperty(propURI, item.getValue().getAsJsonArray().iterator().next().getAsJsonPrimitive().getAsString());	
-					}else if(item.getValue().getAsJsonArray().iterator().next() instanceof JsonObject) {
-						aux =this.genResource(item.getValue().getAsJsonArray().iterator().next().getAsJsonObject());
-						r.setProperty(propURI, aux);
-					}else if(item.getValue().getAsJsonArray().iterator().next() instanceof JsonArray) {
+					}else if(array_item instanceof JsonObject) {
+						if(array_item.getAsJsonObject().has(JsonLdKeyword.TYPE.toString()) &&  array_item.getAsJsonObject().has(JsonLdKeyword.VALUE.toString())){
+							Object mapped_type = TypeMapper.getJavaInstance(array_item.getAsJsonObject().get(JsonLdKeyword.VALUE.toString()).getAsJsonPrimitive().getAsString(), array_item.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive().getAsString());
+							r.setProperty(propURI, mapped_type);	
+						}else if(array_item.getAsJsonObject().has(JsonLdKeyword.VALUE.toString())){
+							r.setProperty(propURI, array_item.getAsJsonObject().get(JsonLdKeyword.VALUE.toString()).getAsJsonPrimitive().getAsString());	
+						}else {
+							aux =this.genResource(item.getValue().getAsJsonArray().iterator().next().getAsJsonObject());
+							r.setProperty(propURI, aux);	
+						}
+						
+					}else if(array_item instanceof JsonArray) {
 						System.out.println("array of arrays");
 					}
 				}
 			}else if(item.getValue() instanceof JsonPrimitive) {
 				if(item.getKey().equals(JsonLdKeyword.VALUE.toString())) {
-					r.setProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#value", item.getValue().getAsJsonPrimitive().getAsString());
+					r.setProperty(propURI, TypeMapper.getJavaInstance(item.getValue().getAsJsonPrimitive().getAsString(),r.getType() ));
 				}
 			}
 		}
@@ -188,6 +203,7 @@ public class UAALResourcesGenerator {
 	}
 
 	private List parseCollection(JsonArray candidate, boolean parseAsTypeList) {
+		System.out.println("parse colleciton "+candidate);
 		List l = new ArrayList();
 		Resource aux ;
 		if(parseAsTypeList) {
@@ -197,16 +213,30 @@ public class UAALResourcesGenerator {
 			
 		}else {
 			for (JsonElement item : candidate) {
+				
 				if(item.getAsJsonObject().entrySet().size() == 1 && item.getAsJsonObject().entrySet().iterator().next().getKey().equals("@value")) {
-					l.add(TypeMapper.getJavaInstance(item.getAsJsonObject().entrySet().iterator().next().getValue().getAsJsonPrimitive().getAsString(), null) );
+					l.add(TypeMapper.getJavaInstance(item.getAsJsonObject().entrySet().iterator().next().getValue().getAsJsonPrimitive().getAsString(), "http://www.w3.org/2001/XMLSchema#string") );
 				}else{
 					aux = genResource(item.getAsJsonObject());
 					l.add(aux);
 				}
 				
+				//aux = genResource(item.getAsJsonObject());
+				//l.add(aux);
 			}				
 		}
 		return l;
 	}
+	
+	private Object valueTypeSelector(String value) {
+		if(value.endsWith("boolean")) {
+			return Boolean.valueOf(value);
+		}
+	
+		
+		return null;
+	}
+
+	
 
 }
