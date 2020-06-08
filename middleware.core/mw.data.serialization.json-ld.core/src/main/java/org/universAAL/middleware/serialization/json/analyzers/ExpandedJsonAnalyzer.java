@@ -17,12 +17,10 @@
 package org.universAAL.middleware.serialization.json.analyzers;
 
 import java.io.InputStream;
-import java.net.URL;
 import java.util.Map.Entry;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.serialization.json.JSONLDSerialization;
-import org.universAAL.middleware.serialization.json.JsonLdKeyword;
 import org.universAAL.middleware.serialization.json.algorithms.ExpandJSONLD;
 import org.universAAL.middleware.serialization.json.grammar.IRI;
 

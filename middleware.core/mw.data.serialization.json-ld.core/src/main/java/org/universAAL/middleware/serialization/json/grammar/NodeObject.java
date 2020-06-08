@@ -15,20 +15,12 @@
  ******************************************************************************/
 package org.universAAL.middleware.serialization.json.grammar;
 
-import java.security.InvalidParameterException;
 import java.util.Map.Entry;
-import java.util.Set;
 
-import javax.sound.midi.Soundbank;
-
-import org.universAAL.middleware.container.utils.LogUtils;
-import org.universAAL.middleware.serialization.json.JSONLDSerialization;
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonNull;
-import com.google.gson.JsonObject;
 
 /**
  * @author amedrano

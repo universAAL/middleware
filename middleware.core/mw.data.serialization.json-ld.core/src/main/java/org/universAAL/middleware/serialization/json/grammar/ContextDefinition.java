@@ -27,7 +27,6 @@ import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.serialization.json.JSONLDSerialization;
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -155,18 +154,7 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 				}
 			return true;
 	}
-	//TODO a term defined in the active context expanding into an absolute IRI, or an array of any of these.
-//	public boolean ActiveContextTermControl(JsonElement candidate) {
-//		for (Entry<String, JsonElement> element : this.jsonToValidate.entrySet()) {
-//			if(candidate.isJsonPrimitive() || candidate.isJsonArray()) {
-//				//this.jsonToValidate.has(element.getKey());
-//			}else {
-//				//throw error
-//				return false;
-//			}
-//		}
-//		return true;
-//	}
+
 
 	public boolean keyControl(Entry<String, JsonElement> element) {
 		if( ! IRI.isAbsolute(element.getKey().toString())) {
