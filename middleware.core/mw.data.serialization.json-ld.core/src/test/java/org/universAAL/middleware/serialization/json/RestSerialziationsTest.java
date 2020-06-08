@@ -20,6 +20,8 @@ import java.io.InputStream;
 //import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.serialization.turtle.TurtleParser;
+import org.universAAL.middleware.serialization.turtle.TurtleSerializer;
+import org.universAAL.middleware.serialization.turtle.TurtleWriter;
 
 import junit.framework.TestCase;
 /**
@@ -51,8 +53,10 @@ public class RestSerialziationsTest extends TestCase {
 				Object serialized = ser.deserialize(json);
 				Resource m = (Resource)serialized;
 				assertNotNull(m);
+				TurtleSerializer s = new TurtleSerializer();
 				assertTrue(m.isWellFormed());
-				System.out.println(m.toStringRecursive());
+				//System.out.println(m.toStringRecursive());
+				System.out.println(s.serialize(m));
 			} catch (Exception e) {
 				e.printStackTrace();
 				assertTrue(false);
@@ -95,7 +99,25 @@ public class RestSerialziationsTest extends TestCase {
 		System.out.println(fromTurtle.toStringRecursive());
 		System.out.println("----------json----------");
 		System.out.println(fromJson.toStringRecursive());
-	}	
+	}
+	
+	public void testSerializePrimitiveDatatypes() {
+		String path = "./expand/UAALGamesContextEvent.json";
+			try { 
+				InputStream json =  this.getClass().getClassLoader().getResource(path).openStream();
+				JSONLDSerialization ser = new JSONLDSerialization();
+				Object serialized = ser.deserialize(json);
+				Resource m = (Resource)serialized;
+				assertTrue(m.isWellFormed());
+				System.out.println(m.toStringRecursive());
+			} catch (Exception e) {
+				e.printStackTrace();
+				assertTrue(false);
+			}
+		
+	
+	}
+	
 
 }
 
