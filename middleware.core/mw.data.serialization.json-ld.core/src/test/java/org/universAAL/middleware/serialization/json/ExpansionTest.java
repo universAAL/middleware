@@ -7,6 +7,7 @@ import java.io.InputStream;
 import org.junit.Before;
 import org.junit.Test;
 import org.universAAL.middleware.serialization.json.algorithms.ExpandJSONLD;
+import org.universAAL.middleware.serialization.turtle.TurtleSerializer;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
@@ -168,6 +169,25 @@ public class ExpansionTest {
 
 		}
 	}
+	
+	@Test
+	public void uaalGamesCETest() {
+		this.expected="[{\"@id\": \"urn:org.universAAL.middleware.context.rdf:ContextEvent#_:9e2aa729ac420ba3:182a\",\"@type\": [\"http://ontology.universAAL.org/Context.owl#ContextEvent\"],\"http://www.w3.org/1999/02/22-rdf-syntax-ns#object\": [{\"@id\": \"http://www.w3.org/2006/vcard/ns/Name#mds069\"}],\"http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate\": [{\"@id\": \"http://ontology.universAAL.org/Context.owl#hasValue\"}],\"http://www.w3.org/1999/02/22-rdf-syntax-ns#subject\": [{\"http://ontology.universAAL.org/Context.owl#hasValue\": [{\"@id\": \"http://www.w3.org/2006/vcard/ns/Name#mds069\",\"http://aha-ontology.activageproject.eu/games.owl#solved\": [{\"@type\": \"http://www.w3.org/2001/XMLSchema#boolean\",\"@value\": false}],\"http://aha-ontology.activageproject.eu/games.owl#start\": [{\"@type\": \"http://www.w3.org/2001/XMLSchema#dateTime\",\"@value\": 1543960734}]}]}]}]";
+		try {
+			json =  this.loadJson("./expand/UAALGamesContextEvent.json");
+			expansor = new ExpandJSONLD(json);
+			expansor.expand();
+			assertTrue(compareJsons(parser.parse(expected).getAsJsonArray(),expansor.getExpandedJson()));
+			System.out.println(expansor.getExpandedJson());
+		} catch (Exception e) {
+			e.printStackTrace();
+			assertTrue(false);
+
+		}
+	}
+	
+	
+
 	
 	private InputStream loadJson(String path) throws Exception {
 		return this.getClass().getClassLoader().getResource(path).openStream();
