@@ -201,7 +201,20 @@ public class ExpandJSONLD {
 			}
 			expanded_result.add(expandedKey.getAsJsonPrimitive().getAsString(), result);
 		}else if(value instanceof JsonObject ) {
-			expanded_result.add(expandedKey.getAsJsonPrimitive().getAsString(), this.expandObject(value));
+			//*************************************
+			result = new JsonArray();
+			aux = new JsonObject();
+			if(expandedKey instanceof JsonObject) {
+				if(expandedKey.getAsJsonObject().has(JsonLdKeyword.ID.toString())) {
+					JsonElement t = this.iriExpansion(expandedKey.getAsJsonObject().get(JsonLdKeyword.ID.toString()));
+					expanded_result.add(t.getAsJsonPrimitive().getAsString(), this.expandObject(value));		
+				}
+			}
+			if(expandedKey instanceof JsonPrimitive) {
+				expanded_result.add(expandedKey.getAsJsonPrimitive().getAsString(), this.expandObject(value));	
+			}
+			
+			
 		}else if(value instanceof JsonArray ) {
 			JsonArray expanded_items = new JsonArray(); 			
 			if(expandedKey.getAsJsonPrimitive().getAsString().equals(JsonLdKeyword.TYPE.toString())) {
