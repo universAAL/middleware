@@ -53,7 +53,6 @@ public class UAALResourcesGenerator {
 	private JsonArray mainjJson;
 	private JsonArray expandedJson;
 	private JsonParser parser = new JsonParser();
-	private HashMap<String , Resource> generatedResources = new HashMap<String, Resource>();
 	private Resource mainResource=null;
 	private HashMap<String, Resource> resources = new HashMap<String, Resource>();
 	private Hashtable blankNodes = new Hashtable();
@@ -114,7 +113,6 @@ public class UAALResourcesGenerator {
 					JsonElement t = i.next();
 					boolean v = i.hasNext();
 					r.addType(t.getAsJsonPrimitive().getAsString(), !v);
-					
 				}	
 			}else if(candidate.get(JsonLdKeyword.TYPE.toString()) instanceof JsonPrimitive){
 				r.addType(candidate.remove(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive().getAsString(), true);
@@ -133,13 +131,24 @@ public class UAALResourcesGenerator {
 					aux.setProperty(Resource.PROP_RDF_REST, l);
 					r.setProperty(propURI, aux.asList());	
 				}else {
+					
 					JsonElement array_item  =item.getValue().getAsJsonArray().iterator().next();
 					if( array_item instanceof JsonPrimitive) {
 						r.setProperty(propURI, item.getValue().getAsJsonArray().iterator().next().getAsJsonPrimitive().getAsString());	
 					}else if(array_item instanceof JsonObject) {
 						if(array_item.getAsJsonObject().has(JsonLdKeyword.TYPE.toString()) &&  array_item.getAsJsonObject().has(JsonLdKeyword.VALUE.toString())){
-							Object mapped_type = TypeMapper.getJavaInstance(array_item.getAsJsonObject().get(JsonLdKeyword.VALUE.toString()).getAsJsonPrimitive().getAsString(), array_item.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive().getAsString());
-							r.setProperty(propURI, mapped_type);	
+							if(array_item.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()) instanceof JsonArray) {
+								List l = parseCollection(array_item.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()).getAsJsonArray(), true);
+								r.setProperty(propURI, l);
+							}else if(array_item.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()) instanceof JsonPrimitive) {
+								if(array_item.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive().getAsString().startsWith("http://www.w3.org/2001/XMLSchema#")) {
+									Object mapped_type = TypeMapper.getJavaInstance(array_item.getAsJsonObject().get(JsonLdKeyword.VALUE.toString()).getAsJsonPrimitive().getAsString(), array_item.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive().getAsString());
+									r.setProperty(propURI, mapped_type);		
+								}else {
+									r.setProperty(propURI, array_item.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive().getAsString());
+								}
+							}
+							
 						}else if(array_item.getAsJsonObject().has(JsonLdKeyword.VALUE.toString())){
 							r.setProperty(propURI, array_item.getAsJsonObject().get(JsonLdKeyword.VALUE.toString()).getAsJsonPrimitive().getAsString());	
 						}else {
