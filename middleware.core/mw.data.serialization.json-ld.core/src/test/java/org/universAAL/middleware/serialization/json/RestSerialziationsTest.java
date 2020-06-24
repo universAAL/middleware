@@ -45,7 +45,7 @@ public class RestSerialziationsTest extends TestCase {
 
 	//method to "test" the workflow of REST api 
 	public void testSerializationWorkFlow() {
-		String paths[] = {"./expand/subscriber.json", "./expand/ce.json"};
+		String paths[] = {"./expand/UAALGamesCE.json", "./expand/ce.json","./expand/subscriber.json"};
 		for (String resource : paths) {
 			try { 
 				InputStream json =  this.getClass().getClassLoader().getResource(resource).openStream();
@@ -56,7 +56,7 @@ public class RestSerialziationsTest extends TestCase {
 				TurtleSerializer s = new TurtleSerializer();
 				assertTrue(m.isWellFormed());
 				//System.out.println(m.toStringRecursive());
-				System.out.println(s.serialize(m));
+				System.out.println("Resource "+  m.getURI() +" sucessfully serialized");
 			} catch (Exception e) {
 				e.printStackTrace();
 				assertTrue(false);
@@ -64,6 +64,7 @@ public class RestSerialziationsTest extends TestCase {
 		}
 	
 	}
+	
 
 	//TODO check this case...maybe the resource generated with this json is wrong
 	public void testExpandedJson() {
