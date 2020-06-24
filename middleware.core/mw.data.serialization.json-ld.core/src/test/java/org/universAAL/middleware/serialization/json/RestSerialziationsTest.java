@@ -102,23 +102,7 @@ public class RestSerialziationsTest extends TestCase {
 		System.out.println(fromJson.toStringRecursive());
 	}
 	
-	public void testSerializePrimitiveDatatypes() {
-		String path = "./expand/UAALGamesContextEvent.json";
-			try { 
-				InputStream json =  this.getClass().getClassLoader().getResource(path).openStream();
-				JSONLDSerialization ser = new JSONLDSerialization();
-				Object serialized = ser.deserialize(json);
-				Resource m = (Resource)serialized;
-				assertTrue(m.isWellFormed());
-				System.out.println(m.toStringRecursive());
-			} catch (Exception e) {
-				e.printStackTrace();
-				assertTrue(false);
-			}
-		
-	
-	}
-	
+
 
 }
 
