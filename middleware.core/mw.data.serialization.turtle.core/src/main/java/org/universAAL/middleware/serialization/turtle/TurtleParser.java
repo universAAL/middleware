@@ -96,6 +96,8 @@ public class TurtleParser {
 	private static final String stringifiedNegInf = Double.toString(Double.NEGATIVE_INFINITY);
 
 	public TurtleParser() {
+		// making sure that handling 'a' as 'rdf:type' will not cause any issues later
+		namespaceTable.put("rdf", Resource.RDF_NAMESPACE);
 	}
 
 	public Object deserialize(String serialized, String resourceURI) {
