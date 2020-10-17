@@ -1,5 +1,6 @@
 {
   "@context": {
+     "wl":"http://ontology.universAAL.org/Context.owl#",
     "name": "http://rdf.data-vocabulary.org/#name",
     "ingredient": "http://rdf.data-vocabulary.org/#ingredients",
     "yield": "http://rdf.data-vocabulary.org/#yield",
@@ -9,13 +10,9 @@
       "@type": "xsd:integer"
     },
     "description": "http://rdf.data-vocabulary.org/#description",
-    "addition":"http://www.personName.com/humanName/",
-    "NAME": {
-      "@id": "http://rdf.data-vocabulary.org/#NAME",
-      "@type": "xsd:STRING"
-    },
     "xsd": "http://www.w3.org/2001/XMLSchema#"
   },
+  "@type":"wl:ContextProvider",
   "name": "Mojito",
   "ingredient": [
     "12 fresh mint leaves",
@@ -47,9 +44,5 @@
       "step": 5,
       "description": "Garnish with a lime wedge."
     }
-  ],
-  "addition":{
-  	"NAME":"eduardo"
-  }
-  
+  ]
 }

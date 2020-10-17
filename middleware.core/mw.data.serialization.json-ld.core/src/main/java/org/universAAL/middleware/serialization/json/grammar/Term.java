@@ -42,9 +42,7 @@ public class Term {
 	 * @see <a href=https://www.w3.org/TR/2014/REC-json-ld-20140116/#terms>https://www.w3.org/TR/2014/REC-json-ld-20140116/#terms</a>
 	 */
 	static public boolean isTerm(String candidate) {
-		System.out.println("JsonLdKeyword.isKeyword(candidate)  "+JsonLdKeyword.isKeyword(candidate) );
-		System.out.println("candidate.startsWith(\"@\") "+candidate.startsWith("@"));
-	
+		if(candidate.equals(JsonLdKeyword.ID.toString())) return true;
 		return !(candidate.startsWith("@"));
 	}
 	

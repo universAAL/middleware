@@ -1,0 +1,25 @@
+  {
+    "@context":{
+    "owl":"http://www.w3.org/2002/07/owl#",
+    "ctx":"http://ontology.universAAL.org/Context.owl#",
+    "rdf":"http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+      "xsd":"http://www.w3.org/2001/XMLSchema#" ,
+    "owl:hasValue":{
+      "@type":"xsd:int"
+    },
+     "owl:onProperty":{
+       "@type":"@id"
+    }
+   },
+    "@id":"owl:BN000000",
+    "@type":"rdf:ContextEventPattern",
+    "rdf:subclassOf":[
+        {
+          "@type":"owl:Restriction",
+          "owl:hasValue":"500",
+          "owl:onProperty":"owl:object"
+          
+        }
+      ]
+    
+  }

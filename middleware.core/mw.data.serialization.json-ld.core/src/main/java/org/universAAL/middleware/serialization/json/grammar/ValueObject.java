@@ -16,15 +16,12 @@
 package org.universAAL.middleware.serialization.json.grammar;
 
 
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 /**
  * @author amedrano
  * @see <a href=https://www.w3.org/TR/2014/REC-json-ld-20140116/#value-objects>https://www.w3.org/TR/2014/REC-json-ld-20140116/#value-objects</a>

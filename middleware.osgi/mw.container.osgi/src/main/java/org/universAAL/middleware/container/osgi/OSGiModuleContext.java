@@ -72,7 +72,7 @@ public class OSGiModuleContext implements ModuleContext {
 	 */
 	public static final String CONF_ROOT_PROP = "bundles.configuration.location";
 	public static final String CONF_KARAF_PROP = "karaf.etc";
-	public static final String WORK_KARAF_PROP = "bundles.configuration.location";
+	public static final String WORK_ROOT = "KARAF_DATA";
 	public static final String WORK_ROOT_DEFAULT = "./data/";
 
 	private static File servicesConfHome = new File(
@@ -484,7 +484,7 @@ public class OSGiModuleContext implements ModuleContext {
 	public File getDataFolder() {
 		// XXX maybe set another system property to point to the main data
 		// folder
-		return new File(System.getProperty(WORK_KARAF_PROP, WORK_ROOT_DEFAULT), getID());
+		return new File(System.getProperty(WORK_ROOT, WORK_ROOT_DEFAULT), getID());
 	}
 
 	/** {@inheritDoc} */

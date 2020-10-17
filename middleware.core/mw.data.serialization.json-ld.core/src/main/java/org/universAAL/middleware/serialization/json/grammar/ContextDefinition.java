@@ -15,19 +15,22 @@
  ******************************************************************************/
 package org.universAAL.middleware.serialization.json.grammar;
 
-import java.util.Map.Entry;
 import java.io.InputStream;
-import java.util.Map;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Map.Entry;
 import java.util.Scanner;
-import java.util.Set;
 
+import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.serialization.json.JSONLDSerialization;
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 
 /**
  * @author amedrano
@@ -35,37 +38,24 @@ import com.google.gson.JsonParser;
  */
 public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<String, JsonElement> > {
 	private JsonObject jsonToValidate = null;
-	private JsonArray contextToMerge = null;
 	private static final String BLANK_NODE ="_:";
-	private boolean state = false;
-	private ContextDefinition lastContext=null;
+	private boolean isValid=true;
 
 /**
  * 
  * @param {@link JsonElement} jsonObjectOrReference  to be analyzed
  */
 	//A context definition MUST be a JSON object whose keys MUST either be terms, compact IRIs, absolute IRIs, or the keywords @language, @base, and @vocab.
-	public ContextDefinition(JsonElement toValidate) {
-		//System.out.println(toValidate);
-		
-		if (toValidate.isJsonObject()) {
-			this.jsonToValidate = toValidate.getAsJsonObject();
-		}else if (toValidate.isJsonPrimitive() &&  !this.state) {
-			this.state = true;
-			  if (IRI.isAbsolute(toValidate.getAsString())) {
-				// TODO read Context from reference.openStream() and validate online context and control how to get the correct flag	  
-			  }
-			
-		}else if(toValidate.isJsonArray()) {
-			this.contextToMerge = toValidate.getAsJsonArray();
-		}
 
+	public ContextDefinition (JsonObject context) {
+			this.jsonToValidate = context;
 	}
-	public ContextDefinition(ContextDefinition ctx,JsonElement toValidate) {
-		this(toValidate);
-		this.lastContext = ctx;
-	}
+
 	
+/**
+ * Receive a String as {@link InputStream}
+ * @param context
+ */
 	public ContextDefinition (InputStream context) {
 		String jsonString = "";
 		Scanner s = new Scanner(context);
@@ -75,39 +65,44 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 		JsonParser jsp = new JsonParser();
 		this.jsonToValidate = jsp.parse(jsonString).getAsJsonObject();
 	}
-
+/**
+ * Receive a {@link URL} to read context from URL
+ * @param cotextURL
+ */
+	public ContextDefinition(URL cotextURL) {
+		try {
+			URLConnection request = cotextURL.openConnection();
+		    request.connect();
+		    JsonParser jp = new JsonParser(); //from gson
+		    JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent())); 
+		    if(root instanceof JsonObject)
+		    	this.jsonToValidate = root.getAsJsonObject().remove("@context").getAsJsonObject();
+		} catch (Exception e) {
+			LogUtils.logDebug(JSONLDSerialization.owner, ContextDefinition.class, "ContextDefinition constructor", e.getLocalizedMessage());
+			e.printStackTrace();
+		}
+	}
+	
 /**
  * method to validate the JsonElement given in {@link ContextDefinition} constructor.
  * Return <code>true</code> if the context is valid, otherwise return <code>false</code>
  */
 	public boolean validate() {
 		
-		if(this.contextToMerge!=null) {
-			System.out.println("merging contexts");
-			this.jsonToValidate = mergeContexts(this.contextToMerge);
-		}
-		 
+		
 		if(this.jsonToValidate!=null) {
-							
-				if(jsonToValidate.isJsonObject()) {
-					//merge contexts them validate
-					
 					for (Entry<String, JsonElement> element : this.jsonToValidate.entrySet()) {
-						//System.out.println("validating---> "+element);
 						//keyword control
 						//A context definition MUST be a JSON object whose keys MUST either be terms, compact IRIs, absolute IRIs, or the keywords @language, @base, and @vocab.
 						if( !this.keyControl(element) ) return false;
 						if( !this.valueOfKeyControl(element) ) return false;
 					}	
-					
-				}
-
 		}else {
-			//TODO use logging system 
-			System.out.println("null json to validate...");
+			LogUtils.logDebug(JSONLDSerialization.owner, ContextDefinition.class, "keyControl", "null json to validate...");
 			return false;
 		}
-		return true;
+		this.isValid = true;
+		return this.isValid;
 	}
 
 
@@ -133,7 +128,6 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 				}
 				
 				if(itemToControl.getValue().isJsonObject()) {
-				//	System.out.println("to analize expanded term def "+itemToControl.getValue());
 					return new ExpandedTermDefinition(this, itemToControl.getValue().getAsJsonObject()).validate();
 				}
 				
@@ -160,25 +154,16 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 				}
 			return true;
 	}
-	//TODO a term defined in the active context expanding into an absolute IRI, or an array of any of these.
-	public boolean ActiveContextTermControl(JsonElement candidate) {
-		for (Entry<String, JsonElement> element : this.jsonToValidate.entrySet()) {
-			if(candidate.isJsonPrimitive() || candidate.isJsonArray()) {
-				//this.jsonToValidate.has(element.getKey());
-			}else {
-				//throw error
-				return false;
-			}
-		}
-		return true;
-	}
+
 
 	public boolean keyControl(Entry<String, JsonElement> element) {
 		if( ! IRI.isAbsolute(element.getKey().toString())) {
 			if(! IRI.isCompact(this, element.getKey().toString())) {
 				if(element.getKey().toString().startsWith("@")){
 					if( !(element.getKey().toString().equals(JsonLdKeyword.BASE) || element.getKey().toString().equals(JsonLdKeyword.LANG) || element.getKey().toString().equals(JsonLdKeyword.VOCAB)) ) {
-						System.out.println("error, term must not start with @ if it isn't a keyword. Given="+element.getKey().toString());
+						
+						LogUtils.logDebug(JSONLDSerialization.owner, ContextDefinition.class, "keyControl", "error, term must not start with @ if it isn't a keyword. Given="+element.getKey().toString());
+
 						return false;
 					}
 				}else {
@@ -189,24 +174,41 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 		return true;
 	}
 	/**
-	 * method to merge contexts grouped in array
+	 * method to merge contexts. This method will append to current json loaded all of items from new context
 	 * @param ToMerge
 	 * @return {@link JsonObject} representing the merged context
 	 */
-	public static  JsonObject mergeContexts(JsonArray ToMerge) {
-		//System.out.println("merge context ... "+ToMerge);
-		JsonObject obj = new JsonObject();
-		if(ToMerge ==null) return null;
-		for (JsonElement item : ToMerge) {
-			if(item.isJsonObject()) {
-				for (Entry<String, JsonElement> jsonElement : item.getAsJsonObject().entrySet()) {
-					obj.add(jsonElement.getKey(),jsonElement.getValue());
-				}
-			}else
-				return null;
+	public boolean mergeContexts(JsonElement toMerge) {
+		LogUtils.logDebug(JSONLDSerialization.owner, ContextDefinition.class, "mergeContexts", "merging contexts");
+		JsonObject aux =null;
+		if(toMerge ==null) {
+			LogUtils.logDebug(JSONLDSerialization.owner, ContextDefinition.class, "mergeContexts", "null context to merge");
+			return false;
+		} 
+		if(toMerge instanceof JsonObject) {
+			aux = toMerge.getAsJsonObject();
+		}
+		if(toMerge instanceof JsonPrimitive) {
+			//remote context given
+			try {
+				ContextDefinition contextToMerge = new ContextDefinition(new URL(toMerge.getAsJsonPrimitive().getAsString()));
+				contextToMerge.validate();
+				if(!contextToMerge.isValid()) {
+					LogUtils.logDebug(JSONLDSerialization.owner, ContextDefinition.class, "mergeContexts", "Trying to merge invalid context");
+					return false; 
+				} 
+			} catch (MalformedURLException e) {
+				LogUtils.logDebug(JSONLDSerialization.owner, ContextDefinition.class, "mergeContexts", e.getLocalizedMessage());
+				e.printStackTrace();
+				return false;
+			}
+		}
+		
+		for (Entry<String, JsonElement> item : aux.entrySet()) {
+			this.jsonToValidate.add(item.getKey(), item.getValue());
 		}
 
-		return obj;
+		return true;
 	}
 
 	/**
@@ -240,13 +242,11 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 		return this.jsonToValidate.get(term);
 	}
 	
-	
-	
 
-	
-	public void updateElement(String key, JsonElement value) {
-		this.jsonToValidate.add(key, value);
-	}
+//	public void updateElement(String key, JsonElement value) {
+//		this.jsonToValidate.add(key, value);
+//	}
+
 	public JsonElement getTermValue(String term) {
 		
 		return this.jsonToValidate.get(term);
@@ -262,6 +262,9 @@ public class ContextDefinition implements JSONLDValidator, KeyControl<Entry<Stri
 		return jsonToValidate;
 	}
 
+	public boolean isValid() {
+		return this.isValid;
+	}
 	
 
 }

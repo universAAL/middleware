@@ -1,0 +1,25 @@
+@prefix ns: <http://ontology.universaal.org/Health.owl#> .
+@prefix ns1: <http://ontology.universAAL.org/Profile.owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ns2: <http://ontology.universAAL.org/Context.owl#> .
+@prefix : <http://www.w3.org/2002/07/owl#> .
+<https://rest.activage.lst.tfo.upm.es/uaal/spaces/equimetrix/context/publishers/backup> ns2:myClassesOfEvents (
+    [
+      a ns2:ContextEventPattern ;
+      <http://www.w3.org/2000/01/rdf-schema#subClassOf> [
+          a :Restriction ;
+          :allValuesFrom ns1:User ;
+          :onProperty rdf:subject
+        ] ,
+        [
+          a :Restriction ;
+          :allValuesFrom ns:PerformedSession ;
+          :onProperty rdf:object
+        ]
+    ]
+  ) ;
+  a ns2:ContextProvider ;
+  ns2:hasType ns2:gauge .
+ns:PerformedSession a :Class .
+ns2:gauge a ns2:ContextProviderType .
+ns1:User a :Class .

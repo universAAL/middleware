@@ -24,13 +24,14 @@ import org.universAAL.middleware.serialization.MessageContentSerializerEx;
 import org.universAAL.middleware.serialization.json.algorithms.ExpandJSONLD;
 import org.universAAL.middleware.serialization.json.grammar.JSONLDDocument;
 import org.universAAL.middleware.serialization.json.resourcesGeneartor.UAALResourcesGenerator;
+import org.universAAL.middleware.util.Specializer;
 
 /**
  * @author amedrano
  *
  */
 public class JSONLDSerialization implements MessageContentSerializerEx {
-
+	private ExpandJSONLD expand=null;
 	static public ModuleContext owner;
 
 	static private String MIME_TYPE = "application/json";
@@ -38,15 +39,13 @@ public class JSONLDSerialization implements MessageContentSerializerEx {
 	
 	public Object deserialize(InputStream serialized) {
 		JSONLDDocument jd = new JSONLDDocument(serialized);
-		if(!jd.validate()) {
-			//ExpandJSONLD expand = new ExpandJSONLD(serialized);
-			ExpandJSONLD expand = new ExpandJSONLD(jd.getFullJsonAsString());//TODO check why with inputstream not work
-			expand.expand();
-			UAALResourcesGenerator resFactory = new UAALResourcesGenerator(expand.getExpandedJson());
+		if(jd.validate()) {
+			jd.expand();
+			UAALResourcesGenerator resFactory = new UAALResourcesGenerator(jd.getExpandedJson());
 			resFactory.generateResources();
 			Resource r = resFactory.getMainResource();
-			return r;
-			//return expand.getExpandedJson();
+			Resource k =new Specializer().specialize(r);
+			return k;
 		}else
 			return null;
 	}
@@ -80,16 +79,13 @@ public class JSONLDSerialization implements MessageContentSerializerEx {
 	 * @see org.universAAL.middleware.serialization.MessageContentSerializerEx#deserialize(java.lang.String, java.lang.String)
 	 */
 	public Object deserialize(String serialized, String resourceURI) {
-		InputStream is = new ByteArrayInputStream(serialized.getBytes());
-		JSONLDDocument jd = new JSONLDDocument(is);
-		//jd.validate();//validating if the jsonLD is well formed
-		//JsonElement jse =;
-		//ExpandLD expand = new ExpandLD(jd.getMainJSON());
-		ExpandJSONLD expand = new ExpandJSONLD(is);
-		expand.expand();//merge context with the rest of the json.
-		UAALResourcesGenerator res_gen = new UAALResourcesGenerator(expand.getExpandedJson());
-		res_gen.generateResources();//walk over expanded json and generate Resources from the graph
-		return res_gen.getMainResource();
+		Resource r =null;
+		Object t = this.deserialize(serialized);
+		if(t instanceof Resource) {
+			r = (Resource)t;
+		}else 
+			return null;
+		return r.getProperty(resourceURI);
 	}
 
 	public String getContentType() {

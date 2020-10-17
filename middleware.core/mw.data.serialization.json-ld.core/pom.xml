@@ -31,31 +31,8 @@
       </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.container.junit</artifactId>
+      <artifactId>mw.data.serialization.turtle.core</artifactId>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.bus.context.core</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.bus.service.core</artifactId>
-      <scope>test</scope>
-    </dependency>
-    
- 	<dependency>
-		<groupId>org.universAAL.middleware</groupId>
-		<artifactId>mw.bus.junit</artifactId>
-		<scope>test</scope>
-	</dependency>
-    
-   	<dependency>
-		<groupId>com.github.jsonld-java</groupId>
-		<artifactId>jsonld-java</artifactId>
-		<version>0.12.3</version>
-		<scope>test</scope>
-	</dependency>
+    </dependency>  
   </dependencies>
 </project>

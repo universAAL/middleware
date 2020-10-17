@@ -1,22 +1,14 @@
 {
    "@context":{
-        "rdf":"http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-        "xsd":"http://www.w3.org/2001/XMLSchema#",
         "nt":"urn:org.universAAL.middleware.context.rdf:ContextEvent#",
-        "ee":"https://github.com/soad03/middleware/tree#",
         "wl":"http://ontology.universAAL.org/Context.owl#"
+        
     },
     "@id":"nt:_:c0a8012ac02c0b4c:58d",
     "@type":"wl:ContextProvider",
-    "rdf:subject":{
-        "@id":"ee:URIcompactor_update",
-        "@type":"wl:Measurement",
-        "wl:value":"2"
-    },
-    "wl:hasTimestamp":"1562249774498",
-    "rdf:predicate":{
-        "@id":"wl:value"
-    },
-    "rdf:object":"2"
+    "wl:hasType":{
+	    "@id":"wl:gauge",
+	    "@type":"wl:ContextProviderType"
 
+	}
 }

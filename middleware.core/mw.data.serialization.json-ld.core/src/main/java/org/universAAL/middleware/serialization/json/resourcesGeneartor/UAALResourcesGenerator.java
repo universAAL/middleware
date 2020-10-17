@@ -16,16 +16,22 @@
 package org.universAAL.middleware.serialization.json.resourcesGeneartor;
 
 import java.io.InputStream;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+
+import javax.swing.Popup;
+
 import java.util.Scanner;
 
+import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.serialization.json.JSONLDSerialization;
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
 import org.universAAL.middleware.serialization.json.algorithms.ExpandJSONLD;
 
@@ -47,7 +53,6 @@ public class UAALResourcesGenerator {
 	private JsonArray mainjJson;
 	private JsonArray expandedJson;
 	private JsonParser parser = new JsonParser();
-	private HashMap<String , Resource> generatedResources = new HashMap<String, Resource>();
 	private Resource mainResource=null;
 	private HashMap<String, Resource> resources = new HashMap<String, Resource>();
 	private Hashtable blankNodes = new Hashtable();
@@ -68,6 +73,8 @@ public class UAALResourcesGenerator {
 			this.mainjJson = parser.parse(jsonString).getAsJsonArray();
 		}else if(jsonToExpand instanceof JsonArray) {
 			this.mainjJson = (JsonArray)jsonToExpand;
+		}else if( jsonToExpand == null) {
+			LogUtils.logDebug(JSONLDSerialization.owner, ExpandJSONLD.class, "UAALResourcesGenerator constructor", "Given Null Json");
 		}
 		
 		
@@ -78,14 +85,18 @@ public class UAALResourcesGenerator {
 	 * method to generate {@link Resource} from loaded expanded JsonLD
 	 */
 	public void generateResources() {
-		//this.expandedJson=this.expandJson(mainjJson);
-		for (JsonElement element : mainjJson) {
-			this.mainResource =this.genResource(element.getAsJsonObject());
+		if(this.mainjJson!=null) {
+			for (JsonElement element : mainjJson) {
+				this.mainResource =this.genResource(element.getAsJsonObject());
+			}	
+		}else {
+			LogUtils.logDebug(JSONLDSerialization.owner, ExpandJSONLD.class, "generateResources", "Given Null Json");
 		}
+		
 		
 	}
 	
-	private Resource genResource(JsonObject candidate) {	
+	private Resource genResource(JsonObject candidate) {
 		String resourceID=null;
 		Resource r=null;
 		if(candidate.has(JsonLdKeyword.ID.toString()) ){
@@ -95,22 +106,65 @@ public class UAALResourcesGenerator {
 			r = this.getResource(null);
 		
 		if (candidate.has(JsonLdKeyword.TYPE.toString())) {
-			Iterator<JsonElement> i = candidate.remove(JsonLdKeyword.TYPE.toString()).getAsJsonArray().iterator();
-			while (i.hasNext()) {
-				JsonElement t = i.next();
-				boolean v = i.hasNext();
-				r.addType(t.getAsJsonPrimitive().getAsString(), !v);
-			}	
+		
+			if(candidate.get(JsonLdKeyword.TYPE.toString()) instanceof JsonArray) {
+				Iterator<JsonElement> i = candidate.remove(JsonLdKeyword.TYPE.toString()).getAsJsonArray().iterator();
+				while (i.hasNext()) {
+					JsonElement t = i.next();
+					boolean v = i.hasNext();
+					r.addType(t.getAsJsonPrimitive().getAsString(), !v);
+				}	
+			}else if(candidate.get(JsonLdKeyword.TYPE.toString()) instanceof JsonPrimitive){
+				r.addType(candidate.remove(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive().getAsString(), true);
+			}
+				
 		}
+		
 		for (Entry<String, JsonElement> item : candidate.entrySet()) {
 			String propURI = item.getKey();
 			Resource aux = this.getResource(null);
-			List l = parseCollection(item.getValue().getAsJsonArray(), false);
-			aux.addType(Resource.TYPE_RDF_LIST, true);
-			aux.setProperty(Resource.PROP_RDF_FIRST, l.remove(0));
-			aux.setProperty(Resource.PROP_RDF_REST, l);
-			r.setProperty(propURI, aux.asList());
-		
+			if(item.getValue() instanceof JsonArray ) {
+				if(item.getValue().getAsJsonArray().size() > 1) {
+					List l = parseCollection(item.getValue().getAsJsonArray(), false);
+					aux.addType(Resource.TYPE_RDF_LIST, true);
+					aux.setProperty(Resource.PROP_RDF_FIRST, l.remove(0));
+					aux.setProperty(Resource.PROP_RDF_REST, l);
+					r.setProperty(propURI, aux.asList());	
+				}else {
+					
+					JsonElement array_item  =item.getValue().getAsJsonArray().iterator().next();
+					if( array_item instanceof JsonPrimitive) {
+						r.setProperty(propURI, item.getValue().getAsJsonArray().iterator().next().getAsJsonPrimitive().getAsString());	
+					}else if(array_item instanceof JsonObject) {
+						if(array_item.getAsJsonObject().has(JsonLdKeyword.TYPE.toString()) &&  array_item.getAsJsonObject().has(JsonLdKeyword.VALUE.toString())){
+							if(array_item.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()) instanceof JsonArray) {
+								List l = parseCollection(array_item.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()).getAsJsonArray(), true);
+								r.setProperty(propURI, l);
+							}else if(array_item.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()) instanceof JsonPrimitive) {
+								if(array_item.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive().getAsString().startsWith("http://www.w3.org/2001/XMLSchema#")) {
+									Object mapped_type = TypeMapper.getJavaInstance(array_item.getAsJsonObject().get(JsonLdKeyword.VALUE.toString()).getAsJsonPrimitive().getAsString(), array_item.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive().getAsString());
+									r.setProperty(propURI, mapped_type);		
+								}else {
+									r.setProperty(propURI, array_item.getAsJsonObject().get(JsonLdKeyword.TYPE.toString()).getAsJsonPrimitive().getAsString());
+								}
+							}
+							
+						}else if(array_item.getAsJsonObject().has(JsonLdKeyword.VALUE.toString())){
+							r.setProperty(propURI, array_item.getAsJsonObject().get(JsonLdKeyword.VALUE.toString()).getAsJsonPrimitive().getAsString());	
+						}else {
+							aux =this.genResource(item.getValue().getAsJsonArray().iterator().next().getAsJsonObject());
+							r.setProperty(propURI, aux);	
+						}
+						
+					}else if(array_item instanceof JsonArray) {
+						System.out.println("array of arrays");
+					}
+				}
+			}else if(item.getValue() instanceof JsonPrimitive) {
+				if(item.getKey().equals(JsonLdKeyword.VALUE.toString())) {
+					r.setProperty(propURI, TypeMapper.getJavaInstance(item.getValue().getAsJsonPrimitive().getAsString(),r.getType() ));
+				}
+			}
 		}
 	return r;	
 	}
@@ -158,6 +212,7 @@ public class UAALResourcesGenerator {
 	}
 
 	private List parseCollection(JsonArray candidate, boolean parseAsTypeList) {
+		System.out.println("parse colleciton "+candidate);
 		List l = new ArrayList();
 		Resource aux ;
 		if(parseAsTypeList) {
@@ -167,17 +222,30 @@ public class UAALResourcesGenerator {
 			
 		}else {
 			for (JsonElement item : candidate) {
+				
 				if(item.getAsJsonObject().entrySet().size() == 1 && item.getAsJsonObject().entrySet().iterator().next().getKey().equals("@value")) {
-					l.add(TypeMapper.getJavaInstance(item.getAsJsonObject().entrySet().iterator().next().getValue().getAsJsonPrimitive().getAsString(), null) );
+					l.add(TypeMapper.getJavaInstance(item.getAsJsonObject().entrySet().iterator().next().getValue().getAsJsonPrimitive().getAsString(), "http://www.w3.org/2001/XMLSchema#string") );
 				}else{
 					aux = genResource(item.getAsJsonObject());
 					l.add(aux);
 				}
 				
+				//aux = genResource(item.getAsJsonObject());
+				//l.add(aux);
 			}				
 		}
 		return l;
-		
 	}
+	
+	private Object valueTypeSelector(String value) {
+		if(value.endsWith("boolean")) {
+			return Boolean.valueOf(value);
+		}
+	
+		
+		return null;
+	}
+
+	
 
 }

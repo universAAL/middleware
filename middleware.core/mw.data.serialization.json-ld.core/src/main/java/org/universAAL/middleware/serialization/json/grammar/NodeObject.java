@@ -15,20 +15,12 @@
  ******************************************************************************/
 package org.universAAL.middleware.serialization.json.grammar;
 
-import java.security.InvalidParameterException;
 import java.util.Map.Entry;
-import java.util.Set;
 
-import javax.sound.midi.Soundbank;
-
-import org.universAAL.middleware.container.utils.LogUtils;
-import org.universAAL.middleware.serialization.json.JSONLDSerialization;
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonNull;
-import com.google.gson.JsonObject;
 
 /**
  * @author amedrano
@@ -93,7 +85,7 @@ public class NodeObject implements JSONLDValidator {
 							if(item.isJsonObject()) {
 								//context definition case
 								//if (! (new ContextDefinition(this.activeContext,item).validate()) )
-								if (! (new ContextDefinition(item).validate()) )
+								if (! (new ContextDefinition(item.getAsJsonObject()).validate()) )
 									//TODO if exists a main context, this should be merged with it?
 									return false;
 							}
@@ -117,7 +109,7 @@ public class NodeObject implements JSONLDValidator {
 							return false;
 					}else if(element.getValue().isJsonObject()){
 						//TODO object given...check if it is a valid context definition
-						if ( !new ContextDefinition(element.getValue()).validate());
+						if ( !new ContextDefinition(element.getValue().getAsJsonObject()).validate());
 							return false;
 						}
 					

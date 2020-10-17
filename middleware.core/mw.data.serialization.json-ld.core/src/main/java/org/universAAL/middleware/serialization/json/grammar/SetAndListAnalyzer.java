@@ -3,9 +3,10 @@
  */
 package org.universAAL.middleware.serialization.json.grammar;
 
-import java.nio.channels.SeekableByteChannel;
 import java.util.Map.Entry;
+
 import org.universAAL.middleware.serialization.json.JsonLdKeyword;
+
 import com.google.gson.JsonElement;
 
 /**

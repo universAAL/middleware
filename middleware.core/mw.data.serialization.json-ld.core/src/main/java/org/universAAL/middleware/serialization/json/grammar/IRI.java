@@ -17,14 +17,9 @@ package org.universAAL.middleware.serialization.json.grammar;
 
 import java.net.URL;
 import java.util.Map.Entry;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-
-import org.universAAL.middleware.container.utils.LogUtils;
-import org.universAAL.middleware.serialization.json.JSONLDSerialization;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 /**
  * @author amedrano
@@ -131,6 +126,8 @@ public class IRI {
 		return activeContext.hasTerm(aux);
 	}
 	
+	
+
 	
 
 
