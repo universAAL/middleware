@@ -96,6 +96,9 @@ public class TurtleParser {
 	private static final String stringifiedNegInf = Double.toString(Double.NEGATIVE_INFINITY);
 
 	public TurtleParser() {
+		// Initialized the namespace table with the "rdf" namespace to prevent
+		// failure in case of parsing turtle that includes this namespace only
+		// implicitly through 'a' as abbreviation for rdf:type.
 		// making sure that handling 'a' as 'rdf:type' will not cause any issues later
 		namespaceTable.put("rdf", Resource.RDF_NAMESPACE);
 	}
