@@ -216,7 +216,7 @@
       <dependency>
         <groupId>org.jgroups</groupId>
         <artifactId>jgroups</artifactId>
-        <version>3.4.0.Final</version>
+        <version>3.6.10.Final</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.thirdparty</groupId>
