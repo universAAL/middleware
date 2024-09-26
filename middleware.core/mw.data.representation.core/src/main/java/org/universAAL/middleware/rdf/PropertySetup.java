@@ -63,8 +63,9 @@ public interface PropertySetup {
 	 * {@link MaxCardinalityRestriction} for this property with a maximum
 	 * cardinality of one. For example, the property <i>a:hasWife</i> is a
 	 * functional property because one can have none or one wife.
+	 * @return The {@link PropertySetup} to continue adding property axioms.
 	 */
-	public void setFunctional();
+	public PropertySetup setFunctional();
 
 	/**
 	 * Add a super property. This means that all resources related by this
@@ -72,8 +73,9 @@ public interface PropertySetup {
 	 *
 	 * @param superProperty
 	 *            URI of the super property.
+	 * @return The {@link PropertySetup} to continue adding property axioms.
 	 */
-	public void addSuperProperty(String superProperty);
+	public PropertySetup addSuperProperty(String superProperty);
 
 	/**
 	 * Add an equivalent property. This means that this property is semantically
@@ -85,8 +87,9 @@ public interface PropertySetup {
 	 *
 	 * @param equivalentProperty
 	 *            URI of the equivalent property.
+	 * @return The {@link PropertySetup} to continue adding property axioms.
 	 */
-	public void addEquivalentProperty(String equivalentProperty);
+	public PropertySetup addEquivalentProperty(String equivalentProperty);
 
 	/**
 	 * Add a disjoint property. This means that if an individual is connected to
@@ -97,8 +100,9 @@ public interface PropertySetup {
 	 *
 	 * @param disjointProperty
 	 *            URI of the disjoint property.
+	 * @return The {@link PropertySetup} to continue adding property axioms.
 	 */
-	public void addDisjointProperty(String disjointProperty);
+	public PropertySetup addDisjointProperty(String disjointProperty);
 
 	/**
 	 * @see Resource#setProperty(String, Object)
