@@ -260,12 +260,13 @@ public final class TurtleWriter {
 						String[] types = ManagedIndividual.getNonabstractSuperClasses(i.next().toString());
 						if (types != null)
 							for (int j = 0; j < types.length; j++) {
-								o = new Resource(types[j]);
-								if (!aux.contains(o))
-									aux.add(o);
+								Object oo = new Resource(types[j]);
+								if (!aux.contains(oo))
+									aux.add(oo);
 							}
 					}
-					o = getData(r).types = aux;
+					o = aux;
+					getData(r).types = aux;
 				}
 				for (Iterator i = ((List) o).iterator(); i.hasNext();)
 					analyzeObject(i.next(), nsTable, reduction);
@@ -871,6 +872,13 @@ public final class TurtleWriter {
 
 	/** Write a new value (Resource or Literal) to the output stream. */
 	private void writeValue(Object val, boolean closed, boolean isType) throws IOException {
+		if (val == null) {
+			val = (namespaceTable.containsKey(Resource.RDF_NAMESPACE))?  "rdf:nil"
+					: "<" + Resource.RDF_NAMESPACE + "nil>";
+			writer.write((String) val);
+			return;
+		}
+		
 		if (val instanceof List) {
 			if (closed) {
 				writer.write("(");

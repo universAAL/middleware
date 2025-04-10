@@ -604,7 +604,7 @@ public class TurtleParser {
 			if (c != ':') {
 				// prefix may actually be a boolean value
 				String value = prefix.toString();
-
+				unread(c);
 				if (value.equals("true") || value.equals("false")) {
 					return TypeMapper.getJavaInstance(value, TypeMapper.getDatatypeURI(Boolean.class));
 				} else if (value.equals("NaN")) {
