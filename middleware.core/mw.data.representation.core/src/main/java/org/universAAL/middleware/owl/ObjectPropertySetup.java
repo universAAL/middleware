@@ -52,8 +52,9 @@ public interface ObjectPropertySetup extends PropertySetup {
 	 *
 	 * @param inverseOf
 	 *            URI of the inverse property.
+	 * @return The {@link ObjectPropertySetup} to continue adding property axioms.
 	 */
-	public void setInverseOf(String inverseOf);
+	public ObjectPropertySetup setInverseOf(String inverseOf);
 
 	/**
 	 * Set this property to be inverse-functional. This means that for each
@@ -61,8 +62,9 @@ public interface ObjectPropertySetup extends PropertySetup {
 	 * that <i>y</i> is connected by this property with <i>x</i>. For example,
 	 * the property <i>a:fatherOf</i> is inverse-functional since each person
 	 * can have only one father.
+	 * @return The {@link ObjectPropertySetup} to continue adding property axioms.
 	 */
-	public void setInverseFunctional();
+	public ObjectPropertySetup setInverseFunctional();
 
 	/**
 	 * Set this property to be transitive. This means that if an individual
@@ -72,8 +74,9 @@ public interface ObjectPropertySetup extends PropertySetup {
 	 * property <i>a:ancestorOf</i> is transitive: if <i>x</i> is an ancestor of
 	 * <i>y</i> and <i>y</i> is an ancestor of <i>z</i>, then <i>x</i> is an
 	 * ancestor of <i>z</i>.
+	 * @return The {@link ObjectPropertySetup} to continue adding property axioms.
 	 */
-	public void setTransitive();
+	public ObjectPropertySetup setTransitive();
 
 	/**
 	 * <p>
@@ -88,37 +91,41 @@ public interface ObjectPropertySetup extends PropertySetup {
 	 * symmetric nor asymmetric because if one person loves another person, this
 	 * does not mean that this feeling is mutual.
 	 * </p>
+	 * @return The {@link ObjectPropertySetup} to continue adding property axioms.
 	 *
 	 * @see #setAsymmetric()
 	 */
-	public void setSymmetric();
+	public ObjectPropertySetup setSymmetric();
 
 	/**
 	 * Set this property to be asymmetric. This means that if an individual
 	 * <i>x</i> is connected to the individual <i>y</i> by this property, then
 	 * <i>y</i> cannot be connected to <i>x</i> by this property. for example,
 	 * the property <i>a:parentOf</i> is asymmetric.
+	 * @return The {@link ObjectPropertySetup} to continue adding property axioms.
 	 *
 	 * @see #setSymmetric()
 	 */
-	public void setAsymmetric();
+	public ObjectPropertySetup setAsymmetric();
 
 	/**
 	 * Set this property to be reflexive. This means that each individual is
 	 * connected by this property to itself. For example, the property
 	 * <i>a:knows</i> is reflexive since everybody knows themselves.
+	 * @return The {@link ObjectPropertySetup} to continue adding property axioms.
 	 *
 	 * @see #setIrreflexive()
 	 */
-	public void setReflexive();
+	public ObjectPropertySetup setReflexive();
 
 	/**
 	 * Set this property to be irreflexive. This means that no individual is
 	 * connected by this property to itself. For example, the property
 	 * <i>a:marriedTo</i> is irreflexive since nobody can be married to
 	 * themselves.
+	 * @return The {@link ObjectPropertySetup} to continue adding property axioms.
 	 *
 	 * @see #setReflexive()
 	 */
-	public void setIrreflexive();
+	public ObjectPropertySetup setIrreflexive();
 }
