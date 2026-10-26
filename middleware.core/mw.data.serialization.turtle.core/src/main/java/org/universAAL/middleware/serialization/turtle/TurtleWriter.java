@@ -509,6 +509,9 @@ public final class TurtleWriter {
 	private void handleStatement(Resource subj, String pred, List types, boolean force) throws IOException {
 		boolean isType = pred.equals(Resource.PROP_RDF_TYPE);
 		Object obj = isType ? types : subj.getProperty(pred);
+		if (obj == null)
+			// nothing to write (e.g., no type info collected for a resource)
+			return;
 		if (obj instanceof List)
 			if (((List) obj).isEmpty())
 				return;

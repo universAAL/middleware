@@ -30,6 +30,12 @@ public class TurtleSerializer implements MessageContentSerializerEx {
 	}
 
 	/** @see org.universAAL.middleware.serialization.MessageContentSerializer#deserialize(String) */
+	public synchronized Object deserializeAll(String serialized) {
+		TurtleParser parser = new TurtleParser();
+		return parser.deserialize(serialized);
+	}
+
+	/** @see org.universAAL.middleware.serialization.MessageContentSerializer#deserialize(String) */
 	public synchronized Object deserialize(String serialized) {
 		return deserialize(serialized, null);
 	}

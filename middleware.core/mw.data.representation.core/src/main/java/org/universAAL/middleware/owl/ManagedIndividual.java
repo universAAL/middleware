@@ -26,6 +26,7 @@ import java.util.Vector;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.owl.generic.GenericManagedIndividual;
+import org.universAAL.middleware.rdf.ClosedCollection;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
@@ -301,7 +302,8 @@ public abstract class ManagedIndividual extends FinalizedResource {
 	 *         given Resource.
 	 */
 	public static Resource toManagedIndividual(String classURI, Resource pr) {
-		if (pr == null || classURI == null || pr instanceof ManagedIndividual)
+		if (pr == null || classURI == null || pr instanceof ManagedIndividual
+				|| Resource.RDF_EMPTY_LIST.equals(pr.getURI())) // rdf:nil is no individual of any class
 			return pr;
 		ManagedIndividual mi = getInstance(classURI, pr.getURI());
 		if (mi == null)
@@ -424,7 +426,12 @@ public abstract class ManagedIndividual extends FinalizedResource {
 			if (r.getMaxCardinality() == 0)
 				return false;
 
-			if (value instanceof Resource && !(value instanceof ManagedIndividual))
+			if (value instanceof Resource && Resource.RDF_EMPTY_LIST.equals(((Resource) value).getURI()))
+				// rdf:nil (e.g., "( )" in turtle) is an empty list and not an individual of the range of the property;
+				// turning it into such an individual leads to several Java objects with the URI rdf:nil (that the
+				// TurtleWriter cannot handle) and hides the empty list from the users of the property
+				value = new ClosedCollection();
+			else if (value instanceof Resource && !(value instanceof ManagedIndividual))
 				value = toManagedIndividual(r.getPropTypeURI(), (Resource) value);
 
 			// we have to put the value first, because the Restriction 'r' needs

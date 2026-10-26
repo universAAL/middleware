@@ -135,6 +135,25 @@ public class TurtleParser {
 		}
 	}
 
+	public Object deserialize(String serialized) {
+		try {
+			parse(new StringReader(serialized), "");
+			
+			if (rootNodes instanceof List) {
+				Specializer s = new Specializer();
+				ArrayList al = new ArrayList(rootNodes.size());
+				for (Resource r : rootNodes)
+					al.add(s.specialize(r));
+				return al;
+			}
+		} catch (Exception e) {
+			LogUtils.logError(TurtleUtil.moduleContext, TurtleParser.class, "deserialize",
+					new Object[] { "Turtle-Serializer: Failed to parse\n    ", serialized, "\n    returning null!" },
+					e);
+		}
+		return null;
+	}
+
 	private Object deserialize(String serialized, boolean wasXMLLiteral, String resourceURI) {
 		try {
 			parse(new StringReader(serialized), "");
