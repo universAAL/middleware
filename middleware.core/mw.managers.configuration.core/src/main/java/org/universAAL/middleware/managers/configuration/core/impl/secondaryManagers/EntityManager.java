@@ -26,8 +26,11 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -171,9 +174,82 @@ public class EntityManager {
 		if (toBeAdded) {
 			emap.remove(ent.getURI());
 			emap.put(ent.getURI(), ent);
+			unifyResources(ent, emap.values());
 			store(emap.values());
 		}
 		return toBeAdded;
+	}
+
+	/**
+	 * The entities loaded from the file and the entity to be added are separate object graphs, so that a resource
+	 * referenced by several entities (e.g., the home) may exist as several Java objects with the same URI. The
+	 * serializer writes only one description per URI, possibly an outdated one, so that the change in the added
+	 * entity would get lost. Therefore, all other entities are made to refer to the objects of the added entity.
+	 *
+	 * @param ent
+	 *            the entity to be added (its objects are considered to be up to date).
+	 * @param all
+	 *            all entities to be stored.
+	 */
+	private static void unifyResources(Entity ent, Collection<Entity> all) {
+		Map<String, Resource> current = new HashMap<String, Resource>();
+		collectNamedResources(ent, current, new IdentityHashMap<Object, Object>());
+		IdentityHashMap<Object, Object> visited = new IdentityHashMap<Object, Object>();
+		for (Entity e : all)
+			if (e != ent)
+				replaceNamedResources(e, current, visited);
+	}
+
+	private static void collectNamedResources(Object o, Map<String, Resource> current,
+			IdentityHashMap<Object, Object> visited) {
+		if (o instanceof List) {
+			for (Object el : (List<?>) o)
+				collectNamedResources(el, current, visited);
+		} else if (o instanceof Resource && visited.put(o, o) == null) {
+			Resource r = (Resource) o;
+			if (!r.isAnon() && !current.containsKey(r.getURI()))
+				current.put(r.getURI(), r);
+			for (Enumeration<?> e = r.getPropertyURIs(); e.hasMoreElements();)
+				collectNamedResources(r.getProperty((String) e.nextElement()), current, visited);
+		}
+	}
+
+	private static Object currentVersion(Object o, Map<String, Resource> current) {
+		if (o instanceof Resource && !((Resource) o).isAnon()) {
+			Resource c = current.get(((Resource) o).getURI());
+			if (c != null)
+				return c;
+		}
+		return o;
+	}
+
+	@SuppressWarnings("unchecked")
+	private static void replaceNamedResources(Resource r, Map<String, Resource> current,
+			IdentityHashMap<Object, Object> visited) {
+		if (visited.put(r, r) != null)
+			return;
+		List<String> props = new ArrayList<String>();
+		for (Enumeration<?> e = r.getPropertyURIs(); e.hasMoreElements();)
+			props.add((String) e.nextElement());
+		for (String prop : props) {
+			Object val = r.getProperty(prop);
+			if (val instanceof List) {
+				for (ListIterator<Object> it = ((List<Object>) val).listIterator(); it.hasNext();) {
+					Object el = it.next();
+					Object cur = currentVersion(el, current);
+					if (cur != el)
+						it.set(cur);
+					else if (el instanceof Resource)
+						replaceNamedResources((Resource) el, current, visited);
+				}
+			} else if (val instanceof Resource) {
+				Object cur = currentVersion(val, current);
+				if (cur != val)
+					r.changeProperty(prop, cur);
+				else
+					replaceNamedResources((Resource) val, current, visited);
+			}
+		}
 	}
 
 	/**
