@@ -29,8 +29,10 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Properties;
+import java.util.Set;
 import java.util.jar.Manifest;
 
 import org.osgi.framework.Bundle;
@@ -366,15 +368,28 @@ public class OSGiModuleContext implements ModuleContext {
 	}
 
 	public void removeSharedObject(String[] xface, Object obj, Dictionary props) {
+		// shareObject(String[], ...) stores one registration under all the
+		// interfaces: unregister it only once
+		Set<ServiceRegistration> unregistered = new HashSet<ServiceRegistration>();
 		for (String xf : xface) {
-			sharedObjects.get(xf).unregister();
-			sharedObjects.remove(xf);
+			ServiceRegistration sr = sharedObjects.remove(xf);
+			if (sr != null && unregistered.add(sr))
+				unregister(sr);
 		}
 	}
 
 	public void removeSharedObject(String xface, Object obj, Dictionary props) {
-		sharedObjects.get(xface).unregister();
-		sharedObjects.remove(xface);
+		ServiceRegistration sr = sharedObjects.remove(xface);
+		if (sr != null)
+			unregister(sr);
+	}
+
+	private void unregister(ServiceRegistration sr) {
+		try {
+			sr.unregister();
+		} catch (IllegalStateException e) {
+			// already unregistered, e.g. by the framework when the bundle stops
+		}
 	}
 
 	/**
